@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domingo de Ramos - Pascua 2026</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; line-height: 1.6; }
+        header { background-color: #b71c1c; color: white; padding: 15px; text-align: center; }
+        .container { padding: 15px; max-width: 800px; margin: auto; }
+        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 5px solid #b71c1c; }
+        h2 { color: #b71c1c; font-size: 20px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; font-size: 16px; margin-top: 15px; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        .role-tag { font-weight: bold; color: #b71c1c; text-transform: uppercase; font-size: 14px; }
+        .btn-back { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #4A148C; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #ddd; font-size: 14px; }
+        th { background-color: #fce4ec; }
+        .checklist-item { display: flex; align-items: center; margin-bottom: 8px; font-size: 15px; }
+        .checklist-item input { margin-right: 10px; width: 18px; height: 18px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌿 Domingo de Ramos</h1>
+        <p>Entrada Triunfal y Pasión del Señor</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2>📜 Guiones por Ministerio</h2>
+            <table>
+                <tr><th>Rol</th><th>Instrucción Clave</th></tr>
+                <tr><td><span class="role-tag">Lectores</span></td><td>Proclamar la Pasión a tres voces (C, S, †). No decir "Lectura del Santo Evangelio".</td></tr>
+                <tr><td><span class="role-tag">Monaguillos</span></td><td>Liderar procesión con incienso, cruz y ciriales. Listos con acetre para la bendición.</td></tr>
+                <tr><td><span class="role-tag">Ujieres</span></td><td>Repartir palmas y guiar la formación. Asegurar que el pasillo central esté despejado para el clero.</td></tr>
+                <tr><td><span class="role-tag">MEC</span></td><td>Ubicarse en puntos asignados. Frase: "El Cuerpo de Cristo". Atender primero a personas con discapacidad.</td></tr>
+            </table>
+        </div>
+
+        
+        <div class="card">
+            <h2>✅ Checklist: Sacristía (Rojo 🔴)</h2>
+            <div class="checklist-item"><input type="checkbox"> <span>Mesa exterior con mantel rojo</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span>Acetre con agua bendita e hisopo</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span>Incensario y naveta con incienso</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span>Cruz procesional adornada con palmas</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span>Ciriales (2 velas procesionales)</span></div>
+            <div class="checklist-item"><input type="checkbox"> <span>Leccionario I (Lecturas Ciclo B)</span></div>
+        </div>
+
+        
+        <div class="card">
+            <h2>🚶‍♂️ Orden de la Procesión</h2>
+            <ol>
+                <li><strong>Turiferario:</strong> Con el humo del incienso bendito.</li>
+                <li><strong>Cruz Procesional:</strong> Adornada con palma.</li>
+                <li><strong>Ciriales:</strong> Uno a cada lado de la cruz.</li>
+                <li><strong>Lectores y Ministros:</strong> En parejas.</li>
+                <li><strong>Sacerdote:</strong> Cerrando la procesión ministerial.</li>
+                <li><strong>Asamblea:</strong> Siguiendo el orden marcado por Ujieres.</li>
+            </ol>
+            <p><em>*Nota: Al entrar al templo, los Ujieres aseguran que el pasillo central se mantenga libre para el avance de la cruz hasta el altar.</em></p>
+        </div>
+
+        <a href="index.html" class="btn-back">⬅️ Volver al Inicio</a>
+    </div>
+
+    <script>
+        // Lógica para guardar el estado de los checkboxes en el teléfono
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((cb, index) => {
+            const id = `ramos-item-${index}`;
+            cb.checked = localStorage.getItem(id) === 'true';
+            cb.addEventListener('change', () => {
+                localStorage.setItem(id, cb.checked);
+            });
+        });
+    </script>
+
+</body>
+</html>
