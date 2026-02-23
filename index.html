@@ -3,37 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pascua 2026 - Inicio</title>
+    <title>Pascua 2026 - San Pedro Apóstol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
-        header { background-color: #4A148C; color: white; padding: 15px; text-align: center; }
-        .container { padding: 15px; }
-        h2 { color: #4A148C; font-size: 18px; margin-top: 20px; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .btn-menu { background-color: white; border: 2px solid #4A148C; border-radius: 10px; padding: 20px 10px; text-align: center; font-weight: bold; color: #4A148C; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-decoration: none; display: block; }
-        .btn-menu span { display: block; font-size: 32px; margin-bottom: 8px; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #333; }
+        
+        /* Sección Hero con imagen de fondo */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('portada.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        
+        .hero img { height: 100px; margin-bottom: 15px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
+        
+        .hero h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 28px; 
+            color: #D4AF37; /* Dorado */
+            margin: 0; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .hero p { font-size: 14px; margin: 5px 0; text-transform: uppercase; letter-spacing: 1px; }
+
+        .welcome-card {
+            background: white;
+            margin: -40px 20px 20px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .welcome-card p { font-style: italic; line-height: 1.6; color: #555; text-align: center; }
+
+        .container { padding: 20px; }
+        h2 { color: #4A148C; font-size: 20px; border-left: 4px solid #D4AF37; padding-left: 10px; margin-bottom: 20px; }
+        
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .btn-menu {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #4A148C;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        
+        .btn-menu:active { transform: scale(0.95); }
+        .btn-menu span { display: block; font-size: 35px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Pascua 2026</h1>
-        <p>Manual de Voluntarios</p>
-    </header>
+
+    <section class="hero">
+        <img src="logo.PNG" alt="Logo Parroquia">
+        <h1>CAMINO HACIA LA PASCUA 2026</h1>
+        <p>Manual Litúrgico para Voluntarios</p>
+        <p style="font-size: 12px; opacity: 0.8;">San Pedro Apóstol | Allende, N.L.</p>
+    </section>
+
+    <div class="welcome-card">
+        <p>"Ponerse al servicio de la Iglesia durante la Semana Santa es un regalo de Dios... nuestra misión es que cada persona pueda encontrarse con Jesús sin distracciones."</p>
+    </div>
+
     <div class="container">
-        <h2>📅 Por Día Litúrgico</h2>
+        <h2>📅 Calendario Litúrgico</h2>
         <div class="menu-grid">
             <a href="ramos.html" class="btn-menu"><span>🌿</span> Ramos</a>
             <a href="jueves.html" class="btn-menu"><span>🍞</span> Jueves</a>
             <a href="viernes.html" class="btn-menu"><span>✝️</span> Viernes</a>
             <a href="vigilia.html" class="btn-menu"><span>🔥</span> Vigilia</a>
         </div>
-        <h2>🛠️ Por Ministerio</h2>
-        <div class="menu-grid">
-            <a href="sacristia.html" class="btn-menu"><span>🧰</span> Sacristía</a>
-            <a href="lectores.html" class="btn-menu"><span>🎙️</span> Lectores</a>
-            <a href="monaguillos.html" class="btn-menu"><span>🕯️</span> Monaguillos</a>
-            <a href="ujieres.html" class="btn-menu"><span>👥</span> Ujieres</a>
-        </div>
     </div>
+
 </body>
 </html>
