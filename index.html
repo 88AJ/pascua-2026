@@ -3,125 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pascua 2026 - San Pedro Apóstol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>Camino Hacia la Pascua 2026 - San Pedro Apóstol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --dorado: #D4AF37;
-            --purpura: #4A148C;
-            --blanco: #ffffff;
-            --gris-claro: #f8f9fa;
-        }
-
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background-color: var(--gris-claro); color: #333; }
-        
-        /* Portada con Imagen de la Parroquia */
-        .hero {
-            background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('portada.jpg');
-            background-size: cover;
-            background-position: center;
-            height: 450px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 20px;
-        }
-        
-        .hero img { height: 100px; margin-bottom: 20px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
-        
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: 30px; 
-            color: var(--dorado);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .hero p.subtitle { font-size: 14px; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Tarjeta de Bienvenida */
-        .welcome-card {
-            background: var(--blanco);
-            margin: -50px 20px 30px;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            text-align: center;
-            border-bottom: 5px solid var(--dorado);
-        }
-        
-        .welcome-card p { font-style: italic; line-height: 1.6; color: #555; font-size: 15px; margin: 0; }
-
-        .container { padding: 0 20px 40px; }
-        
-        h2 { 
-            color: var(--purpura); 
-            font-size: 20px; 
-            text-align: center;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        /* Menú de Navegación Litúrgica */
-        .menu-list { display: flex; flex-direction: column; gap: 12px; }
-        
-        .btn-day {
-            background: var(--blanco);
-            border-radius: 12px;
-            padding: 18px 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            border-left: 5px solid var(--purpura);
-        }
-        
-        .btn-day i { font-size: 20px; color: var(--dorado); width: 25px; text-align: center; }
-        .btn-day:active { transform: scale(0.98); background-color: #f0f0f0; }
-        
-        .parroquia-footer { text-align: center; margin-top: 30px; font-size: 12px; color: #888; }
+        body { font-family: 'Inter', sans-serif; }
+        .bg-overlay { background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); }
+        .hero-bg { background-image: url('portada.jpg'); background-size: cover; background-position: center; }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <section class="hero">
-        <img src="logo.PNG" alt="Logo Parroquia">
-        <h1>Camino hacia la <br>Pascua 2026</h1>
-        <p class="subtitle">Manual Litúrgico para Voluntarios</p>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <img src="logo.PNG" alt="Logo Parroquial" class="h-10 w-auto rounded">
+                    <span class="font-bold text-lg tracking-tight text-gray-900">Manual Litúrgico</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center hero-bg">
+        <div class="absolute inset-0 bg-overlay"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
+                CAMINO HACIA LA PASCUA <span class="text-yellow-400">2026</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto font-medium uppercase tracking-widest">
+                Parroquia de San Pedro Apóstol | Allende, N.L.
+            </p>
+        </div>
     </section>
 
-    <div class="welcome-card">
-        <p>"Ponerse al servicio de la Iglesia durante la Semana Santa es un regalo de Dios... nuestra misión es que cada persona pueda encontrarse con Jesús sin distracciones."</p>
-    </div>
-
-    <div class="container">
-        <h2>Secuencia de la Semana Santa</h2>
-        
-        <nav class="menu-list">
-            <a href="ramos.html" class="btn-day"><i class="fa-solid fa-leaf"></i> Domingo de Ramos de la Pasión del Señor</a>
-            <a href="lunes.html" class="btn-day"><i class="fa-solid fa-droplet"></i> Lunes de la Semana Santa</a>
-            <a href="martes.html" class="btn-day"><i class="fa-solid fa-moon"></i> Martes de la Semana Santa</a>
-            <a href="miercoles.html" class="btn-day"><i class="fa-solid fa-oil-can"></i> Miércoles de la Semana Santa</a>
-            <a href="jueves.html" class="btn-day"><i class="fa-solid fa-bread-slice"></i> Jueves Santo de la Cena del Señor</a>
-            <a href="viernes.html" class="btn-day"><i class="fa-solid fa-cross"></i> Viernes Santo de la Pasión del Señor</a>
-            <a href="vigilia.html" class="btn-day"><i class="fa-solid fa-fire"></i> Vigilia Pascual en la Noche Santa</a>
-            <a href="pascua.html" class="btn-day"><i class="fa-solid fa-sun"></i> Domingo de Pascua de la Resurrección</a>
-        </nav>
-
-        <div class="parroquia-footer">
-            Parroquia de San Pedro Apóstol<br>Allende, Nuevo León
+    <section class="max-w-4xl mx-auto px-4 -mt-16 relative z-20">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-b-8 border-yellow-500 text-center">
+            <p class="text-gray-700 italic text-lg leading-relaxed">
+                "Ponerse al servicio de la Iglesia durante la Semana Santa es un regalo de Dios. Nuestra misión es que cada persona que entre a nuestra Parroquia de San Pedro pueda encontrarse con Jesús sin distracciones."
+            </p>
         </div>
-    </div>
+    </section>
+
+    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Secuencia de la Semana Santa</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a href="ramos.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-leaf"></i></div>
+                <h3 class="font-bold text-gray-900">Domingo de Ramos</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Pasión del Señor</p>
+            </a>
+
+            <a href="lunes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-droplet"></i></div>
+                <h3 class="font-bold text-gray-900">Lunes Santo</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
+            </a>
+
+            <a href="martes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-moon"></i></div>
+                <h3 class="font-bold text-gray-900">Martes Santo</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
+            </a>
+
+            <a href="miercoles.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-oil-can"></i></div>
+                <h3 class="font-bold text-gray-900">Miércoles Santo</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
+            </a>
+
+            <a href="jueves.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-bread-slice"></i></div>
+                <h3 class="font-bold text-gray-900">Jueves Santo</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Cena del Señor</p>
+            </a>
+
+            <a href="viernes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-cross"></i></div>
+                <h3 class="font-bold text-gray-900">Viernes Santo</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Pasión del Señor</p>
+            </a>
+
+            <a href="vigilia.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-fire"></i></div>
+                <h3 class="font-bold text-gray-900">Solemne Vigilia</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">En la Noche Santa</p>
+            </a>
+
+            <a href="pascua.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
+                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-sun"></i></div>
+                <h3 class="font-bold text-gray-900">Domingo de Pascua</h3>
+                <p class="text-xs text-gray-500 uppercase mt-2">De la Resurrección</p>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center">
+        <p class="text-sm">© 2026 Manual Litúrgico - Parroquia San Pedro Apóstol</p>
+        <p class="text-xs mt-2 uppercase tracking-widest">Allende, Nuevo León, México</p>
+    </footer>
 
 </body>
 </html>
