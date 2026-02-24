@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .hero-ramos { 
-            background: linear-gradient(rgba(185, 28, 28, 0.8), rgba(185, 28, 28, 0.8)), url('portada.jpg'); 
+        .hero-bg { 
+            background-image: linear-gradient(rgba(185, 28, 28, 0.8), rgba(185, 28, 28, 0.8)), url('portada.jpg'); 
             background-size: cover; 
             background-position: center; 
         }
@@ -18,19 +18,19 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 text-red-700 font-bold">
                 <i class="fa-solid fa-arrow-left"></i> Inicio
             </a>
-            <img src="logo.PNG" alt="Logo" class="h-10 w-auto rounded">
+            <img src="logo.PNG" alt="Logo" class="h-10 w-auto">
         </div>
     </header>
 
-    <section class="hero-ramos h-[40vh] flex items-center justify-center text-center px-6">
+    <section class="hero-bg h-[40vh] flex items-center justify-center text-center px-6">
         <div class="relative z-10">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-                DOMINGO DE RAMOS
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+                Domingo de Ramos
             </h1>
             <p class="text-red-100 mt-2 uppercase tracking-widest font-medium text-sm">
                 De la Pasión del Señor
@@ -43,84 +43,84 @@
             <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-clock text-red-600"></i> Horarios de Misa
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div class="p-4 bg-gray-50 rounded-lg">
-                    <p class="font-bold text-red-800 uppercase text-xs">Parroquia San Pedro</p>
-                    <p class="text-gray-700 mt-1">8:00 AM, 10:00 AM, 12:00 PM, 7:00 PM</p>
-                    <p class="italic text-gray-500 mt-2 text-xs">* Incluye bendición y procesión exterior.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <p class="font-bold text-red-800 text-xs uppercase">Parroquia San Pedro</p>
+                    <p class="text-gray-700">8:00 AM, 10:00 AM, 12:00 PM, 7:00 PM</p>
+                    <p class="text-[10px] text-gray-500 mt-1">Incluye bendición y procesión exterior.</p>
                 </div>
-                <div class="p-4 bg-gray-50 rounded-lg">
-                    <p class="font-bold text-red-800 uppercase text-xs">Capilla San Judas Tadeo</p>
-                    <p class="text-gray-700 mt-1">11:00 AM</p>
+                <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+                    <p class="font-bold text-red-800 text-xs uppercase">Capilla San Judas Tadeo</p>
+                    <p class="text-gray-700">11:00 AM</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <h2 class="text-2xl font-bold text-gray-900 uppercase">Directrices por Ministerio</h2>
-            <p class="text-gray-600 mt-2">Responsabilidades específicas para los servidores durante este día.</p>
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900">Directrices por Ministerio</h2>
+            <p class="mt-4 text-gray-600">Responsabilidades específicas para el servicio del altar.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-wine-glass"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Ministros Extraordinarios (MEC)</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                    Asistencia en la distribución de la Sagrada Comunión. Llegada requerida 30 minutos antes de la liturgia. Vestimenta formal y sobria.
-                </p>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="mec.JPG" alt="MEC" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ministros Extraordinarios (MEC)</h3>
+                    <p class="text-sm text-gray-600 mt-2">Asistencia en la distribución de la Sagrada Comunión. Llegada requerida 30 minutos antes. Vestimenta formal.</p>
+                </div>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-cross"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Monaguillos</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                    Servicio al altar, manejo del incensario y cruz alta. Es vital ensayar los movimientos específicos para la procesión de las palmas.
-                </p>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="monaguillos .JPG" alt="Monaguillos" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Monaguillos</h3>
+                    <p class="text-sm text-gray-600 mt-2">Servicio al altar, manejo del incensario y cruz alta. Vital ensayar la procesión exterior.</p>
+                </div>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-red-100 bg-red-50 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-book-open"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Lectores</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed mb-4">
-                    Proclamación de la Palabra. Requiere preparación previa de los textos, especialmente la lectura de la Pasión.
-                </p>
-                <button class="w-full py-2 bg-red-700 text-white rounded-lg text-xs font-bold hover:bg-red-800 transition">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> CREAR MONICIÓN BREVE IA
-                </button>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-2 border-red-50">
+                <img src="lectores.JPG" alt="Lectores" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Lectores</h3>
+                    <p class="text-sm text-gray-600 mt-2 mb-4">Proclamación de la Palabra y de la Pasión. Requiere preparación previa intensa.</p>
+                    <button class="w-full py-2 bg-red-50 text-red-700 rounded-lg text-xs font-bold border border-red-100">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> CREAR MONICIÓN BREVE IA
+                    </button>
+                </div>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-music"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Coro y Música Litúrgica</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                    Soporte musical de la asamblea. Selección de cantos aprobados. Énfasis en el "Hosanna" y los cantos de la Pasión.
-                </p>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="coro.JPG" alt="Coro" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Coro y Música Litúrgica</h3>
+                    <p class="text-sm text-gray-600 mt-2">Soporte musical de la asamblea. Selección de cantos apropiados para el triunfo y la pasión.</p>
+                </div>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-users-rays"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Ujieres y Hospitalidad</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                    Acogida de los fieles, entrega de misales o subsidios, y control del flujo durante la procesión y la comunión.
-                </p>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="ujieres.JPG" alt="Ujieres" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ujieres y Hospitalidad</h3>
+                    <p class="text-sm text-gray-600 mt-2">Acogida de fieles, control del flujo en la procesión y colectas. Mantenimiento del orden.</p>
+                </div>
             </div>
 
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-red-600 mb-4 text-3xl"><i class="fa-solid fa-jar"></i></div>
-                <h3 class="font-bold text-gray-900 text-lg">Sacristía</h3>
-                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                    Preparación de vasos sagrados, lienzos, vestiduras rojas e insumos (incienso, carbones y las palmas para la bendición).
-                </p>
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="sacristía .JPG" alt="Sacristía" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Sacristía</h3>
+                    <p class="text-sm text-gray-600 mt-2">Preparación de vasos sagrados, vestimentas rojas e insumos como incienso y ramos.</p>
+                </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-xs uppercase tracking-widest">
-        © 2026 Parroquia San Pedro Apóstol
+    <footer class="bg-gray-900 text-gray-400 py-10 text-center text-xs uppercase tracking-widest">
+        Parroquia de San Pedro Apóstol | 2026
     </footer>
 
 </body>
