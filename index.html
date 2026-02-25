@@ -3,108 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camino Hacia la Pascua 2026 - San Pedro Apóstol</title>
+    <title>Camino hacia la Pascua 2026 - San Pedro Apóstol</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .bg-overlay { background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); }
-        .hero-bg { background-image: url('portada.jpg'); background-size: cover; background-position: center; }
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 4px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-3">
-                    <img src="logo.PNG" alt="Logo Parroquial" class="h-10 w-auto rounded">
-                    <span class="font-bold text-lg tracking-tight text-gray-900">Manual Litúrgico</span>
-                </div>
-            </div>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <span class="text-purple-900 font-extrabold tracking-widest uppercase">Pascua 2026</span>
+            <img src="logo.PNG" alt="Logo" class="h-10 w-auto">
         </div>
     </header>
 
-    <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center hero-bg">
-        <div class="absolute inset-0 bg-overlay"></div>
-        <div class="relative z-10 text-center px-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
-                CAMINO HACIA LA PASCUA <span class="text-yellow-400">2026</span>
+    <section class="text-center py-16 bg-white shadow-sm border-b-8 border-purple-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight uppercase">
+                Manual Litúrgico
             </h1>
-            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto font-medium uppercase tracking-widest">
-                Parroquia de San Pedro Apóstol | Allende, N.L.
+            <p class="mt-4 text-purple-700 text-lg font-bold tracking-widest uppercase">
+                Semana Santa y Triduo Pascual 2026
+            </p>
+            <p class="mt-4 text-gray-600">
+                Directrices operativas, textos litúrgicos y protocolos de servicio para los ministerios de la Parroquia San Pedro Apóstol.
             </p>
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-4 -mt-16 relative z-20">
-        <div class="bg-white rounded-2xl shadow-xl p-8 border-b-8 border-yellow-500 text-center">
-            <p class="text-gray-700 italic text-lg leading-relaxed">
-                "Ponerse al servicio de la Iglesia durante la Semana Santa es un regalo de Dios. Nuestra misión es que cada persona que entre a nuestra Parroquia de San Pedro pueda encontrarse con Jesús sin distracciones."
-            </p>
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Secuencia de la Semana Santa</h2>
+            <p class="mt-4 text-gray-600">Selecciona el día para ver las directrices correspondientes a cada ministerio.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="ramos.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700">
+                <div class="p-6">
+                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Ramos de la Pasión del Señor</h3>
+                    <p class="text-sm text-gray-600">Conmemoración de la entrada del Señor en Jerusalén.</p>
+                </div>
+            </a>
+
+            <a href="lunes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Lunes Santo</h3>
+                    <p class="text-sm text-gray-600">La Unción en Betania.</p>
+                </div>
+            </a>
+
+            <a href="martes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Martes Santo</h3>
+                    <p class="text-sm text-gray-600">El Anuncio de la Traición y Envío a la Misa Crismal.</p>
+                </div>
+            </a>
+
+            <a href="miercoles.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Miércoles Santo</h3>
+                    <p class="text-sm text-gray-600">El Pacto de Judas, Recepción de Óleos y Unción de Enfermos.</p>
+                </div>
+            </a>
+
+            <a href="jueves.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-200">
+                <div class="p-6">
+                    <p class="text-xs text-gray-500 font-bold uppercase mb-1">Color: Blanco</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Jueves Santo de la Cena del Señor</h3>
+                    <p class="text-sm text-gray-600">Inicio del Sagrado Triduo Pascual.</p>
+                </div>
+            </a>
+
+            <a href="viernes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700">
+                <div class="p-6">
+                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Viernes Santo de la Pasión del Señor</h3>
+                    <p class="text-sm text-gray-600">Adoración de la Santa Cruz.</p>
+                </div>
+            </a>
+
+            <a href="sabado.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-900">
+                <div class="p-6">
+                    <p class="text-xs text-gray-900 font-bold uppercase mb-1">Luto de la Iglesia</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Sábado Santo de la Sepultura del Señor</h3>
+                    <p class="text-sm text-gray-600">Día de silencio y recogimiento junto al sepulcro.</p>
+                </div>
+            </a>
+
+            <a href="vigilia.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500">
+                <div class="p-6">
+                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Vigilia Pascual en la Noche Santa</h3>
+                    <p class="text-sm text-gray-600">La madre de todas las santas vigilias.</p>
+                </div>
+            </a>
+
+            <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500">
+                <div class="p-6">
+                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Pascua de la Resurrección del Señor</h3>
+                    <p class="text-sm text-gray-600">La solemnidad de las solemnidades.</p>
+                </div>
+            </a>
+
         </div>
     </section>
 
-    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl font-bold text-center text-gray-900 mb-10">Secuencia de la Semana Santa</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="ramos.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-leaf"></i></div>
-                <h3 class="font-bold text-gray-900">Domingo de Ramos</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Pasión del Señor</p>
-            </a>
-
-            <a href="lunes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-droplet"></i></div>
-                <h3 class="font-bold text-gray-900">Lunes Santo</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
-            </a>
-
-            <a href="martes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-moon"></i></div>
-                <h3 class="font-bold text-gray-900">Martes Santo</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
-            </a>
-
-            <a href="miercoles.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-oil-can"></i></div>
-                <h3 class="font-bold text-gray-900">Miércoles Santo</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Semana Santa</p>
-            </a>
-
-            <a href="jueves.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-bread-slice"></i></div>
-                <h3 class="font-bold text-gray-900">Jueves Santo</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Cena del Señor</p>
-            </a>
-
-            <a href="viernes.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-cross"></i></div>
-                <h3 class="font-bold text-gray-900">Viernes Santo</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Pasión del Señor</p>
-            </a>
-
-            <a href="vigilia.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-fire"></i></div>
-                <h3 class="font-bold text-gray-900">Solemne Vigilia</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">En la Noche Santa</p>
-            </a>
-
-            <a href="pascua.html" class="group bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-all hover:-translate-y-1">
-                <div class="text-yellow-600 mb-4 text-3xl"><i class="fa-solid fa-sun"></i></div>
-                <h3 class="font-bold text-gray-900">Domingo de Pascua</h3>
-                <p class="text-xs text-gray-500 uppercase mt-2">De la Resurrección</p>
-            </a>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-gray-400 py-12 text-center">
-        <p class="text-sm">© 2026 Manual Litúrgico - Parroquia San Pedro Apóstol</p>
-        <p class="text-xs mt-2 uppercase tracking-widest">Allende, Nuevo León, México</p>
-
-        <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-gray-900 overflow-hidden">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">
                 <i class="fa-solid fa-scroll text-purple-700"></i> Normas Litúrgicas Oficiales
@@ -118,19 +134,19 @@
                     
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-4">Cuaresma, itinerario hacia la Pascua</h4>
                     <p class="text-sm mb-3">El Concilio Vaticano II, bajo el impulso del movimiento litúrgico que resaltó el sentido antiguo de la Cuaresma cristiana, ha querido volver a dar impulso y vitalidad a este período.</p>
-                    <p class="text-sm mb-3">El Tiempo litúrgico de la Cuaresma ha dejado una huella profunda en el pueblo cristiano, siendo uno de los así llamados "Tiempos fuertes". Este periodo de cuarenta días es el resultado de una historia larga de muchos siglos y de haber sido el medio de convocación particular para adquirir y expresar, con las armas de la luz (cfr. Rom 13, 12), la lucha contra los enemigos de la vida cristiana (cfr. Ef 6,11-17; 1 Pe 5, 8).</p>
+                    <p class="text-sm mb-3">El Tiempo litúrgico de la Cuaresma ha dejado una huella profunda en el pueblo cristiano, siendo uno de los así llamados "Tiempos fuertes". Este periodo de cuarenta días es el resultado de una historia larga de muchos siglos y de haber sido el medio de convocación particular para adquirir y expresar, con las armas de la luz, la lucha contra los enemigos de la vida cristiana.</p>
                     <p class="text-sm mb-3">En la Cuaresma, surgida como preparación eclesial de toda la comunidad orientada hacia la Pascua, convergen tres itinerarios de contenido ascético y sacramental: en primer lugar los catecúmenos que se preparan a la recepción-celebración de su Iniciación Cristiana; un segundo grupo compuesto por los penitentes públicos; y el tercer grupo que es la comunidad cristiana que se prepara a la celebración del Triduo pascual.</p>
                     <p class="text-sm mb-3">El elemento común de este triple itinerario interdependiente ha sido la cuarentena de días que Jesús, como modelo y Maestro, ha vivido -como lo expresa san Agustín- "para aleccionarnos para la victoria".</p>
                     <p class="text-sm mb-3">Los simbólicos cuarenta días en la Biblia aparecen como periodo de prueba, purificación y tentación, pero también de éxodo y peregrinación a través del desierto, así como Tiempo de gracia y de acción divina en favor de su pueblo. Estos han sido aspectos o dimensiones que han llevado a configurar la Cuaresma cristiana.</p>
                     <p class="text-sm mb-3">Tres importantes personajes han vivido y experimentado el sentido profundo de cuarenta días, cada uno consagrándolo en sus concretas circunstancias: Moisés, en los cuarenta días que pasó en el Sinaí; Elías, en los cuarenta días de camino hacia el monte Horeb; y Jesús, en sus cuarenta días en el desierto.</p>
                     <p class="text-sm mb-3">Motivos por los cuales la liturgia de este tiempo llama con toda propiedad "sacramento cuaresmal", es decir, periodo sagrado de salvación y signo de la gracia de Cristo por voluntad de la Iglesia.</p>
                     <p class="text-sm mb-3">Lo fundamental para vivir, para celebrar y para ayudar a celebrar este rico tiempo de Cuaresma es necesario cambiar y superar la comprensión deficiente del mismo, descubriendo las abundantes riquezas que, lejos de ser un Tiempo cerrado en sí mismo, está abierto a la Pascua como itinerario con sus marcadas etapas.</p>
-                    <p class="text-sm mb-3">La Cuaresma es, pues, un verdadero sacramental en donde toda la comunidad cristiana está llamada a revivir y renovar, año con año, el paso de la muerte a la vida, de la esclavitud del pecado a la libertad de los hijos de Dios (cfr. Rom 8, 21) que un día se realizó en el Bautismo de cada uno (cfr. Rom 6, 3-11; Col 2, 12).</p>
+                    <p class="text-sm mb-3">La Cuaresma es, pues, un verdadero sacramental en donde toda la comunidad cristiana está llamada a revivir y renovar, año con año, el paso de la muerte a la vida, de la esclavitud del pecado a la libertad de los hijos de Dios que un día se realizó en el Bautismo de cada uno.</p>
                     <p class="text-sm mb-3">El Concilio Vaticano II quiso que en este tiempo especial de gracia se pusiera con mayor claridad la naturaleza de la Cuaresma, resaltando el Bautismo y la Penitencia, no solo como aspectos ascéticos, sino como elementos sacramentales. Así lo expresa en la Constitución Sacrosanctum Concilium: "Puesto que el tiempo cuaresmal prepara a los fieles, entregados más intensamente a oír la palabra de Dios y a la oración, para que celebren el misterio pascual, sobre todo mediante el recuerdo o la preparación del bautismo y mediante la penitencia, dése particular relieve en la Liturgia y en la catequesis litúrgica al doble carácter de dicho tiempo".</p>
                     <p class="text-sm mb-3">Son estos los elementos en que se asienta la Cuaresma y el objetivo que ha presidido la reforma de este tiempo litúrgico después del Concilio, teniendo como base la rica herencia de la tradición cuaresmal.</p>
-                    <p class="text-sm mb-3">El Prefacio I de Cuaresma manifiesta claramente la naturaleza de este periodo y a la vez expresa el anhelo de la celebración de la Pascua: <em>Por él (Cristo) concedes bondadosamente a tus fieles anhelar gozosos, año tras año, con el alma purificada, las solemnidades de la Pascua, para que dedicados con mayor entrega a la oración y a las obras de caridad, por la celebración de los misterios que nos dieron nueva vida, lleguemos a ser plenamente hijos tuyos.</em></p>
+                    <p class="text-sm mb-3">El Prefacio I de Cuaresma manifiesta claramente la naturaleza de este periodo y a la vez expresa el anhelo de la celebración de la Pascua: <em>Por él concedes bondadosamente a tus fieles anhelar gozosos, año tras año, con el alma purificada, las solemnidades de la Pascua, para que dedicados con mayor entrega a la oración y a las obras de caridad, por la celebración de los misterios que nos dieron nueva vida, lleguemos a ser plenamente hijos tuyos.</em></p>
                     <p class="text-sm mb-3">Y junto con la oración Colecta del Domingo I de Cuaresma, expresan el programa de vida cristiana como resultado de la asidua escucha de la palabra de Dios: <em>Concédenos, Dios todopoderoso, que, por las prácticas anuales del sacramento cuaresmal, progresemos en el conocimiento del misterio de Cristo y traduzcamos su efecto en una conducta irreprochable.</em></p>
-                    <p class="text-sm mb-3">Esto es algo que nos produce alegría (progresar en el conocimiento del misterio de Cristo) y nos pide conversión del corazón (traducir su efecto en una conducta irreprochable); nos pide apertura al amor de Dios y al servicio de los hermanos. Un camino que se basa y se expresa en la celebración de los sacramentos que dan vida nueva.</p>
+                    <p class="text-sm mb-3">Esto es algo que nos produce alegría y nos pide conversión del corazón; nos pide apertura al amor de Dios y al servicio de los hermanos. Un camino que se basa y se expresa en la celebración de los sacramentos que dan vida nueva.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">Breve historia de la Cuaresma</h4>
                     <p class="text-sm mb-3">El periodo en que surge la Cuaresma no es anterior al siglo IV y en muchas otras Iglesias aparece en momentos posteriores. Aun con este dato, la celebración de la Pascua -hacia el siglo II- contó siempre con una cierta preparación, que consistía en un ayuno de dos o tres días de duración.</p>
@@ -138,12 +154,12 @@
                     <p class="text-sm mb-3">Fue durante el siglo IV que este ayuno de dos días se extendió a una semana, después a tres, y, por último, a los cuarenta días, exceptuando los domingos, en los que también estaba prohibido ayunar. Pero siempre sin perder la connotación de preparación para la Pascua.</p>
                     <p class="text-sm mb-3">Es en esta época cuando se da el mayor esplendor del catecumenado de adultos, donde en la última etapa previa a la recepción de los sacramentos de la Iniciación Cristiana, tenían lugar en los días de Cuaresma. Fue también en este periodo que recibió un fuerte impulso otra institución de la Iglesia antigua: la Penitencia pública de los grandes pecados, en la mañana del Jueves Santo, previamente preparada por la realización de obras penitenciales en el tiempo señalado. Hay que anotar que estas dos importantes instituciones pastorales -catecumenado y Penitencia pública- perduraron durante varios años.</p>
                     <p class="text-sm mb-3">Es a finales del siglo IV que Roma ya tenía así organizada la Cuaresma, participando en ella no solamente los catecúmenos y los penitentes, sino toda la comunidad. El rito de entrada a la Penitencia pública es lo que ha dado lugar al Miércoles de Ceniza.</p>
-                    <p class="text-sm mb-3">Es en el siglo VII donde, con el paso del tiempo, se van acumulando días y semanas previas a la Pascua; el resultado es una presencia de periodos superpuestos, ya que no solo hay una Cuadragésima (40 días, desde el domingo I de Cuaresma hasta el Jueves Santo inclusive); sino también una Quincuagésima (50 días, desde el domingo anterior al de inicio de la Cuaresma hasta el de Pascua); una Sexagésima (60 días, que avanzan hacia atrás otro domingo más y concluyen el miércoles de la octava de Pascua) y una Septuagésima (70 días, a base de ganar otro domingo aún y concluir en el II de Pascua). La reforma litúrgica ha devuelto la Cuaresma al sustrato más clásico, el de la Cuadragésima, aunque ha conservado el Miércoles de Ceniza y las ferias que le siguen.</p>
-                    <p class="text-sm mb-3">No se puede pasar por alto el fenómeno del modo cómo progresivamente se fue llenando de celebraciones durante las semanas de la Cuaresma, con las Misas estacionales. En la Cuaresma más antigua se tenía sólo como días litúrgicos, para la celebración de la Eucaristía, los miércoles y los viernes. Más tarde, en tiempos del Papa san León (440-461), se añadieron también los lunes, y posteriormente, los martes y los sábados. Finalmente, en el siglo VIII, durante el pontificado del Papa Gregorio II (715-731), se completará la semana, dotándose de celebración también el jueves.</p>
+                    <p class="text-sm mb-3">Es en el siglo VII donde, con el paso del tiempo, se van acumulando días y semanas previas a la Pascua; el resultado es una presencia de periodos superpuestos, ya que no solo hay una Cuadragésima; sino también una Quincuagésima; una Sexagésima y una Septuagésima. La reforma litúrgica ha devuelto la Cuaresma al sustrato más clásico, el de la Cuadragésima, aunque ha conservado el Miércoles de Ceniza y las ferias que le siguen.</p>
+                    <p class="text-sm mb-3">No se puede pasar por alto el fenómeno del modo cómo progresivamente se fue llenando de celebraciones durante las semanas de la Cuaresma, con las Misas estacionales. En la Cuaresma más antigua se tenía sólo como días litúrgicos, para la celebración de la Eucaristía, los miércoles y los viernes. Más tarde, en tiempos del Papa san León, se añadieron también los lunes, y posteriormente, los martes y los sábados. Finalmente, en el siglo VIII, se completará la semana, dotándose de celebración también el jueves.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">La Cuaresma hoy</h4>
-                    <p class="text-sm mb-3">El Concilio Vaticano II en la Constitución Sacrosanctum Concilium, recuerda el doble carácter que debe marcar este tiempo, como es el bautismal y penitencial, insistiendo en una doble línea, a saber, la escucha asidua de la palabra de Dios y la dedicación a la oración; para la dimensión penitencial insiste en el sentido personal y social del pecado (SC, n. 109).</p>
-                    <p class="text-sm mb-3">En el siguiente número se habla del ayuno penitencial, externo e interno, y a la vez, individual y social (SC, n. 110). Es la recuperación del ayuno antiguo en su más originario y genuino sentido de espera del encuentro con el Resucitado.</p>
+                    <p class="text-sm mb-3">El Concilio Vaticano II en la Constitución Sacrosanctum Concilium, recuerda el doble carácter que debe marcar este tiempo, como es el bautismal y penitencial, insistiendo en una doble línea, a saber, la escucha asidua de la palabra de Dios y la dedicación a la oración; para la dimensión penitencial insiste en el sentido personal y social del pecado.</p>
+                    <p class="text-sm mb-3">En el siguiente número se habla del ayuno penitencial, externo e interno, y a la vez, individual y social. Es la recuperación del ayuno antiguo en su más originario y genuino sentido de espera del encuentro con el Resucitado.</p>
                     <p class="text-sm mb-3">La Cuaresma descansa sobre los domingos, denominados I, II, III, IV y V de Cuaresma, y las ferias avanzan independientemente de los domingos, aunque en su temática litúrgica guardan una cierta relación con ellos.</p>
                     <p class="text-sm mb-3">Para hacer eficaz la disposición conciliar de acentuar los elementos bautismales, en este Año litúrgico 2025-2026, cuyo ciclo "A" está previsto, reviste una connotación particularmente significativa, ya que es el prototipo de lo que debe ser este tiempo litúrgico. Así que tanto el Leccionario dominical y el Misal Romano nos darán las pautas para profundizar en conocimiento del Misterio de Cristo, en su celebración y en la vivencia cotidiana.</p>
                     <p class="text-sm mb-3">Para ello, después de mantener en los domingos I y II los temas tradicionales de las tentaciones del Señor y de la Transfiguración, por lo demás comunes a los tres ciclos, se han recuperado para los domingos III, IV y V los evangelios clásicos de la Cuaresma catecumenal: la samaritana, el ciego de nacimiento y la resurrección de Lázaro.</p>
@@ -156,56 +172,8 @@
                     <ul class="list-disc pl-5 space-y-2 text-sm mb-3">
                         <li>Un camino de fe más consciente, caracterizado por un itinerario de escucha constante de la palabra de Dios, siendo Cristo el Revelador en este camino de fe;</li>
                         <li>Una escucha más asidua de la palabra, ya que el camino de fe no puede ser hecho sin una referencia a la palabra que la Iglesia distribuye con abundancia en este santo Tiempo. La Iglesia quiere dar un espacio más amplio a la palabra leída y meditada.</li>
-                        <li>Una oración más intensa, a ejemplo de Cristo orante, a partir de la palabra escuchada. Así es como Jesús vive su misterio pascual y la Iglesia está invitada a hacer una oración más intensa que puede tener la característica de lucha (ascesis, purificación), pero puede ser también experiencia de gloria (mística, iluminación). Siempre en comunión con Dios.</li>
+                        <li>Una oración más intensa, a ejemplo de Cristo orante, a partir de la palabra escuchada. Así es como Jesús vive su misterio pascual y la Iglesia está invitada a hacer una oración más intensa que puede tener la característica de lucha, pero puede ser también experiencia de gloria. Siempre en comunión con Dios.</li>
                     </ul>
-
-                    <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">La palabra de Dios en Cuaresma. Leccionario Dominical</h4>
-                    <p class="text-sm mb-3">Este año nos es presentada la riqueza de la palabra de Dios en los domingos del ciclo "A". Nos puede ser provechoso el considerar en su conjunto, el itinerario que la Iglesia nos ofrece, teniendo delante un cuadro sinóptico de las lecturas:</p>
-                    <div class="overflow-x-auto text-sm mb-3">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="p-2 border">Domingo</th>
-                                    <th class="p-2 border">Antiguo Testamento</th>
-                                    <th class="p-2 border">Apóstol</th>
-                                    <th class="p-2 border">Evangelio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="p-2 border">I</td>
-                                    <td class="p-2 border">Gén 2, 7-9; 3, 1-7<br>Creación y pecado.</td>
-                                    <td class="p-2 border">Rom 5, 12-19<br>Donde abundó el pecado, sobreabundó la gracia.</td>
-                                    <td class="p-2 border">Mt 4, 1-11<br>Ayuno y tentación.</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 border">II</td>
-                                    <td class="p-2 border">Gén 12, 1-4<br>Vocación de Abraham.</td>
-                                    <td class="p-2 border">2 Tim 1, 8-10<br>Vocación e iluminación.</td>
-                                    <td class="p-2 border">Mt 17, 1-9<br>La Transfiguración.</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 border">III</td>
-                                    <td class="p-2 border">Éx 17, 3-7<br>El agua de la roca.</td>
-                                    <td class="p-2 border">Rom 5, 1-2.5-8<br>Espíritu derramado en los corazones.</td>
-                                    <td class="p-2 border">Jn 4, 5-42<br>La samaritana.</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 border">IV</td>
-                                    <td class="p-2 border">1 Sam 16, 1b. 6-7. 10-13a<br>La unción de David.</td>
-                                    <td class="p-2 border">Ef 5, 8-14<br>Cristo te iluminará.</td>
-                                    <td class="p-2 border">Jn 9, 1-41<br>El ciego de nacimiento.</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 border">V</td>
-                                    <td class="p-2 border">Ez 37, 12-14<br>La promesa de vida.</td>
-                                    <td class="p-2 border">Rom 8, 8-11<br>El Espíritu que habita en ustedes.</td>
-                                    <td class="p-2 border">Jn 11, 1-45<br>Lázaro resucitado.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="text-sm italic mb-6">Ciclo dominical A: el camino bautismal de la Iglesia</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">El Santoral en la Cuaresma</h4>
                     <p class="text-sm mb-3">A lo largo del año litúrgico, los santos son honrados en días específicos y suelen ser mencionados por su nombre en las Misas diarias. Sin embargo, durante la Cuaresma, se privilegia el Misterio de Cristo, por lo que las fiestas o memorias de los santos pasan a ser conmemoraciones opcionales.</p>
@@ -213,7 +181,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-2xl font-bold text-red-700 uppercase mb-4 border-b pb-2">SEMANA SANTA Y SAGRADO TRIDUO PASCUAL</h3>
+                    <h3 class="text-2xl font-bold text-red-700 uppercase mb-4 border-b pb-2 mt-8">SEMANA SANTA Y SAGRADO TRIDUO PASCUAL</h3>
                     
                     <h4 class="text-lg font-bold text-red-700 mt-4 mb-2">Domingo de Ramos de la Pasión del Señor</h4>
                     <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed mb-6">
@@ -247,13 +215,13 @@
                     <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Sagrado Triduo Pascual (Jueves Santo de la Cena del Señor)</h4>
                     <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed mb-6">
                         <li>La sagrada Comunión sólo puede distribuirse a los fieles durante la celebración de la Misa; pero a los enfermos se les puede llevar a cualquier hora del día.</li>
-                        <li>La celebración debe tener lugar a la hora más conveniente, necesariamente después de que inicia la caída de la tarde (se considera este inicio estandarizado a las 18:00 horas [I Vísperas]).</li>
+                        <li>La celebración debe tener lugar a la hora más conveniente, necesariamente después de que inicia la caída de la tarde.</li>
                         <li>Al inicio de la Misa el sagrario debe estar completamente vacío.</li>
                         <li>El altar esté adornado con flores, teniendo en cuenta la moderación necesaria denotada por la índole de la celebración, que no es más relevante que la Vigilia Pascual.</li>
                         <li>Se deberá consagrar el número de hostias necesarias para la Comunión del clero y del pueblo para esta celebración y para la celebración de la Pasión del Señor.</li>
                         <li>Durante el Gloria se tocan las campanas, las cuales no volverán a tocarse sino hasta el Gloria de la Vigilia Pascual.</li>
                         <li>Después del Gloria, el órgano y los demás instrumentos musicales pueden utilizarse, pero sólo para acompañar el canto.</li>
-                        <li>El lavatorio de los pies, es ad libitum (se realiza siempre y cuando lo aconseje el bien de los fieles), muestra de manera representativa la humildad y el amor de Cristo a sus discípulos y el mandato que hizo a los mismos para vivir la caridad fraterna según su propio ejemplo; por lo que, para manifestar el pleno significado del rito, S. S. El Papa Francisco... modificó la rúbrica de manera que los pastores puedan elegir a un grupo de fieles que represente la variedad y la unidad de cada porción del pueblo de Dios: hombres y mujeres y, convenientemente, por jóvenes y ancianos, sanos y enfermos, clérigos, consagrados, laicos.</li>
+                        <li>El lavatorio de los pies, es ad libitum (se realiza siempre y cuando lo aconseje el bien de los fieles), muestra de manera representativa la humildad y el amor de Cristo a sus discípulos y el mandato que hizo a los mismos para vivir la caridad fraterna según su propio ejemplo.</li>
                         <li>El canto para la preparación de los dones es el himno Donde hay caridad y amor, alli está Dios u otro canto apropiado.</li>
                         <li>En la Plegaria eucarística es conveniente utilizar el Canon Romano; pero podrían utilizarse las Plegarias II o III con el texto propio para el relato de la Institución.</li>
                         <li>Omitido el rito de conclusión, se realiza el traslado del Santísimo Sacramento:
@@ -266,7 +234,7 @@
                                 <li>Después de la medianoche, la adoración debe hacerse sin solemnidad (se cierra la puerta del sagrario).</li>
                             </ul>
                         </li>
-                        <li>La procesión que traslada el Santísimo Sacramento está ordenada de la siguiente manera: Precede la cruz procesional flanqueada por dos ciriales encendidos. A continuación vienen todos los demás con velas encendidas. Posteriormente el turiferario humeante. Detrás el sacerdote que lleva el Santísimo Sacramento, cubriéndolo con el velo humeral. Mientras tanto se canta Pange, lingua (excepto las últimas estrofas) u otro canto apropiado.</li>
+                        <li>La procesión que traslada el Santísimo Sacramento está ordenada de la siguiente manera: Precede la cruz procesional flanqueada por dos ciriales encendidos. A continuación vienen todos los demás con velas encendidas. Posteriormente el turiferario humeante. Detrás el sacerdote que lleva el Santísimo Sacramento, cubriéndolo con el velo humeral. Mientras tanto se canta Pange, lingua u otro canto apropiado.</li>
                         <li>Al llegar al lugar de la reserva eucarística, se deposita la píxide o copón dentro del sagrario, que permanece con la puerta abierta; luego el sacerdote, colocando incienso en el turifero. Inciensa el Santísimo Sacramento, mientras se canta Tantum ergo Sacramentum u otro canto adecuado.</li>
                         <li>Reservado el Santísimo Sacramento en el sitio determinado, se tiene con los fieles la adoración delante del Señor presente en la Eucaristía hasta la medianoche, conocida como Reserva solemne; después de esta hora, la adoración se hace sin ninguna solemnidad.</li>
                         <li>Terminada la Misa, en un momento oportuno, se despoja el altar sin ningún rito especial. Si es posible, se retiran las cruces de la iglesia, las que no pueden retirarse conviene cubrirlas con un velo.</li>
@@ -280,7 +248,7 @@
                         <li>El altar debe estar desnudo por completo: sin cruz, sin candelabros y sin mantel.</li>
                         <li>Se inicia con el sacerdote que se dirige al altar en silencio y se postra o arrodilla. La oración inicial NO lleva la invitación "Oremos".</li>
                         <li>Las lecturas son leídas por entero.</li>
-                        <li>Para la proclamación de la Pasión del Señor no se lleva ni el incienso ni los ciriales. Pueden participar varios lectores, reservando al sacerdote, normalmente, la parte correspondiente a Cristo. Si el celebrante toma parte en la lectura de la Pasión dice, como habitualmente, Purifica... (Munda cor meum); si proclaman la Pasión diáconos, piden la bendición como habitualmente para el Evangelio; si la proclamación es hecha por laicos, se omite esta bendición.</li>
+                        <li>Para la proclamación de la Pasión del Señor no se lleva ni el incienso ni los ciriales. Pueden participar varios lectores, reservando al sacerdote, normalmente, la parte correspondiente a Cristo. Si el celebrante toma parte en la lectura de la Pasión dice, como habitualmente, Purifica...; si proclaman la Pasión diáconos, piden la bendición como habitualmente para el Evangelio; si la proclamación es hecha por laicos, se omite esta bendición.</li>
                         <li>En la proclamación de la Pasión:
                             <ul class="list-circle pl-5 mt-1">
                                 <li>Quien proclama no dice: El Señor esté con ustedes.</li>
@@ -296,21 +264,17 @@
                         <li>Para la adoración de la Santa Cruz, se utiliza una cruz sin la imagen de Cristo, la cual puede ser convenientemente adornada, por ejemplo con flores, manifestando que es el árbol donde ESTUVO clavado el Salvador del mundo, y que ningún otro árbol fue tan rico ni en sus frutos ni en su flor.</li>
                         <li>La Santa Cruz es presentada para la adoración de dos maneras diferentes:
                             <ol class="list-decimal pl-5 mt-1">
-                                <li>El diácono o un ministro idóneo trae procesionalmente la Santa Cruz, flanqueada por dos ciriales encendidos y cubierta con un paño morado, dirigiéndose directamente hasta el centro del presbiterio. Ahí, el sacerdote va descubriendo la Santa Cruz en tres momentos sucesivos (extremo superior, brazo derecho y completamente); en cada uno, después de descubrir la parte correspondiente de la Santa Cruz, la eleva y canta Miren el árbol de la Cruz, a lo que todos responden Vengan y adoremos luego todos se arrodillan para adorarla en silencio durante unos instantes, mientras el sacerdote, de pie, la mantiene en alto.</li>
-                                <li>El sacerdote o el diácono o un ministro idóneo, se dirige a la puerta de la iglesia donde recibe la Santa Cruz ya descubierta, avanza procesionalmente flanqueado por dos ciriales encendidos, haciendo tres paradas (cerca de la puerta de la iglesia. a mitad de la misma y a la entrada del presbiterio); en cada una eleva la Santa Cruz y canta Miren el árbol de la Cruz, a lo que todos responden Vengan y adoremos luego todos se arrodillan para adorarla en silencio durante unos instantes, mientras el sacerdote, de pie, la mantiene en alto.</li>
+                                <li>El diácono o un ministro idóneo trae procesionalmente la Santa Cruz, flanqueada por dos ciriales encendidos y cubierta con un paño morado, dirigiéndose directamente hasta el centro del presbiterio. Ahí, el sacerdote va descubriendo la Santa Cruz en tres momentos sucesivos; en cada uno, después de descubrir la parte correspondiente de la Santa Cruz, la eleva y canta Miren el árbol de la Cruz, a lo que todos responden Vengan y adoremos luego todos se arrodillan para adorarla en silencio durante unos instantes, mientras el sacerdote, de pie, la mantiene en alto.</li>
+                                <li>El sacerdote o el diácono o un ministro idóneo, se dirige a la puerta de la iglesia donde recibe la Santa Cruz ya descubierta, avanza procesionalmente flanqueado por dos ciriales encendidos, haciendo tres paradas; en cada una eleva la Santa Cruz y canta Miren el árbol de la Cruz, a lo que todos responden Vengan y adoremos luego todos se arrodillan para adorarla en silencio durante unos instantes.</li>
                             </ol>
                         </li>
                         <li>La Santa Cruz es colocada frente al presbiterio, o en otro lugar adecuado, flanqueada por dos ciriales encendidos.</li>
                         <li>Para la adoración de la Cruz, el sacerdote celebrante deja la casulla y, eventualmente, el calzado. A continuación, se acercan procesionalmente el clero, los ministros laicos y los fieles. El gesto para la adoración de la Santa Cruz, según la costumbre, es la genuflexión y, eventualmente, el beso. Mientras tanto, se canta la antífona, los improperios, el himno u otros cantos adecuados. Sólo debe utilizarse una única Cruz.</li>
-                        <li>Si son muchos los fieles que participan en la celebración: después de que una parte del clero y de los fieles hayan hecho la adoración, el sacerdote toma la Cruz y de pie frente al altar, invita, con palabras breves, a adorar la Santa Cruz; luego, la levanta en alto por un momento, para que los fieles la adoren en silencio.</li>
-                        <li>Terminada la adoración de los fieles, la Santa Cruz es colocada cerca del altar, las velas se colocan cerca o sobre el altar, o junto a la Cruz.</li>
-                        <li>Terminada la adoración de la Santa Cruz, se extiende un mantel de color blanco sobre el altar y luego se coloca un corporal; luego se trae el Santísimo Sacramento del lugar de la reserva, flanqueado por dos candeleros encendidos, se coloca sobre el altar, y se descubre(n) el (los) copón(es) o pixide(s). Los candeleros se colocan junto o sobre el altar. Se recita la Oración dominical, que continúa con el embolismo "Libranos de todos los males..." y se concluye con la aclamación del pueblo: "Tuyo es el reino...". No hay fracción del pan ni se canta el Cordero de Dios. Se continúa directamente con la oración secreta del sacerdote para comulgar y la invitación "Éste es el Cordero de Dios...".</li>
-                        <li>Después de distribuir la sagrada Comunión, el Santísimo Sacramento es reservado nuevamente fuera de la iglesia, llevado sin ninguna solemnidad: bastará con que sea flanqueado por uno o dos ciriales encendidos, por la vía más corta.</li>
+                        <li>Terminada la adoración de la Santa Cruz, se extiende un mantel de color blanco sobre el altar y luego se coloca un corporal; luego se trae el Santísimo Sacramento del lugar de la reserva, flanqueado por dos candeleros encendidos, se coloca sobre el altar, y se descubre el copón. Se recita la Oración dominical. No hay fracción del pan ni se canta el Cordero de Dios. Se continúa directamente con la oración secreta del sacerdote para comulgar y la invitación "Éste es el Cordero de Dios...".</li>
+                        <li>Después de distribuir la sagrada Comunión, el Santísimo Sacramento es reservado nuevamente fuera de la iglesia, llevado sin ninguna solemnidad.</li>
                         <li>Después de la oración después de la Comunión, el sacerdote dice la oración sobre el pueblo. No se despide al pueblo.</li>
-                        <li>Después de la celebración, en un momento oportuno, se desnuda el altar; pero permanece la Santa Cruz con dos o cuatro candeleros encendidos, de manera que pueda ser adorada por los fieles, y éstos puedan permanecer en oración delante de ella.</li>
-                        <li>Quienes participan en la celebración de la Pasión del Señor no celebran las Vísperas. Se lleva a cabo en este día la colecta a favor de los Santos Lugares.</li>
-                        <li>Es conveniente que el Vía Crucis se celebre con el pueblo en las horas matutinas; mientras que en las horas vespertinas pueden celebrarse con los fieles algunos actos de piedad en torno al Señor muerto: Pésame a la santísima Virgen María, Procesión del silencio, etc. De este modo, la celebración de la Pasión del Señor ocupa el lugar central de la jornada, como la principal y medular celebración de este día.</li>
-                        <li><strong>Advertencias:</strong> Hoy debe observarse el ayuno pascual y debe dársele su genuino sentido, no de penitencia, sino de signo del tránsito o Pascua que la Iglesia hace con su Señor: en la Noche Santa de Pascua se inaugura una gran fiesta de alegría que durará cincuenta días. El Manual de las indulgencias (4ª edición)... establece: "Se concede indulgencia plenaria al fiel cristiano que: El Viernes Santo de la Pasión y Muerte del Señor asista piadosamente a la adoración de la Cruz en la solemne acción litúrgica. Practique el piadoso servicio del Vía Crucis o se una piadosamente al que practica el Sumo Pontífice y que es retransmitido por los medios telemáticos".</li>
+                        <li>Después de la celebración, en un momento oportuno, se desnuda el altar; pero permanece la Santa Cruz con dos o cuatro candeleros encendidos, de manera que pueda ser adorada por los fieles.</li>
+                        <li>Es conveniente que el Vía Crucis se celebre con el pueblo en las horas matutinas; mientras que en las horas vespertinas pueden celebrarse con los fieles algunos actos de piedad en torno al Señor muerto.</li>
                     </ul>
 
                     <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Sábado Santo de la Sepultura del Señor</h4>
@@ -325,11 +289,10 @@
                 </div>
 
                 <div>
-                    <h3 class="text-2xl font-bold text-yellow-600 uppercase mb-4 border-b pb-2">4. TIEMPO DE PASCUA</h3>
+                    <h3 class="text-2xl font-bold text-yellow-600 uppercase mb-4 border-b pb-2 mt-8">4. TIEMPO DE PASCUA</h3>
                     
-                    <p class="text-sm mb-3">"La obra de la redención humana y de la perfecta glorificación de Dios, Cristo la realizó principalmente por el Misterio Pascual, mediante el cual con su muerte destruyo nuestra muerte y con su Resurrección restauró nuestra vida. Por esta razón el santo Triduo pascual de la Pasión y Resurrección del Señor es el centro del año litúrgico. Así como el domingo constituye el núcleo de la semana, también la solemnidad de Pascua constituye el núcleo del año litúrgico" (NUALC, n. 18).</p>
+                    <p class="text-sm mb-3">"La obra de la redención humana y de la perfecta glorificación de Dios, Cristo la realizó principalmente por el Misterio Pascual, mediante el cual con su muerte destruyo nuestra muerte y con su Resurrección restauró nuestra vida. Por esta razón el santo Triduo pascual de la Pasión y Resurrección del Señor es el centro del año litúrgico. Así como el domingo constituye el núcleo de la semana, también la solemnidad de Pascua constituye el núcleo del año litúrgico".</p>
                     <p class="text-sm mb-3">El Tiempo de Pascua es el período más importante del año litúrgico cristiano, pues celebra el misterio central de la fe: la resurrección de Jesucristo. Este Tiempo, también conocido como Cincuentena Pascual, se extiende desde la Vigilia Pascual en la noche del Sábado Santo hasta el Domingo de Pentecostés, abarcando un total de 50 días. Durante este período, la Iglesia vive en un estado de alegría profunda, celebrando la victoria de Cristo sobre la muerte y el pecado.</p>
-                    <p class="text-sm mb-3">Históricamente, el núcleo de la celebración pascual es muy antiguo. Ya desde los primeros siglos del cristianismo se celebraba la resurrección del Señor, aunque al inicio era una única fiesta. Con el tiempo, la celebración se expandió hasta abarcar varios dias y finalmente cincuenta, como una gran solemnidad continua, sin interrupción, lo cual refleja la importancia del misterio pascual.</p>
                     <p class="text-sm mb-3">Este tiempo tiene características propias:</p>
                     <ul class="list-disc pl-5 space-y-2 text-sm mb-3">
                         <li>el color litúrgico es el blanco;</li>
@@ -337,66 +300,31 @@
                         <li>se recomienda hacer la aspersión con el agua bendita en señal del Bautismo;</li>
                         <li>el cirio pascual permanece encendido en el presbiterio en todas las celebraciones.</li>
                     </ul>
-                    <p class="text-sm mb-3">Dado que la Pascua es unos de los Tiempos importantes del año litúrgico, -podríamos señalar el más importante, ya que cuenta como la Navidad, con "octava" y su duración es de 50 días. La octava de Pascua nace a finales del siglo IV, pero el significado primitivo de la cincuentena pascual comenzó a decaer, y por eso se empezó a celebrar la octava pascual, tanto en Oriente como en Occidente.</p>
-                    <p class="text-sm mb-3">El ciclo antiguo de las siete semanas se desdobló en otro nuevo ciclo de ocho días, con un carácter eminentemente bautismal. La octava permitía a los neófitos gustar las delicias de su Bautismo y ser introducidos a ellos misterios que conlleva el Bautismo y la Eucaristía, prolongando durante una semana "el día que hizo el Señor" (Sal 117, 24).</p>
-                    <p class="text-sm mb-3">Al principio fueron siete los días bautismales, siendo el sábado el momento en que los neófitos se desprendían de los vestidos blancos recibidos en el Bautismo. Más tarde se trasladó este rito al domingo, llamado por esta razón in albis. Los nuevos bautizados tomaban asiento entre el pueblo. La octava de Pascua se llamó alba o blanca.</p>
-                    <p class="text-sm mb-3">El objetivo de esta semana consistía en que los neófitos recibiesen las últimas catequesis, denominadas mistagógicas, por ejemplo, las catequesis de san Cirilo de Jerusalén y las de san Ambrosio. La octava de Pascua está, pues, en relación con la iniciación a los sacramentos de los recién bautizados en la Vigilia Pascual.</p>
-                    <p class="text-sm mb-3">Las Normas universales sobre el Año Litúrgico y el Calendario establece que el Tiempo Pascual comienza con la Vigilia Pascual y se prolonga durante siete semanas hasta el Pentecostés: "Los cincuenta días que van del domingo de Resurrección al domingo de Pentecostés se celebran con alegria y exultación como si se tratara de un solo día de fiesta, o mejor dicho, de un gran domingo" (n. 22).</p>
-                    <p class="text-sm mb-3">En la Constitución Sacrosanctum Concilium, se resalta también la centralidad de la Pascua, como fundamento del año litúrgico: "La santa madre Iglesia considera deber suyo celebrar con un sagrado recuerdo en días determinados a través del año la obra salvífica de su divino Esposo, Cada semana, en el día que llamó 'del Señor', conmemora su Resurrección, que una vez al año celebra también, junto con su santa Pasión, en la máxima solemnidad de la Pascua" (n. 102).</p>
-                    <p class="text-sm mb-3">Durante los siete domingos de Pascua, la liturgia celebra el mensaje pascual de la resurrección del Señor, la alegría de la Iglesia por la renacida esperanza, la vida nueva de los que han sido bautizados (neófitos) y la acción del Espíritu Santo en la comunidad cristiana. Se trata, en definitiva, de celebrar prolongadamente la Pascua. Recordemos que la fiesta principal del año no es el Viernes Santo, sino el Domingo de Resurrección.</p>
-                    <p class="text-sm mb-3">La reforma conciliar de la liturgia ha restituido al Tiempo Pascual su significado: "los cincuenta días que van del Domingo de Resurrección hasta el Domingo de Pentecostés se celebran con alegría y júbilo, como si se tratara de un único día de fiesta o, mejor aún, de un gran domingo" (NUALC, n. 22).</p>
-                    <p class="text-sm mb-3">En suma, el Tiempo de Pascua es celebración del misterio de la exaltación de Cristo, constituido Señor del universo y cabeza de la humanidad. Es periodo de plenitud y de profundización en el Bautismo recibido o en la fe ya vivida. Es cincuentena hasta Pentecostés, en que predomina la acción del Espíritu. Es tiempo de alegría y de banquete (sin ayunos), en el que se canta el aleluya y en el que la comunidad se reconoce como misterio de comunión fraternal, realizada por el Espíritu de Jesús en forma de koinonia.</p>
-                    <p class="text-sm mb-3">La Instrucción General del Misal Romano, en el n. 329 y siguientes, regula las celebraciones de este Tiempo. Destaca que durante la Pascua se celebran de manera especial los sacramentos de la Iniciación Cristiana, sobre todo el Bautismo, que tiene un fuerte vínculo con la resurrección de Cristo.</p>
-                    <p class="text-sm mb-3">El Tiempo Pascual concluye en el quincuagésimo día, con el Domingo de Pentecostés, la efusión del Espíritu Sato a los apóstoles (cfr. Hech 2, 1-4), los comienzos de la Iglesia y el inicio de su misión a toda lengua, pueblo y nación. Es significativo la importancia que ha adquirido, especialmente en las catedrales y luego en las parroquias, la Misa de la Vigilia, que tiene el carácter de una oración intensa y perseverante de toda la comunidad cristiana, según el ejemplo de los apóstoles, en oración unánime con la Madre del Señor.</p>
-
-                    <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Celebraciones con textos particulares en Pascua</h4>
-                    <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed mb-6">
-                        <li>La solemnidad de la Ascensión conserva como primera lectura la narración del suceso según los Hechos de los Apóstoles, y este texto es completado por las lecturas apostólicas acerca de Cristo ensalzado a la derecha del Padre. En la lectura del Evangelio, cada ciclo presenta el texto propio según las variantes de cada evangelista.</li>
-                        <li>La solemnidad de Pentecostés, en la Misa que se celebra por la tarde en la Vigilia de Pentecostés, se ofrecen cuatro textos del Antiguo Testamento, para que se elija a voluntad uno de ellos, los cuales ilustran el múltiple significado de la solemnidad. La lectura apostólica explica cómo el Espíritu realiza su función en la Iglesia. Finalmente, la lectura evangélica recuerda la promesa del Espíritu hecha por Cristo, cuando aún no había sido glorificado. Es una Misa propia con Gloria, Secuencia, Credo y prefacio propio.</li>
-                    </ul>
-
-                    <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Normatividad que hemos de seguir en estos días</h4>
-                    <ol class="list-decimal pl-5 space-y-2 text-sm leading-relaxed mb-6">
-                        <li>Cada día tiene su formulario propio.</li>
-                        <li>Durante la octava de Pascua se dice la Misa del día litúrgico propio, como las solemnidades del Señor y se canta el Gloria. La Secuencia es facultativa. Las plegarias eucarísticas tienen elementos propios y es conveniente emplear la bendición solemne; hágase memoria en ellas de los que han recibido el Bautismo en la Vigilia Pascual.</li>
-                        <li>Los neófitos tengan reservado un lugar especial entre los fieles durante todo el Tiempo Pascual, en las Misas dominicales, y hágase mención de ellos en la homilía y en la oración de los fieles.</li>
-                        <li>En las memorias obligatorias que coinciden con las ferias del Tiempo Pascual se dice la colecta propia. En cambio, la oración sobre las ofrendas y la de después de la Comunión, si no son propias, se pueden tomar o del Común o de la feria correspondiente (IGMR, n. 363). El prefacio se toma del Tiempo o del Común.</li>
-                        <li>En las ferias y memorias libres se puede elegir la Misa de feria o la Misa de uno de los santos de los que se hace memoria libre, o la Misa de algún santo inscrito ese día en el Martirologio (IGMR, n. 355b). En las memorias de los santos se toma la colecta propia o, si carece de ella, la del Común correspondiente. En cambio, la oración sobre las ofrendas y la de después de la Comunión, si no son propias, se pueden tomar o del Común o de la feria correspondiente (IGMR, n. 363). El prefacio se toma del Tiempo o del Común.</li>
-                        <li>Los domingos no se permiten las Misas de difuntos ni la exequial (IGMR, n. 380). Durante la octava tampoco se permiten las Misas de difuntos, excepto la exequial. En las ferias después de la octava pueden celebrarse la Misa exequial y las Misas de difuntos después de recibida la noticia de la muerte y en el primer aniversario, pero no se permiten las Misas cotidianas de difuntos durante todo este Tiempo litúrgico (IGMR, n. 381).</li>
-                    </ol>
-
-                    <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Punto de vista pastoral</h4>
-                    <p class="text-sm mb-3">Desde un punto de vista pastoral el Tiempo de Pascua debe ser un tiempo de renovación espiritual. Se invita a las comunidades cristianas a acentuar la catequesis mistagógica, especialmente con los neófitos (recién bautizados), profundizando en los sacramentos recibidos durante la Vigilia Pascual:</p>
-                    <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed mb-6">
-                        <li>Resaltar el cirio pascual como símbolo de Cristo resucitado;</li>
-                        <li>Fomentar la participación activa en la liturgia de la palabra, especialmente en la lectura del libro de los Hechos de los Apóstoles, que se proclama durante todos los días del Tiempo Pascual;</li>
-                        <li>Estimular la vivencia comunitaria de la fe mediante encuentros, retiros o convivencias de Resurrección;</li>
-                        <li>La bendición de las casas es una buena práctica;</li>
-                        <li>Promover la devoción mariana durante el mes de mayo, que suele coincidir con la parte final del Tiempo Pascual, sin perder de vista el enfoque pascual.</li>
-                    </ul>
+                    <p class="text-sm mb-3">La Instrucción General del Misal Romano regula las celebraciones de este Tiempo. Destaca que durante la Pascua se celebran de manera especial los sacramentos de la Iniciación Cristiana, sobre todo el Bautismo, que tiene un fuerte vínculo con la resurrección de Cristo.</p>
+                    <p class="text-sm mb-3">El Tiempo Pascual concluye en el quincuagésimo día, con el Domingo de Pentecostés, la efusión del Espíritu Sato a los apóstoles, los comienzos de la Iglesia y el inicio de su misión a toda lengua, pueblo y nación.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mt-6 mb-2">Vigilia Pascual en la Noche Santa</h4>
                     <ul class="list-disc pl-5 space-y-2 text-sm leading-relaxed mb-6">
-                        <li>La Vigilia Pascual ya es celebración del Domingo de Pascua y NO ES SÁBADO SANTO: a diferencia de los demás domingos del año, no comienza con la tarde sino con la noche; por eso también el Sábado Santo es el único sábado del año que tiene la celebración de Vís peras que no son Vísperas de domingo.</li>
-                        <li>Toda la celebración de la Vigilia Pascual se debe hacer en la noche, de modo que NO DEBE DE INICIAR ANTES DE QUE OSCUREZCA, NI TERMINAR DESPUÉS DEL ALBA del Domin- go (Misal Romano, Vigilia Pascual en la Noche Santa, n. 3). Por lo tanto, la Vigilia Pascual INICIA NECESARIAMENTE HASTA QUE YA HAYA OSCURECIDO: no puede celebrarse mientras aún haya luz, aunque el sol ya se haya puesto.</li>
+                        <li>La Vigilia Pascual ya es celebración del Domingo de Pascua y NO ES SÁBADO SANTO: a diferencia de los demás domingos del año, no comienza con la tarde sino con la noche; por eso también el Sábado Santo es el único sábado del año que tiene la celebración de Vísperas que no son Vísperas de domingo.</li>
+                        <li>Toda la celebración de la Vigilia Pascual se debe hacer en la noche, de modo que NO DEBE DE INICIAR ANTES DE QUE OSCUREZCA, NI TERMINAR DESPUÉS DEL ALBA del Domingo. Por lo tanto, la Vigilia Pascual INICIA NECESARIAMENTE HASTA QUE YA HAYA OSCURECIDO: no puede celebrarse mientras aún haya luz, aunque el sol ya se haya puesto.</li>
                         <li>El altar se viste con manteles festivos.</li>
                         <li>La Cruz con la imagen de Cristo crucificado, debe permanecer en el presbiterio, en su lugar NO se coloca una imagen de Cristo resucitado: el Cirio Pascual es el icono del Resucitado.</li>
                         <li>Cerca del ambón se coloca el candelabro para el Cirio Pascual.</li>
-                        <li>Se inicia con la invocación En el nombre del Padre, y del Hijo, y del Espiritu Santo, y a con- tinuación el saludo El Señor esté con ustedes, o algún otro del Misal. A continuación, se hace una breve monición sobre la base de la que se encuentra en el Misal.</li>
+                        <li>Se inicia con la invocación En el nombre del Padre, y del Hijo, y del Espiritu Santo, y a continuación el saludo El Señor esté con ustedes, o algún otro del Misal. A continuación, se hace una breve monición sobre la base de la que se encuentra en el Misal.</li>
                         <li>Para la bendición del fuego nuevo NO se utiliza agua bendita, pues ésta será bendecida hasta la Liturgia bautismal.</li>
                         <li>El Cirio Pascual es la imagen del Resucitado: las palabras con las que se prepara el Cirio Pascual manifiestan que es una de las presencias de Cristo, y éste resucitado. Por lo tanto, en la iglesia la presencia del Resucitado será el Cirio Pascual, no hace falta otra imagen. pero deberá estar la Cruz con la imagen del Crucificado.</li>
-                        <li>El Cirio Pascual es introducido a la iglesia en una procesión. Se eleva el Cirio Pascual y se canta Luz de Cristo con la respuesta Demos gracias a Dios, tres veces: a la entrada de la iglesia, a la mitad de la misma y a la entrada del presbiterio. En la primera vez, sólo el cele- brante enciende su cirio; en la segunda lo hacen todos los presentes; al colocar el Cirio Pascual en el candelabro, SE ENCIENDEN TODAS LAS LUCES DE LA IGLESIA, a excep- ción de las velas del altar.</li>
+                        <li>El Cirio Pascual es introducido a la iglesia en una procesión. Se eleva el Cirio Pascual y se canta Luz de Cristo con la respuesta Demos gracias a Dios, tres veces: a la entrada de la iglesia, a la mitad de la misma y a la entrada del presbiterio. En la primera vez, sólo el celebrante enciende su cirio; en la segunda lo hacen todos los presentes; al colocar el Cirio Pascual en el candelabro, SE ENCIENDEN TODAS LAS LUCES DE LA IGLESIA, a excepción de las velas del altar.</li>
                         <li>El Cirio Pascual se inciensa únicamente antes del Pregón pascual; no se vuelve a incensar durante la Vigilia Pascual ni en las celebraciones del Tiempo de Pascua.</li>
                         <li>En la procesión del Lucernario, NO se utilizan ni la cruz procesional ni los ciriales.</li>
-                        <li>Durante el Pregón pascual las luces de la iglesia ESTÁN ENCENDIDAS y los fieles perma necen con sus velas también encendidas. LAS LUCES DE LA IGLESIA NO SE VUELVEN A APAGAR EN NINGÚN MOMENTO.</li>
+                        <li>Durante el Pregón pascual las luces de la iglesia ESTÁN ENCENDIDAS y los fieles permanecen con sus velas también encendidas. LAS LUCES DE LA IGLESIA NO SE VUELVEN A APAGAR EN NINGÚN MOMENTO.</li>
                         <li>Hay que observar las indicaciones en el Misal cuando el Pregón no es cantado por un diácono.</li>
                         <li>Es muy conveniente que en la Liturgia de la Palabra se proclamen las 7 lecturas del Antiguo Testamento con sus respectivos Salmos responsoriales y oraciones, más la Epistola y el Evangelio.</li>
                         <li>Terminadas las lecturas del Antiguo Testamento y antes del Gloria, se encienden las velas del altar, se tocan las campanas del campanario y la campanilla al interior de la Iglesia.</li>
-                        <li>Terminada la Epístola, el sacerdote entona tres veces el Aleluya, que todos repiten en cada ocasión. A continuación, se canta el Salmo aleluyático (Sal 117).</li>
+                        <li>Terminada la Epístola, el sacerdote entona tres veces el Aleluya, que todos repiten en cada ocasión. A continuación, se canta el Salmo aleluyático.</li>
                         <li>No se llevan ciriales para el Evangelio.</li>
-                        <li>La Liturgia bautismal tiene lugar, aunque no se celebre el sacramento del Bautismo: san Pablo a los Romanos recuerda que el Bautismo es la participación sacramental en la muer- te y resurrección del Señor, porque celebrar la Resurrección de Cristo es celebrar que con ella nos dio la vida nueva que recibimos en el Bautismo.</li>
-                        <li>Si no hay fuente bautismal, se omiten las letanías de los santos y solamente se bendice el agua. Pero, si hay fuente bautismal, aunque no haya bautismos, se bendice la fuente bau- tismal y se cantan las letanías, de pie.</li>
-                        <li>La renovación de las promesas bautismales encuentran su sello con la aspersión con el agua, especialmente si ésta se toma de la fuente bautismal apenas bendecida; por lo que ambos ritos están estrechamente ligados. Es importante hacer notar esto a los fieles. Con- siguientemente, la renovación de las promesas bautismales NO PUEDE utilizarse como forma alternativa de la Profesión de fe en otras celebraciones fuera del contexto de la reno- vación bautismal.</li>
+                        <li>La Liturgia bautismal tiene lugar, aunque no se celebre el sacramento del Bautismo: san Pablo a los Romanos recuerda que el Bautismo es la participación sacramental en la muerte y resurrección del Señor, porque celebrar la Resurrección de Cristo es celebrar que con ella nos dio la vida nueva que recibimos en el Bautismo.</li>
+                        <li>Si no hay fuente bautismal, se omiten las letanías de los santos y solamente se bendice el agua. Pero, si hay fuente bautismal, aunque no haya bautismos, se bendice la fuente bautismal y se cantan las letanías, de pie.</li>
+                        <li>La renovación de las promesas bautismales encuentran su sello con la aspersión con el agua, especialmente si ésta se toma de la fuente bautismal apenas bendecida; por lo que ambos ritos están estrechamente ligados. Es importante hacer notar esto a los fieles. Consiguientemente, la renovación de las promesas bautismales NO PUEDE utilizarse como forma alternativa de la Profesión de fe en otras celebraciones fuera del contexto de la renovación bautismal.</li>
                         <li>Conviene distribuir la Comunión con el Cuerpo y la Sangre de Cristo. Se hace la despedida con el "aleluya, aleluya".</li>
                     </ul>
 
@@ -410,26 +338,30 @@
                 </div>
 
                 <div>
-                    <h3 class="text-2xl font-bold text-green-700 uppercase mb-4 border-b pb-2">5. TIEMPO ORDINARIO O "DURANTE EL AÑO"</h3>
+                    <h3 class="text-2xl font-bold text-green-700 uppercase mb-4 border-b pb-2 mt-8">5. TIEMPO ORDINARIO O "DURANTE EL AÑO"</h3>
                     
                     <p class="text-sm font-semibold italic text-gray-600 mb-4">Ecce cuius imperii nomen est in aeternum<br>El Reino que ya está presente y que también esperamos alcanzar en el cielo.</p>
                     
                     <h4 class="text-lg font-bold text-gray-900 mb-2">Introducción</h4>
-                    <p class="text-sm mb-3">La antifona de entrada de la Hebdomada I "per annum" (I Semana del Tiempo Ordinario), Ecce cuius imperii nomen est in aeternum, nos revela la existencia de un Hombre cuyo Reino permanece eternamente. Sólo quien es capaz de gobernar el tiempo, de convertirse en su dueño, tiene el poder para existir en la eternidad.</p>
-                    <p class="text-sm mb-3">Antiguamente los griegos creían en dos divinidades que tendrían la capacidad de intervenir en el tiempo: el dios cronos (χρόνος) y el dios eón (αιών). Es por eso que, desde los primeros siglos del cristianismo, la misión salvadora de Jesucristo representaba el nuevo eón que inauguraba el octavo día sin fin.</p>
-                    <p class="text-sm mb-3">La palabra de Dios afirma que el Reino del Hijo del Altísimo no tendrá fin (cfr. Dn 7, 14; Lc 1, 33), porque con su Resurrección nos ha dado testimonio de esto.</p>
+                    <p class="text-sm mb-3">La antifona de entrada de la Hebdomada I "per annum", nos revela la existencia de un Hombre cuyo Reino permanece eternamente. Sólo quien es capaz de gobernar el tiempo, de convertirse en su dueño, tiene el poder para existir en la eternidad.</p>
+                    <p class="text-sm mb-3">Antiguamente los griegos creían en dos divinidades que tendrían la capacidad de intervenir en el tiempo: el dios cronos y el dios eón. Es por eso que, desde los primeros siglos del cristianismo, la misión salvadora de Jesucristo representaba el nuevo eón que inauguraba el octavo día sin fin.</p>
+                    <p class="text-sm mb-3">La palabra de Dios afirma que el Reino del Hijo del Altísimo no tendrá fin, porque con su Resurrección nos ha dado testimonio de esto.</p>
                     <p class="text-sm mb-3">Pero ¿quién es este hombre?; ¿y por qué ha sido capaz de concedernos tal gracia a nosotros los mortales?; ¿qué misterio esconde su vida? El texto eucológico antes mencionado nos responde y nos abre el panorama del Reino de Dios, que culminará litúrgicamente con la solemnidad de Nuestro Señor Jesucristo, Rey del Universo.</p>
                     <p class="text-sm mb-3">Y es también el itinerario que la liturgia de la Iglesia nos invita a descubrir durante el Tiempo Ordinario. Cada día que se conmemora el misterio de Cristo se actualiza esa presencia suya que diariamente podemos vivir en la Eucaristía. Ya lo afirmaba Odo Casel diciendo que en Dios el hoy es actualidad y presencia que no desfallece.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">Historia</h4>
                     <p class="text-sm mb-3">Para comprender mejor la historia del Tiempo Ordinario es necesario adentrarnos en el mundo de la tipología de los libros litúrgicos, especialmente aquellos destinados a las lecturas dentro de la Misa.</p>
-                    <p class="text-sm mb-3">En los más antiguos manuscritos, los denominados Epistolarios y Evangeliarios, destinados a las lecturas de las epístolas y de los evangelios, ocupan un lugar especial los domingos que siguen a la Epifanía y a Pentecostés (esto ya anterior al siglo VI); cuando todavía no se había instituido en Roma el tiempo de la Septuagésima.</p>
+                    <p class="text-sm mb-3">En los más antiguos manuscritos, los denominados Epistolarios y Evangeliarios, destinados a las lecturas de las epístolas y de los evangelios, ocupan un lugar especial los domingos que siguen a la Epifanía y a Pentecostés; cuando todavía no se había instituido en Roma el tiempo de la Septuagésima.</p>
                     <p class="text-sm mb-3">Además, en los llamados Capitularia del Evangeliario romano puro, aparecen diez domingos después de la Epifanía y dieciséis después.</p>
                 </div>
 
             </div>
         </div>
     </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 mt-auto text-center text-xs uppercase tracking-widest">
+        © 2026 Manual Litúrgico - Parroquia San Pedro Apóstol<br>
+        Allende, Nuevo León, México
     </footer>
 
 </body>
