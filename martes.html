@@ -14,6 +14,10 @@
             background-size: cover; 
             background-position: center; 
         }
+        /* Estilo para la barra de desplazamiento del Rito de Envío */
+        .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+        .scrollbar-thin::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 4px; }
+        .scrollbar-thin::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -41,7 +45,7 @@
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-4 -mt-10 relative z-20">
+    <section class="max-w-5xl mx-auto px-4 -mt-10 relative z-20">
         <div class="bg-white rounded-2xl shadow-xl p-6 border-b-8 border-purple-700">
             <h2 class="text-xl font-bold text-gray-900 mb-2 italic">"La Luz frente a la Noche"</h2>
             <p class="text-sm text-gray-700 leading-relaxed mb-6">
@@ -49,18 +53,61 @@
             </p>
             
             <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 border-t pt-4">
-                <i class="fa-solid fa-clock text-purple-700"></i> Horarios de Misa 2026
+                <i class="fa-solid fa-clock text-purple-700"></i> Horarios y Ritos Especiales
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="p-4 bg-purple-50 rounded-lg border border-purple-100">
-                    <p class="font-bold text-purple-900 text-xs uppercase">Parroquia San Pedro (Allende)</p>
-                    <p class="text-gray-800 mt-2"><strong>Matutina:</strong> 8:00 AM</p>
-                    <p class="text-gray-800"><strong>Vespertina:</strong> 7:00 PM</p>
-                    <p class="text-[11px] text-gray-600 mt-2 italic">Misas breves enfocadas en la austeridad.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <div class="p-5 bg-purple-50 rounded-lg border border-purple-100 h-fit">
+                    <p class="font-bold text-purple-900 text-sm uppercase mb-3 border-b border-purple-200 pb-2">Parroquia San Pedro (Allende)</p>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-800 font-bold">Matutina: <span class="font-normal">8:00 AM</span></p>
+                            <p class="text-xs text-gray-600 italic">Misa breve enfocada en la austeridad.</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-800 font-bold">Vespertina: <span class="font-normal">7:00 PM</span></p>
+                            <p class="text-xs text-purple-700 font-semibold">Incluye el Rito de Envío a la Misa Crismal.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-center text-center">
-                    <p class="text-sm text-gray-500 font-medium">Sin celebraciones programadas hoy en Capilla San Judas Tadeo.</p>
+
+                <div class="p-5 bg-white rounded-lg border border-gray-200 shadow-sm overflow-y-auto h-80 scrollbar-thin">
+                    <h3 class="font-bold text-base text-purple-900 mb-4 uppercase text-center border-b pb-2 sticky top-0 bg-white z-10">Rito de Envío de los delegados a la Misa Crismal</h3>
+                    
+                    <h4 class="font-bold text-sm text-gray-900 mt-2">MONICIÓN DE ENTRADA</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed">En el contexto de la Semana Santa, en esta celebración se hará el envío de los miembros de nuestra parroquia que participarán como delegados en la Misa Crismal para recibir los Oleos santos y el santo Crisma. Unámonos en el amor y en la participación de la vida de Cristo poniendo todo nuestro ser en esta acción litúrgica.</p>
+
+                    <h4 class="font-bold text-sm text-gray-900 mt-4">MONICIÓN A LA LITURGIA DE LA PALABRA</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed">Escuchemos la Palabra de Dios que nos fortalece, nos invita a meditar y a reflexionar en nuestra vida, para acercarnos a los misterios de nuestra redención.</p>
+
+                    <p class="text-xs text-gray-500 italic mt-4 border-l-2 border-gray-300 pl-2">Después de la homilía se hace el rito de envío de los delegados parroquiales.</p>
+
+                    <h4 class="font-bold text-sm text-gray-900 mt-4">MONICIÓN PARA EL ENVÍO</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed">La Misa Crismal, que el día de mañana presidirá el Sr. Arzobispo Rogelio Cabrera López, es una de las principales manifestaciones de la plenitud sacerdotal del obispo y como un signo de la unión estrecha de los presbíteros con él. En esa Eucaristía, además de ser bendecidos el óleo de los enfermos y el de los catecúmenos, también será consagrado el Crisma. Estos óleos serán usados en la celebración de los sacramentos durante este año. Nuestra parroquia estará oficialmente representada a través de estos hermanos nuestros, a quienes delegamos para trasladar los santos oleos a nuestra parroquia.</p>
+
+                    <p class="text-xs text-gray-500 italic mt-4 border-l-2 border-gray-300 pl-2">Los fieles que han sido elegido para esta tarea, pasan ante el altar, el sacerdote les dirige estas u otras palabras parecidas:</p>
+
+                    <h4 class="font-bold text-sm text-gray-900 mt-4">ENVÍO Y BENDICIÓN</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed"><strong>Sacerdote:</strong> Ustedes han sido elegidos para representar a nuestra comunidad parroquial en esta celebración que el Obispo preside con su presbiterio. Procuren, con respeto y diligencia recibir los óleos para los sacramentos y traerlos con el respeto que se merecen.</p>
+                    <p class="text-xs text-gray-700 mt-2 leading-relaxed"><strong>Los fieles delegados:</strong> Con gusto recibimos esta encomienda, con devoción y comunión espiritual con nuestros pastores participaremos de la Misa Crismal, y entregaremos con diligencia el miércoles en la celebración de la noche, los Santos Oleos.</p>
+
+                    <h4 class="font-bold text-sm text-gray-900 mt-4">MONICIÓN</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed">Decimos todos:<br><strong class="text-purple-800">R. Te damos gracias, Señor.</strong></p>
+
+                    <h4 class="font-bold text-sm text-gray-900 mt-6 border-t pt-3">PLEGARIA UNIVERSAL</h4>
+                    <p class="text-xs text-gray-700 mt-1 leading-relaxed">Oremos a Dios, que nos ha dado a su Hijo amado para que sea nuestra luz y nuestra salvación, diciendo: <strong class="text-purple-800">Te rogamos, óyenos.</strong></p>
+                    <ul class="text-xs text-gray-700 mt-3 space-y-3">
+                        <li><strong>1.</strong> Para que la Iglesia, en estos días santos, viva plenamente unida a Cristo, su esposo, por la comunión de la oración y la gracia de los sacramentos. Oremos.</li>
+                        <li><strong>2.</strong> Para que, en todas las naciones, Cristo sea acogido como luz del mundo y fuente de vida verdadera. Oremos.</li>
+                        <li><strong>3.</strong> Para que sepamos ayudar a los pobres, reconociendo en ellos el rostro de Cristo, pobre y sufriente. Oremos.</li>
+                        <li class="italic text-gray-500">Puede añadirse una intención por la propia comunidad.</li>
+                        <li><strong>4.</strong> Para que nuestra fe se acompañe siempre del perfume de las buenas obras que nos hacen más agradables a los ojos de Dios. Oremos.</li>
+                    </ul>
+                    <p class="text-xs text-gray-700 mt-4 leading-relaxed">Escucha, Señor, las súplicas de tu pueblo que, confesando su fe en Jesús como Mesías, invoca tu auxilio; y haz que podamos expresar en toda ocasión nuestro amor por tu Ungido con la santidad de nuestra vida. Por Jesucristo nuestro Señor. <strong class="text-purple-800">R. Amén.</strong></p>
+                    
+                    <p class="text-xs text-gray-500 italic mt-4 border-l-2 border-gray-300 pl-2">La Misa prosigue como de costumbre.</p>
                 </div>
+
             </div>
         </div>
     </section>
