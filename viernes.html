@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viernes Santo - San Pedro Apóstol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg { 
+            /* Fondo rojo oscuro acorde al luto y la Sangre de Cristo */
+            background-image: linear-gradient(rgba(127, 29, 29, 0.85), rgba(127, 29, 29, 0.85)), url('portada-viernes.JPG'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-gray-600 font-bold hover:text-red-700 transition">
+                <i class="fa-solid fa-arrow-left"></i> Inicio
+            </a>
+            <img src="logo.PNG" alt="Logo" class="h-10 w-auto">
+        </div>
+    </header>
+
+    <section class="hero-bg h-[40vh] flex items-center justify-center text-center px-6">
+        <div class="relative z-10">
+            <span class="bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">
+                Color Litúrgico: Rojo
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight uppercase drop-shadow-lg">
+                Viernes Santo
+            </h1>
+            <p class="text-red-100 mt-4 uppercase tracking-widest font-medium text-lg">
+                La Pasión y Muerte del Señor
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-4 -mt-10 relative z-20">
+        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border-b-8 border-red-700">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight">"El Día de la Cruz"</h2>
+            <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+                Hoy es el único día del año en que la Iglesia <strong>no celebra la Eucaristía</strong> (no hay consagración). Es una jornada de luto, ayuno y abstinencia. El altar permanece completamente desnudo. Conmemoramos el arresto, el juicio, la crucifixión y la muerte de Jesucristo. El centro de la liturgia es la proclamación de la Pasión según San Juan, la solemne Oración Universal y la adoración de la Santa Cruz.
+            </p>
+            
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 border-t pt-6">
+                <i class="fa-solid fa-clock text-red-700"></i> Horarios de Oficios 2026
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-5 bg-red-50 rounded-xl border border-red-100">
+                    <p class="font-bold text-red-900 text-sm uppercase mb-2">Parroquia San Pedro (Allende)</p>
+                    <ul class="space-y-2 text-sm text-gray-800">
+                        <li><strong>10:00 AM</strong> - Santo Viacrucis</li>
+                        <li><strong>5:00 PM</strong> - Oficios de la Pasión del Señor</li>
+                        <li><strong>8:00 PM</strong> - Las Siete Palabras y Procesión del Silencio</li>
+                    </ul>
+                </div>
+                <div class="p-5 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-900 text-sm uppercase mb-2">Capilla San Judas Tadeo</p>
+                    <ul class="space-y-2 text-sm text-gray-800">
+                        <li><strong>10:00 AM</strong> - Santo Viacrucis</li>
+                        <li><strong>4:00 PM</strong> - Oficios de la Pasión del Señor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Directrices por Ministerio</h2>
+            <p class="mt-4 text-gray-600">Selecciona tu área para ver protocolos y registro del Viernes Santo.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <a href="misal-viernes.html" class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="misal.JPG" alt="Misal Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6 bg-white">
+                    <h3 class="text-lg font-bold text-gray-900">Misal Completo 📖</h3>
+                    <p class="text-sm text-gray-600 mt-2">Textos íntegros de la Pasión según san Juan y la solemne Oración Universal.</p>
+                </div>
+            </a>
+
+            <a href="mec-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="mec-viernes.JPG" alt="MEC Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ministros (MEC) 🍷</h3>
+                    <p class="text-sm text-gray-600 mt-2">Distribución de la Comunión utilizando la reserva eucarística del Jueves Santo.</p>
+                </div>
+            </a>
+
+            <a href="monaguillos-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="monaguillos-viernes.JPG" alt="Monaguillos Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Monaguillos 🕯️</h3>
+                    <p class="text-sm text-gray-600 mt-2">Asistencia en la postración inicial, Adoración de la Cruz y Procesión del Silencio.</p>
+                </div>
+            </a>
+
+            <a href="lectores-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="lectores-viernes.JPG" alt="Lectores Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Lectores 📖</h3>
+                    <p class="text-sm text-gray-600 mt-2">Proclamación a tres voces de la Pasión y lectura de las Siete Palabras.</p>
+                </div>
+            </a>
+
+            <a href="coro-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="coro-viernes.JPG" alt="Coro Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Coro y Música 🎶</h3>
+                    <p class="text-sm text-gray-600 mt-2">Cantos a capella, austeridad instrumental y cantos para la Adoración de la Cruz.</p>
+                </div>
+            </a>
+
+            <a href="ujieres-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="ujieres-viernes.JPG" alt="Ujieres Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ujieres y Hospitalidad 🤝</h3>
+                    <p class="text-sm text-gray-600 mt-2">Organización de las filas para adorar la Cruz y logística del Viacrucis.</p>
+                </div>
+            </a>
+
+            <a href="sacristia-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block md:col-span-2 lg:col-span-1 group">
+                <div class="overflow-hidden h-48 bg-gray-200">
+                    <img src="sacristia-viernes.JPG" alt="Sacristía Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Sacristía y Decoración 🏺</h3>
+                    <p class="text-sm text-gray-600 mt-2">Manejo del altar desnudo, preparación de la Santa Cruz y andas para la procesión.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full border-t-4 border-red-800">
+        Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
+        Allende, Nuevo León, México
+    </footer>
+
+</body>
+</html>
