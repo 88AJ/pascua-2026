@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jueves Santo - San Pedro Apóstol</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hero-bg { 
+            /* Se usa un tono gris pizarra elegante para resaltar el texto blanco y hacer alusión a la sobriedad previa a la adoración */
+            background-image: linear-gradient(rgba(71, 85, 105, 0.85), rgba(71, 85, 105, 0.85)), url('portada-Jueves.JPG'); 
+            background-size: cover; 
+            background-position: center 35%; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-gray-600 font-bold hover:underline">
+                <i class="fa-solid fa-arrow-left"></i> Inicio
+            </a>
+            <img src="logo.PNG" alt="Logo" class="h-10 w-auto">
+        </div>
+    </header>
+
+    <section class="hero-bg h-[40vh] flex items-center justify-center text-center px-6">
+        <div class="relative z-10">
+            <span class="bg-gray-100 text-gray-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">
+                Color Litúrgico: Blanco / Dorado
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight uppercase drop-shadow-md">
+                Jueves Santo
+            </h1>
+            <p class="text-gray-100 mt-2 uppercase tracking-widest font-medium text-sm">
+                La Cena del Señor y el Lavatorio
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-5xl mx-auto px-4 -mt-10 relative z-20">
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-b-8 border-gray-400">
+            <h2 class="text-xl font-bold text-gray-900 mb-2 italic">"La Puerta del Sagrado Triduo Pascual"</h2>
+            <p class="text-sm text-gray-700 leading-relaxed mb-6">
+                El Jueves Santo no es un día más; con la Misa Vespertina, la Cuaresma concluye y la Iglesia entra en el "Hoy" eterno de la Pasión. Nos trasladamos espiritualmente al Cenáculo, donde Jesús instituye tres grandes misterios: la Eucaristía (su Cuerpo y Sangre como alimento), el Sacerdocio (quienes hacen posible el milagro) y el Mandamiento del Amor, expresado vivamente en el Lavatorio de los Pies.
+            </p>
+            
+            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 border-t pt-4">
+                <i class="fa-solid fa-clock text-gray-700"></i> Horarios de Misa 2026
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 text-sm uppercase">Parroquia San Pedro (Allende)</p>
+                    <p class="text-gray-800 mt-2"><strong>Misa Vespertina:</strong> 6:00 PM</p>
+                    <p class="text-sm text-gray-600 mt-1 italic">Adoración (Altar de Reposo): 7:30 PM - 10:00 PM</p>
+                    <p class="text-[11px] text-red-600 font-bold mt-2 uppercase">NO HAY misas matutinas este día.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 text-sm uppercase">Capilla San Judas Tadeo</p>
+                    <p class="text-gray-800 mt-2"><strong>Misa Vespertina:</strong> 6:00 PM</p>
+                    <p class="text-sm text-gray-600 mt-1 italic">Adoración (Altar de Reposo): 6:30 PM - 9:00 PM</p>
+                    <p class="text-[11px] text-red-600 font-bold mt-2 uppercase">NO HAY misas matutinas este día.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900">Directrices por Ministerio</h2>
+            <p class="mt-4 text-gray-600">Selecciona tu área para ver tareas detalladas y registro.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <a href="misal-jueves.html" class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="misal.JPG" alt="Misal Jueves Santo" class="w-full h-48 object-contain bg-gray-100 p-2">
+                <div class="p-6 bg-white">
+                    <h3 class="text-lg font-bold text-gray-900">Misal Completo 📖</h3>
+                    <p class="text-sm text-gray-600 mt-2">Textos íntegros de las lecturas y oraciones para la celebración de la Cena del Señor.</p>
+                </div>
+            </a>
+
+            <a href="mec-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="mec-jueves.JPG" alt="MEC" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ministros Extraordinarios (MEC) 🍷</h3>
+                    <p class="text-sm text-gray-600 mt-2">Distribución de la Comunión y organización de la fila procesional hacia la plaza.</p>
+                </div>
+            </a>
+
+            <a href="monaguillos-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="monaguillos-jueves.JPG" alt="Monaguillos" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Monaguillos 🕯️</h3>
+                    <p class="text-sm text-gray-600 mt-2">Asistencia en el Lavatorio de Pies, campanillas en el Gloria y uso del incienso en la procesión.</p>
+                </div>
+            </a>
+
+            <a href="lectores-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="lectores-jueves.JPG" alt="Lectores" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Lectores 📖</h3>
+                    <p class="text-sm text-gray-600 mt-2">Proclamación de la institución de la Eucaristía y la Antigua Pascua.</p>
+                </div>
+            </a>
+
+            <a href="coro-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="coro-jueves.JPG" alt="Coro" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Coro y Música Litúrgica 🎶</h3>
+                    <p class="text-sm text-gray-600 mt-2">Canto festivo en el Gloria y acompañamiento profundo durante el Lavatorio y el traslado.</p>
+                </div>
+            </a>
+
+            <a href="ujieres-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="ujieres-jueves.JPG" alt="Ujieres" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Ujieres y Hospitalidad 🤝</h3>
+                    <p class="text-sm text-gray-600 mt-2">Logística de los "12 apóstoles", reparto del Pan Bendito y orden en la Adoración.</p>
+                </div>
+            </a>
+
+            <a href="sacristia-jueves.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block">
+                <img src="sacristia-jueves.JPG" alt="Sacristía" class="w-full h-48 object-cover object-center">
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900">Sacristía 🏺</h3>
+                    <p class="text-sm text-gray-600 mt-2">Sagrario vacío al inicio, montaje del Altar de Reposo y preparación del Lavatorio de Pies.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-10 mt-auto text-center text-xs uppercase tracking-widest">
+        Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026
+    </footer>
+
+</body>
+</html>
