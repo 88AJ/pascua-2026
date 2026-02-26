@@ -10,6 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        /* Contenedor responsivo para videos de YouTube */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -90,22 +106,38 @@
                 <i class="fa-solid fa-bell"></i> 1. Ritos Iniciales y El Gloria
             </h3>
             <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-100">
-                <ul class="list-disc pl-5 space-y-4 text-sm text-gray-700">
-                    <li><strong>Canto de Entrada:</strong> <em>"Juntos como Hermanos"</em>. Subraya la reunión de la familia en el amor.
-                        <div class="mt-3 space-y-2">
-                            <a href="https://youtu.be/GNAgIsaiRxY?si=o1P0G9lxqdBfFADz" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Juntos como Hermanos"</a><br>
-                            <a href="https://youtu.be/ipdp-xX09zY?si=C0smq6BAYR7grIaN" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Alternativa: "Hacia ti morada santa"</a><br>
-                            <a href="https://youtu.be/qwfh5HmwIxU?si=Dddk5XUD8hOcHJXF" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Alternativa: "Qué alegría cuando me dijeron"</a>
+                <ul class="list-disc pl-5 space-y-6 text-sm text-gray-700">
+                    <li>
+                        <strong>Canto de Entrada:</strong> <em>"Juntos como Hermanos"</em>. Subraya la reunión de la familia en el amor.
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">Opción Principal:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/GNAgIsaiRxY" title="Juntos como Hermanos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">Alternativa:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/ipdp-xX09zY" title="Hacia ti morada santa" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Señor ten piedad (Kyrie):</strong> 
-                        <div class="mt-2">
-                            <a href="https://youtu.be/dfm_iFmMwmQ?si=nc2bqkX6ggOljhg5" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Kyrie Eleison"</a>
+                    <li>
+                        <strong>Señor ten piedad (Kyrie):</strong>
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/dfm_iFmMwmQ" title="Kyrie Eleison" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>El Canto del Gloria (Momento Crucial):</strong> Se debe cantar un Gloria festivo. Inmediatamente después de la entonación, comenzará el repique de todas las campanas y campanillas, lo cual durará todo el canto. Al concluir la última nota, los instrumentos deben apagarse gradualmente. A partir de la Primera Lectura, la música será sobria y puramente vocal o con un acompañamiento instrumental levísimo.
-                        <div class="mt-3">
-                            <a href="https://youtu.be/T4H53dj1u6c?si=HV4VYWMtR7vS5AQ7" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Gloria Solemne"</a>
+                    <li>
+                        <strong>El Canto del Gloria (Momento Crucial):</strong> Se debe cantar un Gloria festivo. Inmediatamente después de la entonación, comenzará el repique de todas las campanas y campanillas, lo cual durará todo el canto. Al concluir la última nota, los instrumentos deben apagarse gradualmente.
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/T4H53dj1u6c" title="Gloria Solemne" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -117,16 +149,30 @@
                 <i class="fa-solid fa-hands-wash"></i> 2. Liturgia de la Palabra y Lavatorio
             </h3>
             <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-100">
-                <ul class="list-disc pl-5 space-y-4 text-sm text-gray-700">
-                    <li><strong>Aclamación antes del Evangelio:</strong> <em>"Honor y gloria a ti, Señor Jesús"</em>.
-                        <div class="mt-2">
-                            <a href="https://youtu.be/vcEFU5TRdTE?si=Z8FVQRB3FvSKxDhg" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar Aclamación</a>
+                <ul class="list-disc pl-5 space-y-6 text-sm text-gray-700">
+                    <li>
+                        <strong>Aclamación antes del Evangelio:</strong> <em>"Honor y gloria a ti, Señor Jesús"</em>.
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/vcEFU5TRdTE" title="Aclamación" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Lavatorio de los Pies:</strong> Mientras el Sacerdote lava los pies a los fieles elegidos, se deben entonar cantos que resalten el mandamiento del amor y la caridad. El canto debe durar el tiempo exacto de la acción.
-                        <div class="mt-3 space-y-2">
-                            <a href="https://youtu.be/3a9LNhwI-HE?si=Whj6TonwaT4tH0YF" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Un Mandamiento Nuevo"</a><br>
-                            <a href="https://youtu.be/DTQPIUX7pEc?si=QIdxQaA90Fc3hxm0" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Donde hay caridad y amor" (Ubi Caritas)</a>
+                    <li>
+                        <strong>Lavatorio de los Pies:</strong> Mientras el Sacerdote lava los pies a los fieles elegidos, se deben entonar cantos que resalten el mandamiento del amor y la caridad.
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">Un Mandamiento Nuevo:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/3a9LNhwI-HE" title="Un Mandamiento Nuevo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">Donde hay caridad y amor:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/DTQPIUX7pEc" title="Donde hay caridad y amor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -138,26 +184,44 @@
                 <i class="fa-solid fa-bread-slice"></i> 3. Liturgia Eucarística
             </h3>
             <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-100">
-                <ul class="list-disc pl-5 space-y-4 text-sm text-gray-700">
-                    <li><strong>Ofertorio:</strong> El Misal sugiere explícitamente el himno "Donde hay caridad y amor, allí está Dios" u otro canto de profunda índole eucarística y fraterna.
-                        <div class="mt-2">
-                            <a href="https://youtu.be/DTQPIUX7pEc?si=QIdxQaA90Fc3hxm0" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Ubi Caritas"</a>
+                <ul class="list-disc pl-5 space-y-6 text-sm text-gray-700">
+                    <li>
+                        <strong>Ofertorio:</strong> El Misal sugiere explícitamente el himno "Donde hay caridad y amor, allí está Dios" u otro canto de profunda índole eucarística.
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/DTQPIUX7pEc" title="Ubi Caritas" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Santo:</strong> Cantado solemnemente por toda la asamblea.
-                        <div class="mt-3 space-y-2">
-                            <a href="https://youtu.be/6znuLO9ugp4?si=UIcIM7WxCp3DfqmQ" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Santo" (Opción 1)</a><br>
-                            <a href="https://youtu.be/9c4PlQUFhfw?si=CnjhFHrQhKE6GFHR" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Santo" (Opción 2)</a>
+                    <li>
+                        <strong>Santo:</strong> Cantado solemnemente por toda la asamblea.
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/6znuLO9ugp4" title="Santo Opción 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/9c4PlQUFhfw" title="Santo Opción 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Cordero de Dios:</strong> 
-                        <div class="mt-2">
-                            <a href="https://youtu.be/LSG2OZZiRbU?si=fhrM_oVvk3kJGUlH" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Cordero de Dios"</a>
+                    <li>
+                        <strong>Cordero de Dios:</strong>
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/LSG2OZZiRbU" title="Cordero de Dios" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Comunión:</strong> Se entonan cantos eucarísticos. Hoy celebramos que Cristo nos dio su Cuerpo por primera vez.
-                        <div class="mt-2">
-                            <a href="https://youtu.be/BEp-XcJqrqc?si=jYoj4KzmKva3mvVw" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Milagro de Amor"</a>
+                    <li>
+                        <strong>Comunión:</strong> Se entonan cantos eucarísticos celebrando que Cristo nos dio su Cuerpo por primera vez.
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/BEp-XcJqrqc" title="Milagro de Amor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -169,16 +233,30 @@
                 <i class="fa-solid fa-shoe-prints"></i> 4. Traslado del Santísimo Sacramento
             </h3>
             <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-100">
-                <ul class="list-disc pl-5 space-y-4 text-sm text-gray-700">
-                    <li><strong>La Procesión:</strong> Omitido el rito de conclusión, inicia la procesión del Santísimo Sacramento hacia el Altar de Reposo. Durante el recorrido se debe cantar obligatoriamente el <strong>"Pange Lingua" (Canta, lengua, el misterio)</strong> excluyendo las dos últimas estrofas, u otro canto apropiado como <em>Cantemos al Amor de los Amores</em>.
-                        <div class="mt-3 space-y-2">
-                            <a href="https://youtu.be/PLgESCbVbMY?si=WQbUa_7O7AWfsfnU" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Pange Lingua" / "Cantemos al Amor..."</a><br>
-                            <a href="https://youtu.be/KGrXGIxU5QM?si=_IBl5trIwmiOkLYz" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "In Persona Christi"</a>
+                <ul class="list-disc pl-5 space-y-6 text-sm text-gray-700">
+                    <li>
+                        <strong>La Procesión:</strong> Omitido el rito de conclusión, inicia la procesión del Santísimo Sacramento hacia el Altar de Reposo. Durante el recorrido se debe cantar obligatoriamente el <strong>"Pange Lingua" (Canta, lengua, el misterio)</strong>.
+                        <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">Pange Lingua / Cantemos al Amor:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/PLgESCbVbMY" title="Pange Lingua" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-600 mb-1 text-xs">In Persona Christi:</p>
+                                <div class="video-container shadow-md">
+                                    <iframe src="https://www.youtube.com/embed/KGrXGIxU5QM" title="In Persona Christi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </li>
-                    <li><strong>Llegada al Monumento:</strong> Cuando el Sacerdote coloca el copón en el Sagrario del Altar de Reposo e inciensa, se debe cantar majestuosamente el <strong>"Tantum Ergo" (A tan grande Sacramento)</strong>.
-                        <div class="mt-2">
-                            <a href="https://youtu.be/80_8e1anXmo?si=Y66tphHywI90ptdd" target="_blank" class="inline-flex items-center gap-2 text-blue-700 font-medium hover:text-blue-800 hover:underline"><i class="fa-brands fa-youtube text-red-600 text-lg"></i> Escuchar "Tantum Ergo"</a>
+                    <li>
+                        <strong>Llegada al Monumento:</strong> Cuando el Sacerdote coloca el copón en el Sagrario del Altar de Reposo e inciensa, se debe cantar majestuosamente el <strong>"Tantum Ergo" (A tan grande Sacramento)</strong>.
+                        <div class="mt-3 w-full md:w-1/2">
+                            <div class="video-container shadow-md">
+                                <iframe src="https://www.youtube.com/embed/80_8e1anXmo" title="Tantum Ergo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </li>
                     <li><strong>Silencio Final:</strong> Al terminar el Sacerdote la adoración, todos se retiran. El coro no debe tocar nada más de fondo. La iglesia queda en completo silencio para dar paso a la adoración nocturna.</li>
