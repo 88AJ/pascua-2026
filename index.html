@@ -21,16 +21,20 @@
         /* Contenedor de imagen Semana Santa */
         .holyweek-img {
             width: 100%;
-            height: 200px;
+            height: 220px; /* Altura fija para la tarjeta */
             overflow: hidden;
             border-radius: 0.75rem 0.75rem 0 0;
+            background-color: #f3f4f6; /* Fondo gris claro para que la imagen resalte sin cortarse */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* Imagen */
         .holyweek-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* ESTA PROPIEDAD EVITA QUE SE RECORTE LA IMAGEN */
             transition: transform 0.6s ease;
         }
 
@@ -161,7 +165,7 @@
 
             <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
                 <div class="holyweek-img">
-                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/angelico-domingo.jpg" alt="Domingo de Resurrección" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/angelico-domingo.jpg" alt="Domingo de Resurrección - La Resurrección" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
@@ -173,7 +177,7 @@
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 py-12 relative z-20">
+    <section class="max-w-6xl mx-auto px-4 py-8 relative z-20">
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Sedes y Celebrantes</h2>
@@ -332,7 +336,7 @@
                         <li>A partir de que se lleva a cabo el rito de la Adoración de la Cruz, hasta antes de la Vigilia Pascual, se hace genuflexión ante la Cruz: ésta se vuelve el único signo de la presencia divina que permanece en la iglesia, ya que se ha trasladado el Santísimo Sacramento y se han quitado o cubierto las cruces e imágenes.</li>
                         <li>La celebración de la Pasión del Señor se hace después del mediodía, alrededor de las tres de la tarde: es importante la veracidad de la hora, según las Escrituras.</li>
                         <li>El altar debe estar desnudo por completo: sin cruz, sin candelabros y sin mantel.</li>
-                        <li>Se inicia con el sacerdote que se dirige al altar en silencio y se postra o arrodilla. La oración inicial NO lleva la invitation "Oremos".</li>
+                        <li>Se inicia con el sacerdote que se dirige al altar en silencio y se postra o arrodilla. La oración inicial NO lleva la invitación "Oremos".</li>
                         <li>Las lecturas son leídas por entero.</li>
                         <li>Para la proclamación de la Pasión del Señor no se lleva ni el incienso ni los ciriales. Pueden participar varios lectores, reservando al sacerdote, normalmente, la parte correspondiente a Cristo. Si el celebrante toma parte en la lectura de la Pasión dice, como habitualmente, Purifica... (Munda cor meum); si proclaman la Pasión diáconos, piden la bendición como habitualmente para el Evangelio; si la proclamación es hecha por laicos, se omite esta bendición.</li>
                         <li>En la proclamación de la Pasión:
