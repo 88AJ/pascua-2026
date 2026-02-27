@@ -11,6 +11,14 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         
+        /* Imagen de portada para mantener la uniformidad con Monaguillos y las demás */
+        .hero-bg { 
+            background-color: #7f1d1d;
+            background-image: linear-gradient(rgba(127, 29, 29, 0.9), rgba(127, 29, 29, 0.95)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/giotto-ramos.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+
         /* Ajuste para el iframe en móviles */
         .iframe-container {
             position: relative;
@@ -49,18 +57,18 @@
     </div>
 </header>
 
-<section class="text-center py-16 bg-white shadow-sm border-b-8 border-red-700">
-    <div class="max-w-4xl mx-auto px-4">
+<section class="hero-bg text-center py-16 shadow-sm border-b-8 border-red-700">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
         <span class="bg-red-100 text-red-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Color Litúrgico: Rojo</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-red-700 flex justify-center items-center gap-4 mt-2 tracking-tight">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white flex justify-center items-center gap-4 mt-2 tracking-tight">
             <i class="fa-solid fa-music text-red-300"></i>
             Coro y Música Litúrgica
         </h1>
-        <p class="mt-6 text-gray-600 text-lg leading-relaxed">
+        <p class="mt-6 text-red-100 text-lg leading-relaxed">
             Domingo de Ramos de la Pasión del Señor. Guía de ensamble, partituras y cantos sugeridos.
         </p>
         <div class="mt-8">
-            <a href="#registro" class="inline-block bg-red-600 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-red-700 transition text-lg font-semibold">
+            <a href="#registro" class="inline-block bg-white text-red-800 px-8 py-4 rounded-xl shadow-lg hover:bg-gray-100 transition text-lg font-semibold">
                 Registrarme para Cantar
             </a>
         </div>
@@ -108,81 +116,84 @@
                     <li><strong>La Pasión:</strong> Respetar escrupulosamente el silencio sagrado (sin música de fondo) y arrodillarse al momento de la muerte de Jesús en el relato.</li>
                 </ul>
             </div>
+
+            <div class="mt-8 bg-yellow-50 border border-yellow-200 p-6 rounded-xl text-sm text-yellow-900 shadow-sm">
+                <p class="font-bold uppercase tracking-wider text-sm mb-3 flex items-center gap-2 border-b border-yellow-200 pb-2">
+                    <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
+                </p>
+                <ul class="list-disc pl-5 space-y-3 text-base">
+                    <li><strong>Canto de Procesión:</strong> Es obligatorio acompañar la entrada del Señor con cantos adecuados (ej. "¡Que viva mi Cristo!" o la Antífona correspondiente) mientras la asamblea ingresa al templo.</li>
+                    <li><strong>Evangelio de la Pasión:</strong> En la proclamación de la Pasión, <strong>la asamblea no responde nada al inicio</strong>. El coro NO debe entonar "Gloria a ti, Señor".</li>
+                    <li><strong>Silencio Sagrado:</strong> Queda estrictamente omitida la música de fondo instrumental durante el relato de la Pasión. Todo debe ser aclamado a viva voz, culminando con el <em>"Gloria a ti, Señor Jesús"</em> rezado o cantado sobriamente al final.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-red-800">
         <h2 class="text-3xl font-extrabold text-gray-900 mb-8 uppercase tracking-tight border-b-2 pb-4">Guía Musical y Repertorio Sugerido</h2>
 
-        <div class="mb-8 bg-yellow-50 border border-yellow-200 p-5 rounded-xl text-sm text-yellow-900 shadow-sm">
-            <p class="font-bold uppercase tracking-wider text-xs mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
-            </p>
-            <p class="mb-2"><strong>Bendición de los ramos y las palmas:</strong> es necesario hacer íntegramente la bendición, que incluye la lectura del Evangelio que conmemora la Entrada del Señor en Jerusalén y al menos la entrada solemne del celebrante en la iglesia.</p>
-            <p><strong>La lectura de la Pasión</strong> se ha de hacer obligatoriamente en todas las Misas. Terminada la lectura de la Pasión, la asamblea NO responde nada al inicio; al final responde "Gloria a ti, Señor Jesús". No debe haber música de fondo durante esta lectura.</p>
-        </div>
-
         <div class="mb-12">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">1. Canto Procesional (Entrada)</h3>
-            <p class="text-base text-gray-700 mb-6">Mientras la procesión avanza, la asamblea entona la Antífona de Entrada con júbilo. <em>"Los niños hebreos, llevando ramos de olivo, salieron al encuentro del Señor"</em>.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">1. Canto Procesional (Entrada)</h3>
+            <p class="text-sm text-gray-600 mb-4">Mientras la procesión avanza, la asamblea entona la Antífona de Entrada con júbilo. <em>"Los niños hebreos, llevando ramos de olivo, salieron al encuentro del Señor"</em>.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/aDm_kupPDOA" title="Canto Procesional" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="mb-12">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">2. Salmo Responsorial (Salmo 21)</h3>
-            <p class="text-base text-gray-700 mb-6"><strong>R. "Dios mío, Dios mío, ¿por qué me has abandonado?"</strong> Este salmo es la oración misma de Jesús en la cruz. El salmista debe proclamar los versos con un tono de súplica confiada.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">2. Salmo Responsorial (Salmo 21)</h3>
+            <p class="text-sm text-gray-600 mb-4"><strong>R. "Dios mío, Dios mío, ¿por qué me has abandonado?"</strong> Este salmo es la oración misma de Jesús en la cruz. El salmista debe proclamar los versos con un tono de súplica confiada.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/TNBMADzJn-Y" title="Salmo Responsorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="mb-12">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">3. Aclamación antes del Evangelio</h3>
-            <p class="text-base text-gray-700 mb-6">El Coro canta la aclamación: <em>"Honor y gloria a ti, Señor Jesús"</em>. El verso que precede a la Pasión sintetiza el misterio: <em>"Cristo se humilló por nosotros y por obediencia aceptó incluso la muerte..."</em>.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">3. Aclamación antes del Evangelio</h3>
+            <p class="text-sm text-gray-600 mb-4">El Coro canta la aclamación: <em>"Honor y gloria a ti, Señor Jesús"</em>. El verso que precede a la Pasión sintetiza el misterio: <em>"Cristo se humilló por nosotros y por obediencia aceptó incluso la muerte..."</em>.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/rT_aM_kxIkg" title="Aclamación antes del Evangelio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="mb-12">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">4. Preparación de Dones (Ofertorio)</h3>
-            <p class="text-base text-gray-700 mb-6">Se seleccionarán cantos cuyo texto haga explícita referencia a la entrega de uno mismo y el ofrecimiento de la vida en el contexto de la Cruz.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">4. Preparación de Dones (Ofertorio)</h3>
+            <p class="text-sm text-gray-600 mb-4">Se seleccionarán cantos cuyo texto haga explícita referencia a la entrega de uno mismo y el ofrecimiento de la vida en el contexto de la Cruz.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/WsAME4uIhCg" title="Ofertorio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
-        <div class="mb-12 grid md:grid-cols-2 gap-8">
+        <div class="mb-12 grid md:grid-cols-2 gap-6">
             <div>
-                <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">5. Santo</h3>
-                <p class="text-base text-gray-700 mb-6">Debe ser cantado por toda la asamblea con máxima solemnidad para expresar la santidad del misterio.</p>
-                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                <h3 class="text-xl font-bold text-red-700 mb-2">5. Santo</h3>
+                <p class="text-sm text-gray-600 mb-4">Debe ser cantado por toda la asamblea con máxima solemnidad para expresar la santidad del misterio.</p>
+                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/_ID4jL1Vdnc" title="Santo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             <div>
-                <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">6. Cordero de Dios</h3>
-                <p class="text-base text-gray-700 mb-6">Se canta mientras el Sacerdote realiza la fracción del Pan, un gesto que simboliza la muerte de Cristo.</p>
-                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+                <h3 class="text-xl font-bold text-red-700 mb-2">6. Cordero de Dios</h3>
+                <p class="text-sm text-gray-600 mb-4">Se canta mientras el Sacerdote realiza la fracción del Pan, un gesto que simboliza la muerte de Cristo.</p>
+                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                     <iframe class="w-full h-full" src="https://www.youtube.com/embed/xKZ8opVJEng" title="Cordero de Dios" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
         <div class="mb-12">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">7. Comunión</h3>
-            <p class="text-base text-gray-700 mb-6">Cantos sugeridos: <em>"Nuestra Gloria es la cruz del Señor"</em> o <em>"Cristo y su cruz, la salvación"</em>. Deben reforzar que en el madero está nuestra vida.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">7. Comunión</h3>
+            <p class="text-sm text-gray-600 mb-4">Cantos sugeridos: <em>"Nuestra Gloria es la cruz del Señor"</em> o <em>"Cristo y su cruz, la salvación"</em>. Deben reforzar que en el madero está nuestra vida.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/JQ1qiOtlwjg" title="Comunión" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
 
         <div class="mb-4">
-            <h3 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">8. Despedida y Retiro</h3>
-            <p class="text-base text-gray-700 mb-6">El retiro debe realizarse en un clima de silencio respetuoso, o bien, con un canto final breve y sobrio que mantenga el tono de la Pasión.</p>
-            <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <h3 class="text-xl font-bold text-red-700 mb-2">8. Despedida y Retiro</h3>
+            <p class="text-sm text-gray-600 mb-4">El retiro debe realizarse en un clima de silencio respetuoso, o bien, con un canto final breve y sobrio que mantenga el tono de la Pasión.</p>
+            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md border border-gray-200">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/JHHikTR7cIY" title="Canto Final" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
