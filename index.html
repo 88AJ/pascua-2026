@@ -34,7 +34,8 @@
         .holyweek-img img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Esta propiedad evita el recorte de las obras de arte */
+            object-fit: cover; /* Esta propiedad evita el recorte de las obras de arte */
+            object-position: top center;
             transition: transform 0.6s ease;
         }
 
@@ -165,7 +166,7 @@
 
             <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
                 <div class="holyweek-img">
-                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/angelico-domingo.jpg" alt="Domingo de Resurrección - La Resurrección" loading="lazy">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/angelico-domingo.jpg" alt="Domingo de Resurrección" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
@@ -177,7 +178,7 @@
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 py-8 relative z-20">
+    <section class="max-w-6xl mx-auto px-4 py-12 relative z-20">
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
             <div class="text-center mb-8">
                 <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Sedes y Celebrantes</h2>
@@ -264,6 +265,50 @@
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">La palabra de Dios en Cuaresma. Leccionario Dominical</h4>
                     <p class="text-sm mb-3">Este año nos es presentada la riqueza de la palabra de Dios en los domingos del ciclo "A". Nos puede ser provechoso el considerar en su conjunto, el itinerario que la Iglesia nos ofrece, teniendo delante un cuadro sinóptico de las lecturas:</p>
                     <p class="text-sm italic mb-6">Ciclo dominical A: el camino bautismal de la Iglesia</p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full bg-white border border-gray-300 text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="py-2 px-4 border-b">Domingo</th>
+                                    <th class="py-2 px-4 border-b">Evangelio</th>
+                                    <th class="py-2 px-4 border-b">Tema Principal</th>
+                                    <th class="py-2 px-4 border-b">Dimensión Bautismal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">I de Cuaresma</td>
+                                    <td class="py-2 px-4 border-b">Mt 4, 1-11</td>
+                                    <td class="py-2 px-4 border-b">Las tentaciones en el desierto</td>
+                                    <td class="py-2 px-4 border-b">Renuncia a Satanás y al mal</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">II de Cuaresma</td>
+                                    <td class="py-2 px-4 border-b">Mt 17, 1-9</td>
+                                    <td class="py-2 px-4 border-b">La Transfiguración</td>
+                                    <td class="py-2 px-4 border-b">Iluminación / Profesión de fe</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">III de Cuaresma</td>
+                                    <td class="py-2 px-4 border-b">Jn 4, 5-42</td>
+                                    <td class="py-2 px-4 border-b">La Samaritana</td>
+                                    <td class="py-2 px-4 border-b">El agua viva del Bautismo</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">IV de Cuaresma</td>
+                                    <td class="py-2 px-4 border-b">Jn 9, 1-41</td>
+                                    <td class="py-2 px-4 border-b">El ciego de nacimiento</td>
+                                    <td class="py-2 px-4 border-b">Cristo es la luz (Iluminación)</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border-b">V de Cuaresma</td>
+                                    <td class="py-2 px-4 border-b">Jn 11, 1-45</td>
+                                    <td class="py-2 px-4 border-b">Resurrección de Lázaro</td>
+                                    <td class="py-2 px-4 border-b">Cristo es la vida nueva</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">El Santoral en la Cuaresma</h4>
                     <p class="text-sm mb-3">A lo largo del año litúrgico, los santos son honrados en días específicos y suelen ser mencionados por su nombre en las Misas diarias. Sin embargo, durante la Cuaresma, se privilegia el Misterio de Cristo, por lo que las fiestas o memorias de los santos pasan a ser conmemoraciones opcionales. En este Año litúrgico 2025-2026 nos encontramos con dos solemnidades: San José, el día 19 de marzo (dentro de la IV semana de Cuaresma) y la Anunciación del Señor, el 25 de marzo (dentro de la V semana de Cuaresma). Vale decir que estas dos fechas cuentan con los formularios propios, tanto en sus textos bíblicos como en sus oraciones.</p>
@@ -476,7 +521,19 @@
                     <p class="text-sm mb-3">Pero ¿quién es este hombre?; ¿y por qué ha sido capaz de concedernos tal gracia a nosotros los mortales?; ¿qué misterio esconde su vida? El texto eucológico antes mencionado nos responde y nos abre el panorama del Reino de Dios, que culminará litúrgicamente con la solemnidad de Nuestro Señor Jesucristo, Rey del Universo. Y es también el itinerario que la liturgia de la Iglesia nos invita a descubrir durante el Tiempo Ordinario. Cada día que se conmemora el misterio de Cristo se actualiza esa presencia suya que diariamente podemos vivir en la Eucaristía. Ya lo afirmaba Odo Casel diciendo que en Dios el hoy es actualidad y presencia que no desfallece.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">Historia</h4>
-                    <p class="text-sm mb-3">Para comprender mejor la historia del Tiempo Ordinario es necesario adentrarnos en el mundo de la tipología de los libros litúrgicos, especialmente aquellos destinados a las lecturas dentro de la Misa. En los más antiguos manuscritos, los denominados Epistolarios y Evangeliarios, destinados a las lecturas de las epístolas y de los evangelios, ocupan un lugar especial los domingos que siguen a la Epifanía y a Pentecostés (esto ya anterior al siglo VI); cuando todavía no se había instituido en Roma el tiempo de la Septuagésima. Además, en los llamados Capitularia del Evangeliario romano puro, aparecen diez domingos después de la Epifanía y dieciséis después</p>
+                    <p class="text-sm mb-3">Para comprender mejor la historia del Tiempo Ordinario es necesario adentrarnos en el mundo de la tipología de los libros litúrgicos, especialmente aquellos destinados a las lecturas dentro de la Misa. En los más antiguos manuscritos, los denominados Epistolarios y Evangeliarios, destinados a las lecturas de las epístolas y de los evangelios, ocupan un lugar especial los domingos que siguen a la Epifanía y a Pentecostés (esto ya anterior al siglo VI); cuando todavía no se había instituido en Roma el tiempo de la Septuagésima. Además, en los llamados Capitularia del Evangeliario romano puro, aparecen diez domingos después de la Epifanía y dieciséis después de Pentecostés. Ya a finales del siglo VII encontramos la denominación dominicae cotidianae, que se traduce como domingos de diario, o de Tiempo Ordinario.</p>
+                    <p class="text-sm mb-3">Es con el advenimiento del Concilio de Trento y la promulgación del Misal de san Pio V en 1570, cuando se organizó el año litúrgico de la siguiente manera: a la Epifanía seguían hasta seis domingos; y, desde la octava de Pentecostés hasta el Adviento, venían veinticuatro domingos. Este largo periodo después de Pentecostés constituía una serie ininterrumpida de domingos.</p>
+                    <p class="text-sm mb-3">Esta situación duró hasta la reforma del Concilio Vaticano II. Con el Calendario Romano General promulgado por Pablo VI en 1969, la Iglesia quiso que se valorizara la especificidad del domingo. De hecho, la Constitución Sacrosanctum Concilium enseñaba: "A fin de que los fieles conserven siempre vivo el sentido del domingo, no se le antepongan otras celebraciones que no sean de máxima importancia, ya que es el fundamento y el núcleo del año litúrgico" (SC 106). Por tanto, la reforma litúrgica reestructuró esta parte del año de forma más unitaria. Además del Tiempo de Adviento, Navidad, Cuaresma y Pascua, quedan treinta y tres o treinta y cuatro semanas en el transcurso del año, que no celebran un aspecto particular del misterio de Cristo. En ellas, se venera el misterio de Cristo en su plenitud, principalmente los domingos. Este periodo se llama Tiempo Ordinario (cfr. NUALC 43).</p>
+
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">Liturgia de la Palabra</h4>
+                    <p class="text-sm mb-3">La primera lectura es tomada del Antiguo Testamento; y el evangelio del Nuevo Testamento. Para el ciclo "A" está prevista la lectura del evangelio según san Mateo, y también se continúa con la lectura del apóstol san Pablo, que inició en la semana II del Tiempo Ordinario, se suspende la lectura para dar inicio a la Cuaresma y la Pascua y se retoma en el lunes de la semana VII.</p>
+                    <p class="text-sm mb-3">Las lecturas de este año están en íntima relación con la naturaleza misma del evangelio de san Mateo, y de una forma de catequesis. Las dos columnas del Tiempo Ordinario son el Domingo y la Eucaristía, en donde, la comunidad cristiana convoca, confiesa, rinde culto y ofrece el sacrificio espiritual a Dios por Cristo, con él y en él.</p>
+
+                    <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">La Espiritualidad del Tiempo Ordinario</h4>
+                    <p class="text-sm mb-3">Celebrar el Tiempo Ordinario no significa celebrar "el tiempo del relleno", sino celebrar el momento fuerte de la Iglesia que peregrina, la historia de los hombres que acogen a Cristo en lo concreto, en la simplicidad, en la belleza de lo diario, para transformar su historia en Historia de Salvación.</p>
+                    <p class="text-sm mb-3">El domingo del Tiempo Ordinario está caracterizado por una Eucaristía más extensa y participada. Para los fieles, la Misa dominical no es solo el cumplimiento de un precepto, sino el momento principal para la propia identidad cristiana, y para el encuentro vital con el Resucitado. De este encuentro sacramental deriva una vida vivida en la caridad y la justicia.</p>
+                    <p class="text-sm mb-3">La liturgia de las Horas, principalmente en sus oraciones principales (Laudes y Vísperas) debe ser la estructura y el ritmo de la vida del cristiano, el cual alaba a Dios en la mañana y por la tarde se acoge a su amor, recordando que "si el Señor no construye la casa, en vano se cansan los albañiles" (Sal 126).</p>
+                    <p class="text-sm mb-3">El cristiano es guiado cada día por la palabra de Dios, que se proclama asiduamente en la Misa ferial o que resuena en la liturgia de las horas; también por medio de la meditación y el estudio de la Sagrada Escritura (la lectio divina), un diálogo con Dios que debe transformar el corazón, la mente y la voluntad.</p>
                 </div>
 
             </div>
