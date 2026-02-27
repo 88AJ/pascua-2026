@@ -6,60 +6,87 @@
     <title>Camino hacia la Pascua 2026 | San Pedro Apóstol</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .hero-pattern {
+        .hero-bg {
             background-color: #111827;
-            background-image: radial-gradient(circle at center, #374151 0%, #111827 100%);
+            background-image: radial-gradient(circle at top right, #1f2937 0%, #030712 100%);
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <section class="hero-pattern text-white pt-20 pb-24 px-4 text-center border-b-8 border-yellow-600">
-        <div class="max-w-4xl mx-auto">
-            <span class="text-yellow-500 font-bold tracking-widest uppercase text-sm mb-4 block">
-                Semana Santa 2026
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-14 object-contain">
+                <div class="hidden md:block leading-tight">
+                    <h1 class="font-bold text-gray-900 uppercase tracking-tight text-sm">Parroquia San Pedro Apóstol</h1>
+                    <p class="text-xs text-yellow-600 font-semibold tracking-widest uppercase">Allende, N.L.</p>
+                </div>
+            </div>
+            <span class="font-extrabold text-gray-800 tracking-widest uppercase text-sm bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+                Pascua 2026
             </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 uppercase drop-shadow-lg">
+        </div>
+    </header>
+
+    <section class="hero-bg text-white pt-16 pb-24 px-4 text-center border-b-8 border-yellow-500 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-5 pointer-events-none flex justify-center items-center">
+            <i class="fa-solid fa-cross text-[25rem]"></i>
+        </div>
+        
+        <div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
+            <img src="logo.PNG" alt="San Pedro Apóstol" class="h-28 md:h-36 object-contain mb-6 drop-shadow-2xl bg-white/10 p-4 rounded-full backdrop-blur-sm border border-white/20">
+            
+            <span class="text-yellow-400 font-bold tracking-widest uppercase text-sm mb-4 block bg-black/30 px-4 py-1 rounded-full border border-yellow-500/30">
+                Triduo Pascual 2026
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 uppercase drop-shadow-lg text-white">
                 Camino hacia la Pascua
             </h1>
             <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-medium leading-relaxed">
-                Portal oficial de logística, directrices litúrgicas y registro de ministerios para el Triduo Pascual.
+                Portal oficial de logística, directrices litúrgicas y registro de ministerios para las celebraciones de la Semana Santa.
             </p>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 -mt-12 relative z-10 mb-16">
+    <section class="max-w-6xl mx-auto px-4 -mt-12 relative z-20 mb-16">
         <div class="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 md:p-12">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Sedes y Celebrantes</h2>
-                <div class="w-24 h-1 bg-yellow-500 mx-auto mt-4 rounded"></div>
+                <div class="w-16 h-1.5 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-md transition">
-                    <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-yellow-500 shadow-lg">
+                <div class="flex flex-col items-center p-8 bg-gray-50 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-yellow-500"></div>
+                    <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl ring-4 ring-gray-100 group-hover:ring-yellow-400 transition-all duration-300">
                         <img src="Pbro.%20Arturo%20Bernardo%20Flores%20Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre" class="w-full h-full object-cover object-top">
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 uppercase">Pbro. Arturo B. Flores Aguirre</h3>
-                    <p class="text-sm font-bold text-yellow-700 uppercase tracking-widest mt-1 mb-4">Párroco</p>
-                    <div class="bg-white px-6 py-3 rounded-xl shadow-sm border border-gray-200 w-full">
-                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Sede Asignada</p>
-                        <p class="font-semibold text-gray-800"><i class="fa-solid fa-church text-yellow-600 mr-2"></i> Parroquia San Pedro Apóstol</p>
+                    <h3 class="text-xl font-bold text-gray-900 uppercase text-center">Pbro. Arturo Bernardo<br>Flores Aguirre</h3>
+                    <p class="text-sm font-bold text-yellow-700 uppercase tracking-widest mt-2 mb-6 bg-yellow-100 px-3 py-1 rounded-full">Párroco</p>
+                    <div class="bg-white px-6 py-4 rounded-xl border border-gray-200 w-full text-center shadow-inner">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Preside Oficios en:</p>
+                        <p class="font-bold text-gray-800 flex items-center justify-center gap-2 text-lg">
+                            <i class="fa-solid fa-church text-yellow-600"></i> San Pedro Apóstol
+                        </p>
                     </div>
                 </div>
 
-                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:shadow-md transition">
-                    <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-yellow-500 shadow-lg">
+                <div class="flex flex-col items-center p-8 bg-gray-50 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-yellow-500"></div>
+                    <div class="w-40 h-40 mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl ring-4 ring-gray-100 group-hover:ring-yellow-400 transition-all duration-300">
                         <img src="Pbro.%20Alan%20Lorenzo%20Sanchez%20Valencia.JPEG" alt="Pbro. Alan Lorenzo Sanchez Valencia" class="w-full h-full object-cover object-top">
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 uppercase">Pbro. Alan L. Sánchez Valencia</h3>
-                    <p class="text-sm font-bold text-yellow-700 uppercase tracking-widest mt-1 mb-4">Vicario Parroquial</p>
-                    <div class="bg-white px-6 py-3 rounded-xl shadow-sm border border-gray-200 w-full">
-                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Sede Asignada</p>
-                        <p class="font-semibold text-gray-800"><i class="fa-solid fa-place-of-worship text-yellow-600 mr-2"></i> Capilla San Judas Tadeo</p>
+                    <h3 class="text-xl font-bold text-gray-900 uppercase text-center">Pbro. Alan Lorenzo<br>Sánchez Valencia</h3>
+                    <p class="text-sm font-bold text-yellow-700 uppercase tracking-widest mt-2 mb-6 bg-yellow-100 px-3 py-1 rounded-full">Vicario Parroquial</p>
+                    <div class="bg-white px-6 py-4 rounded-xl border border-gray-200 w-full text-center shadow-inner">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Preside Oficios en:</p>
+                        <p class="font-bold text-gray-800 flex items-center justify-center gap-2 text-lg">
+                            <i class="fa-solid fa-place-of-worship text-yellow-600"></i> Capilla San Judas
+                        </p>
                     </div>
                 </div>
             </div>
@@ -67,85 +94,151 @@
     </section>
 
     <section class="max-w-6xl mx-auto px-4 py-8 mb-16">
-        <div class="text-center mb-10">
+        <div class="text-center mb-12">
             <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Directrices por Día</h2>
-            <p class="mt-3 text-gray-600">Selecciona el día para consultar los horarios, el misal y las instrucciones de cada ministerio.</p>
+            <div class="w-16 h-1.5 bg-yellow-500 mx-auto mt-4 rounded-full"></div>
+            <p class="mt-4 text-gray-600 font-medium text-lg">Selecciona el día para consultar el misal, horarios y las instrucciones de cada ministerio.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <a href="viernes.html" class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border-t-4 border-red-800 group flex flex-col h-full">
-                <div class="p-8 flex-grow">
-                    <div class="w-14 h-14 bg-red-100 text-red-800 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-red-800 group-hover:text-white transition-colors">
+            <a href="jueves.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 border border-gray-200 group flex flex-col h-full overflow-hidden">
+                <div class="h-3 w-full bg-purple-600"></div>
+                <div class="p-8 flex-grow flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-bread-slice"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Jueves Santo</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Cena del Señor, Lavatorio de pies y traslación del Santísimo Sacramento.</p>
+                </div>
+                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto flex justify-between items-center group-hover:bg-purple-600 transition-colors duration-300">
+                    <span class="text-purple-700 font-bold text-sm uppercase tracking-wider group-hover:text-white">Ver directrices</span>
+                    <i class="fa-solid fa-arrow-right text-purple-700 group-hover:text-white group-hover:translate-x-2 transition-all"></i>
+                </div>
+            </a>
+
+            <a href="viernes.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 border border-gray-200 group flex flex-col h-full overflow-hidden">
+                <div class="h-3 w-full bg-red-800"></div>
+                <div class="p-8 flex-grow flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-red-50 text-red-800 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
                         <i class="fa-solid fa-cross"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 uppercase tracking-tight">Viernes Santo</h3>
-                    <p class="text-sm text-gray-600">La Pasión del Señor. Luto, austeridad, adoración de la cruz y Procesión del Silencio.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Viernes Santo</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Pasión del Señor. Luto, adoración de la cruz y Procesión del Silencio.</p>
                 </div>
-                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto">
-                    <span class="text-red-800 font-bold text-sm uppercase tracking-wider">Ver directrices <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto flex justify-between items-center group-hover:bg-red-800 transition-colors duration-300">
+                    <span class="text-red-800 font-bold text-sm uppercase tracking-wider group-hover:text-white">Ver directrices</span>
+                    <i class="fa-solid fa-arrow-right text-red-800 group-hover:text-white group-hover:translate-x-2 transition-all"></i>
                 </div>
             </a>
 
-            <a href="sabado.html" class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border-t-4 border-gray-800 group flex flex-col h-full">
-                <div class="p-8 flex-grow">
-                    <div class="w-14 h-14 bg-gray-200 text-gray-800 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-gray-800 group-hover:text-white transition-colors">
+            <a href="sabado.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 border border-gray-200 group flex flex-col h-full overflow-hidden">
+                <div class="h-3 w-full bg-gray-800"></div>
+                <div class="p-8 flex-grow flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-gray-100 text-gray-800 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
                         <i class="fa-solid fa-moon"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 uppercase tracking-tight">Sábado Santo</h3>
-                    <p class="text-sm text-gray-600">El Gran Silencio. Luto junto al sepulcro, acompañamiento a la Dolorosa y montaje a puerta cerrada.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Sábado Santo</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">El Gran Silencio. Acompañamiento a la Dolorosa y preparación del templo.</p>
                 </div>
-                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto">
-                    <span class="text-gray-800 font-bold text-sm uppercase tracking-wider">Ver directrices <i class="fa-solid fa-arrow-right ml-1"></i></span>
-                </div>
-            </a>
-
-            <a href="vigilia.html" class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border-t-4 border-yellow-500 group flex flex-col h-full">
-                <div class="p-8 flex-grow">
-                    <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-yellow-500 group-hover:text-white transition-colors">
-                        <i class="fa-solid fa-fire"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 uppercase tracking-tight">Vigilia Pascual</h3>
-                    <p class="text-sm text-gray-600">La Noche Santa. Bendición del Fuego Nuevo, Liturgia Bautismal y el regreso del Gloria.</p>
-                </div>
-                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto">
-                    <span class="text-yellow-700 font-bold text-sm uppercase tracking-wider">Ver directrices <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto flex justify-between items-center group-hover:bg-gray-800 transition-colors duration-300">
+                    <span class="text-gray-800 font-bold text-sm uppercase tracking-wider group-hover:text-white">Ver directrices</span>
+                    <i class="fa-solid fa-arrow-right text-gray-800 group-hover:text-white group-hover:translate-x-2 transition-all"></i>
                 </div>
             </a>
 
-            <a href="pascua.html" class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition border-t-4 border-yellow-400 group flex flex-col h-full">
-                <div class="p-8 flex-grow">
-                    <div class="w-14 h-14 bg-yellow-50 text-yellow-500 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:bg-yellow-400 group-hover:text-white transition-colors">
+            <a href="vigilia.html" class="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 border border-gray-200 group flex flex-col h-full overflow-hidden">
+                <div class="h-3 w-full bg-yellow-500"></div>
+                <div class="p-8 flex-grow flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300">
                         <i class="fa-solid fa-sun"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 uppercase tracking-tight">Domingo de Pascua</h3>
-                    <p class="text-sm text-gray-600">El Triunfo de la Vida. Misas de Resurrección, secuencias pascuales y agradecimiento pastoral.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 uppercase tracking-tight">Pascua</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Solemne Vigilia en la Noche Santa y Misas de Domingo de Resurrección.</p>
                 </div>
-                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto">
-                    <span class="text-yellow-600 font-bold text-sm uppercase tracking-wider">Ver directrices <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                <div class="bg-gray-50 px-8 py-4 border-t border-gray-100 mt-auto flex justify-between items-center group-hover:bg-yellow-500 transition-colors duration-300">
+                    <span class="text-yellow-700 font-bold text-sm uppercase tracking-wider group-hover:text-white">Ver directrices</span>
+                    <i class="fa-solid fa-arrow-right text-yellow-700 group-hover:text-white group-hover:translate-x-2 transition-all"></i>
                 </div>
             </a>
 
         </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-4 mb-20">
-        <div class="bg-gray-900 text-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-800">
-            <h3 class="text-2xl font-bold text-yellow-500 mb-4 uppercase tracking-widest"><i class="fa-solid fa-book-open-reader mr-2"></i> Normas Litúrgicas Fundamentales</h3>
-            <p class="text-gray-300 mb-6 font-medium">Todos los servidores deben adherirse a los siguientes principios para garantizar el orden y la dignidad de las celebraciones del Triduo Pascual:</p>
+    <section class="max-w-6xl mx-auto px-4 mb-24">
+        <div class="bg-white p-8 md:p-14 rounded-3xl shadow-xl border-t-8 border-gray-900">
+            <div class="text-center mb-10">
+                <div class="w-20 h-20 bg-gray-100 text-gray-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 uppercase tracking-tight">Normas Litúrgicas Generales</h2>
+                <div class="w-24 h-1.5 bg-yellow-500 mx-auto mt-5 rounded-full"></div>
+                <p class="mt-6 text-gray-700 font-medium text-lg max-w-3xl mx-auto leading-relaxed">
+                    A todos los servidores, ministros, coros y equipos de liturgia: El Triduo Pascual es el centro de nuestro año litúrgico. Para garantizar la dignidad, el orden y el profundo respeto que exigen estos días santos, se establecen las siguientes directrices de cumplimiento estricto.
+                </p>
+            </div>
             
-            <ul class="list-decimal pl-5 space-y-4 text-gray-300 text-sm md:text-base">
-                <li><strong>Revisión Previa:</strong> Es obligación de cada ministro y servidor leer la guía operativa de su área antes de llegar a la celebración.</li>
-                <li><strong>Puntualidad:</strong> Los tiempos de llegada marcados en las directrices son innegociables para poder realizar pruebas de audio, revestirse y organizar la logística a puerta cerrada.</li>
-                <li><strong>Vestimenta:</strong> Se requiere el uso del uniforme oficial de cada ministerio o, en su defecto, vestimenta formal acorde a la solemnidad de cada día (luto el viernes, festiva el fin de semana).</li>
-                <li><strong>Silencio y Reverencia:</strong> El área del presbiterio y la sacristía no son espacios sociales. Se exige silencio absoluto antes y después de las celebraciones.</li>
-            </ul>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+                
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3 border-b border-gray-300 pb-3">
+                        <i class="fa-solid fa-clock text-yellow-600"></i> 1. Puntualidad y Preparación
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-gray-700 text-base leading-relaxed">
+                        <li><strong>Revisión Previa:</strong> Es obligación ineludible de cada ministro leer, estudiar y comprender la guía operativa de su área antes de llegar al templo. No hay margen para la improvisación durante los ritos.</li>
+                        <li><strong>Tiempos de Llegada:</strong> Los horarios de cita marcados en este portal son innegociables. Ese tiempo es vital para realizar pruebas de audio, organizar el presbiterio y afinar detalles logísticos a puerta cerrada.</li>
+                        <li><strong>Oración Inicial:</strong> Todo servicio debe comenzar con una oración personal o comunitaria en la sacristía, reconociendo que no somos actores, sino servidores del Altar.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3 border-b border-gray-300 pb-3">
+                        <i class="fa-solid fa-shirt text-yellow-600"></i> 2. Vestimenta y Decoro
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-gray-700 text-base leading-relaxed">
+                        <li><strong>Uniformes Oficiales:</strong> Quienes pertenezcan a un ministerio con uniforme (MEC, Monaguillos, Coro, Ujieres) deberán portarlo impecablemente limpio y planchado.</li>
+                        <li><strong>Código de Vestimenta:</strong> Quienes no tengan uniforme deben vestir formalmente. Se prohíben pantalones cortos, faldas arriba de la rodilla, escotes pronunciados, ropa deportiva o gorras.</li>
+                        <li><strong>Colores Litúrgicos:</strong> Se pide respetar el sentido del día: tonos oscuros/luto para el Viernes Santo, y colores festivos (blanco, dorado) para la Vigilia y el Domingo de Pascua.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3 border-b border-gray-300 pb-3">
+                        <i class="fa-solid fa-hands-praying text-yellow-600"></i> 3. Silencio y Reverencia
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-gray-700 text-base leading-relaxed">
+                        <li><strong>Espacios Sagrados:</strong> El Presbiterio, el Altar y la Sacristía no son espacios sociales ni puntos de reunión para platicar. Se exige mantener un clima de oración y absoluto silencio antes, durante y después de las liturgias.</li>
+                        <li><strong>Genuflexiones:</strong> Todo servidor que cruce frente al Sagrario debe hacer una genuflexión profunda (tocar el suelo con la rodilla derecha). Si se cruza frente al Altar (cuando el Sagrario no está), se hace una reverencia profunda de cabeza.</li>
+                        <li><strong>Movimientos en Misa:</strong> Los desplazamientos durante la celebración deben ser mínimos, pausados, discretos y solo los estrictamente necesarios. Nadie debe moverse durante las lecturas o la homilía.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3 border-b border-gray-300 pb-3">
+                        <i class="fa-solid fa-mobile-screen-button text-yellow-600"></i> 4. Dispositivos y Atención
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-3 text-gray-700 text-base leading-relaxed">
+                        <li><strong>Uso de Celulares:</strong> Queda estrictamente prohibido el uso de teléfonos celulares durante la celebración para enviar mensajes o revisar redes sociales.</li>
+                        <li><strong>Atención Plena:</strong> El servicio en la liturgia requiere participación activa. Quien no esté realizando una acción específica en ese momento, debe unirse a la oración de la asamblea, cantando y respondiendo a los diálogos del Sacerdote.</li>
+                        <li><strong>Fotografías:</strong> Sólo el equipo oficial de medios tiene permitido desplazarse para tomar fotografías. Los demás servidores deben abstenerse de usar sus cámaras desde el presbiterio.</li>
+                    </ul>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-500 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full">
-        Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
-        Allende, Nuevo León, México
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-xs uppercase tracking-widest mt-auto border-t-[6px] border-yellow-500 relative overflow-hidden">
+        <div class="absolute -top-10 right-10 opacity-5 pointer-events-none">
+            <img src="logo.PNG" alt="Marca de Agua" class="h-64 object-contain grayscale">
+        </div>
+        
+        <div class="relative z-10 flex flex-col items-center">
+            <img src="logo.PNG" alt="Parroquia San Pedro Apóstol" class="h-16 object-contain mb-6 opacity-50 hover:opacity-100 transition-opacity duration-300">
+            <p class="mb-2 text-sm text-gray-300 font-bold">PARROQUIA DE SAN PEDRO APÓSTOL</p>
+            <p class="mb-4">Allende, Nuevo León, México</p>
+            <p class="text-yellow-600 font-bold bg-gray-800 px-4 py-2 rounded-lg inline-block">CAMINO HACIA LA PASCUA 2026</p>
+        </div>
     </footer>
 
 </body>
