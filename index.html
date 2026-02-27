@@ -21,10 +21,10 @@
         /* Contenedor de imagen Semana Santa */
         .holyweek-img {
             width: 100%;
-            height: 200px; /* Altura fija para que todas las tarjetas midan lo mismo */
+            height: 200px;
             overflow: hidden;
-            border-radius: 0.75rem 0.75rem 0 0; /* Bordes redondeados solo arriba */
-            background-color: #f3f4f6; /* Fondo suave para imágenes que no cubran todo el ancho */
+            border-radius: 0.75rem 0.75rem 0 0;
+            background-color: #f3f4f6;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -34,8 +34,7 @@
         .holyweek-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Esta propiedad evita el recorte de las obras de arte */
-            object-position: top center;
+            object-fit: contain; /* Esta propiedad evita el recorte de las obras de arte */
             transition: transform 0.6s ease;
         }
 
@@ -188,7 +187,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:shadow-md transition">
                     <div class="w-40 h-40 mb-4 rounded-full overflow-hidden border-4 border-white shadow-md ring-2 ring-purple-100">
-                        <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/Pbro.%20Arturo%20Bernardo%20Flores%20Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre" class="w-full h-full object-cover object-top">
+                        <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/Pbro.%20Arturo%20Bernardo%20Flores%20Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre" class="w-full h-full object-cover object-top" style="object-fit: cover;">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 uppercase">Pbro. Arturo Bernardo Flores Aguirre</h3>
                     <p class="text-sm font-bold text-purple-700 uppercase tracking-widest mt-1 mb-4">Párroco</p>
@@ -200,7 +199,7 @@
 
                 <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-xl border border-gray-200 hover:shadow-md transition">
                     <div class="w-40 h-40 mb-4 rounded-full overflow-hidden border-4 border-white shadow-md ring-2 ring-purple-100">
-                        <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/Pbro.%20Alan%20Lorenzo%20Sanchez%20Valencia.JPEG" alt="Pbro. Alan Lorenzo Sanchez Valencia" class="w-full h-full object-cover object-top">
+                        <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/Pbro.%20Alan%20Lorenzo%20Sanchez%20Valencia.JPEG" alt="Pbro. Alan Lorenzo Sanchez Valencia" class="w-full h-full object-cover object-top" style="object-fit: cover;">
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 uppercase">Pbro. Alan Lorenzo Sánchez Valencia</h3>
                     <p class="text-sm font-bold text-purple-700 uppercase tracking-widest mt-1 mb-4">Vicario Parroquial</p>
@@ -237,7 +236,7 @@
                     <p class="text-sm mb-3">La Cuaresma es, pues, un verdadero sacramental en donde toda la comunidad cristiana está llamada a revivir y renovar, año con año, el paso de la muerte a la vida, de la esclavitud del pecado a la libertad de los hijos de Dios (cfr. Rom 8, 21) que un día se realizó en el Bautismo de cada uno (cfr. Rom 6, 3-11; Col 2, 12).</p>
                     <p class="text-sm mb-3">El Concilio Vaticano II quiso que en este tiempo especial de gracia se pusiera con mayor claridad la naturaleza de la Cuaresma, resaltando el Bautismo y la Penitencia, no solo como aspectos ascéticos, sino como elementos sacramentales. Así lo expresa en la Constitución Sacrosanctum Concilium: "Puesto que el tiempo cuaresmal prepara a los fieles, entregados más intensamente a oír la palabra de Dios y a la oración, para que celebren el misterio pascual, sobre todo mediante el recuerdo o la preparación del bautismo y mediante la penitencia, dése particular relieve en la Liturgia y en la catequesis litúrgica al doble carácter de dicho tiempo". Son estos los elementos en que se asienta la Cuaresma y el objetivo que ha presidido la reforma de este tiempo litúrgico después del Concilio, teniendo como base la rica herencia de la tradición cuaresmal.</p>
                     <p class="text-sm mb-3">El Prefacio I de Cuaresma manifiesta claramente la naturaleza de este periodo y a la vez expresa el anhelo de la celebración de la Pascua: Por él (Cristo) concedes bondadosamente a tus fieles anhelar gozosos, año tras año, con el alma purificada, las solemnidades de la Pascua, para que dedicados con mayor entrega a la oración y a las obras de caridad, por la celebración de los misterios que nos dieron nueva vida, lleguemos a ser plenamente hijos tuyos.</p>
-                    <p class="text-sm mb-3">Y junto con la oración Colecta del Domingo I de Cuaresma, expresan el programa de vida cristiana como resultado de la asidua escucha de la palabra de Dios: Concédenos, Dios todopoderoso, que, por las prácticas anuales del sacramento cuaresmal, progresemos en el conocimiento del misterio de Cristo y traduzcamos su efecto en una conducta irreprochable.</p>
+                    <p class="text-sm mb-3">Y junto con la oración Colecta del Domingo I de Cuaresma, expresan el programa de vida cristiana como resultado de la asidua escucha de la palabra de Dios: Concédenos, Dios todopoderoso, que, por las practices anuales del sacramento cuaresmal, progresemos en el conocimiento del misterio de Cristo y traduzcamos su efecto en una conducta irreprochable.</p>
                     <p class="text-sm mb-3">Esto es algo que nos produce alegría (progresar en el conocimiento del misterio de Cristo) y nos pide conversión del corazón (traducir su efecto en una conducta irreprochable); nos pide apertura al amor de Dios y al servicio de los hermanos. Un camino que se basa y se expresa en la celebración de los sacramentos que dan vida nueva.</p>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">Breve historia de la Cuaresma</h4>
@@ -265,50 +264,6 @@
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">La palabra de Dios en Cuaresma. Leccionario Dominical</h4>
                     <p class="text-sm mb-3">Este año nos es presentada la riqueza de la palabra de Dios en los domingos del ciclo "A". Nos puede ser provechoso el considerar en su conjunto, el itinerario que la Iglesia nos ofrece, teniendo delante un cuadro sinóptico de las lecturas:</p>
                     <p class="text-sm italic mb-6">Ciclo dominical A: el camino bautismal de la Iglesia</p>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white border border-gray-300 text-sm">
-                            <thead class="bg-gray-100">
-                                <tr>
-                                    <th class="py-2 px-4 border-b">Domingo</th>
-                                    <th class="py-2 px-4 border-b">Evangelio</th>
-                                    <th class="py-2 px-4 border-b">Tema Principal</th>
-                                    <th class="py-2 px-4 border-b">Dimensión Bautismal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">I de Cuaresma</td>
-                                    <td class="py-2 px-4 border-b">Mt 4, 1-11</td>
-                                    <td class="py-2 px-4 border-b">Las tentaciones en el desierto</td>
-                                    <td class="py-2 px-4 border-b">Renuncia a Satanás y al mal</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">II de Cuaresma</td>
-                                    <td class="py-2 px-4 border-b">Mt 17, 1-9</td>
-                                    <td class="py-2 px-4 border-b">La Transfiguración</td>
-                                    <td class="py-2 px-4 border-b">Iluminación / Profesión de fe</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">III de Cuaresma</td>
-                                    <td class="py-2 px-4 border-b">Jn 4, 5-42</td>
-                                    <td class="py-2 px-4 border-b">La Samaritana</td>
-                                    <td class="py-2 px-4 border-b">El agua viva del Bautismo</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">IV de Cuaresma</td>
-                                    <td class="py-2 px-4 border-b">Jn 9, 1-41</td>
-                                    <td class="py-2 px-4 border-b">El ciego de nacimiento</td>
-                                    <td class="py-2 px-4 border-b">Cristo es la luz (Iluminación)</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">V de Cuaresma</td>
-                                    <td class="py-2 px-4 border-b">Jn 11, 1-45</td>
-                                    <td class="py-2 px-4 border-b">Resurrección de Lázaro</td>
-                                    <td class="py-2 px-4 border-b">Cristo es la vida nueva</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
 
                     <h4 class="text-lg font-bold text-gray-900 mb-2 mt-6">El Santoral en la Cuaresma</h4>
                     <p class="text-sm mb-3">A lo largo del año litúrgico, los santos son honrados en días específicos y suelen ser mencionados por su nombre en las Misas diarias. Sin embargo, durante la Cuaresma, se privilegia el Misterio de Cristo, por lo que las fiestas o memorias de los santos pasan a ser conmemoraciones opcionales. En este Año litúrgico 2025-2026 nos encontramos con dos solemnidades: San José, el día 19 de marzo (dentro de la IV semana de Cuaresma) y la Anunciación del Señor, el 25 de marzo (dentro de la V semana de Cuaresma). Vale decir que estas dos fechas cuentan con los formularios propios, tanto en sus textos bíblicos como en sus oraciones.</p>
