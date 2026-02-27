@@ -13,6 +13,29 @@
         .voz-c { color: #4B5563; font-style: italic; } /* Cronista - Gris */
         .voz-j { color: #B91C1C; font-weight: bold; } /* Jesús - Rojo */
         .voz-s { color: #111827; font-weight: bold; } /* Sinagoga - Negro */
+        
+        /* Ajuste para el iframe en móviles */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 150%; /* Relación de aspecto para forms largos */
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 768px) {
+            .iframe-container {
+                padding-top: 0;
+                height: 950px;
+            }
+        }
     </style>
 </head>
 
@@ -100,7 +123,7 @@
 
         <div class="mb-12">
             <h3 class="text-xl font-bold text-red-700 mb-2">Primera Lectura</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Del libro del profeta Isaías (50, 4-7)</p>
+            <p class="text-sm font-semibold text-gray-500 mb-4">Del libro del profeta Isaías (50, 4-7) — <span class="bg-gray-100 px-2 py-1 rounded text-red-800 border border-gray-200">Leccionario I, pág. 370</span></p>
             <div class="prose max-w-none text-gray-800 leading-relaxed text-lg">
                 <p>En aquel entonces, dijo Isaías: "El Señor me ha dado una lengua experta, para que pueda confortar al abatido con palabras de aliento. Mañana tras mañana, el Señor despierta mi oído, para que escuche yo, como discípulo. El Señor Dios me ha hecho oír sus palabras y yo no he opuesto resistencia ni me he echado para atrás. Ofrecí la espalda a los que me golpeaban, la mejilla a los que me tiraban de la barba. No aparté mi rostro de los insultos y salivazos. Pero el Señor me ayuda, por eso no quedaré confundido, por eso endureció mi rostro como roca y sé que no quedaré avergonzado".</p>
                 <p class="mt-4 font-bold">Palabra de Dios.</p>
@@ -121,7 +144,7 @@
 
         <div class="mb-12">
             <h3 class="text-xl font-bold text-red-700 mb-2">Segunda Lectura</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">De la carta del apóstol san Pablo a los filipenses (2, 6-11)</p>
+            <p class="text-sm font-semibold text-gray-500 mb-4">De la carta del apóstol san Pablo a los filipenses (2, 6-11) — <span class="bg-gray-100 px-2 py-1 rounded text-red-800 border border-gray-200">Leccionario I, pág. 371</span></p>
             <div class="prose max-w-none text-gray-800 leading-relaxed text-lg">
                 <p>Cristo, siendo Dios, no consideró que debía aferrarse a las prerrogativas de su condición divina, sino que, por el contrario, se anonadó a sí mismo, tomando la condición de siervo, y se hizo semejante a los hombres. Así, hecho uno de ellos, se humilló a sí mismo y por obediencia aceptó incluso la muerte, y una muerte de cruz. Por eso Dios lo exaltó sobre todas las cosas y le otorgó el nombre que está sobre todo nombre, para que, al nombre de Jesús, todos doblen la rodilla en el cielo, en la tierra y en los abismos, y todos reconozcan públicamente que Jesucristo es el Señor, para gloria de Dios Padre.</p>
                 <p class="mt-4 font-bold">Palabra de Dios.</p>
@@ -130,7 +153,7 @@
 
         <div class="mb-12">
             <h3 class="text-2xl font-bold text-red-700 mb-2">Pasión de Nuestro Señor Jesucristo</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-6">Según san Mateo (26, 14-27, 66)</p>
+            <p class="text-sm font-semibold text-gray-500 mb-6">Según san Mateo (26, 14-27, 66) — <span class="bg-gray-100 px-2 py-1 rounded text-red-800 border border-gray-200">Leccionario I, pág. 372</span></p>
             
             <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6 text-sm">
                 <strong>Guía de Voces:</strong><br>
@@ -276,19 +299,19 @@
             </div>
         </div>
 
-        <div class="mb-12 bg-gray-50 p-6 rounded-xl border">
+        <div class="mb-12 bg-gray-50 p-6 rounded-xl border border-gray-200">
             <h3 class="text-xl font-bold text-red-700 mb-2">Oración Universal de los Fieles</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Un lector se dirige al ambón después de la Homilía y la Profesión de Fe.</p>
+            <p class="text-sm font-semibold text-gray-500 mb-4">Uno de los lectores se dirige al ambón.</p>
             <div class="prose max-w-none text-gray-800 leading-relaxed text-lg space-y-4">
-                <p><strong>Lector:</strong> Imploremos, hermanos, con fe y confianza a Jesús nuestro Sumo Sacerdote, que desde la cruz nos obtuvo la redención y digamos:</p>
-                <p class="font-bold text-red-800">R. Jesús, Hijo de Dios vivo, ten piedad de nosotros.</p>
-                <p><strong>Lector:</strong> Para que nos conceda ser misericordiosos como Él para poder disculpar a los hermanos que nos ofenden, aun cuando ellos no tengan la razón, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para que respetemos la sangre que Jesús derramó por nosotros en la cruz y nos esforcemos por ser misericordiosos como Él con los que conviven con nosotros, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para apoyados en la infinita misericordia de nuestro Redentor nadie más experimente la soledad, la traición y la burla en su dolor, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para que siguiendo el ejemplo de Cristo que abrió las puertas del cielo al ladrón arrepentido, nosotros salgamos al encuentro del necesitado, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para que nuestra Iglesia de Monterrey que hoy reconoce a Cristo como a su Señor misericordioso, jamás le dé la espalda a los que viven momentos de dolor, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para que valoremos la vida y la sabiduría de nuestros hermanos ancianos y más necesitados y salgamos misericordiosamente a su encuentro, oremos. <strong>R.</strong></p>
-                <p><strong>Lector:</strong> Para que seamos una Iglesia de puertas abiertas y en búsqueda de las ovejas perdidas, oremos. <strong>R.</strong></p>
+                <p><strong>Sacerdote:</strong> Oremos con fe a nuestro Padre del cielo, para que escuche benignamente nuestra oración y nos conceda sus dones. Después de cada petición diremos:</p>
+                <p class="font-bold text-red-800 text-center my-4 bg-red-100 py-2 rounded">R. Por la pasión de tu Hijo, danos vida en abundancia.</p>
+                
+                <p><strong>Lector:</strong> Por la Iglesia, extendida por todo el mundo, para que aprendamos a vivir con espíritu de amor y de entrega, como Jesús. Oremos. <strong>R.</strong></p>
+                <p><strong>Lector:</strong> Por los que no conocen a Jesucristo, para que puedan llegar a sentir el gozo y la vida que él nos da. Oremos. <strong>R.</strong></p>
+                <p><strong>Lector:</strong> Por todos los que sufren, para que, identificados con la cruz de Jesucristo, puedan también gozar de la alegría de la resurrección. Oremos. <strong>R.</strong></p>
+                <p><strong>Lector:</strong> Por todos nosotros, reunidos en este Domingo de Ramos, para que la Semana Santa que iniciamos nos haga crecer en la fe, la esperanza y el amor. Oremos. <strong>R.</strong></p>
+
+                <p class="mt-4"><strong>Sacerdote:</strong> Escucha, Señor, las oraciones de tu pueblo y concédenos gozar de los frutos de la cruz gloriosa de Jesucristo. Él, que vive y reina por los siglos de los siglos.<br><strong>R. Amén.</strong></p>
             </div>
         </div>
 
@@ -298,11 +321,9 @@
         <h2 class="text-3xl font-bold text-red-700 mb-6 uppercase tracking-tight text-center">Registro Oficial</h2>
         <p class="text-center text-gray-600 mb-8">Completa el formulario y selecciona la sede y horario donde servirás.</p>
         
-        <div class="rounded-xl overflow-hidden shadow-lg border">
+        <div class="iframe-container rounded-xl overflow-hidden shadow-lg border">
             <iframe 
                 src="https://docs.google.com/forms/d/e/1FAIpQLSehPngndeRSs-4r7sBOcd15CWEedZ6hVQqjRcj98nDkPaJzPg/viewform?usp=header"
-                width="100%" 
-                height="950"
                 frameborder="0">
                 Cargando...
             </iframe>
