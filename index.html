@@ -21,9 +21,9 @@
         /* Contenedor de imagen Semana Santa */
         .holyweek-img {
             width: 100%;
-            height: 200px; /* Altura fija para que todas las tarjetas midan lo mismo */
+            height: 200px;
             overflow: hidden;
-            border-radius: 0.75rem 0.75rem 0 0; /* Bordes redondeados solo arriba */
+            border-radius: 0.75rem 0.75rem 0 0;
         }
 
         /* Imagen */
@@ -44,8 +44,8 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-24 flex justify-between items-center">
-            <span class="text-purple-900 font-extrabold tracking-widest uppercase text-lg">Pascua 2026</span>
-            <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-20 w-auto object-contain">
+            <span class="text-purple-900 font-extrabold tracking-widest uppercase text-lg md:text-xl">Pascua 2026</span>
+            <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-20 md:h-24 w-auto object-contain drop-shadow-sm py-1">
         </div>
     </header>
 
@@ -63,7 +63,117 @@
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 -mt-10 relative z-20 mb-8">
+    <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+        <div class="text-center mb-10 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-sm inline-block mx-auto border border-gray-100">
+            <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Secuencia de la Semana Santa</h2>
+            <p class="mt-2 text-gray-600">Selecciona el día para ver la guía litúrgica correspondiente.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <a href="ramos.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Giotto_di_Bondone_-_No._26_Scenes_from_the_Life_of_Christ_-_10._Entry_into_Jerusalem_-_WGA09206.jpg" alt="Domingo de Ramos - Entrada en Jerusalén" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Ramos de la Pasión del Señor</h3>
+                    <p class="text-sm text-gray-600">Conmemoración de la entrada del Señor en Jerusalén.</p>
+                </div>
+            </a>
+
+            <a href="lunes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Michelangelo_Merisi%2C_called_Caravaggio_-_Saint_John_the_Baptist_in_the_Wilderness_-_Google_Art_Project.jpg" alt="Lunes Santo - San Juan Bautista" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Lunes Santo</h3>
+                    <p class="text-sm text-gray-600">La Unción en Betania.</p>
+                </div>
+            </a>
+
+            <a href="martes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Leonardo_da_Vinci_-_Last_Supper_high_res.jpg" alt="Martes Santo - La Última Cena" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Martes Santo</h3>
+                    <p class="text-sm text-gray-600">El Anuncio de la Traición y Envío a la Misa Crismal.</p>
+                </div>
+            </a>
+
+            <a href="miercoles.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Giotto_-_Scrovegni_-_-31-_-_Kiss_of_Judas.jpg" alt="Miércoles Santo - Beso de Judas" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Miércoles Santo</h3>
+                    <p class="text-sm text-gray-600">El Pacto de Judas, Recepción de Óleos y Unción de Enfermos.</p>
+                </div>
+            </a>
+
+            <a href="jueves.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-200 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Tintoretto_-_Christ_Washing_the_Feet_of_the_Disciples.jpg" alt="Jueves Santo - Lavatorio de los pies" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-gray-500 font-bold uppercase mb-1">Color: Blanco</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Jueves Santo de la Cena del Señor</h3>
+                    <p class="text-sm text-gray-600">Inicio del Sagrado Triduo Pascual.</p>
+                </div>
+            </a>
+
+            <a href="viernes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Diego_Vel%C3%A1zquez_-_Christ_Crucified_-_Google_Art_Project.jpg" alt="Viernes Santo - Cristo Crucificado" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Viernes Santo de la Pasión del Señor</h3>
+                    <p class="text-sm text-gray-600">Adoración de la Santa Cruz.</p>
+                </div>
+            </a>
+
+            <a href="sabado.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-900 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Michelangelo%27s_Pieta_5450_cropncleaned_edit.jpg" alt="Sábado Santo - La Piedad" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-gray-900 font-bold uppercase mb-1">Luto de la Iglesia</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Sábado Santo de la Sepultura del Señor</h3>
+                    <p class="text-sm text-gray-600">Día de silencio y recogimiento junto al sepulcro.</p>
+                </div>
+            </a>
+
+            <a href="vigilia.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Piero_della_Francesca_-_Resurrection.jpg" alt="Vigilia Pascual - La Resurrección" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Vigilia Pascual en la Noche Santa</h3>
+                    <p class="text-sm text-gray-600">La madre de todas las santas vigilias.</p>
+                </div>
+            </a>
+
+            <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
+                <div class="holyweek-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Angelico%2C_noli_me_tangere.jpg" alt="Domingo de Resurrección" loading="lazy">
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Pascua de la Resurrección del Señor</h3>
+                    <p class="text-sm text-gray-600">La solemnidad de las solemnidades.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-4 py-8 relative z-20">
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-extrabold text-gray-900 uppercase tracking-tight">Sedes y Celebrantes</h2>
@@ -98,117 +208,7 @@
         </div>
     </section>
 
-    <section class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Secuencia de la Semana Santa</h2>
-            <p class="mt-4 text-gray-600">Selecciona el día para ver la guía litúrgica correspondiente.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <a href="ramos.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Giotto_-_Entry_into_Jerusalem_-_Scrovegni.jpg" alt="Domingo de Ramos - Entrada en Jerusalén">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Ramos de la Pasión del Señor</h3>
-                    <p class="text-sm text-gray-600">Conmemoración de la entrada del Señor en Jerusalén.</p>
-                </div>
-            </a>
-
-            <a href="lunes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Caravaggio_-_The_Anointing_at_Bethany.jpg" alt="Lunes Santo - Unción en Betania">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Lunes Santo</h3>
-                    <p class="text-sm text-gray-600">La Unción en Betania.</p>
-                </div>
-            </a>
-
-            <a href="martes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Leonardo_da_Vinci_-_Last_Supper_high_res.jpg" alt="Martes Santo - Anuncio de la traición">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Martes Santo</h3>
-                    <p class="text-sm text-gray-600">El Anuncio de la Traición y Envío a la Misa Crismal.</p>
-                </div>
-            </a>
-
-            <a href="miercoles.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Giotto_-_Kiss_of_Judas_-_Scrovegni.jpg" alt="Miércoles Santo - Beso de Judas">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Miércoles Santo</h3>
-                    <p class="text-sm text-gray-600">El Pacto de Judas, Recepción de Óleos y Unción de Enfermos.</p>
-                </div>
-            </a>
-
-            <a href="jueves.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-200">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Tintoretto_-_Christ_Washing_the_Feet_of_the_Disciples.jpg" alt="Jueves Santo - Lavatorio de los pies">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-gray-500 font-bold uppercase mb-1">Color: Blanco</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Jueves Santo de la Cena del Señor</h3>
-                    <p class="text-sm text-gray-600">Inicio del Sagrado Triduo Pascual.</p>
-                </div>
-            </a>
-
-            <a href="viernes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Diego_Vel%C3%A1zquez_-_Christ_Crucified_-_Google_Art_Project.jpg" alt="Viernes Santo - Cristo Crucificado">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Viernes Santo de la Pasión del Señor</h3>
-                    <p class="text-sm text-gray-600">Adoración de la Santa Cruz.</p>
-                </div>
-            </a>
-
-            <a href="sabado.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-900">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Caravaggio_-_The_Entombment_of_Christ.jpg" alt="Sábado Santo - Sepultura del Señor">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-gray-900 font-bold uppercase mb-1">Luto de la Iglesia</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Sábado Santo de la Sepultura del Señor</h3>
-                    <p class="text-sm text-gray-600">Día de silencio y recogimiento junto al sepulcro.</p>
-                </div>
-            </a>
-
-            <a href="vigilia.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Piero_della_Francesca_-_Resurrection.jpg" alt="Vigilia Pascual - La Resurrección">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Vigilia Pascual en la Noche Santa</h3>
-                    <p class="text-sm text-gray-600">La madre de todas las santas vigilias.</p>
-                </div>
-            </a>
-
-            <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500">
-                <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Piero_della_Francesca_-_Resurrection.jpg" alt="Domingo de Resurrección - La Resurrección">
-                </div>
-                <div class="p-6">
-                    <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Domingo de Pascua de la Resurrección del Señor</h3>
-                    <p class="text-sm text-gray-600">La solemnidad de las solemnidades.</p>
-                </div>
-            </a>
-
-        </div>
-    </section>
-
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow">
+    <section class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow mb-8">
         <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-gray-900 overflow-hidden">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">
                 <i class="fa-solid fa-scroll text-purple-700"></i> Normas Litúrgicas Oficiales
