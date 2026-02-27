@@ -11,20 +11,45 @@
         body { font-family: 'Inter', sans-serif; }
         .hero-bg { 
             /* Fondo rojo oscuro acorde al luto y la Sangre de Cristo */
-            background-image: linear-gradient(rgba(127, 29, 29, 0.85), rgba(127, 29, 29, 0.85)), url('portada-viernes.JPG'); 
+            background-image: linear-gradient(rgba(127, 29, 29, 0.85), rgba(127, 29, 29, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/portada-viernes.JPG'); 
             background-size: cover; 
             background-position: center; 
+        }
+
+        /* Contenedor de las imágenes de los ministerios */
+        .ministry-img {
+            width: 100%;
+            height: 200px; /* Altura fija para uniformidad en las tarjetas */
+            overflow: hidden;
+            border-radius: 0.75rem 0.75rem 0 0;
+            background-color: #f3f4f6; /* Fondo suave para que la imagen resalte sin cortarse */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Imagen completa sin recortes */
+        .ministry-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Esta propiedad evita el recorte de las fotografías */
+            transition: transform 0.6s ease;
+        }
+
+        /* Efecto zoom suave */
+        .group:hover .ministry-img img {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 text-gray-600 font-bold hover:text-red-700 transition">
                 <i class="fa-solid fa-arrow-left"></i> Inicio
             </a>
-            <img src="logo.PNG" alt="Logo" class="h-10 w-auto">
+            <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-14 w-auto object-contain drop-shadow-sm">
         </div>
     </header>
 
@@ -43,28 +68,28 @@
     </section>
 
     <section class="max-w-5xl mx-auto px-4 -mt-10 relative z-20">
-        <div class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border-b-8 border-red-700">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight">"El Día de la Cruz"</h2>
-            <p class="text-sm md:text-base text-gray-700 leading-relaxed mb-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8 border-b-8 border-red-700">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2 uppercase tracking-tight italic">"El Día de la Cruz"</h2>
+            <p class="text-base text-gray-700 leading-relaxed mb-8">
                 Hoy es el único día del año en que la Iglesia <strong>no celebra la Eucaristía</strong> (no hay consagración). Es una jornada de luto, ayuno y abstinencia. El altar permanece completamente desnudo. Conmemoramos el arresto, el juicio, la crucifixión y la muerte de Jesucristo. El centro de la liturgia es la proclamación de la Pasión según San Juan, la solemne Oración Universal y la adoración de la Santa Cruz.
             </p>
             
-            <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2 border-t pt-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3 border-t border-gray-100 pt-6">
                 <i class="fa-solid fa-clock text-red-700"></i> Horarios de Oficios 2026
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="p-5 bg-red-50 rounded-xl border border-red-100">
-                    <p class="font-bold text-red-900 text-sm uppercase mb-2">Parroquia San Pedro (Allende)</p>
-                    <ul class="space-y-2 text-sm text-gray-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 bg-red-50 rounded-xl border border-red-100">
+                    <p class="font-bold text-red-900 text-sm uppercase tracking-widest mb-4 border-b border-red-200 pb-2">Parroquia San Pedro (Allende)</p>
+                    <ul class="space-y-3 text-lg text-gray-800">
                         <li><strong>10:00 AM</strong> - Santo Viacrucis</li>
                         <li><strong>5:00 PM</strong> - Oficios de la Pasión del Señor</li>
                         <li><strong>6:00 PM</strong> - Procesión del Silencio</li>
                         <li><strong>7:00 PM</strong> - Las Siete Palabras</li>
                     </ul>
                 </div>
-                <div class="p-5 bg-gray-50 rounded-xl border border-gray-200">
-                    <p class="font-bold text-gray-900 text-sm uppercase mb-2">Capilla San Judas Tadeo</p>
-                    <ul class="space-y-2 text-sm text-gray-800">
+                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-bold text-gray-900 text-sm uppercase tracking-widest mb-4 border-b border-gray-300 pb-2">Capilla San Judas Tadeo</p>
+                    <ul class="space-y-3 text-lg text-gray-800">
                         <li><strong>5:30 PM</strong> - Oficios de la Pasión del Señor</li>
                     </ul>
                 </div>
@@ -75,77 +100,78 @@
     <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Directrices por Ministerio</h2>
-            <p class="mt-4 text-gray-600">Selecciona tu área para ver protocolos y registro del Viernes Santo.</p>
+            <div class="w-16 h-1 bg-red-700 mx-auto mt-4 rounded"></div>
+            <p class="mt-4 text-gray-600 text-lg">Selecciona tu área para ver protocolos y registro del Viernes Santo.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <a href="misal-viernes.html" class="bg-gray-50 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-100 flex items-center justify-center p-2">
-                    <img src="misal.JPG" alt="Misal Viernes Santo" class="max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500">
+            <a href="misal-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-gray-300 group flex flex-col">
+                <div class="ministry-img bg-gray-100 p-4">
+                    <img src="misal.JPG" alt="Misal Viernes Santo" class="object-contain">
                 </div>
-                <div class="p-6 bg-white border-t">
-                    <h3 class="text-lg font-bold text-gray-900">Misal Completo 📖</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Misal Completo</h3>
                     <p class="text-sm text-gray-600 mt-2">Textos íntegros de la Pasión según san Juan y la solemne Oración Universal.</p>
                 </div>
             </a>
 
-            <a href="mec-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="mec-viernes.JPG" alt="MEC Viernes Santo" class="w-full h-full object-cover object-[50%_25%] group-hover:scale-105 transition duration-500">
+            <a href="mec-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-red-700 group flex flex-col">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/mec-viernes.JPG" alt="MEC Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Ministros (MEC) 🍷</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Ministros Extraordinarios (MEC)</h3>
                     <p class="text-sm text-gray-600 mt-2">Distribución de la Comunión utilizando la reserva eucarística del Jueves Santo.</p>
                 </div>
             </a>
 
-            <a href="monaguillos-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="monaguillos-viernes.JPG" alt="Monaguillos Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            <a href="monaguillos-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-red-700 group flex flex-col">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/monaguillos-viernes.JPG" alt="Monaguillos Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Monaguillos 🕯️</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Monaguillos</h3>
                     <p class="text-sm text-gray-600 mt-2">Asistencia en la postración inicial, Adoración de la Cruz y Procesión del Silencio.</p>
                 </div>
             </a>
 
-            <a href="lectores-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="lectores-viernes.JPG" alt="Lectores Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            <a href="lectores-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-red-700 group flex flex-col">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/lectores-viernes.JPG" alt="Lectores Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Lectores 📖</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Lectores</h3>
                     <p class="text-sm text-gray-600 mt-2">Proclamación a tres voces de la Pasión y lectura de las Siete Palabras.</p>
                 </div>
             </a>
 
-            <a href="coro-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="coro-viernes.JPG" alt="Coro Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            <a href="coro-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-gray-300 group flex flex-col">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/coro-viernes.JPG" alt="Coro Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Coro y Música 🎶</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Coro y Música</h3>
                     <p class="text-sm text-gray-600 mt-2">Cantos a capella, austeridad instrumental y cantos para la Adoración de la Cruz.</p>
                 </div>
             </a>
 
-            <a href="ujieres-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="ujieres-viernes.JPG" alt="Ujieres Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            <a href="ujieres-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-gray-300 group flex flex-col">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/ujieres-viernes.JPG" alt="Ujieres Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Ujieres y Hospitalidad 🤝</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Ujieres y Hospitalidad</h3>
                     <p class="text-sm text-gray-600 mt-2">Organización de las filas para adorar la Cruz y logística del Viacrucis.</p>
                 </div>
             </a>
 
-            <a href="sacristia-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border border-gray-100 block md:col-span-2 lg:col-span-1 group">
-                <div class="overflow-hidden h-48 bg-gray-200">
-                    <img src="sacristia-viernes.JPG" alt="Sacristía Viernes Santo" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500">
+            <a href="sacristia-viernes.html" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 border-t-4 border-gray-300 group flex flex-col md:col-span-2 lg:col-span-1">
+                <div class="ministry-img">
+                    <img src="https://raw.githubusercontent.com/88AJ/pascua-2026/main/sacristia-viernes.JPG" alt="Sacristía Viernes Santo">
                 </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-bold text-gray-900">Sacristía y Decoración 🏺</h3>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-red-700 transition">Sacristía y Decoración</h3>
                     <p class="text-sm text-gray-600 mt-2">Manejo del altar desnudo, preparación de la Santa Cruz y andas para la procesión.</p>
                 </div>
             </a>
@@ -153,7 +179,7 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full border-t-4 border-red-800">
+    <footer class="bg-gray-950 text-gray-500 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full border-t-4 border-red-800">
         Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
         Allende, Nuevo León, México
     </footer>
