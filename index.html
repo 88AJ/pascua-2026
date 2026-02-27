@@ -24,13 +24,15 @@
             height: 200px;
             overflow: hidden;
             border-radius: 0.75rem 0.75rem 0 0;
+            background-color: #f3f4f6; /* Fondo gris por si tarda en cargar */
         }
 
         /* Imagen */
         .holyweek-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Llena el cuadro */
+            object-position: top center; /* Prioriza la parte superior de las pinturas */
             transition: transform 0.6s ease;
         }
 
@@ -73,7 +75,7 @@
             
             <a href="ramos.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Giotto_di_Bondone_-_No._26_Scenes_from_the_Life_of_Christ_-_10._Entry_into_Jerusalem_-_WGA09206.jpg" alt="Domingo de Ramos - Entrada en Jerusalén" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1585807490076-200fb747a750?q=80&w=2070&auto=format&fit=crop" alt="Domingo de Ramos - Entrada en Jerusalén" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
@@ -84,7 +86,7 @@
 
             <a href="lunes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Michelangelo_Merisi%2C_called_Caravaggio_-_Saint_John_the_Baptist_in_the_Wilderness_-_Google_Art_Project.jpg" alt="Lunes Santo - San Juan Bautista" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1548625361-ec85304af728?q=80&w=2070&auto=format&fit=crop" alt="Lunes Santo - Unción en Betania" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
@@ -95,7 +97,7 @@
 
             <a href="martes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Leonardo_da_Vinci_-_Last_Supper_high_res.jpg" alt="Martes Santo - La Última Cena" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1574357276180-2a8385d3f282?q=80&w=2072&auto=format&fit=crop" alt="Martes Santo - La Última Cena" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
@@ -106,7 +108,7 @@
 
             <a href="miercoles.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-purple-700 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Giotto_-_Scrovegni_-_-31-_-_Kiss_of_Judas.jpg" alt="Miércoles Santo - Beso de Judas" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1601002340578-83141fde5d57?q=80&w=2070&auto=format&fit=crop" alt="Miércoles Santo - Beso de Judas" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-purple-700 font-bold uppercase mb-1">Color: Morado</p>
@@ -117,7 +119,7 @@
 
             <a href="jueves.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-200 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Tintoretto_-_Christ_Washing_the_Feet_of_the_Disciples.jpg" alt="Jueves Santo - Lavatorio de los pies" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1614030424754-24d0eacc46bb?q=80&w=2072&auto=format&fit=crop" alt="Jueves Santo - Eucaristía y Lavatorio" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-gray-500 font-bold uppercase mb-1">Color: Blanco</p>
@@ -128,7 +130,7 @@
 
             <a href="viernes.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-red-700 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Diego_Vel%C3%A1zquez_-_Christ_Crucified_-_Google_Art_Project.jpg" alt="Viernes Santo - Cristo Crucificado" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1543825835-12d4d9812061?q=80&w=2069&auto=format&fit=crop" alt="Viernes Santo - Cristo Crucificado" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-red-700 font-bold uppercase mb-1">Color: Rojo</p>
@@ -139,7 +141,7 @@
 
             <a href="sabado.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-gray-900 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Michelangelo%27s_Pieta_5450_cropncleaned_edit.jpg" alt="Sábado Santo - La Piedad" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1617424696082-9ed88c03789f?q=80&w=2070&auto=format&fit=crop" alt="Sábado Santo - Sepultura del Señor" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-gray-900 font-bold uppercase mb-1">Luto de la Iglesia</p>
@@ -150,7 +152,7 @@
 
             <a href="vigilia.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Piero_della_Francesca_-_Resurrection.jpg" alt="Vigilia Pascual - La Resurrección" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1493623668832-68bb1d3ec51e?q=80&w=2070&auto=format&fit=crop" alt="Vigilia Pascual - Fuego Nuevo" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
@@ -161,7 +163,7 @@
 
             <a href="pascua.html" class="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition border-t-4 border-yellow-500 group">
                 <div class="holyweek-img">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Angelico%2C_noli_me_tangere.jpg" alt="Domingo de Resurrección" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1582200877993-3d0d87948332?q=80&w=2070&auto=format&fit=crop" alt="Domingo de Resurrección - Luz" loading="lazy">
                 </div>
                 <div class="p-6">
                     <p class="text-xs text-yellow-600 font-bold uppercase mb-1">Color: Blanco / Dorado</p>
@@ -209,7 +211,7 @@
     </section>
 
     <section class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow mb-8">
-        <div class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-gray-900 overflow-hidden">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border-t-4 border-gray-900 overflow-hidden">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">
                 <i class="fa-solid fa-scroll text-purple-700"></i> Normas Litúrgicas Oficiales
             </h2>
@@ -393,7 +395,7 @@
                     </ul>
                     <p class="text-sm mb-3">Dado que la Pascua es unos de los Tiempos importantes del año litúrgico, -podríamos señalar el más importante, ya que cuenta como la Navidad, con "octava" y su duración es de 50 días. La octava de Pascua nace a finales del siglo IV, pero el significado primitivo de la cincuentena pascual comenzó a decaer, y por eso se empezó a celebrar la octava pascual, tanto en Oriente como en Occidente. El ciclo antiguo de las siete semanas se desdobló en otro nuevo ciclo de ocho días, con un carácter eminentemente bautismal. La octava permitía a los neófitos gustar las delicias de su Bautismo y ser introducidos a ellos misterios que conlleva el Bautismo y la Eucaristía, prolongando durante una semana "el día que hizo el Señor" (Sal 117, 24).</p>
                     <p class="text-sm mb-3">Al principio fueron siete los días bautismales, siendo el sábado el momento en que los neófitos se desprendían de los vestidos blancos recibidos en el Bautismo. Más tarde se trasladó este rito al domingo, llamado por esta razón in albis. Los nuevos bautizados tomaban asiento entre el pueblo. La octava de Pascua se llamó alba o blanca.</p>
-                    <p class="text-sm mb-3">El objetivo de esta semana consistía en que los neófitos recibiesen las últimas catequesis, denominadas mistagógicas, por ejemplo, las catequesis de san Cirilo de Jerusalén y las de san Ambrosio. La octava de Pascua está, pues, en relación con la iniciación a los sacramentos de los recién bautizados en la Vigilia Pascual.</p>
+                    <p class="text-sm mb-3">El objetivo de this week consistía en que los neófitos recibiesen las últimas catequesis, denominadas mistagógicas, por ejemplo, las catequesis de san Cirilo de Jerusalén y las de san Ambrosio. La octava de Pascua está, pues, en relación con la iniciación a los sacramentos de los recién bautizados en la Vigilia Pascual.</p>
                     <p class="text-sm mb-3">Las Normas universales sobre el Año Litúrgico y el Calendario establece que el Tiempo Pascual comienza con la Vigilia Pascual y se prolonga durante siete semanas hasta el Pentecostés: "Los cincuenta días que van del domingo de Resurrección al domingo de Pentecostés se celebran con alegria y exultación como si se tratara de un solo día de fiesta, o mejor dicho, de un gran domingo" (п. 22).</p>
                     <p class="text-sm mb-3">En la Constitución Sacrosanctum Concilium, se resalta también la centralidad de la Pascua, como fundamento del año litúrgico: "La santa madre Iglesia considera deber suyo celebrar con un sagrado recuerdo en días determinados a través del año la obra salvífica de su divino Esposo, Cada semana, en el día que llamó 'del Señor', conmemora su Resurrección, que una vez al año celebra también, junto con su santa Pasión, en la máxima solemnidad de la Pascua" (n. 102).</p>
                     <p class="text-sm mb-3">Durante los siete domingos de Pascua, la liturgia celebra el mensaje pascual de la resurrección del Señor, la alegría de la Iglesia por la renacida esperanza, la vida nueva de los que han sido bautizados (neófitos) y la acción del Espíritu Santo en la comunidad cristiana. Se trata, en definitiva, de celebrar prolongadamente la Pascua. Recordemos que la fiesta principal del año no es el Viernes Santo, sino el Domingo de Resurrección.</p>
