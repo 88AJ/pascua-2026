@@ -6,12 +6,9 @@
   window.__PADRE_ALAN_CHAT_LOADED__ = true;
 
   const CONFIG = {
-   // Cambie esto:
-title: "Pregúntele al Padre",
-// Por esto:
-title: "Pregúntele a los Padres",
+    title: "Pregúntele a los Padres",
     subtitle: "Semana Santa 2026 (Ciclo A)",
-    fabText: "Pregúntele al Padre",
+    fabText: "Pregúntele a los Padres",
     height: 610,
     width: 450,
     zIndex: 9999,
@@ -122,7 +119,7 @@ title: "Pregúntele a los Padres",
   };
 
   function whatsappEscalation(q) {
-    const msg = `Hola Padre Alan, necesito su atención personal sobre este tema:\n"${q}"\n\nMi nombre es: `;
+    const msg = `Hola Padre, necesito atención personal sobre este tema:\n"${q}"\n\nMi nombre es: `;
     const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     addMsg("bot", `
       <a class="pa-wa" href="${link}" target="_blank" rel="noopener">
@@ -193,12 +190,12 @@ title: "Pregúntele a los Padres",
     addMsg("user", esc(q));
     $("paInput").value = "";
 
-    // --- Detector de Alertas Pastorales (Su voz, Padre) ---
+    // --- Detector de Alertas Pastorales ---
     const alertas = ["queja", "problema", "incorrecto", "protestante", "error", "abuso", "discusion", "pelea", "falta"];
     const esAlerta = alertas.some(palabra => normalize(q).includes(palabra));
 
     if (esAlerta) {
-      addMsg("bot", "Entiendo perfectamente. Situaciones que afectan la dignidad de la liturgia o la armonía en nuestra comunidad requieren mi atención personal. Por favor, contáctame a través del siguiente enlace; déjame tu mensaje de texto y no olvides incluir tu nombre al final.");
+      addMsg("bot", "Entendemos la situación. Los temas que afectan la dignidad de la liturgia o la armonía en nuestra comunidad requieren atención personal. Por favor, contáctenos a través del siguiente enlace; deje su mensaje de texto y no olvide incluir su nombre al final.");
       whatsappEscalation(q);
       return;
     }
@@ -210,7 +207,7 @@ title: "Pregúntele a los Padres",
       const picks = await searchContent(q, targets);
 
       if (picks.length === 0) {
-        addMsg("bot", `Padre: No encuentro ese detalle específico en el manual. Por favor, contáctame de mi parte; déjame tu mensaje de texto con tu nombre al final para atenderte personalmente.`);
+        addMsg("bot", `No encontramos ese detalle específico en nuestro manual. Por favor, contáctenos a través del enlace; déjenos su mensaje con su nombre al final para atenderle personalmente.`);
         whatsappEscalation(q);
         return;
       }
@@ -227,12 +224,12 @@ title: "Pregúntele a los Padres",
 
       addMsg("bot", `${data.reply.replace(/\n/g, "<br>")}<div class="pa-src">Fuentes: ${sources}</div>`);
     } catch (e) {
-      addMsg("bot", "Hubo un problema de conexión. Por favor escríbeme directamente por WhatsApp.");
+      addMsg("bot", "Hubo un problema de conexión. Por favor escríbanos directamente por WhatsApp.");
       whatsappEscalation(q);
     }
   }
 
-  addMsg("bot", `Paz y bien. Soy el <b>Padre</b>. ${ctx ? `Veo que consulta lo referente al <b>${ctx.label}</b>.` : ""} ¿En qué puedo ayudarle hoy?`);
+  addMsg("bot", `Paz y bien. Somos los <b>Padres</b>. ${ctx ? `Vemos que consulta lo referente al <b>${ctx.label}</b>.` : ""} ¿En qué podemos ayudarle hoy?`);
   
   // Soporte para tecla Enter
   $("paInput").addEventListener("keypress", (e) => { if(e.key === 'Enter') reply($("paInput").value); });
