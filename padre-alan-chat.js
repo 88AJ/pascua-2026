@@ -1,4 +1,4 @@
-/* padre-alan-chat.js - RAG Inteligente (NotebookLM Style)
+/* padre-alan-chat.js - RAG Inteligente (Voz Pastoral) 
    Prioridad: Manual Litúrgico (Raíz) > Biblioteca (kb/)
 */
 (function () {
@@ -12,7 +12,6 @@
     height: 610,
     width: 450,
     zIndex: 9999,
-    // URL de tu Worker en Cloudflare (No cambiar si ya funciona)
     workerUrl: "https://flat-scene-ca7c.88alansanchez.workers.dev",
     pages: {
       ramos: { file: "ramos.html", label: "Domingo de Ramos" },
@@ -57,34 +56,26 @@
     return null;
   }
 
-  // Define qué archivos leer según la pregunta
   function getSearchTargets(q, currentCtx) {
     const day = detectDay(q) || (currentCtx?.key || null);
     const min = detectMinistry(q);
     const targets = [];
-
-    // 1. Prioridad: Ministerio específico del día (ej: ujieres-ramos.html)
     if (min && day) targets.push(`${min}-${day}.html`);
-    // 2. Manual del día (ej: ramos.html)
     if (day) targets.push(`${day}.html`);
-    // 3. Manual del ministerio general (ej: ujieres.html)
     if (min) targets.push(`${min}.html`);
-    // 4. Biblioteca oculta (Opcional)
     targets.push(`kb/general.html`);
     targets.push(`kb/faq.html`);
-    
     return { targets: [...new Set(targets)], day, min };
   }
 
   // =======================
-  // MOTOR DE BÚSQUEDA LOCAL
+  // MOTOR DE BÚSQUEDA
   // =======================
   const __CACHE__ = new Map();
 
   async function searchContent(q, files) {
     const tokens = normalize(q).split(" ").filter(t => t.length > 3);
     const hits = [];
-
     for (const f of files) {
       try {
         let data = __CACHE__.get(f);
@@ -100,7 +91,6 @@
           data = { file: f, blocks };
           __CACHE__.set(f, data);
         }
-
         data.blocks.forEach(b => {
           let score = 0;
           tokens.forEach(t => { if (b.norm.includes(t)) score++; });
@@ -112,7 +102,7 @@
   }
 
   // =======================
-  // UI & RENDER
+  // UI & HELPERS
   // =======================
   const esc = (s) => (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]));
   
@@ -128,10 +118,19 @@
     return n;
   };
 
+  function whatsappEscalation(q) {
+    const msg = `Hola Padre Alan, necesito su atención personal sobre este tema:\n"${q}"\n\nMi nombre es: `;
+    const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    addMsg("bot", `
+      <a class="pa-wa" href="${link}" target="_blank" rel="noopener">
+        Enviar mensaje por WhatsApp
+      </a>
+    `);
+  }
+
   const currentFile = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
   const ctx = Object.entries(CONFIG.pages).find(([k, v]) => v.file.toLowerCase() === currentFile)?.[1] || null;
 
-  // Estilos
   document.head.appendChild(el("style", {}, [`
     .pa-fab{position:fixed;right:18px;bottom:18px;z-index:${CONFIG.zIndex}}
     .pa-btn{border:0;background:#5b21b6;color:#fff;padding:12px 16px;border-radius:999px;font-weight:900;text-transform:uppercase;font-size:12px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.2)}
@@ -140,26 +139,27 @@
     .pa-head{background:#111827;color:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center}
     .pa-msgs{flex:1;overflow:auto;padding:15px;background:#f3f4f6;display:flex;flex-direction:column;gap:12px}
     .pa-bubble{padding:12px;border-radius:14px;font-size:14px;line-height:1.5;background:#fff;color:#111827;max-width:90%}
-    .user .pa-bubble{background:#5b21b6;color:#fff;align-self:flex-end}
+    .pa-row.user{justify-content:flex-end; display:flex;}
+    .pa-row.bot{justify-content:flex-start; display:flex;}
+    .user .pa-bubble{background:#5b21b6;color:#fff}
     .pa-foot{padding:12px;background:#fff;border-top:1px solid #eee}
     .pa-input-row{display:flex;gap:8px}
     .pa-input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;outline:none}
     .pa-send{background:#5b21b6;color:#fff;border:0;padding:10px 15px;border-radius:8px;cursor:pointer;font-weight:bold}
     .pa-src{font-size:11px;color:#6b7280;margin-top:10px;border-top:1px solid #eee;padding-top:5px}
-    .pa-wa{display:inline-block;margin-top:10px;background:#16a34a;color:#fff;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px}
+    .pa-wa{display:inline-block;margin-top:10px;background:#16a34a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;text-transform:uppercase}
   `]));
 
-  // Construcción UI
   const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
     el("div", { class: "pa-card" }, [
       el("div", { class: "pa-head" }, [
         el("span", { style: "font-weight:bold" }, [CONFIG.title]),
-        el("button", { style: "background:none;border:0;color:#fff;font-size:20px;cursor:pointer", onclick: () => panel.style.display="none" }, ["×"])
+        el("button", { style: "background:none;border:0;color:#fff;font-size:24px;cursor:pointer", onclick: () => $("paPanel").style.display="none" }, ["×"])
       ]),
       el("div", { class: "pa-msgs", id: "paMsgs" }),
       el("div", { class: "pa-foot" }, [
         el("div", { class: "pa-input-row" }, [
-          el("input", { class: "pa-input", id: "paInput", placeholder: "Pregunte al Padre..." }),
+          el("input", { class: "pa-input", id: "paInput", placeholder: "Escriba su pregunta..." }),
           el("button", { class: "pa-send", onclick: () => reply($("paInput").value) }, ["Enviar"])
         ])
       ])
@@ -167,7 +167,7 @@
   ]);
 
   document.body.appendChild(el("div", { class: "pa-fab" }, [
-    el("button", { class: "pa-btn", onclick: () => panel.style.display="block" }, [CONFIG.fabText])
+    el("button", { class: "pa-btn", onclick: () => $("paPanel").style.display="block" }, [CONFIG.fabText])
   ]));
   document.body.appendChild(panel);
 
@@ -182,13 +182,23 @@
   }
 
   // =======================
-  // RESPUESTA INTELIGENTE
+  // REPLY PRINCIPAL
   // =======================
   async function reply(text) {
     if (!text.trim()) return;
     const q = text.trim();
     addMsg("user", esc(q));
     $("paInput").value = "";
+
+    // --- Detector de Alertas Pastorales (Su voz, Padre) ---
+    const alertas = ["queja", "problema", "incorrecto", "protestante", "error", "abuso", "discusion", "pelea", "falta"];
+    const esAlerta = alertas.some(palabra => normalize(q).includes(palabra));
+
+    if (esAlerta) {
+      addMsg("bot", "Entiendo perfectamente. Situaciones que afectan la dignidad de la liturgia o la armonía en nuestra comunidad requieren mi atención personal. Por favor, contáctame a través del siguiente enlace; déjame tu mensaje de texto y no olvides incluir tu nombre al final.");
+      whatsappEscalation(q);
+      return;
+    }
 
     addMsg("bot", "Consultando el manual...");
 
@@ -197,12 +207,12 @@
       const picks = await searchContent(q, targets);
 
       if (picks.length === 0) {
-        addMsg("bot", `Padre: No encuentro ese detalle específico en el manual. ¿Es sobre el día <b>${day || '...'}</b> o el ministerio de <b>${min || '...'}</b>? <br><br> Si gusta, pregunte por WhatsApp.`);
+        addMsg("bot", `Padre: No encuentro ese detalle específico en el manual. Por favor, contáctame de mi parte; déjame tu mensaje de texto con tu nombre al final para atenderte personalmente.`);
+        whatsappEscalation(q);
         return;
       }
 
       const contextText = picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n");
-
       const response = await fetch(CONFIG.workerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -212,16 +222,16 @@
       const data = await response.json();
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
 
-      addMsg("bot", `
-        ${data.reply.replace(/\n/g, "<br>")}
-        <div class="pa-src">Fuentes: ${sources}</div>
-      `);
-
+      addMsg("bot", `${data.reply.replace(/\n/g, "<br>")}<div class="pa-src">Fuentes: ${sources}</div>`);
     } catch (e) {
-      addMsg("bot", "Lo siento, tuve un problema al conectar. ¿Podría intentar de nuevo o usar WhatsApp?");
+      addMsg("bot", "Hubo un problema de conexión. Por favor escríbeme directamente por WhatsApp.");
+      whatsappEscalation(q);
     }
   }
 
   addMsg("bot", `Paz y bien. Soy el <b>Padre</b>. ${ctx ? `Veo que consulta lo referente al <b>${ctx.label}</b>.` : ""} ¿En qué puedo ayudarle hoy?`);
+  
+  // Soporte para tecla Enter
+  $("paInput").addEventListener("keypress", (e) => { if(e.key === 'Enter') reply($("paInput").value); });
 
 })();
