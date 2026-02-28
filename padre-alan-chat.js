@@ -1,6 +1,5 @@
-/* padre-alan-chat.js - RAG Inteligente (Voz Pastoral y Teológica) 
-   Prioridad: Manual Litúrgico (Raíz) > Biblioteca (kb/)
-   Enrutamiento Semántico Avanzado
+/* padre-alan-chat.js - RAG Litúrgico Maestro 
+   Actualizado: Ciclo A (2025-2026) según el Manual de Semana Santa
 */
 (function () {
   if (window.__PADRE_ALAN_CHAT_LOADED__) return;
@@ -19,9 +18,9 @@
       lunes: { file: "lunes.html", label: "Lunes Santo" },
       martes: { file: "martes.html", label: "Martes Santo" },
       miercoles: { file: "miercoles.html", label: "Miércoles Santo" },
-      jueves: { file: "jueves.html", label: "Jueves Santo" },
-      viernes: { file: "viernes.html", label: "Viernes Santo" },
-      sabado: { file: "sabado.html", label: "Sábado Santo" },
+      jueves: { file: "jueves.html", label: "Jueves Santo / Misa Crismal" },
+      viernes: { file: "viernes.html", label: "Viernes Santo de la Pasión" },
+      sabado: { file: "sabado.html", label: "Sábado Santo (Sepultura)" },
       vigilia: { file: "vigilia.html", label: "Vigilia Pascual" },
       pascua: { file: "pascua.html", label: "Domingo de Resurrección" }
     }
@@ -30,23 +29,31 @@
   const WHATSAPP_NUMBER = "19567401370";
 
   // =======================
-  // DETECCIÓN INTUITIVA
+  // MOTOR SEMÁNTICO (Basado en el Manual 2026)
   // =======================
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
   }
 
-  // Diccionario de Días Santos (Atrapa variaciones comunes)
   const dayKeywords = {
-    "ramos": ["ramos", "palmas", "domingo de ramos", "entrada triunfal"],
-    "lunes": ["lunes"],
-    "martes": ["martes"],
-    "miercoles": ["miercoles", "oleos", "misa crismal"],
-    "jueves": ["jueves", "lavatorio", "cena del senor", "monumento", "pan ajimo"],
-    "viernes": ["viernes", "cruz", "pasion", "viacrucis", "siete palabras", "oficios"],
-    "sabado": ["sabado", "pesame", "luto", "sepulcro"],
-    "vigilia": ["vigilia", "fuego nuevo", "cirio", "noche santa", "lucernario", "pregon", "exsultet"],
-    "pascua": ["pascua", "resurreccion", "domingo de pascua"]
+    "ramos": ["ramos", "palmas", "mt 21", "mt 26", "rojo", "entrada triunfal", "procesion ramos"],
+    "lunes": ["lunes santo", "betania", "perfume", "is 42", "jn 12"],
+    "martes": ["martes santo", "negaciones", "gallo", "is 49", "jn 13"],
+    "miercoles": ["miercoles santo", "traicion", "judas", "is 50", "mt 26", "anacleto gonzalez"],
+    "jueves": ["jueves santo", "cena del senor", "lavatorio", "mandamiento nuevo", "misa crismal", "oleos", "crisma", "monumento", "pange lingua", "traslado", "humeral"],
+    "viernes": ["viernes santo", "no hay misa", "adoracion cruz", "improperios", "muerte", "septima palabra", "viacrucis", "procesion silencio", "is 52", "jn 18", "jn 19"],
+    "sabado": ["sabado santo", "sepultura", "espera", "soledad", "descanso", "no hay sacramentos"],
+    "vigilia": ["vigilia pascual", "fuego nuevo", "cirio", "exsultet", "pregon", "lucernario", "bautismos", "letanias", "agua pura", "gloria", "campanas", "noche santa"],
+    "pascua": ["domingo de pascua", "resurreccion", "vacio", "secuencia", "in albis", "neofitos", "hech 10", "jn 20"]
+  };
+
+  const ministryKeywords = {
+    "monaguillos": ["monaguillo", "acolito", "turiferario", "incensario", "naveta", "cirial", "cruciferario", "cruz procesional", "acetre", "hisopo", "palia", "corporal", "lavabo", "manutergio", "velas"],
+    "lectores": ["lector", "lectura", "proclamar", "pasion", "salmista", "ambon", "leccionario", "epistola", "monicion", "libro"],
+    "coro": ["cant", "himno", "salmo", "gloria", "aleluya", "pange lingua", "tantum ergo", "improperios", "secuencia", "organo", "instrumentos"],
+    "sacristia": ["sacristan", "pixide", "copon", "sagrario", "custodia", "vasos sagrados", "vinajeras", "purificador", "mantel", "alba", "casulla", "estola", "dalmatica", "morado", "blanco", "rojo"],
+    "ujieres": ["ujier", "acomodador", "orden", "colecta", "santos lugares", "canasta", "puerta", "bienvenida"],
+    "mec": ["ministro", "comunion", "enfermos", "viatico", "distribuir", "copon", "hostias"]
   };
 
   function detectDay(q) {
@@ -56,17 +63,6 @@
     }
     return null;
   }
-
-  // Diccionario de Ministerios (Atrapa verbos, objetos y sinónimos)
-  const ministryKeywords = {
-    "ujieres": ["ujier", "acomodador", "bienvenida", "recibir", "orden", "edecan", "colecta", "canasta", "bancas"],
-    "lectores": ["lector", "lectura", "leer", "proclamar", "salmista", "ambon", "leccionario", "palabra"],
-    "monaguillos": ["monaguillo", "acolito", "monago", "cirial", "incensario", "naveta", "altar", "campan", "monaguilla"],
-    "coro": ["coro", "music", "cant", "cancion", "alabar", "guitarra", "ensayo", "voces", "salmo", "entonar"],
-    "mec": ["mec", "ministro", "comunion", "eucaristia", "hostia", "copon", "purificador", "cuerpo de cristo", "enfermos"],
-    "misal": ["misal", "guion", "guia lit", "rubrica"],
-    "sacristia": ["sacristia", "sacristan", "ornamento", "vasos sagrados", "vinajera", "corporal", "preparar altar", "mantel"]
-  };
 
   function detectMinistry(q) {
     const t = normalize(q);
@@ -80,22 +76,16 @@
     const day = detectDay(q) || (currentCtx?.key || null);
     const min = detectMinistry(q);
     const targets = [];
-    
-    // Prioridad 1: Cruce de Ministerio y Día (ej: coro-lunes.html)
     if (min && day) targets.push(`${min}-${day}.html`);
-    // Prioridad 2: Día general (ej: lunes.html)
     if (day) targets.push(`${day}.html`);
-    // Prioridad 3: Ministerio general (ej: coro.html si existe)
     if (min) targets.push(`${min}.html`);
-    // Prioridad 4: Base de conocimiento general
     targets.push(`kb/general.html`);
     targets.push(`kb/faq.html`);
-    
     return { targets: [...new Set(targets)], day, min };
   }
 
   // =======================
-  // MOTOR DE BÚSQUEDA
+  // LÓGICA DE BÚSQUEDA Y CACHE
   // =======================
   const __CACHE__ = new Map();
 
@@ -128,7 +118,7 @@
   }
 
   // =======================
-  // UI & HELPERS
+  // INTERFAZ DE USUARIO (UI)
   // =======================
   const esc = (s) => (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]));
   
@@ -145,7 +135,7 @@
   };
 
   function getWaButtonHtml(q) {
-    const msg = `Paz y bien. Necesito orientación sobre este tema:\n"${q}"\n\nMi nombre es: `;
+    const msg = `Paz y bien. Sobre mi consulta: "${q}"\n¿Podrían orientarme?\nMi nombre es: `;
     const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     return `<br><br><a class="pa-wa" href="${link}" target="_blank" rel="noopener">Enviar mensaje por WhatsApp</a>`;
   }
@@ -204,7 +194,7 @@
   }
 
   // =======================
-  // REPLY PRINCIPAL
+  // RESPUESTA Y LÓGICA DE WORKER
   // =======================
   async function reply(text) {
     if (!text.trim()) return;
@@ -213,18 +203,17 @@
     addMsg("user", esc(q));
     $("paInput").value = "";
 
-    // Detector de Solicitud de Contacto Directa
-    const pideContacto = ["whatsapp", "wassap", "wasap", "contacto", "comunicar", "telefono", "celular", "mensaje"].some(palabra => qNorm.includes(palabra));
+    const pideContacto = ["whatsapp", "wassap", "wasap", "contacto", "telefono", "mensaje"].some(p => qNorm.includes(p));
 
-    addMsg("bot", "Buscando...");
+    addMsg("bot", "Buscando en el Manual...");
 
     try {
-      const { targets, day, min } = getSearchTargets(q, ctx);
+      const { targets } = getSearchTargets(q, ctx);
       const picks = await searchContent(q, targets);
 
-      // Si no encuentra nada en el manual local
+      // Si no hay información en los archivos, remitir a WhatsApp
       if (picks.length === 0) {
-        addMsg("bot", `Ese detalle no se encuentra especificado en nuestro manual actual. Para ofrecerle una respuesta precisa y pastoral, por favor envíenos su consulta por WhatsApp.` + getWaButtonHtml(q));
+        addMsg("bot", "Ese detalle no está especificado en el manual de este año. Por favor, consulte directamente con los coordinadores por WhatsApp." + getWaButtonHtml(q));
         return;
       }
 
@@ -236,11 +225,13 @@
       });
 
       const data = await response.json();
-      const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
       
+      // Paracaídas: Si el Worker falla o devuelve vacío
+      if (!data || !data.reply) throw new Error("API Offline");
+
+      const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
       let finalResponse = data.reply.replace(/\n/g, "<br>");
       
-      // Inyectar botón si pide contacto o si la IA deriva tras su discernimiento
       if (pideContacto || finalResponse.toLowerCase().includes("whatsapp")) {
         finalResponse += getWaButtonHtml(q);
       }
@@ -248,11 +239,11 @@
       addMsg("bot", `${finalResponse}<div class="pa-src">Fuentes: ${sources}</div>`);
 
     } catch (e) {
-      addMsg("bot", "Hubo un problema de conexión. Por favor escríbanos directamente." + getWaButtonHtml(q));
+      addMsg("bot", "Paz y bien. Tuvimos un inconveniente técnico al consultar el manual. Por favor escríbanos por WhatsApp:" + getWaButtonHtml(q));
     }
   }
 
-  addMsg("bot", `Paz y bien. Somos los <b>Padres</b>. ${ctx ? `Vemos que consulta lo referente al <b>${ctx.label}</b>.` : ""} ¿En qué podemos ayudarle hoy?`);
+  addMsg("bot", `Paz y bien. Somos los <b>Padres</b>. ${ctx ? `Vemos que consulta sobre el <b>${ctx.label}</b>.` : ""} ¿Qué duda litúrgica tiene hoy?`);
   
   $("paInput").addEventListener("keypress", (e) => { if(e.key === 'Enter') reply($("paInput").value); });
 
