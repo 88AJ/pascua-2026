@@ -1,4 +1,4 @@
-/* padre-alan-chat.js - RAG Inteligente (Voz Pastoral) 
+/* padre-alan-chat.js - RAG Inteligente (Voz Pastoral y Teológica) 
    Prioridad: Manual Litúrgico (Raíz) > Biblioteca (kb/)
 */
 (function () {
@@ -118,14 +118,10 @@
     return n;
   };
 
-  function whatsappEscalation(q) {
-    const msg = `Hola Padre, necesito atención personal sobre este tema:\n"${q}"\n\nMi nombre es: `;
+  function getWaButtonHtml(q) {
+    const msg = `Paz y bien. Necesito orientación sobre este tema:\n"${q}"\n\nMi nombre es: `;
     const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-    addMsg("bot", `
-      <a class="pa-wa" href="${link}" target="_blank" rel="noopener">
-        Enviar mensaje por WhatsApp
-      </a>
-    `);
+    return `<br><br><a class="pa-wa" href="${link}" target="_blank" rel="noopener">Enviar mensaje por WhatsApp</a>`;
   }
 
   const currentFile = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
@@ -147,7 +143,7 @@
     .pa-input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;outline:none}
     .pa-send{background:#5b21b6;color:#fff;border:0;padding:10px 15px;border-radius:8px;cursor:pointer;font-weight:bold}
     .pa-src{font-size:11px;color:#6b7280;margin-top:10px;border-top:1px solid #eee;padding-top:5px}
-    .pa-wa{display:inline-block;margin-top:10px;background:#16a34a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;text-transform:uppercase}
+    .pa-wa{display:inline-block;margin-top:5px;background:#16a34a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;text-transform:uppercase}
   `]));
 
   const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
@@ -187,28 +183,22 @@
   async function reply(text) {
     if (!text.trim()) return;
     const q = text.trim();
+    const qNorm = normalize(q);
     addMsg("user", esc(q));
     $("paInput").value = "";
 
-    // --- Detector de Alertas Pastorales ---
-    const alertas = ["queja", "problema", "incorrecto", "protestante", "error", "abuso", "discusion", "pelea", "falta"];
-    const esAlerta = alertas.some(palabra => normalize(q).includes(palabra));
+    // Detector de Solicitud de Contacto Directa
+    const pideContacto = ["whatsapp", "wassap", "wasap", "contacto", "comunicar", "telefono", "celular", "mensaje"].some(palabra => qNorm.includes(palabra));
 
-    if (esAlerta) {
-      addMsg("bot", "Entendemos la situación. Los temas que afectan la dignidad de la liturgia o la armonía en nuestra comunidad requieren atención personal. Por favor, contáctenos a través del siguiente enlace; deje su mensaje de texto y no olvide incluir su nombre al final.");
-      whatsappEscalation(q);
-      return;
-    }
-
-    addMsg("bot", "Consultando el manual...");
+    addMsg("bot", "Buscando...");
 
     try {
       const { targets, day, min } = getSearchTargets(q, ctx);
       const picks = await searchContent(q, targets);
 
+      // Si no encuentra nada en el manual (Alineado con el rigor teológico/lógico)
       if (picks.length === 0) {
-        addMsg("bot", `No encontramos ese detalle específico en nuestro manual. Por favor, contáctenos a través del enlace; déjenos su mensaje con su nombre al final para atenderle personalmente.`);
-        whatsappEscalation(q);
+        addMsg("bot", `Ese detalle no se encuentra especificado en nuestro manual actual. Para ofrecerle una respuesta precisa y pastoral, por favor envíenos su consulta por WhatsApp.` + getWaButtonHtml(q));
         return;
       }
 
@@ -221,17 +211,23 @@
 
       const data = await response.json();
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
+      
+      let finalResponse = data.reply.replace(/\n/g, "<br>");
+      
+      // Inyectar botón si pide contacto o si la IA deriva tras su discernimiento
+      if (pideContacto || finalResponse.toLowerCase().includes("whatsapp")) {
+        finalResponse += getWaButtonHtml(q);
+      }
 
-      addMsg("bot", `${data.reply.replace(/\n/g, "<br>")}<div class="pa-src">Fuentes: ${sources}</div>`);
+      addMsg("bot", `${finalResponse}<div class="pa-src">Fuentes: ${sources}</div>`);
+
     } catch (e) {
-      addMsg("bot", "Hubo un problema de conexión. Por favor escríbanos directamente por WhatsApp.");
-      whatsappEscalation(q);
+      addMsg("bot", "Hubo un problema de conexión. Por favor escríbanos directamente." + getWaButtonHtml(q));
     }
   }
 
   addMsg("bot", `Paz y bien. Somos los <b>Padres</b>. ${ctx ? `Vemos que consulta lo referente al <b>${ctx.label}</b>.` : ""} ¿En qué podemos ayudarle hoy?`);
   
-  // Soporte para tecla Enter
   $("paInput").addEventListener("keypress", (e) => { if(e.key === 'Enter') reply($("paInput").value); });
 
 })();
