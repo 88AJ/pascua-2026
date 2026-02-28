@@ -4,7 +4,7 @@
    - GitHub Pages compatible
    - SIN backend / SIN API
    - Modo smart: primero busca en /kb/ (artefactos), luego en páginas del manual
-   - Si no encuentra, ofrece WhatsApp con mensaje prellenado
+   - Si no encuentra, pide precisión o ofrece WhatsApp con mensaje prellenado
 */
 (function () {
   if (window.__PADRE_ALAN_CHAT_LOADED__) return;
@@ -21,7 +21,6 @@
     width: 450,
     zIndex: 9999,
 
-    // Páginas principales del manual
     pages: {
       ramos: { file: "ramos.html", label: "Domingo de Ramos de la Pasión del Señor" },
       lunes: { file: "lunes.html", label: "Lunes Santo" },
@@ -34,14 +33,12 @@
       pascua: { file: "pascua.html", label: "Domingo de Pascua de la Resurrección del Señor" }
     },
 
-    // Carpeta KB (artefactos de NotebookLM)
     kbDir: "kb"
   };
 
   // WhatsApp (formato internacional sin "+")
   const WHATSAPP_NUMBER = "19567401370";
 
-  // Ministerios que usted usa
   const MINISTRIES = ["misal", "mec", "monaguillos", "lectores", "coro", "ujieres", "sacristia"];
   const DAYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
 
@@ -111,6 +108,21 @@
       .replace(/[^a-z0-9\s-]/g, " ")
       .replace(/\s+/g, " ")
       .trim();
+  }
+
+  // Pequeño “sinónimos” para que el motor encuentre mejor
+  function expandQuery(q) {
+    const t = normalize(q);
+
+    const expansions = [];
+    if (/\bpalmas?\b/.test(t)) expansions.push("ramos palmas bendicion procesion hosanna");
+    if (/\bramos?\b/.test(t)) expansions.push("palmas bendicion procesion entrada jerusalen");
+    if (/\bpor que\b|\bque significa\b|\bsignificado\b|\bsimboliza\b|\bsentido\b/.test(t)) expansions.push("significado sentido simbolo");
+
+    // Semana Santa / Triduo (términos frecuentes)
+    if (/\bpas(i|í)on\b/.test(t)) expansions.push("pasión lectura pasion sin incienso sin ciriales");
+
+    return (t + " " + expansions.join(" ")).trim();
   }
 
   function detectDay(q) {
@@ -204,6 +216,8 @@
     .pa-wa{display:inline-flex;align-items:center;gap:8px;background:#16a34a;color:#fff;text-decoration:none;padding:10px 12px;border-radius:12px;font-weight:900;box-shadow:0 10px 22px rgba(0,0,0,.15);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
     .pa-wa:hover{background:#15803d}
     .pa-wa-dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.85)}
+    .pa-src{margin-top:8px;font-size:11px;color:#6b7280}
+    .pa-src a{color:#5b21b6;font-weight:900;text-decoration:underline}
   `]);
   document.head.appendChild(style);
 
@@ -277,7 +291,7 @@
     return "nota";
   }
 
-  function trimText(t, max = 300) {
+  function trimText(t, max = 320) {
     const s = (t || "").replace(/\s+/g, " ").trim();
     return s.length > max ? (s.slice(0, max) + "…") : s;
   }
@@ -310,6 +324,10 @@
       if (tok.length < 3) continue;
       if (blockNorm.includes(tok)) s += 2;
     }
+    // bonus si la pregunta es “por qué / significado”, premiar bloques que contengan “significado/simbolo”
+    if (tokens.includes("significado") || tokens.includes("simbolo") || tokens.includes("simboliza") || tokens.includes("sentido")) {
+      if (blockNorm.includes("signific") || blockNorm.includes("simbol")) s += 2;
+    }
     return s;
   }
 
@@ -333,7 +351,9 @@
   }
 
   async function searchFiles(question, files, maxHits = 4) {
-    const tokens = normalize(question).split(" ").filter(Boolean);
+    const expanded = expandQuery(question);
+    const tokens = normalize(expanded).split(" ").filter(Boolean);
+
     const hits = [];
 
     for (const f of files) {
@@ -353,7 +373,7 @@
     const seen = new Set();
     const picks = [];
     for (const h of hits) {
-      const key = h.text.slice(0, 110);
+      const key = h.file + "::" + h.text.slice(0, 120);
       if (seen.has(key)) continue;
       seen.add(key);
       picks.push(h);
@@ -362,28 +382,46 @@
     return picks;
   }
 
-  function liturgicalWrap({ day, ministry, picks }) {
-    const d = day ? dayNice(day) : "el día correspondiente";
+  function liturgicalAnswer({ day, ministry, picks }) {
+    const d = day ? dayNice(day) : null;
     const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
 
+    // Priorizar 1–2 líneas más relevantes, y luego “nota”
     const groups = { obligatorio: [], recomendable: [], advertencia: [], nota: [] };
     picks.forEach(p => groups[classifyLine(p.text)].push(p));
 
-    function renderGroup(title, arr, limit) {
-      const part = arr.slice(0, limit).map(h => `• ${esc(trimText(h.text, 300))}`).join("<br><br>");
-      return part ? `<b>${title}</b><br>${part}<br><br>` : "";
-    }
+    // elegir “mejor” (si es pregunta de significado, muchas veces cae como nota)
+    const primary =
+      groups.obligatorio[0] ||
+      groups.recomendable[0] ||
+      groups.nota[0] ||
+      groups.advertencia[0] ||
+      picks[0];
 
-    return `
+    const secondary =
+      groups.nota[1] || groups.recomendable[1] || groups.obligatorio[1] || groups.advertencia[1] || picks[1];
+
+    const head = `
 <b>Padre Alan:</b> Con gusto. Espero que usted esté bien.<br>
-Sobre <b>${esc(d)}</b>${m ? `, para <b>${esc(m)}</b>` : ""}, esto es lo esencial:
-<br><br>
-${renderGroup("Lo obligatorio (rúbrica)", groups.obligatorio, 2)}
-${renderGroup("Lo recomendable", groups.recomendable, 2)}
-${renderGroup("Errores comunes / advertencias", groups.advertencia, 1)}
-${renderGroup("Nota útil", groups.nota, 1)}
-<b>Si usted quiere</b>, puedo ordenarle esto en un checklist paso a paso.
+${d ? `Sobre <b>${esc(d)}</b>${m ? `, para <b>${esc(m)}</b>` : ""}:<br><br>` : ""}
 `.trim();
+
+    const body = `
+• ${esc(trimText(primary.text, 420))}${secondary ? `<br><br>• ${esc(trimText(secondary.text, 420))}` : ""}
+`.trim();
+
+    const src = `
+<div class="pa-src">
+Fuente: <a href="${esc(primary.file)}">${esc(primary.file)}</a>${secondary ? ` · <a href="${esc(secondary.file)}">${esc(secondary.file)}</a>` : ""}
+</div>
+`.trim();
+
+    const close = `
+<br><br>
+Si usted quiere, se lo dejo en <b>dos líneas claras</b> o en <b>checklist</b>.
+`.trim();
+
+    return head + body + src + close;
   }
 
   function makeChecklistFromPicks(day, ministry, picks) {
@@ -412,15 +450,12 @@ ${steps}
 `.trim();
   }
 
-  function speakUncertain(day, ministry) {
-    const d = day ? dayNice(day) : null;
-    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
-
+  function askForPrecision(day) {
+    // Sólo cuando realmente no encontramos nada
     return `
-<b>Padre Alan:</b> Para no improvisar ni darle un dato incorrecto, permítame confirmar un detalle.<br>
-${d ? `¿Se refiere a <b>${esc(d)}</b>?<br>` : `¿Qué día está preparando: <b>Ramos, Jueves, Viernes, Vigilia</b>, etc.?<br>`}
-${m ? `¿Es para el ministerio de <b>${esc(m)}</b>?<br>` : `¿Para qué ministerio: <b>misal, lectores, coro, monaguillos, ujieres, sacristía</b>?<br>`}
-Con eso, con gusto le doy el orden exacto y el checklist.
+<b>Padre Alan:</b> Para responderle con exactitud y sin improvisar, permítame ubicarlo.<br>
+${day ? `¿Su pregunta es sobre <b>${esc(dayNice(day))}</b>, correcto?<br>` : `¿Sobre qué día: <b>Ramos, Lunes, Martes, Miércoles, Jueves, Viernes, Vigilia</b>?<br>`}
+Si aplica, dígame también el ministerio: <b>misal, lectores, coro, monaguillos, ujieres, sacristía</b>.
 `.trim();
   }
 
@@ -445,14 +480,15 @@ Si a usted le parece, envíeme esta duda por WhatsApp y la reviso personalmente:
   }
 
   // =======================
-  // KB (respuestas rápidas)
+  // KB (respuestas rápidas mínimas)
   // =======================
-  const KB = [
+  const QUICK = [
     {
       test: [/^\/?help$/i, /ayuda/i],
       answer: () => `
 Con gusto. Puedo ayudarle con <b>Semana Santa 2026 (Ciclo A)</b>.<br><br>
 <b>Ejemplos:</b><br>
+• <b>¿por qué las palmas en ramos?</b><br>
 • <b>checklist lectores ramos</b><br>
 • <b>qué es obligatorio viernes</b><br>
 • <b>coro jueves cantos</b><br>
@@ -465,7 +501,7 @@ Con gusto. Puedo ayudarle con <b>Semana Santa 2026 (Ciclo A)</b>.<br><br>
       answer: () => `
 Paz y bien. Espero que usted esté bien.<br>
 Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br>
-Dígame el <b>día</b> y, si aplica, el <b>ministerio</b> (misal, lectores, coro, monaguillos, ujieres, sacristía).
+Pregúnteme con libertad: “¿por qué…?”, “¿qué significa…?”, “¿qué es obligatorio…?”.
       `.trim()
     }
   ];
@@ -488,33 +524,21 @@ Dígame el <b>día</b> y, si aplica, el <b>ministerio</b> (misal, lectores, coro
       return;
     }
 
-    // KB rápido
-    const hit = KB.find(item => item.test.some(rgx => rgx.test(q)));
+    // quick responses
+    const hit = QUICK.find(item => item.test.some(rgx => rgx.test(q)));
     if (hit) {
       addMsg("bot", (typeof hit.answer === "function") ? hit.answer() : hit.answer);
       return;
     }
 
-    // detectar contexto
+    // contexto
     const day = detectDay(q) || (ctx?.key || null);
     const ministry = detectMinistry(q);
-
-    // ¿cuándo buscar?
-    const shouldSearch =
-      !!ministry ||
-      /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición|lecturas|cantos|ministros|inciens|incens|cirio|lavatorio|adoracion|adoración|secuencia|aspersión|pasión/i
-        .test(q.toLowerCase());
-
-    // Si no está pidiendo algo “operativo”, pedir confirmación
-    if (!shouldSearch) {
-      addMsg("bot", speakUncertain(day, ministry));
-      return;
-    }
 
     addMsg("bot", "Un momento, por favor…");
 
     try {
-      // 1) Buscar en KB primero
+      // 1) KB primero (SIEMPRE)
       const kbFiles = kbCandidates(day, ministry);
       const kbPicks = await searchFiles(q, kbFiles, 4);
 
@@ -523,11 +547,11 @@ Dígame el <b>día</b> y, si aplica, el <b>ministerio</b> (misal, lectores, coro
           const cl = makeChecklistFromPicks(day, ministry, kbPicks);
           if (cl) { addMsg("bot", cl); return; }
         }
-        addMsg("bot", liturgicalWrap({ day, ministry, picks: kbPicks }));
+        addMsg("bot", liturgicalAnswer({ day, ministry, picks: kbPicks }));
         return;
       }
 
-      // 2) Luego buscar en páginas normales
+      // 2) Manual después
       const manFiles = manualCandidates(day, ministry);
       const manPicks = await searchFiles(q, manFiles, 4);
 
@@ -536,16 +560,12 @@ Dígame el <b>día</b> y, si aplica, el <b>ministerio</b> (misal, lectores, coro
           const cl = makeChecklistFromPicks(day, ministry, manPicks);
           if (cl) { addMsg("bot", cl); return; }
         }
-        addMsg("bot", liturgicalWrap({ day, ministry, picks: manPicks }));
+        addMsg("bot", liturgicalAnswer({ day, ministry, picks: manPicks }));
         return;
       }
 
-      // 3) No encontró: no improvisar + WhatsApp
-      addMsg("bot", `
-<b>Padre Alan:</b> Para no improvisar ni darle una respuesta insegura, prefiero confirmarlo.<br>
-Si usted me dice el <b>día</b> y el <b>ministerio</b>, lo preparo exacto. Si prefiere, envíemelo por WhatsApp y lo reviso personalmente.
-      `.trim());
-
+      // 3) Nada encontrado: pedir precisión o WhatsApp
+      addMsg("bot", askForPrecision(day));
       whatsappEscalation(q);
       return;
 
@@ -593,10 +613,14 @@ Si a usted le parece, envíeme la pregunta por WhatsApp.
 Paz y bien. Espero que usted esté bien.<br>
 Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br><br>
 Usted puede preguntar, por ejemplo:<br>
+• <b>¿por qué las palmas en ramos?</b><br>
+• <b>¿qué significa conservar el ramo?</b><br>
 • <b>checklist lectores ramos</b><br>
-• <b>qué es obligatorio viernes</b><br>
-• <b>coro jueves cantos</b><br>
-• <b>monaguillos vigilia pasos</b><br><br>
-<i>Nota:</i> Respondo con criterios del manual. Si algo no está claro, prefiero confirmarlo antes de improvisar.
+• <b>qué es obligatorio viernes</b><br><br>
+<i>Nota:</i> Primero consulto la Biblioteca (kb/), luego su manual.
   `.trim());
+
+  // Exponer reply para depuración opcional
+  window.__padreAlanReply__ = reply;
+
 })();
