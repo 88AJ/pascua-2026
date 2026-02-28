@@ -10,148 +10,191 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Imagen de portada para mantener la uniformidad con el Lunes Santo */
+        .hero-bg { 
+            background-color: #581c87;
+            background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/uncion-lunes.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+        
+        /* Ajuste para el iframe en móviles */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 150%; /* Relación de aspecto para forms largos */
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 768px) {
+            .iframe-container {
+                padding-top: 0;
+                height: 950px;
+            }
+        }
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800">
+<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800 flex flex-col min-h-screen">
 
 <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="lunes.html" class="flex items-center gap-2 text-purple-700 font-semibold hover:underline">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="lunes.html" class="flex items-center gap-2 text-purple-700 font-bold hover:text-purple-800 transition">
             <i class="fa-solid fa-arrow-left"></i> Volver a Lunes Santo
         </a>
-        <span class="font-bold text-gray-700 tracking-wide">
+        <span class="font-bold text-gray-800 tracking-wide uppercase text-sm">
             Camino hacia la Pascua 2026
         </span>
     </div>
 </header>
 
-<section class="text-center py-16 bg-white shadow-sm border-b-8 border-purple-700">
-    <div class="max-w-4xl mx-auto px-4">
-        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">Color Litúrgico: Morado</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-purple-700 flex justify-center items-center gap-4 mt-2">
-            <i class="fa-solid fa-music"></i>
+<section class="hero-bg text-center py-16 shadow-sm border-b-8 border-purple-700">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <span class="bg-purple-100 text-purple-900 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block shadow-sm">Color Litúrgico: Morado</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white flex justify-center items-center gap-4 mt-2 tracking-tight uppercase">
+            <i class="fa-solid fa-music text-purple-300"></i>
             Coro y Música Litúrgica
         </h1>
-        <p class="mt-6 text-gray-600 text-lg leading-relaxed">
-            Lunes Santo: La Unción en Betania. Guía de ensamble, repertorio penitencial y cantos sugeridos.
+        <p class="mt-6 text-purple-100 text-lg leading-relaxed font-medium uppercase tracking-widest">
+            Lunes Santo: La Unción en Betania.<br>Guía de ensamble, repertorio penitencial y cantos sugeridos.
         </p>
-        <div class="mt-8">
-            <a href="#registro" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-purple-700 transition text-lg font-semibold">
+        <div class="mt-10">
+            <a href="#registro" class="inline-block bg-white text-purple-900 px-8 py-4 rounded-xl shadow-lg hover:bg-gray-100 transition text-lg font-bold uppercase tracking-widest">
                 Registrarme para Cantar
             </a>
         </div>
     </div>
 </section>
 
-<section class="py-12 max-w-5xl mx-auto px-4 space-y-12">
+<section class="py-16 max-w-5xl mx-auto px-4 space-y-12 flex-grow">
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-600">
-        <h2 class="text-2xl font-bold text-purple-700 mb-6 uppercase tracking-tight"><i class="fa-solid fa-clock"></i> Horarios</h2>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-600">
+        <h2 class="text-2xl font-bold text-purple-800 mb-6 uppercase tracking-tight flex items-center gap-2"><i class="fa-solid fa-clock"></i> Horarios</h2>
         <div class="grid md:grid-cols-2 gap-8">
             <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2">Parroquia San Pedro Apóstol</h3>
-                <p class="text-sm text-purple-800 font-bold mb-3">Requisito: Coro, Cantor y Salmista por Misa</p>
-                <ul class="space-y-2 text-gray-800 text-sm">
-                    <li><strong>Matutina:</strong> 8:00 AM</li>
-                    <li><strong>Vespertina:</strong> 7:00 PM</li>
+                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2 uppercase text-center">Parroquia San Pedro Apóstol</h3>
+                <p class="text-sm text-purple-800 font-bold mb-4 bg-purple-100 inline-block px-3 py-1 rounded w-full text-center">Coro, Cantor y Salmista por Misa</p>
+                <ul class="space-y-3 text-gray-800 text-center font-bold text-lg">
+                    <li>Matutina: 8:00 AM</li>
+                    <li>Vespertina: 7:00 PM</li>
                 </ul>
             </div>
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center">
-                <h3 class="font-bold text-lg text-gray-900 mb-2">Capilla San Judas Tadeo</h3>
-                <p class="text-sm text-gray-500 font-medium">Sin celebraciones programadas hoy.</p>
+                <h3 class="font-bold text-lg text-gray-900 mb-3 uppercase border-b border-gray-200 pb-2 w-full">Capilla San Judas Tadeo</h3>
+                <p class="text-base text-gray-500 font-medium">Sin celebraciones programadas hoy.</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-gray-800">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight">I. Sentido del Día: Sobriedad e Intimidad</h2>
-        <div class="text-gray-700 space-y-4 leading-relaxed">
-            <p>El Lunes Santo exige reducir la marcha. Atrás quedó la festividad de los ramos. Hoy la liturgia nos introduce en la casa de Betania, en la intimidad de la cena donde María unge los pies de Jesús, prefigurando su sepultura, mientras Judas revela la avaricia que consumará la traición.</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-gray-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-2 uppercase tracking-tight">I. Sentido del Día: Sobriedad e Intimidad</h2>
+        <div class="w-16 h-1 bg-purple-600 mb-8 rounded"></div>
+        <div class="text-gray-700 space-y-4 leading-relaxed text-lg">
+            <p>El Lunes Santo exige reducir la marcha. Atrás quedó la festividad de los ramos. Hoy la liturgia nos introduce en la casa de Betania, en la intimidad de la cena donde María unge los pies de Jesús.</p>
             
-            <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-700 mt-6">
-                <h3 class="text-purple-900 font-bold mb-2">Consigna para el Coro: Gestionar la Atmósfera</h3>
-                <ul class="list-disc pl-5 space-y-2 text-sm text-purple-800">
-                    <li><strong>Instrumentación Austera:</strong> Reducir el uso de percusiones y ritmos rápidos. Preferir arpegios, cuerdas frotadas o teclado con tonos suaves.</li>
-                    <li><strong>Voces:</strong> Privilegiar el canto a una o dos voces, evitando la estridencia. El silencio entre cantos es tan importante como la música misma.</li>
-                    <li><strong>Silencio:</strong> NO hay Aleluya. Se recomienda que el canto de salida sea omitido o reemplazado por un retiro en total silencio.</li>
+            <div class="bg-purple-50 p-8 rounded-2xl border-l-8 border-purple-700 shadow-sm mt-8">
+                <h3 class="text-purple-950 font-extrabold mb-4 text-xl uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Consigna para el Coro
+                </h3>
+                <ul class="space-y-4 text-purple-900 font-medium">
+                    <li class="flex gap-3"><i class="fa-solid fa-check mt-1"></i> <strong>Instrumentación Austera:</strong> Eliminar percusiones. Preferir piano suave o guitarra arpegiada.</li>
+                    <li class="flex gap-3"><i class="fa-solid fa-check mt-1"></i> <strong>Voces:</strong> Privilegiar el canto a una o dos voces, evitando la estridencia.</li>
+                    <li class="flex gap-3"><i class="fa-solid fa-check mt-1"></i> <strong>Silencio Sagrado:</strong> NO hay Aleluya. Se recomienda que el canto de salida sea omitido para un retiro en silencio.</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-800">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 uppercase tracking-tight border-b-2 pb-4">Guía Musical y Repertorio</h2>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-10 uppercase tracking-tight border-b-2 pb-4">Guía Musical y Repertorio</h2>
 
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">1. Canto de Entrada</h3>
-            <p class="text-sm text-gray-600 mb-4">La procesión de entrada es breve y sin incienso. El himno debe marcar inmediatamente el tono de arrepentimiento. <br><strong>Canto Sugerido:</strong> <em>"Pequé, Pequé, Señor"</em>.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/0h1NU7nNvuA" title="Pequé, Pequé, Señor" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">2. Aclamación antes del Evangelio</h3>
-            <p class="text-sm text-gray-600 mb-4">El texto tradicional que se entona es: <strong>"Honor y gloria a ti, Señor Jesús"</strong>.<br>
-            <strong>Verso Proclamado:</strong> <em>"Señor Jesús, Rey nuestro, sólo tú has tenido compasión de nuestros errores"</em>. Este verso enfoca la aclamación directamente en la realeza de Cristo fundamentada en la compasión y el perdón.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/MHa2L1A7c1I" title="Honor y gloria a ti, Señor Jesús" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">3. Preparación de Dones (Ofertorio)</h3>
-            <p class="text-sm text-gray-600 mb-4">Se recomienda silencio o un canto muy suave de entrega y conversión.<br>
-            <strong>Sugerencia 1:</strong> <em>"Mi corazón ha estado esperando"</em>.<br>
-            <strong>Sugerencia 2:</strong> <em>"Dios no quiere la muerte"</em>. (Sentido Litúrgico: recoge el espíritu de las lecturas invitando a la asamblea a ofrecer su conversión junto con el pan y el vino).</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/WsAME4uIhCg" title="Mi corazón ha estado esperando" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12 grid md:grid-cols-2 gap-6">
+        <div class="space-y-16">
             <div>
-                <h3 class="text-xl font-bold text-purple-700 mb-2">4. Santo</h3>
-                <p class="text-sm text-gray-600 mb-4">Cantado por toda la asamblea. Solemne y exento de ritmos festivos.</p>
-                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/6znuLO9ugp4" title="Santo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Canto de Entrada
+                </h3>
+                <p class="text-gray-600 mb-6 text-lg">La procesión es breve y sin incienso. El himno debe marcar el tono de arrepentimiento. <br><strong>Sugerido:</strong> <span class="text-purple-700 font-bold italic">"Pequé, Pequé, Señor"</span>.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/0h1NU7nNvuA" title="Pequé, Pequé, Señor" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
+
             <div>
-                <h3 class="text-xl font-bold text-purple-700 mb-2">5. Cordero de Dios</h3>
-                <p class="text-sm text-gray-600 mb-4">Acompaña la fracción del Pan, de forma pausada y suplicante.</p>
-                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/LSG2OZZiRbU" title="Cordero de Dios" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    Aclamación antes del Evangelio
+                </h3>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+                    <p class="text-lg font-bold text-gray-800">"Honor y gloria a ti, Señor Jesús"</p>
+                    <p class="text-gray-600 italic">Verso: "Señor Jesús, Rey nuestro, sólo tú has tenido compasión de nuestros errores".</p>
+                </div>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/MHa2L1A7c1I" title="Honor y gloria a ti, Señor Jesús" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                    Preparación de Dones (Ofertorio)
+                </h3>
+                <p class="text-gray-600 mb-6 text-lg">Se recomienda silencio o un canto muy suave de entrega.<br><strong>Sugerido:</strong> <span class="text-purple-700 font-bold italic">"Mi corazón ha estado esperando"</span>.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/WsAME4uIhCg" title="Mi corazón ha estado esperando" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">4. Santo</h3>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/6znuLO9ugp4" title="Santo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">5. Cordero de Dios</h3>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/LSG2OZZiRbU" title="Cordero de Dios" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-50 p-8 rounded-3xl border-t-8 border-purple-800 shadow-lg">
+                <h3 class="text-2xl font-extrabold text-purple-900 mb-4 flex items-center gap-3 uppercase">
+                    <i class="fa-solid fa-star"></i> 6. Comunión (Obligatorio)
+                </h3>
+                <p class="text-gray-700 mb-6 text-lg">
+                    <strong>Canto:</strong> <span class="text-purple-800 font-bold">"Saliendo del Pretorio" (Levántate Maldito)</span>.<br>
+                    Este canto ayuda al fiel a entender que el Cuerpo que recibe fue entregado dolorosamente por su salvación.
+                </p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/taYdbd1SvHs" title="Saliendo del Pretorio" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">6. Comunión (Obligatorio)</h3>
-            <p class="text-sm text-gray-600 mb-4"><strong>Canto:</strong> <em>"Saliendo del Pretorio" (Levántate Maldito)</em>.<br>
-            <strong>Sentido Pastoral:</strong> Este canto narra con crudeza y realismo el Vía Crucis de Jesús. Cantarlo mientras se procesiona para comulgar ayuda al fiel a entender que el Cuerpo que recibe fue entregado dolorosamente en la Cruz por su salvación.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/taYdbd1SvHs" title="Saliendo del Pretorio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-4">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">7. Despedida y Retiro</h3>
-            <p class="text-sm text-gray-600 mb-4">Se sugiere fuertemente <strong>salir en absoluto silencio</strong>. Si es indispensable un canto final, que sea sumamente breve y dedicado a la Virgen Dolorosa.</p>
-        </div>
-
     </div>
 
-    <div id="registro" class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-purple-600">
-        <h2 class="text-3xl font-bold text-purple-700 mb-6 uppercase tracking-tight text-center">Registro Oficial de Coros</h2>
-        <p class="text-center text-gray-600 mb-8">Registra a tu ministerio de música, confirma el repertorio penitencial y selecciona el horario en que servirán.</p>
+    <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12">
+        <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
+            <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4 uppercase tracking-tight text-center">Registro Oficial de Coros</h2>
+        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+        <p class="text-center text-gray-600 mb-10 text-lg">Registra a tu ministerio de música, confirma el repertorio penitencial y selecciona el horario.</p>
         
-        <div class="rounded-xl overflow-hidden shadow-lg border">
+        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 p-2 md:p-4 bg-gray-50">
             <iframe 
                 src="https://docs.google.com/forms/d/e/1FAIpQLSfz23PTeBltr8x9wrERoIi8-Uhy7JdXL1ipiPZXSaZq18Mo0g/viewform?embedded=true"
-                width="100%" 
-                height="950"
                 frameborder="0">
                 Cargando...
             </iframe>
@@ -160,8 +203,9 @@
 
 </section>
 
-<footer class="bg-gray-900 text-gray-400 py-12 text-center text-xs uppercase tracking-widest">
-    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026
+<footer class="bg-gray-950 text-gray-400 py-12 mt-auto text-center text-xs uppercase tracking-widest border-t border-gray-800">
+    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
+    Allende, Nuevo León, México
 </footer>
 
 </body>
