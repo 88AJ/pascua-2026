@@ -1,5 +1,6 @@
 /* padre-alan-chat.js - RAG Inteligente (Voz Pastoral y Teológica) 
    Prioridad: Manual Litúrgico (Raíz) > Biblioteca (kb/)
+   Enrutamiento Semántico Avanzado
 */
 (function () {
   if (window.__PADRE_ALAN_CHAT_LOADED__) return;
@@ -29,30 +30,49 @@
   const WHATSAPP_NUMBER = "19567401370";
 
   // =======================
-  // DETECCIÓN Y LÓGICA
+  // DETECCIÓN INTUITIVA
   // =======================
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
   }
 
+  // Diccionario de Días Santos (Atrapa variaciones comunes)
+  const dayKeywords = {
+    "ramos": ["ramos", "palmas", "domingo de ramos", "entrada triunfal"],
+    "lunes": ["lunes"],
+    "martes": ["martes"],
+    "miercoles": ["miercoles", "oleos", "misa crismal"],
+    "jueves": ["jueves", "lavatorio", "cena del senor", "monumento", "pan ajimo"],
+    "viernes": ["viernes", "cruz", "pasion", "viacrucis", "siete palabras", "oficios"],
+    "sabado": ["sabado", "pesame", "luto", "sepulcro"],
+    "vigilia": ["vigilia", "fuego nuevo", "cirio", "noche santa", "lucernario", "pregon", "exsultet"],
+    "pascua": ["pascua", "resurreccion", "domingo de pascua"]
+  };
+
   function detectDay(q) {
     const t = normalize(q);
-    const days = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
-    for (const d of days) if (t.includes(d)) return d;
-    if (t.includes("resurreccion")) return "pascua";
-    if (t.includes("noche santa")) return "vigilia";
+    for (const [day, keywords] of Object.entries(dayKeywords)) {
+      if (keywords.some(kw => t.includes(kw))) return day;
+    }
     return null;
   }
 
+  // Diccionario de Ministerios (Atrapa verbos, objetos y sinónimos)
+  const ministryKeywords = {
+    "ujieres": ["ujier", "acomodador", "bienvenida", "recibir", "orden", "edecan", "colecta", "canasta", "bancas"],
+    "lectores": ["lector", "lectura", "leer", "proclamar", "salmista", "ambon", "leccionario", "palabra"],
+    "monaguillos": ["monaguillo", "acolito", "monago", "cirial", "incensario", "naveta", "altar", "campan", "monaguilla"],
+    "coro": ["coro", "music", "cant", "cancion", "alabar", "guitarra", "ensayo", "voces", "salmo", "entonar"],
+    "mec": ["mec", "ministro", "comunion", "eucaristia", "hostia", "copon", "purificador", "cuerpo de cristo", "enfermos"],
+    "misal": ["misal", "guion", "guia lit", "rubrica"],
+    "sacristia": ["sacristia", "sacristan", "ornamento", "vasos sagrados", "vinajera", "corporal", "preparar altar", "mantel"]
+  };
+
   function detectMinistry(q) {
     const t = normalize(q);
-    if (t.includes("ujier") || t.includes("acomodador")) return "ujieres";
-    if (t.includes("lector") || t.includes("lectura")) return "lectores";
-    if (t.includes("monaguillo") || t.includes("acolito")) return "monaguillos";
-    if (t.includes("musica") || t.includes("coro") || t.includes("canto")) return "coro";
-    if (t.includes("comunion") || t.includes("ministro") || t.includes("mec")) return "mec";
-    if (t.includes("misal")) return "misal";
-    if (t.includes("sacristia") || t.includes("sacristan")) return "sacristia";
+    for (const [ministry, keywords] of Object.entries(ministryKeywords)) {
+      if (keywords.some(kw => t.includes(kw))) return ministry;
+    }
     return null;
   }
 
@@ -60,11 +80,17 @@
     const day = detectDay(q) || (currentCtx?.key || null);
     const min = detectMinistry(q);
     const targets = [];
+    
+    // Prioridad 1: Cruce de Ministerio y Día (ej: coro-lunes.html)
     if (min && day) targets.push(`${min}-${day}.html`);
+    // Prioridad 2: Día general (ej: lunes.html)
     if (day) targets.push(`${day}.html`);
+    // Prioridad 3: Ministerio general (ej: coro.html si existe)
     if (min) targets.push(`${min}.html`);
+    // Prioridad 4: Base de conocimiento general
     targets.push(`kb/general.html`);
     targets.push(`kb/faq.html`);
+    
     return { targets: [...new Set(targets)], day, min };
   }
 
@@ -196,7 +222,7 @@
       const { targets, day, min } = getSearchTargets(q, ctx);
       const picks = await searchContent(q, targets);
 
-      // Si no encuentra nada en el manual (Alineado con el rigor teológico/lógico)
+      // Si no encuentra nada en el manual local
       if (picks.length === 0) {
         addMsg("bot", `Ese detalle no se encuentra especificado en nuestro manual actual. Para ofrecerle una respuesta precisa y pastoral, por favor envíenos su consulta por WhatsApp.` + getWaButtonHtml(q));
         return;
