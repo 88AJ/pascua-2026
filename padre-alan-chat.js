@@ -1,10 +1,8 @@
 /* padre-alan-chat.js
-   Chat local (GRATIS) “Pregúntele al Padre”
+   Chat local + RAG Serverless "Pregúntele al Padre"
    - Inyecta UI automáticamente (botón + panel)
-   - GitHub Pages compatible
-   - SIN backend / SIN API
-   - Modo smart: primero busca en /kb/ (artefactos), luego en páginas del manual
-   - Si no encuentra, pide precisión o ofrece WhatsApp con mensaje prellenado
+   - Compatible con GitHub Pages
+   - Extrae contexto localmente y delega la redacción a Cloudflare Worker + Gemini
 */
 (function () {
   if (window.__PADRE_ALAN_CHAT_LOADED__) return;
@@ -36,9 +34,7 @@
     kbDir: "kb"
   };
 
-  // WhatsApp (formato internacional sin "+")
   const WHATSAPP_NUMBER = "19567401370";
-
   const MINISTRIES = ["misal", "mec", "monaguillos", "lectores", "coro", "ujieres", "sacristia"];
   const DAYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
 
@@ -110,17 +106,13 @@
       .trim();
   }
 
-  // “sinónimos” para que el motor encuentre mejor
   function expandQuery(q) {
     const t = normalize(q);
-
     const expansions = [];
     if (/\bpalmas?\b/.test(t)) expansions.push("ramos palmas bendicion procesion hosanna");
     if (/\bramos?\b/.test(t)) expansions.push("palmas bendicion procesion entrada jerusalen");
     if (/\bpor que\b|\bque significa\b|\bsignificado\b|\bsimboliza\b|\bsentido\b/.test(t)) expansions.push("significado sentido simbolo");
-
     if (/\bpas(i|í)on\b/.test(t)) expansions.push("pasión lectura pasion sin incienso sin ciriales");
-
     return (t + " " + expansions.join(" ")).trim();
   }
 
@@ -158,20 +150,11 @@
       .trim();
 
     const aliases = {
-      ramos: "ramos",
-      lunes: "lunes",
-      martes: "martes",
-      miercoles: "miercoles",
-      "miércoles": "miercoles",
-      jueves: "jueves",
-      viernes: "viernes",
-      sabado: "sabado",
-      "sábado": "sabado",
-      vigilia: "vigilia",
-      pascua: "pascua",
-      resurreccion: "pascua",
-      "resurrección": "pascua",
-      "noche santa": "vigilia"
+      ramos: "ramos", lunes: "lunes", martes: "martes",
+      miercoles: "miercoles", "miércoles": "miercoles",
+      jueves: "jueves", viernes: "viernes", sabado: "sabado",
+      "sábado": "sabado", vigilia: "vigilia", pascua: "pascua",
+      resurreccion: "pascua", "resurrección": "pascua", "noche santa": "vigilia"
     };
 
     if (aliases[normalized]) return aliases[normalized];
@@ -181,6 +164,27 @@
 
   function dayNice(dayKey) {
     return (CONFIG.pages[dayKey]?.label) || (dayKey || "");
+  }
+
+  function askForPrecision(day) {
+    return `
+<b>Padre:</b> Para responderle con exactitud y sin improvisar, permítame ubicarlo.<br>
+${day ? `¿Su pregunta es sobre <b>${esc(dayNice(day))}</b>, correcto?<br>` : `¿Sobre qué día: <b>Ramos, Lunes, Martes, Miércoles, Jueves, Viernes, Vigilia</b>?<br>`}
+Si aplica, dígame también el ministerio: <b>misal, lectores, coro, monaguillos, ujieres, sacristía</b>.
+`.trim();
+  }
+
+  function whatsappEscalation(q) {
+    const page = currentFile();
+    const url = window.location.href;
+    const message = `Pregunta desde el Manual (Pascua 2026):\n"${q}"\n\nPágina: ${page}\nURL: ${url}\n\n(Enviado desde el chatbot del manual)`;
+
+    addMsg("bot", `
+Si a usted le parece, envíeme esta duda por WhatsApp y la reviso personalmente:<br><br>
+<a class="pa-wa" href="${waLink(message)}" target="_blank" rel="noopener">
+  <span class="pa-wa-dot"></span> Enviar por WhatsApp
+</a>
+`.trim());
   }
 
   // =======================
@@ -241,7 +245,7 @@
           el("input", { class: "pa-input", id: "paInput", type: "text", placeholder: "Escriba su pregunta..." }),
           el("button", { class: "pa-send", id: "paSend", type: "button" }, ["Enviar"])
         ]),
-        el("div", { class: "pa-note" }, ["Asistente local (gratis): responde con criterios y checklists de su manual."])
+        el("div", { class: "pa-note" }, ["Asistente inteligente: responde leyendo los documentos de su manual."])
       ])
     ])
   ]);
@@ -273,27 +277,9 @@
   $("paSend").addEventListener("click", () => reply(input.value));
 
   // =======================
-  // SEARCH ENGINE
+  // SEARCH ENGINE (Local Retrieval)
   // =======================
   const __DOC_CACHE__ = new Map();
-
-  function classifyLine(s) {
-    const t = normalize(s);
-    if (
-      t.includes("no se permite") || t.includes("no esta permitido") || t.includes("prohib") ||
-      t.includes("debe") || t.includes("obligator") || t.includes("necesari") || t.includes("ha de")
-    ) return "obligatorio";
-    if (t.includes("conviene") || t.includes("recom") || t.includes("es muy conveniente") || t.includes("es recomendable"))
-      return "recomendable";
-    if (t.includes("error") || t.includes("errores comunes") || t.includes("advert") || t.includes("cuid") || t.includes("evit") || t.includes("importante"))
-      return "advertencia";
-    return "nota";
-  }
-
-  function trimText(t, max = 320) {
-    const s = (t || "").replace(/\s+/g, " ").trim();
-    return s.length > max ? (s.slice(0, max) + "…") : s;
-  }
 
   async function loadDoc(file) {
     if (__DOC_CACHE__.has(file)) return __DOC_CACHE__.get(file);
@@ -380,102 +366,8 @@
     return picks;
   }
 
-  function liturgicalAnswer({ day, ministry, picks }) {
-    const d = day ? dayNice(day) : null;
-    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
-
-    const groups = { obligatorio: [], recomendable: [], advertencia: [], nota: [] };
-    picks.forEach(p => groups[classifyLine(p.text)].push(p));
-
-    const primary =
-      groups.obligatorio[0] ||
-      groups.recomendable[0] ||
-      groups.nota[0] ||
-      groups.advertencia[0] ||
-      picks[0];
-
-    const secondary =
-      groups.nota[1] || groups.recomendable[1] || groups.obligatorio[1] || groups.advertencia[1] || picks[1];
-
-    const head = `
-<b>Padre:</b> Con gusto. Espero que usted esté bien.<br>
-${d ? `Sobre <b>${esc(d)}</b>${m ? `, para <b>${esc(m)}</b>` : ""}:<br><br>` : ""}
-`.trim();
-
-    const body = `
-• ${esc(trimText(primary.text, 420))}${secondary ? `<br><br>• ${esc(trimText(secondary.text, 420))}` : ""}
-`.trim();
-
-    const src = `
-<div class="pa-src">
-Fuente: <a href="${esc(primary.file)}">${esc(primary.file)}</a>${secondary ? ` · <a href="${esc(secondary.file)}">${esc(secondary.file)}</a>` : ""}
-</div>
-`.trim();
-
-    const close = `
-<br><br>
-Si usted quiere, se lo dejo en <b>dos líneas claras</b> o en <b>checklist</b>.
-`.trim();
-
-    return head + body + src + close;
-  }
-
-  function makeChecklistFromPicks(day, ministry, picks) {
-    const d = day ? dayNice(day) : "el día correspondiente";
-    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : "General";
-
-    const lines = [];
-    for (const p of picks) {
-      const txt = (p.text || "").replace(/\s+/g, " ").trim();
-      const parts = txt.split(/(?<=[\.\;\:])\s+/).filter(Boolean);
-      for (const part of parts) {
-        const s = part.trim();
-        if (s.length < 35) continue;
-        lines.push(s);
-        if (lines.length >= 10) break;
-      }
-      if (lines.length >= 10) break;
-    }
-    if (!lines.length) return null;
-
-    const steps = lines.map((s, i) => `${i + 1}. ${esc(trimText(s, 240))}`).join("<br>");
-
-    return `
-<b>Checklist — ${esc(m)} (${esc(d)})</b><br>
-${steps}
-`.trim();
-  }
-
-  function askForPrecision(day) {
-    return `
-<b>Padre:</b> Para responderle con exactitud y sin improvisar, permítame ubicarlo.<br>
-${day ? `¿Su pregunta es sobre <b>${esc(dayNice(day))}</b>, correcto?<br>` : `¿Sobre qué día: <b>Ramos, Lunes, Martes, Miércoles, Jueves, Viernes, Vigilia</b>?<br>`}
-Si aplica, dígame también el ministerio: <b>misal, lectores, coro, monaguillos, ujieres, sacristía</b>.
-`.trim();
-  }
-
-  function whatsappEscalation(q) {
-    const page = currentFile();
-    const url = window.location.href;
-    const message =
-`Pregunta desde el Manual (Pascua 2026):
-"${q}"
-
-Página: ${page}
-URL: ${url}
-
-(Enviado desde el chatbot del manual)`;
-
-    addMsg("bot", `
-Si a usted le parece, envíeme esta duda por WhatsApp y la reviso personalmente:<br><br>
-<a class="pa-wa" href="${waLink(message)}" target="_blank" rel="noopener">
-  <span class="pa-wa-dot"></span> Enviar por WhatsApp
-</a>
-`.trim());
-  }
-
   // =======================
-  // QUICK
+  // QUICK BUTTONS DATA
   // =======================
   const QUICK = [
     {
@@ -502,7 +394,7 @@ Pregúnteme con libertad: “¿por qué…?”, “¿qué significa…?”, “�
   ];
 
   // =======================
-  // Reply
+  // Reply (RAG Serverless)
   // =======================
   async function reply(text) {
     const q = (text || "").trim();
@@ -527,44 +419,66 @@ Pregúnteme con libertad: “¿por qué…?”, “¿qué significa…?”, “�
     const day = detectDay(q) || (ctx?.key || null);
     const ministry = detectMinistry(q);
 
-    addMsg("bot", "Un momento, por favor…");
+    addMsg("bot", "Consultando el manual...");
 
     try {
+      let picks = [];
       const kbFiles = kbCandidates(day, ministry);
       const kbPicks = await searchFiles(q, kbFiles, 4);
 
-      if (kbPicks.length) {
-        if (/checklist/i.test(q)) {
-          const cl = makeChecklistFromPicks(day, ministry, kbPicks);
-          if (cl) { addMsg("bot", cl); return; }
-        }
-        addMsg("bot", liturgicalAnswer({ day, ministry, picks: kbPicks }));
+      if (kbPicks.length > 0) {
+        picks = kbPicks;
+      } else {
+        const manFiles = manualCandidates(day, ministry);
+        picks = await searchFiles(q, manFiles, 4);
+      }
+
+      if (picks.length === 0) {
+        addMsg("bot", askForPrecision(day));
+        whatsappEscalation(q);
         return;
       }
 
-      const manFiles = manualCandidates(day, ministry);
-      const manPicks = await searchFiles(q, manFiles, 4);
+      const contextText = picks.map(p => p.text).join("\n\n");
 
-      if (manPicks.length) {
-        if (/checklist/i.test(q)) {
-          const cl = makeChecklistFromPicks(day, ministry, manPicks);
-          if (cl) { addMsg("bot", cl); return; }
-        }
-        addMsg("bot", liturgicalAnswer({ day, ministry, picks: manPicks }));
-        return;
-      }
+      // URL de tu Worker en Cloudflare
+      const WORKER_URL = "https://flat-scene-ca7c.88alansanchez.workers.dev";
+      
+      const response = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: q,
+          context: contextText
+        })
+      });
 
-      addMsg("bot", askForPrecision(day));
-      whatsappEscalation(q);
-      return;
+      if (!response.ok) throw new Error("Error en el Worker");
 
-    } catch (_) {
+      const data = await response.json();
+      const aiAnswer = data.reply;
+
+      const uniqueSources = [...new Set(picks.map(p => p.file))];
+      const sourcesHtml = uniqueSources
+        .map(file => `<a href="${esc(file)}">${esc(file)}</a>`)
+        .join(" · ");
+
+      const finalHtml = `
+        ${aiAnswer.replace(/\n/g, "<br>")}
+        <div class="pa-src" style="margin-top: 12px; border-top: 1px solid #eef2f7; padding-top: 8px;">
+          Fuente: ${sourcesHtml}
+        </div>
+      `;
+
+      addMsg("bot", finalHtml);
+
+    } catch (error) {
+      console.error("Error en RAG:", error);
       addMsg("bot", `
-<b>Padre:</b> En este momento no pude consultar los textos. Para no improvisar, prefiero confirmarlo con usted.<br>
+En este momento no pude conectar con el motor de respuesta. Para no improvisar, prefiero confirmarlo con usted.<br>
 Si a usted le parece, envíeme la pregunta por WhatsApp.
       `.trim());
       whatsappEscalation(q);
-      return;
     }
   }
 
@@ -605,7 +519,7 @@ Usted puede preguntar, por ejemplo:<br>
 • <b>¿qué significa conservar el ramo?</b><br>
 • <b>checklist lectores ramos</b><br>
 • <b>qué es obligatorio viernes</b><br><br>
-<i>Nota:</i> Primero consulto la Biblioteca (kb/), luego su manual.
+<i>Nota:</i> Ahora integro IA para responder basándome estrictamente en el manual.
   `.trim());
 
   window.__padreReply__ = reply;
