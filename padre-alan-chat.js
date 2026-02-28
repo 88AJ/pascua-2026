@@ -1,23 +1,27 @@
 /* padre-alan-chat.js
    Chat local (GRATIS) “Pregúntele al Padre Alan”
-   - Inyecta UI (botón + panel) automáticamente
+   - Inyecta UI automáticamente (botón + panel)
    - GitHub Pages compatible
    - SIN backend / SIN API
-   - Se alimenta de sus páginas HTML (día + ministerio)
-   - Si no encuentra, ofrece enviar por WhatsApp (usted sólo da “Enviar”)
+   - Modo smart: primero busca en /kb/ (artefactos), luego en páginas del manual
+   - Si no encuentra, ofrece WhatsApp con mensaje prellenado
 */
 (function () {
   if (window.__PADRE_ALAN_CHAT_LOADED__) return;
   window.__PADRE_ALAN_CHAT_LOADED__ = true;
 
-  // ====== Config ======
+  // =======================
+  // CONFIG
+  // =======================
   const CONFIG = {
     title: "Pregúntele al Padre Alan",
     subtitle: "Semana Santa y Triduo Pascual 2026 (Ciclo A)",
     fabText: "Pregúntele al Padre Alan",
-    height: 580,
-    width: 430,
+    height: 610,
+    width: 450,
     zIndex: 9999,
+
+    // Páginas principales del manual
     pages: {
       ramos: { file: "ramos.html", label: "Domingo de Ramos de la Pasión del Señor" },
       lunes: { file: "lunes.html", label: "Lunes Santo" },
@@ -28,13 +32,32 @@
       sabado: { file: "sabado.html", label: "Sábado Santo de la Sepultura del Señor" },
       vigilia: { file: "vigilia.html", label: "Vigilia Pascual en la Noche Santa" },
       pascua: { file: "pascua.html", label: "Domingo de Pascua de la Resurrección del Señor" }
-    }
+    },
+
+    // Carpeta KB (artefactos de NotebookLM)
+    kbDir: "kb"
   };
 
   // WhatsApp (formato internacional sin "+")
   const WHATSAPP_NUMBER = "19567401370";
 
-  // ====== Helpers ======
+  // Ministerios que usted usa
+  const MINISTRIES = ["misal", "mec", "monaguillos", "lectores", "coro", "ujieres", "sacristia"];
+  const DAYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
+
+  const MINISTRY_LABELS = {
+    misal: "Misal",
+    mec: "MEC",
+    monaguillos: "Monaguillos",
+    lectores: "Lectores",
+    coro: "Coro",
+    ujieres: "Ujieres",
+    sacristia: "Sacristía"
+  };
+
+  // =======================
+  // HELPERS
+  // =======================
   const esc = (s) =>
     (s || "").replace(/[&<>"']/g, (c) => ({
       "&": "&amp;",
@@ -45,8 +68,7 @@
     }[c]));
 
   function waLink(message) {
-    const txt = encodeURIComponent(message);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   }
 
   const el = (tag, attrs = {}, children = []) => {
@@ -82,161 +104,6 @@
     window.location.href = p.file;
   }
 
-  // ====== Nombres litúrgicos (no mostrar “nombres feos” de archivos) ======
-  const MINISTRY_LABELS = {
-    misal: "Misal",
-    mec: "MEC",
-    monaguillos: "Monaguillos",
-    lectores: "Lectores",
-    coro: "Coro",
-    ujieres: "Ujieres",
-    sacristia: "Sacristía"
-  };
-
-  function dayLabel(dayKey) {
-    return (CONFIG.pages[dayKey]?.label) || dayKey || "";
-  }
-
-  function prettyFile(file) {
-    const f = (file || "").toLowerCase();
-
-    // páginas principales
-    for (const [k, v] of Object.entries(CONFIG.pages)) {
-      if (v.file.toLowerCase() === f) return dayLabel(k);
-    }
-    if (f === "index.html") return "Índice del Manual";
-
-    // ministerio-día => “Misal — Jueves Santo...”
-    const m = f.match(/^([a-zñ]+)-([a-zñ]+)\.html$/i);
-    if (m) {
-      const min = MINISTRY_LABELS[m[1]] || (m[1].charAt(0).toUpperCase() + m[1].slice(1));
-      const dKey = m[2];
-      const d = dayLabel(dKey) || (dKey.charAt(0).toUpperCase() + dKey.slice(1));
-      return `${min} — ${d}`;
-    }
-
-    // fallback
-    return file;
-  }
-
-  function linkFile(file) {
-    const title = prettyFile(file);
-    return `<a class="pa-link" href="${file}">${esc(title)}</a>`;
-  }
-
-  // ====== Inject styles ======
-  const style = el("style", {}, [`
-    .pa-fab{position:fixed;right:18px;bottom:18px;z-index:${CONFIG.zIndex};display:flex;gap:10px;align-items:center}
-    .pa-btn{
-      border:0;background:#5b21b6;color:#fff;padding:12px 14px;border-radius:999px;
-      font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:12px;
-      box-shadow:0 12px 28px rgba(0,0,0,.18);cursor:pointer
-    }
-    .pa-btn:hover{background:#4c1d95}
-    .pa-panel{
-      position:fixed;right:18px;bottom:86px;width:min(${CONFIG.width}px,calc(100vw - 36px));
-      height:${CONFIG.height}px;z-index:${CONFIG.zIndex};display:none
-    }
-    .pa-card{
-      height:100%;width:100%;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #e5e7eb;
-      box-shadow:0 18px 48px rgba(0,0,0,.25);display:flex;flex-direction:column;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif
-    }
-    .pa-head{background:#111827;color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
-    .pa-head-title{font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
-    .pa-close{border:0;background:transparent;color:rgba(255,255,255,.9);font-size:20px;cursor:pointer;line-height:1}
-    .pa-close:hover{color:#fff}
-    .pa-sub{padding:10px 12px;background:#f9fafb;border-bottom:1px solid #eef2f7;color:#374151;font-size:12px}
-    .pa-msgs{flex:1;overflow:auto;padding:12px;background:#f3f4f6;display:flex;flex-direction:column;gap:10px}
-    .pa-row{display:flex}
-    .pa-row.user{justify-content:flex-end}
-    .pa-row.bot{justify-content:flex-start}
-    .pa-bubble{
-      max-width:90%;padding:10px 12px;border-radius:16px;font-size:13px;line-height:1.38;
-      box-shadow:0 1px 0 rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.04);background:#fff;color:#111827
-    }
-    .pa-row.user .pa-bubble{background:#5b21b6;color:#fff;border-color:rgba(255,255,255,.12)}
-    .pa-foot{padding:10px 12px;background:#fff;border-top:1px solid #eef2f7}
-    .pa-quickbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-    .pa-chip{border:0;background:#ede9fe;color:#4c1d95;font-weight:900;border-radius:999px;padding:6px 10px;font-size:11px;cursor:pointer}
-    .pa-chip:hover{background:#ddd6fe}
-    .pa-inputrow{display:flex;gap:8px}
-    .pa-input{flex:1;padding:10px 12px;border-radius:12px;border:1px solid #d1d5db;outline:none;font-size:13px}
-    .pa-send{border:0;background:#5b21b6;color:#fff;font-weight:900;border-radius:12px;padding:10px 12px;cursor:pointer}
-    .pa-send:hover{background:#4c1d95}
-    .pa-link{color:#5b21b6;font-weight:900;text-decoration:underline}
-    .pa-note{margin-top:8px;font-size:11px;color:#6b7280}
-
-    .pa-wa{
-      display:inline-flex;align-items:center;gap:8px;background:#16a34a;color:#fff;text-decoration:none;
-      padding:10px 12px;border-radius:12px;font-weight:900;box-shadow:0 10px 22px rgba(0,0,0,.15);
-      text-transform:uppercase;letter-spacing:.06em;font-size:11px
-    }
-    .pa-wa:hover{background:#15803d}
-    .pa-wa-dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.85)}
-  `]);
-  document.head.appendChild(style);
-
-  // ====== Build UI ======
-  const fab = el("div", { class: "pa-fab" }, [
-    el("button", { class: "pa-btn", type: "button", id: "paOpen" }, [CONFIG.fabText])
-  ]);
-
-  const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
-    el("div", { class: "pa-card" }, [
-      el("div", { class: "pa-head" }, [
-        el("div", { class: "pa-head-title" }, [CONFIG.title]),
-        el("button", { class: "pa-close", type: "button", id: "paClose", "aria-label": "Cerrar" }, ["×"])
-      ]),
-      el("div", { class: "pa-sub", id: "paSub" }, [
-        ctx ? `Está usted en: ${ctx.label}. ` : "",
-        CONFIG.subtitle
-      ]),
-      el("div", { class: "pa-msgs", id: "paMsgs" }, []),
-      el("div", { class: "pa-foot" }, [
-        el("div", { class: "pa-quickbar", id: "paQuick" }, []),
-        el("div", { class: "pa-inputrow" }, [
-          el("input", { class: "pa-input", id: "paInput", type: "text", placeholder: "Escriba su pregunta..." }),
-          el("button", { class: "pa-send", id: "paSend", type: "button" }, ["Enviar"])
-        ]),
-        el("div", { class: "pa-note" }, [
-          "Asistente local (gratis): responde desde su manual. Si hace falta, usted puede enviarme la duda por WhatsApp."
-        ])
-      ])
-    ])
-  ]);
-
-  document.body.appendChild(fab);
-  document.body.appendChild(panel);
-
-  const $ = (id) => document.getElementById(id);
-  const msgs = $("paMsgs");
-  const input = $("paInput");
-
-  function addMsg(role, html) {
-    const row = el("div", { class: "pa-row " + role }, [el("div", { class: "pa-bubble" }, [])]);
-    row.firstChild.innerHTML = html;
-    msgs.appendChild(row);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-
-  function open() { panel.style.display = "block"; }
-  function close() { panel.style.display = "none"; }
-
-  $("paOpen").addEventListener("click", open);
-  $("paClose").addEventListener("click", close);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && panel.style.display === "block") close();
-    if (e.key === "Enter" && document.activeElement === input) reply(input.value);
-  });
-  $("paSend").addEventListener("click", () => reply(input.value));
-
-  // ====== Motor local (lee HTML y busca fragmentos) ======
-  const MINISTRIES = ["misal", "mec", "monaguillos", "lectores", "coro", "ujieres", "sacristia"];
-  const DAYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
-  const __DOC_CACHE__ = new Map();
-
   function normalize(s) {
     return (s || "")
       .toLowerCase()
@@ -265,203 +132,6 @@
     return null;
   }
 
-  function pickFiles(day, ministry) {
-    const files = [];
-    if (day && ministry) files.push(`${ministry}-${day}.html`);
-    if (day && day !== "sabado" && day !== "pascua") files.push(`${day}.html`);
-    if (day === "sabado") files.push("sabado.html");
-    if (day === "pascua") files.push("pascua.html");
-    if (!day) files.push("index.html");
-    return [...new Set(files)];
-  }
-
-  async function loadDoc(file) {
-    if (__DOC_CACHE__.has(file)) return __DOC_CACHE__.get(file);
-
-    const res = await fetch(file, { cache: "force-cache" });
-    if (!res.ok) throw new Error(`No pude abrir ${file}`);
-
-    const html = await res.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
-
-    const blocks = [];
-    doc.querySelectorAll("h1,h2,h3,p,li").forEach(n => {
-      const text = (n.textContent || "").replace(/\s+/g, " ").trim();
-      if (!text) return;
-      if (text.length < 20) return;
-      blocks.push({ tag: n.tagName.toLowerCase(), text, norm: normalize(text) });
-    });
-
-    const data = { file, blocks };
-    __DOC_CACHE__.set(file, data);
-    return data;
-  }
-
-  function scoreBlock(blockNorm, queryTokens) {
-    let s = 0;
-    for (const tok of queryTokens) {
-      if (tok.length < 3) continue;
-      if (blockNorm.includes(tok)) s += 2;
-    }
-    return s;
-  }
-
-  async function searchSite(question, day, ministry, maxHits = 4) {
-    const tokens = normalize(question).split(" ").filter(Boolean);
-    const files = pickFiles(day, ministry);
-
-    const allHits = [];
-    for (const f of files) {
-      try {
-        const doc = await loadDoc(f);
-        for (const b of doc.blocks) {
-          const base = scoreBlock(b.norm, tokens);
-          if (base <= 0) continue;
-          const bonus = (b.tag === "h1" || b.tag === "h2" || b.tag === "h3") ? 1 : 0;
-          allHits.push({ file: doc.file, text: b.text, score: base + bonus });
-        }
-      } catch (_) { /* ignore */ }
-    }
-
-    allHits.sort((a, b) => b.score - a.score);
-
-    const seen = new Set();
-    const picks = [];
-    for (const h of allHits) {
-      const key = h.file + "::" + h.text.slice(0, 90);
-      if (seen.has(key)) continue;
-      seen.add(key);
-      picks.push(h);
-      if (picks.length >= maxHits) break;
-    }
-
-    return { files, picks };
-  }
-
-  // ====== Voz “Padre Alan” (usted, clásica, clara) ======
-  function classifyLine(s) {
-    const t = normalize(s);
-    if (
-      t.includes("no se permite") || t.includes("no esta permitido") || t.includes("prohib") ||
-      t.includes("debe") || t.includes("obligator") || t.includes("necesari") || t.includes("ha de")
-    ) return "obligatorio";
-    if (t.includes("conviene") || t.includes("recom") || t.includes("es muy conveniente") || t.includes("es recomendable"))
-      return "recomendable";
-    if (t.includes("advert") || t.includes("cuid") || t.includes("evit") || t.includes("importante"))
-      return "advertencia";
-    return "nota";
-  }
-
-  function trimText(t, max = 260) {
-    const s = (t || "").replace(/\s+/g, " ").trim();
-    return s.length > max ? (s.slice(0, max) + "…") : s;
-  }
-
-  function liturgicalWrap({ q, day, ministry, picks }) {
-    const dayNice = day ? (CONFIG.pages[day]?.label || day) : "el día correspondiente";
-    const minNice = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
-
-    const groups = { obligatorio: [], recomendable: [], advertencia: [], nota: [] };
-    for (const p of picks) {
-      groups[classifyLine(p.text)].push(p);
-    }
-
-    function renderGroup(title, arr, limit) {
-      const items = arr.slice(0, limit).map(h => {
-        const line = trimText(h.text, 280);
-        return `• ${esc(line)}<br><span style="font-size:11px;color:#6b7280;">Referencia en el manual: ${linkFile(h.file)}</span>`;
-      }).join("<br><br>");
-      if (!items) return "";
-      return `<b>${title}</b><br>${items}<br><br>`;
-    }
-
-    const intro = `
-<b>Padre Alan:</b> Con gusto. Espero que usted esté bien.<br>
-Sobre <b>${esc(dayNice)}</b>${minNice ? `, para <b>${esc(minNice)}</b>` : ""}, esto es lo esencial según su manual:
-<br><br>
-`;
-
-    const body =
-      renderGroup("Lo obligatorio (rúbrica)", groups.obligatorio, 2) +
-      renderGroup("Lo recomendable (mejor práctica)", groups.recomendable, 2) +
-      renderGroup("Advertencias (para no equivocarse)", groups.advertencia, 1) +
-      renderGroup("Nota útil", groups.nota, 1);
-
-    const close = `
-<b>Si usted quiere</b>, dígame: <i>“checklist”</i> y le ordeno esto en pasos, de principio a fin (sin perder las rúbricas).
-`;
-
-    return intro + (body || ("No encontré un párrafo exacto, pero puedo llevarle al apartado correcto.<br><br>")) + close;
-  }
-
-  function makeChecklistFromPicks(day, ministry, picks) {
-    const dayNice = day ? (CONFIG.pages[day]?.label || day) : "el día correspondiente";
-    const minNice = ministry ? (MINISTRY_LABELS[ministry] || ministry) : "general";
-
-    const lines = [];
-    for (const p of picks) {
-      const txt = (p.text || "").replace(/\s+/g, " ").trim();
-      // separamos “frases” para checklist, sin inventar contenido
-      const parts = txt.split(/(?<=[\.\;\:])\s+/).filter(Boolean);
-      for (const part of parts) {
-        const s = part.trim();
-        if (s.length < 35) continue;
-        if (lines.length >= 10) break;
-        lines.push(s);
-      }
-      if (lines.length >= 10) break;
-    }
-
-    if (!lines.length) return null;
-
-    const steps = lines.map((s, i) => `${i + 1}. ${esc(trimText(s, 240))}`).join("<br>");
-    const refs = [...new Set(picks.map(p => p.file))].slice(0, 3).map(f => `• ${linkFile(f)}`).join("<br>");
-
-    return `
-<b>Checklist — ${esc(minNice)} (${esc(dayNice)})</b><br>
-${steps}
-<br><br>
-<span style="font-size:11px;color:#6b7280;">
-<b>Referencias:</b><br>${refs}
-</span>
-`;
-  }
-
-  // ====== KB (respuestas rápidas) ======
-  const KB = [
-    {
-      test: [/^\/?help$/i, /ayuda/i],
-      answer: () => `
-        Con gusto. Puedo ayudarle con <b>Semana Santa 2026 (Ciclo A)</b>.<br><br>
-        <b>Ejemplos:</b><br>
-        • <b>checklist monaguillos ramos</b><br>
-        • <b>qué es obligatorio viernes</b><br>
-        • <b>mec vigilia lecturas</b><br>
-        • <b>coro jueves cantos</b><br><br>
-        <b>Navegación:</b> “<b>abrir ramos</b>”, “<b>abrir jueves</b>”, “<b>abrir vigilia</b>”.<br>
-      `
-    },
-    {
-      test: [/hola|buenas|buenos d[ií]as|buenas tardes|buenas noches/i],
-      answer: () => `
-        Paz y bien. Espero que usted esté bien.<br>
-        Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br>
-        Dígame: día y, si aplica, ministerio (<b>misal</b>, <b>mec</b>, <b>lectores</b>, <b>coro</b>, <b>ujieres</b>…).
-      `
-    },
-    {
-      test: [/colores?|ornamentos?|morado|rojo|blanco|dorado/i],
-      answer: () => `
-        <b>Colores litúrgicos (resumen)</b><br>
-        • Ramos y Viernes Santo: <b>rojo</b><br>
-        • Lunes, Martes, Miércoles Santo: <b>morado</b><br>
-        • Jueves Santo, Vigilia y Pascua: <b>blanco</b> (o <b>dorado</b>)<br>
-        • Sábado Santo: sobriedad (antes de la Vigilia)
-      `
-    }
-  ];
-
-  // ====== Comando “abrir X” ======
   function parseOpenCommand(text) {
     const t = (text || "").toLowerCase().trim();
     const m = t.match(/^(abrir|abre|ir a|ve a|abrir la|abre la)\s+(.+)$/i);
@@ -498,45 +168,311 @@ ${steps}
     return null;
   }
 
-  // ====== WhatsApp escalation ======
+  function dayNice(dayKey) {
+    return (CONFIG.pages[dayKey]?.label) || (dayKey || "");
+  }
+
+  // =======================
+  // UI (styles + elements)
+  // =======================
+  const style = el("style", {}, [`
+    .pa-fab{position:fixed;right:18px;bottom:18px;z-index:${CONFIG.zIndex};display:flex;gap:10px;align-items:center}
+    .pa-btn{border:0;background:#5b21b6;color:#fff;padding:12px 14px;border-radius:999px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;font-size:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);cursor:pointer}
+    .pa-btn:hover{background:#4c1d95}
+    .pa-panel{position:fixed;right:18px;bottom:86px;width:min(${CONFIG.width}px,calc(100vw - 36px));height:${CONFIG.height}px;z-index:${CONFIG.zIndex};display:none}
+    .pa-card{height:100%;width:100%;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 18px 48px rgba(0,0,0,.25);display:flex;flex-direction:column;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .pa-head{background:#111827;color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between}
+    .pa-head-title{font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:11px}
+    .pa-close{border:0;background:transparent;color:rgba(255,255,255,.9);font-size:20px;cursor:pointer;line-height:1}
+    .pa-close:hover{color:#fff}
+    .pa-sub{padding:10px 12px;background:#f9fafb;border-bottom:1px solid #eef2f7;color:#374151;font-size:12px}
+    .pa-msgs{flex:1;overflow:auto;padding:12px;background:#f3f4f6;display:flex;flex-direction:column;gap:10px}
+    .pa-row{display:flex}
+    .pa-row.user{justify-content:flex-end}
+    .pa-row.bot{justify-content:flex-start}
+    .pa-bubble{max-width:92%;padding:10px 12px;border-radius:16px;font-size:13px;line-height:1.42;box-shadow:0 1px 0 rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.04);background:#fff;color:#111827}
+    .pa-row.user .pa-bubble{background:#5b21b6;color:#fff;border-color:rgba(255,255,255,.12)}
+    .pa-foot{padding:10px 12px;background:#fff;border-top:1px solid #eef2f7}
+    .pa-quickbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+    .pa-chip{border:0;background:#ede9fe;color:#4c1d95;font-weight:900;border-radius:999px;padding:6px 10px;font-size:11px;cursor:pointer}
+    .pa-chip:hover{background:#ddd6fe}
+    .pa-inputrow{display:flex;gap:8px}
+    .pa-input{flex:1;padding:10px 12px;border-radius:12px;border:1px solid #d1d5db;outline:none;font-size:13px}
+    .pa-send{border:0;background:#5b21b6;color:#fff;font-weight:900;border-radius:12px;padding:10px 12px;cursor:pointer}
+    .pa-send:hover{background:#4c1d95}
+    .pa-note{margin-top:8px;font-size:11px;color:#6b7280}
+    .pa-wa{display:inline-flex;align-items:center;gap:8px;background:#16a34a;color:#fff;text-decoration:none;padding:10px 12px;border-radius:12px;font-weight:900;box-shadow:0 10px 22px rgba(0,0,0,.15);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+    .pa-wa:hover{background:#15803d}
+    .pa-wa-dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.85)}
+  `]);
+  document.head.appendChild(style);
+
+  const fab = el("div", { class: "pa-fab" }, [
+    el("button", { class: "pa-btn", type: "button", id: "paOpen" }, [CONFIG.fabText])
+  ]);
+
+  const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
+    el("div", { class: "pa-card" }, [
+      el("div", { class: "pa-head" }, [
+        el("div", { class: "pa-head-title" }, [CONFIG.title]),
+        el("button", { class: "pa-close", type: "button", id: "paClose", "aria-label": "Cerrar" }, ["×"])
+      ]),
+      el("div", { class: "pa-sub", id: "paSub" }, [
+        ctx ? `Está usted en: ${ctx.label}. ` : "",
+        CONFIG.subtitle
+      ]),
+      el("div", { class: "pa-msgs", id: "paMsgs" }, []),
+      el("div", { class: "pa-foot" }, [
+        el("div", { class: "pa-quickbar", id: "paQuick" }, []),
+        el("div", { class: "pa-inputrow" }, [
+          el("input", { class: "pa-input", id: "paInput", type: "text", placeholder: "Escriba su pregunta..." }),
+          el("button", { class: "pa-send", id: "paSend", type: "button" }, ["Enviar"])
+        ]),
+        el("div", { class: "pa-note" }, ["Asistente local (gratis): responde con criterios y checklists de su manual."])
+      ])
+    ])
+  ]);
+
+  document.body.appendChild(fab);
+  document.body.appendChild(panel);
+
+  const $ = (id) => document.getElementById(id);
+  const msgs = $("paMsgs");
+  const input = $("paInput");
+
+  function addMsg(role, html) {
+    const row = el("div", { class: "pa-row " + role }, [el("div", { class: "pa-bubble" }, [])]);
+    row.firstChild.innerHTML = html;
+    msgs.appendChild(row);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function open() { panel.style.display = "block"; }
+  function close() { panel.style.display = "none"; }
+
+  $("paOpen").addEventListener("click", open);
+  $("paClose").addEventListener("click", close);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panel.style.display === "block") close();
+    if (e.key === "Enter" && document.activeElement === input) reply(input.value);
+  });
+  $("paSend").addEventListener("click", () => reply(input.value));
+
+  // =======================
+  // SEARCH ENGINE (KB first, then manual pages)
+  // =======================
+  const __DOC_CACHE__ = new Map();
+
+  function classifyLine(s) {
+    const t = normalize(s);
+    if (
+      t.includes("no se permite") || t.includes("no esta permitido") || t.includes("prohib") ||
+      t.includes("debe") || t.includes("obligator") || t.includes("necesari") || t.includes("ha de")
+    ) return "obligatorio";
+    if (t.includes("conviene") || t.includes("recom") || t.includes("es muy conveniente") || t.includes("es recomendable"))
+      return "recomendable";
+    if (t.includes("error") || t.includes("errores comunes") || t.includes("advert") || t.includes("cuid") || t.includes("evit") || t.includes("importante"))
+      return "advertencia";
+    return "nota";
+  }
+
+  function trimText(t, max = 300) {
+    const s = (t || "").replace(/\s+/g, " ").trim();
+    return s.length > max ? (s.slice(0, max) + "…") : s;
+  }
+
+  async function loadDoc(file) {
+    if (__DOC_CACHE__.has(file)) return __DOC_CACHE__.get(file);
+
+    const res = await fetch(file, { cache: "force-cache" });
+    if (!res.ok) throw new Error(`No pude abrir ${file}`);
+
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+
+    const blocks = [];
+    doc.querySelectorAll("h1,h2,h3,p,li").forEach(n => {
+      const text = (n.textContent || "").replace(/\s+/g, " ").trim();
+      if (!text) return;
+      if (text.length < 18) return;
+      blocks.push({ tag: n.tagName.toLowerCase(), text, norm: normalize(text) });
+    });
+
+    const data = { file, blocks };
+    __DOC_CACHE__.set(file, data);
+    return data;
+  }
+
+  function scoreBlock(blockNorm, tokens) {
+    let s = 0;
+    for (const tok of tokens) {
+      if (tok.length < 3) continue;
+      if (blockNorm.includes(tok)) s += 2;
+    }
+    return s;
+  }
+
+  function kbCandidates(day, ministry) {
+    const dir = CONFIG.kbDir;
+    const files = [];
+    if (day && ministry) files.push(`${dir}/${ministry}-${day}.html`);
+    if (day) files.push(`${dir}/${day}.html`);
+    files.push(`${dir}/general.html`);
+    return [...new Set(files)];
+  }
+
+  function manualCandidates(day, ministry) {
+    const files = [];
+    if (day && ministry) files.push(`${ministry}-${day}.html`);
+    if (day && day !== "sabado" && day !== "pascua") files.push(`${day}.html`);
+    if (day === "sabado") files.push("sabado.html");
+    if (day === "pascua") files.push("pascua.html");
+    if (!day) files.push("index.html");
+    return [...new Set(files)];
+  }
+
+  async function searchFiles(question, files, maxHits = 4) {
+    const tokens = normalize(question).split(" ").filter(Boolean);
+    const hits = [];
+
+    for (const f of files) {
+      try {
+        const doc = await loadDoc(f);
+        for (const b of doc.blocks) {
+          const base = scoreBlock(b.norm, tokens);
+          if (base <= 0) continue;
+          const bonus = (b.tag === "h1" || b.tag === "h2" || b.tag === "h3") ? 1 : 0;
+          hits.push({ file: doc.file, text: b.text, score: base + bonus });
+        }
+      } catch (_) { /* ignore missing */ }
+    }
+
+    hits.sort((a, b) => b.score - a.score);
+
+    const seen = new Set();
+    const picks = [];
+    for (const h of hits) {
+      const key = h.text.slice(0, 110);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      picks.push(h);
+      if (picks.length >= maxHits) break;
+    }
+    return picks;
+  }
+
+  function liturgicalWrap({ day, ministry, picks }) {
+    const d = day ? dayNice(day) : "el día correspondiente";
+    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
+
+    const groups = { obligatorio: [], recomendable: [], advertencia: [], nota: [] };
+    picks.forEach(p => groups[classifyLine(p.text)].push(p));
+
+    function renderGroup(title, arr, limit) {
+      const part = arr.slice(0, limit).map(h => `• ${esc(trimText(h.text, 300))}`).join("<br><br>");
+      return part ? `<b>${title}</b><br>${part}<br><br>` : "";
+    }
+
+    return `
+<b>Padre Alan:</b> Con gusto. Espero que usted esté bien.<br>
+Sobre <b>${esc(d)}</b>${m ? `, para <b>${esc(m)}</b>` : ""}, esto es lo esencial:
+<br><br>
+${renderGroup("Lo obligatorio (rúbrica)", groups.obligatorio, 2)}
+${renderGroup("Lo recomendable", groups.recomendable, 2)}
+${renderGroup("Errores comunes / advertencias", groups.advertencia, 1)}
+${renderGroup("Nota útil", groups.nota, 1)}
+<b>Si usted quiere</b>, puedo ordenarle esto en un checklist paso a paso.
+`.trim();
+  }
+
+  function makeChecklistFromPicks(day, ministry, picks) {
+    const d = day ? dayNice(day) : "el día correspondiente";
+    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : "General";
+
+    const lines = [];
+    for (const p of picks) {
+      const txt = (p.text || "").replace(/\s+/g, " ").trim();
+      const parts = txt.split(/(?<=[\.\;\:])\s+/).filter(Boolean);
+      for (const part of parts) {
+        const s = part.trim();
+        if (s.length < 35) continue;
+        lines.push(s);
+        if (lines.length >= 10) break;
+      }
+      if (lines.length >= 10) break;
+    }
+    if (!lines.length) return null;
+
+    const steps = lines.map((s, i) => `${i + 1}. ${esc(trimText(s, 240))}`).join("<br>");
+
+    return `
+<b>Checklist — ${esc(m)} (${esc(d)})</b><br>
+${steps}
+`.trim();
+  }
+
+  function speakUncertain(day, ministry) {
+    const d = day ? dayNice(day) : null;
+    const m = ministry ? (MINISTRY_LABELS[ministry] || ministry) : null;
+
+    return `
+<b>Padre Alan:</b> Para no improvisar ni darle un dato incorrecto, permítame confirmar un detalle.<br>
+${d ? `¿Se refiere a <b>${esc(d)}</b>?<br>` : `¿Qué día está preparando: <b>Ramos, Jueves, Viernes, Vigilia</b>, etc.?<br>`}
+${m ? `¿Es para el ministerio de <b>${esc(m)}</b>?<br>` : `¿Para qué ministerio: <b>misal, lectores, coro, monaguillos, ujieres, sacristía</b>?<br>`}
+Con eso, con gusto le doy el orden exacto y el checklist.
+`.trim();
+  }
+
   function whatsappEscalation(q) {
     const page = currentFile();
     const url = window.location.href;
-
     const message =
-`Pregunta desde Pascua 2026 (chatbot):
+`Pregunta desde el Manual (Pascua 2026):
 "${q}"
 
 Página: ${page}
 URL: ${url}
 
-(Enviado desde el manual litúrgico)`;
+(Enviado desde el chatbot del manual)`;
 
     addMsg("bot", `
-      Si le parece, envíeme su duda por WhatsApp y la reviso personalmente:<br><br>
-      <a class="pa-wa" href="${waLink(message)}" target="_blank" rel="noopener">
-        <span class="pa-wa-dot"></span> Enviar al Padre Alan por WhatsApp
-      </a>
-    `);
+Si a usted le parece, envíeme esta duda por WhatsApp y la reviso personalmente:<br><br>
+<a class="pa-wa" href="${waLink(message)}" target="_blank" rel="noopener">
+  <span class="pa-wa-dot"></span> Enviar por WhatsApp
+</a>
+`.trim());
   }
 
-  function fallback(q = "") {
-    if (q) {
-      addMsg("bot", `
-        No encontré un apartado suficientemente claro para responder con precisión.<br>
-        Para no improvisar: con gusto lo reviso con usted.
-      `);
-      whatsappEscalation(q);
-      return;
+  // =======================
+  // KB (respuestas rápidas)
+  // =======================
+  const KB = [
+    {
+      test: [/^\/?help$/i, /ayuda/i],
+      answer: () => `
+Con gusto. Puedo ayudarle con <b>Semana Santa 2026 (Ciclo A)</b>.<br><br>
+<b>Ejemplos:</b><br>
+• <b>checklist lectores ramos</b><br>
+• <b>qué es obligatorio viernes</b><br>
+• <b>coro jueves cantos</b><br>
+• <b>monaguillos vigilia pasos</b><br><br>
+<b>Navegación:</b> “<b>abrir ramos</b>”, “<b>abrir jueves</b>”, “<b>abrir vigilia</b>”.
+      `.trim()
+    },
+    {
+      test: [/hola|buenas|buenos d[ií]as|buenas tardes|buenas noches/i],
+      answer: () => `
+Paz y bien. Espero que usted esté bien.<br>
+Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br>
+Dígame el <b>día</b> y, si aplica, el <b>ministerio</b> (misal, lectores, coro, monaguillos, ujieres, sacristía).
+      `.trim()
     }
+  ];
 
-    addMsg("bot", `
-      Con gusto. Dígame el día y el ministerio (si aplica).<br>
-      Ejemplos: “<b>lectores jueves</b>”, “<b>coro ramos</b>”, “<b>misal vigilia</b>”, “<b>checklist ujieres viernes</b>”.
-    `);
-  }
-
-  // ====== Reply (async) ======
+  // =======================
+  // Reply
+  // =======================
   async function reply(text) {
     const q = (text || "").trim();
     if (!q) return;
@@ -544,74 +480,88 @@ URL: ${url}
     addMsg("user", esc(q));
     input.value = "";
 
-    // 1) Abrir página
-    const key = parseOpenCommand(q);
-    if (key && CONFIG.pages[key]) {
-      addMsg("bot", `Con gusto. Le llevo a: <b>${esc(CONFIG.pages[key].label)}</b>…`);
-      setTimeout(() => goTo(key), 250);
+    // comando abrir
+    const openKey = parseOpenCommand(q);
+    if (openKey && CONFIG.pages[openKey]) {
+      addMsg("bot", `Con gusto. Le llevo a: <b>${esc(CONFIG.pages[openKey].label)}</b>…`);
+      setTimeout(() => goTo(openKey), 250);
       return;
     }
 
-    // 2) Buscar en manual
-    const day = detectDay(q) || (ctx?.key || null);
-    const ministry = detectMinistry(q);
-
-    const shouldSearch =
-      !!ministry ||
-      /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición|lecturas|cantos|ministros|inciens|incens|cirio|lavatorio|adoracion|adoración|secuencia|aspersión/i
-        .test(q.toLowerCase());
-
-    if (shouldSearch) {
-      addMsg("bot", "Un momento, por favor… estoy consultando el manual.");
-
-      try {
-        const result = await searchSite(q, day, ministry, 4);
-
-        if (result.picks.length) {
-          // checklist si lo pidió
-          if (/checklist/i.test(q)) {
-            const cl = makeChecklistFromPicks(day, ministry, result.picks);
-            if (cl) {
-              addMsg("bot", cl);
-              return;
-            }
-          }
-
-          // respuesta elocuente “Padre Alan”
-          addMsg("bot", liturgicalWrap({ q, day, ministry, picks: result.picks }));
-          return;
-        }
-
-        // no encontró: muestre enlaces litúrgicos (no nombres de archivo) + WhatsApp
-        const files = pickFiles(day, ministry);
-        const links = files.map(f => `• ${linkFile(f)}`).join("<br>");
-
-        addMsg("bot", `
-          No encontré una coincidencia exacta con esas palabras, pero sí puedo dirigirle al lugar correcto:<br><br>
-          ${links}
-        `);
-        whatsappEscalation(q);
-        return;
-
-      } catch (_) {
-        addMsg("bot", "En este momento no pude consultar el manual (posible archivo no disponible).");
-        whatsappEscalation(q);
-        return;
-      }
-    }
-
-    // 3) KB
+    // KB rápido
     const hit = KB.find(item => item.test.some(rgx => rgx.test(q)));
     if (hit) {
       addMsg("bot", (typeof hit.answer === "function") ? hit.answer() : hit.answer);
       return;
     }
 
-    // 4) fallback + WhatsApp
-    fallback(q);
+    // detectar contexto
+    const day = detectDay(q) || (ctx?.key || null);
+    const ministry = detectMinistry(q);
+
+    // ¿cuándo buscar?
+    const shouldSearch =
+      !!ministry ||
+      /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición|lecturas|cantos|ministros|inciens|incens|cirio|lavatorio|adoracion|adoración|secuencia|aspersión|pasión/i
+        .test(q.toLowerCase());
+
+    // Si no está pidiendo algo “operativo”, pedir confirmación
+    if (!shouldSearch) {
+      addMsg("bot", speakUncertain(day, ministry));
+      return;
+    }
+
+    addMsg("bot", "Un momento, por favor…");
+
+    try {
+      // 1) Buscar en KB primero
+      const kbFiles = kbCandidates(day, ministry);
+      const kbPicks = await searchFiles(q, kbFiles, 4);
+
+      if (kbPicks.length) {
+        if (/checklist/i.test(q)) {
+          const cl = makeChecklistFromPicks(day, ministry, kbPicks);
+          if (cl) { addMsg("bot", cl); return; }
+        }
+        addMsg("bot", liturgicalWrap({ day, ministry, picks: kbPicks }));
+        return;
+      }
+
+      // 2) Luego buscar en páginas normales
+      const manFiles = manualCandidates(day, ministry);
+      const manPicks = await searchFiles(q, manFiles, 4);
+
+      if (manPicks.length) {
+        if (/checklist/i.test(q)) {
+          const cl = makeChecklistFromPicks(day, ministry, manPicks);
+          if (cl) { addMsg("bot", cl); return; }
+        }
+        addMsg("bot", liturgicalWrap({ day, ministry, picks: manPicks }));
+        return;
+      }
+
+      // 3) No encontró: no improvisar + WhatsApp
+      addMsg("bot", `
+<b>Padre Alan:</b> Para no improvisar ni darle una respuesta insegura, prefiero confirmarlo.<br>
+Si usted me dice el <b>día</b> y el <b>ministerio</b>, lo preparo exacto. Si prefiere, envíemelo por WhatsApp y lo reviso personalmente.
+      `.trim());
+
+      whatsappEscalation(q);
+      return;
+
+    } catch (_) {
+      addMsg("bot", `
+<b>Padre Alan:</b> En este momento no pude consultar los textos. Para no improvisar, prefiero confirmarlo con usted.<br>
+Si a usted le parece, envíeme la pregunta por WhatsApp.
+      `.trim());
+      whatsappEscalation(q);
+      return;
+    }
   }
 
-  // ====== Quick buttons ======
+  // =======================
+  // Quick buttons
+  // =======================
   function addQuick(label, question, action) {
     const btn = el("button", { class: "pa-chip", type: "button" }, [label]);
     btn.addEventListener("click", () => {
@@ -624,22 +574,29 @@ URL: ${url}
   if (ctx) addQuick("Checklist de este día", `checklist ${ctx.key}`);
 
   addQuick("Ramos", "abrir ramos");
-  addQuick("Jueves Santo", "abrir jueves");
-  addQuick("Viernes Santo", "abrir viernes");
-  addQuick("Vigilia Pascual", "abrir vigilia");
+  addQuick("Jueves", "abrir jueves");
+  addQuick("Viernes", "abrir viernes");
+  addQuick("Vigilia", "abrir vigilia");
   addQuick("Pascua", "abrir pascua");
-  addQuick("Colores", "colores litúrgicos");
   addQuick("Ayuda", "/help");
-  addQuick("WhatsApp", null, () => whatsappEscalation("Necesito ayuda con el manual litúrgico."));
+  addQuick("WhatsApp", null, () => {
+    const msg = "Necesito ayuda con el manual litúrgico de Semana Santa 2026.";
+    addMsg("bot", `
+<a class="pa-wa" href="${waLink(msg)}" target="_blank" rel="noopener">
+  <span class="pa-wa-dot"></span> Enviar por WhatsApp
+</a>
+    `.trim());
+  });
 
   // Mensaje inicial
   addMsg("bot", `
-    Paz y bien. Espero que usted esté bien.<br>
-    Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br><br>
-    Usted puede preguntar, por ejemplo:<br>
-    • <b>checklist monaguillos jueves</b><br>
-    • <b>qué es obligatorio viernes</b><br>
-    • <b>lectores vigilia lecturas</b><br>
-    • <b>coro ramos cantos</b><br>
-  `);
+Paz y bien. Espero que usted esté bien.<br>
+Soy el <b>Padre Alan</b>. ${ctx ? `Veo que usted está en <b>${esc(ctx.label)}</b>.` : ""}<br><br>
+Usted puede preguntar, por ejemplo:<br>
+• <b>checklist lectores ramos</b><br>
+• <b>qué es obligatorio viernes</b><br>
+• <b>coro jueves cantos</b><br>
+• <b>monaguillos vigilia pasos</b><br><br>
+<i>Nota:</i> Respondo con criterios del manual. Si algo no está claro, prefiero confirmarlo antes de improvisar.
+  `.trim());
 })();
