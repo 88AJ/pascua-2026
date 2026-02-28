@@ -10,203 +10,237 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Diseño Hero Uniforme con imagen de la Unción/Traición */
+        .hero-bg { 
+            background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/uncion-lunes.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+
+        /* Contenedor responsivo para evitar cortes en el formulario */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 150%; 
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 768px) {
+            .iframe-container {
+                padding-top: 0;
+                height: 950px;
+            }
+        }
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800">
+<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800 flex flex-col min-h-screen">
 
 <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="martes.html" class="flex items-center gap-2 text-purple-700 font-semibold hover:underline">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="martes.html" class="flex items-center gap-2 text-purple-700 font-bold hover:text-purple-800 transition">
             <i class="fa-solid fa-arrow-left"></i> Volver a Martes Santo
         </a>
-        <span class="font-bold text-gray-700 tracking-wide">
+        <span class="font-bold text-gray-700 tracking-wide uppercase text-sm">
             Camino hacia la Pascua 2026
         </span>
     </div>
 </header>
 
-<section class="text-center py-16 bg-white shadow-sm border-b-8 border-purple-700">
-    <div class="max-w-4xl mx-auto px-4">
-        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">Color Litúrgico: Morado</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-purple-700 flex justify-center items-center gap-4 mt-2">
-            <i class="fa-solid fa-book-bible"></i>
+<section class="hero-bg text-center py-20 shadow-sm border-b-8 border-purple-700">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <span class="bg-purple-100 text-purple-900 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block shadow-sm border border-purple-200">Color Litúrgico: Morado</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white flex justify-center items-center gap-4 mt-2 drop-shadow-md tracking-tight uppercase">
+            <i class="fa-solid fa-book-bible text-purple-300"></i>
             Ministerio de Lectores
         </h1>
-        <p class="mt-6 text-gray-600 text-lg leading-relaxed">
-            Martes Santo: El Anuncio de la Traición y Envío a la Misa Crismal. Textos litúrgicos y moniciones completas para la celebración.
+        <p class="mt-6 text-purple-100 text-lg leading-relaxed font-medium uppercase tracking-widest">
+            Martes Santo: El Anuncio de la Traición.<br>Moniciones y Proclamación de la Palabra.
         </p>
-        <div class="mt-8">
-            <a href="#registro" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-purple-700 transition text-lg font-semibold">
+        <div class="mt-10">
+            <a href="#registro" class="inline-block bg-white text-purple-900 px-8 py-4 rounded-xl shadow-lg hover:bg-gray-100 transition text-lg font-bold uppercase tracking-widest">
                 Registrarme para Servir
             </a>
         </div>
     </div>
 </section>
 
-<section class="py-12 max-w-5xl mx-auto px-4 space-y-12">
+<section class="py-16 max-w-5xl mx-auto px-4 space-y-12 flex-grow">
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-600">
-        <h2 class="text-2xl font-bold text-purple-700 mb-6 uppercase tracking-tight"><i class="fa-solid fa-clock"></i> Horarios y Cupos</h2>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-600">
+        <h2 class="text-2xl font-bold text-purple-800 mb-6 uppercase tracking-tight flex items-center gap-2"><i class="fa-solid fa-clock"></i> Horarios y Cupos</h2>
         <div class="grid md:grid-cols-2 gap-8">
             <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2">Parroquia San Pedro Apóstol</h3>
-                <p class="text-sm text-purple-800 font-bold mb-3">Requisito: 1 Lector para la Palabra y 1 Monitor</p>
-                <ul class="space-y-2 text-gray-800 text-sm">
-                    <li><strong>Matutina:</strong> 8:00 AM <em>(Misa estándar)</em></li>
-                    <li><strong>Vespertina:</strong> 7:00 PM <em>(Misa con Rito de Envío)</em></li>
+                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2 uppercase text-center">Parroquia San Pedro Apóstol</h3>
+                <p class="text-sm text-purple-800 font-bold mb-4 bg-purple-100 inline-block px-3 py-1 rounded w-full text-center uppercase">Requisito: 1 Lector y 1 Monitor</p>
+                <ul class="space-y-3 text-gray-800 font-bold text-lg text-center">
+                    <li>Matutina: 8:00 AM <br><span class="text-xs font-normal italic text-gray-500">(Misa Estándar)</span></li>
+                    <li>Vespertina: 7:00 PM <br><span class="text-xs font-normal italic text-gray-500">(Misa con Rito de Envío)</span></li>
                 </ul>
             </div>
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center">
-                <h3 class="font-bold text-lg text-gray-900 mb-2">Capilla San Judas Tadeo</h3>
-                <p class="text-sm text-gray-500 font-medium">Sin celebraciones programadas hoy.</p>
+                <h3 class="font-bold text-lg text-gray-900 mb-3 uppercase">Capilla San Judas Tadeo</h3>
+                <p class="text-base text-gray-500 font-medium italic">Sin celebraciones programadas hoy.</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-gray-800">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight">Directrices de Proclamación</h2>
-        <ul class="list-disc pl-5 text-gray-700 space-y-3">
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-gray-800">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6 uppercase tracking-tight flex items-center gap-2">Directrices de Proclamación</h2>
+        
+        <div class="mb-8 bg-yellow-50 border border-yellow-200 p-6 md:p-8 rounded-3xl shadow-sm">
+            <p class="font-bold uppercase tracking-wider text-sm mb-4 flex items-center gap-2 border-b border-yellow-200 pb-3 text-yellow-900">
+                <i class="fa-solid fa-scroll text-yellow-600"></i> Directriz Litúrgica Oficial (CEM)
+            </p>
+            <ul class="list-disc pl-6 space-y-4 text-base text-yellow-950 font-medium leading-relaxed">
+                <li><strong>Proclamación Ferial:</strong> A diferencia del domingo, no se procesiona con el Evangeliario ni se usan ciriales para las lecturas. El lector debe dirigirse directamente al <strong>Ambón</strong> desde su lugar en el <strong>Presbiterio</strong>.</li>
+                <li><strong>El Silencio de Betania:</strong> Es obligatorio respetar un momento de silencio profundo tras la Primera Lectura y el Salmo para interiorizar la llamada del Siervo de Yahvé.</li>
+                <li><strong>Aclamación:</strong> El "Aleluya" permanece estrictamente omitido. Se entona el verso correspondiente a la realeza de Cristo en la Pasión.</li>
+            </ul>
+        </div>
+
+        <ul class="list-disc pl-6 text-gray-700 space-y-4 text-base font-medium">
             <li><strong>Labor del Monitor:</strong> Durante la Misa de 7:00 PM se realiza el envío de los delegados a la Misa Crismal. El monitor deberá estar atento para leer las moniciones especiales de entrada y de envío (a las 8:00 AM se omiten).</li>
-            <li><strong>Lector Único:</strong> Un solo lector proclama la Primera Lectura y el Salmo Responsorial. Asegúrese de que la cinta del Leccionario esté en la <strong>página 806</strong>.</li>
+            <li><strong>Lector Único:</strong> Un solo lector proclama la Primera Lectura y el Salmo Responsorial. Asegúrese de que la cinta del Leccionario esté en la <strong>página 806</strong> del Leccionario I.</li>
         </ul>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-blue-800">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">I. Moniciones Iniciales</h2>
-        <p class="text-sm text-gray-600 mb-8">Estos textos son proclamados por el monitor antes de las lecturas.</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">I. Moniciones Iniciales</h2>
+        <p class="text-sm text-gray-500 mb-8 italic">Estos textos son proclamados por el monitor antes de las lecturas.</p>
 
-        <div class="mb-8 bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <h3 class="text-xl font-bold text-blue-900 mb-2">Monición de Entrada <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded ml-2 uppercase tracking-wide">Solo a las 7:00 PM</span></h3>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg italic">
-                <p>En el contexto de la Semana Santa, en esta celebración se hará el envío de los miembros de nuestra parroquia que participarán como delegados en la Misa Crismal para recibir los Oleos santos y el santo Crisma. Unámonos en el amor y en la participación de la vida de Cristo poniendo todo nuestro ser en esta acción litúrgica.</p>
+        <div class="space-y-6">
+            <div class="bg-purple-50 p-6 md:p-8 rounded-2xl border-l-8 border-purple-700 shadow-sm">
+                <h3 class="text-xl font-bold text-purple-900 mb-3 flex items-center gap-2">
+                    Monición de Entrada <span class="bg-red-100 text-red-700 text-xs px-2 py-1 rounded ml-2 uppercase font-bold shadow-sm">Solo 7:00 PM</span>
+                </h3>
+                <div class="text-gray-800 leading-relaxed text-lg italic">
+                    <p>"En el contexto de la Semana Santa, en esta celebración se hará el envío de los miembros de nuestra parroquia que participarán como delegados en la Misa Crismal para recibir los Oleos santos y el santo Crisma. Unámonos en el amor y en la participación de la vida de Cristo poniendo todo nuestro ser en esta acción litúrgica."</p>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-4 bg-blue-50 p-6 rounded-xl border border-blue-100">
-            <h3 class="text-xl font-bold text-blue-900 mb-2">Monición a la Liturgia de la Palabra</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Se lee en ambas misas (8:00 AM y 7:00 PM).</p>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg italic">
-                <p>Escuchemos la Palabra de Dios que nos fortalece, nos invita a meditar y a reflexionar en nuestra vida, para acercarnos a los misterios de nuestra redención.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-800 mt-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 uppercase tracking-tight border-b-2 pb-4">II. Textos para Proclamación de la Palabra</h2>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">Primera Lectura</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Del libro del profeta Isaías (49, 1-6) | <em>Pág. 806</em></p>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg">
-                <p>Escúchenme, islas; pueblos lejanos, atiéndanme. El Señor me llamó desde el vientre de mi madre; cuando aún estaba yo en el seno materno, él pronunció mi nombre.</p>
-                <p>Hizo de mi boca una espada filosa, me escondió en la sombra de su mano; me hizo flecha puntiaguda, me guardó en su aljaba y me dijo: "Tú eres mi siervo, Israel; en ti manifestaré mi gloria".</p>
-                <p>Entonces yo pensé: "En vano me he cansado, inútilmente he gastado mis fuerzas; en realidad mi causa estaba en manos del Señor, mi recompensa la tenía mi Dios".</p>
-                <p>Pero ahora habla el Señor, el que me formó desde el seno materno para que fuera su servidor, para hacer que Jacob volviera a él y congregar a Israel en torno suyo —tanto así me honró el Señor y mi Dios fue mi fuerza—. Ahora, pues, dice el Señor: "Es poco que seas mi siervo sólo para restablecer a las tribus de Jacob y reunir a los sobrevivientes de Israel; te voy a convertir en luz de las naciones, para que mi salvación llegue hasta los últimos rincones de la tierra".</p>
-                <p class="mt-4 font-bold">Palabra de Dios.</p>
-            </div>
-        </div>
-
-        <div class="mb-12 bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">Salmo Responsorial</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Del salmo 70 | <em>Pág. 807</em></p>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg">
-                <p class="font-bold text-purple-900 mb-4">R. Mi boca contará tu auxilio, Señor.</p>
-                
-                <p>En ti, Señor, me refugio,<br>
-                no quede yo jamás defraudado;<br>
-                tú, que eres justo, ayúdame y defiéndeme;<br>
-                escucha mi oración y ponme a salvo. <strong>R.</strong></p>
-                
-                <p>Sé tú mi roca de refugio<br>
-                y fortaleza de salvación;<br>
-                pues mi roca y mi fortaleza eres tú.<br>
-                Líbrame, Dios mío, de las manos del impío. <strong>R.</strong></p>
-                
-                <p>Porque tú, Señor, eres mi esperanza<br>
-                y mi seguridad desde mi juventud.<br>
-                En el seno materno me apoyé en ti;<br>
-                desde antes de nacer, tú me sostienes. <strong>R.</strong></p>
-                
-                <p>Mi boca contará tu justicia,<br>
-                y día tras día, tu salvación.<br>
-                Dios mío, tú me enseñaste desde joven,<br>
-                y hasta hoy he proclamado tus maravillas. <strong>R.</strong></p>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">Aclamación antes del Evangelio</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Norma: Se omite el Aleluya.</p>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg border-l-4 border-purple-500 pl-4 italic">
-                <p><strong>R. Honor y gloria a ti, Señor Jesús.</strong></p>
-                <p>Salve, Rey nuestro: obediente al Padre, fuiste llevado a la crucifixión, como manso cordero a la matanza.</p>
-                <p><strong>R. Honor y gloria a ti, Señor Jesús.</strong></p>
-            </div>
-        </div>
-
-        <div class="mb-6 bg-purple-50 p-6 rounded-xl border border-purple-100">
-            <h3 class="text-xl font-bold text-purple-900 mb-2">Evangelio (Proclamado por el Sacerdote)</h3>
-            <p class="text-sm font-semibold text-gray-500 mb-4">Del santo Evangelio según San Juan (13, 21-33. 36-38) | <em>Pág. 807</em></p>
-            <div class="prose max-w-none text-gray-700 leading-relaxed text-base">
-                <p>En aquel tiempo, cuando Jesús estaba a la mesa con sus discípulos, se conmovió profundamente y declaró: "Yo les aseguro que uno de ustedes me va a entregar".</p>
-                <p>Los discípulos se miraron perplejos unos a otros, porque no sabían de quién hablaba. Uno de ellos, al que Jesús tanto amaba, se hallaba reclinado a su derecha. Simón Pedro le hizo una seña y le preguntó: "¿De quién lo dice?". Entonces él, apoyándose en el pecho de Jesús, le preguntó: "Señor, ¿quién es?". Le contestó Jesús: "Aquel a quien yo le dé este trozo de pan, que voy a mojar". Mojó el pan y se lo dio a Judas Iscariote, hijo de Simón.</p>
-                <p>Y en cuanto Judas tomó el pan, Satanás entró en él. Jesús le dijo entonces a Judas: "Lo que tienes que hacer, hazlo pronto". Pero ninguno de los comensales entendió a qué se refería; algunos pensaron que, como Judas tenía la bolsa, Jesús le había encomendado comprar lo necesario para la fiesta o dar algo a los pobres. Judas, después de tomar el pan, salió inmediatamente. Era de noche.</p>
-                <p>Una vez que Judas se fue, Jesús dijo: "Ahora ha sido glorificado el Hijo del hombre, y Dios ha sido glorificado en él. Si Dios ha sido glorificado en él, también Dios lo glorificará en sí mismo y pronto lo glorificará. Hijitos, todavía estaré un poco con ustedes. Me buscarán, pero como les dije a los judíos, así se lo digo a ustedes ahora: a donde yo voy, ustedes no pueden ir".</p>
-                <p>Simón Pedro le dijo: "Señor, ¿a dónde vas?". Jesús le respondió: "A donde yo voy, no me puedes seguir ahora; me seguirás más tarde". Pedro replicó: "Señor, ¿por qué no puedo seguirte ahora? Yo daré mi vida por ti". Jesús le contestó: "¿Conque darás tu vida por mí? Yo te aseguro que no cantará el gallo, antes de que me hayas negado tres veces".</p>
-                <p class="mt-4 font-bold">Palabra del Señor.</p>
+            <div class="bg-purple-50 p-6 md:p-8 rounded-2xl border-l-8 border-purple-700 shadow-sm">
+                <h3 class="text-xl font-bold text-purple-900 mb-3">Monición a la Liturgia de la Palabra</h3>
+                <p class="text-sm font-semibold text-gray-500 mb-4">Se lee en ambas misas (8:00 AM y 7:00 PM).</p>
+                <div class="text-gray-800 leading-relaxed text-lg italic">
+                    <p>"Escuchemos la Palabra de Dios que nos fortalece, nos invita a meditar y a reflexionar en nuestra vida, para acercarnos a los misterios de nuestra redención."</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-red-800 mt-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2 uppercase tracking-tight">III. Envío de los Delegados a la Misa Crismal</h2>
-        <p class="text-red-600 font-bold mb-6 text-lg tracking-wide uppercase">(Exclusivo para la Misa de las 7:00 PM)</p>
-        <p class="text-sm text-gray-600 mb-8 border-b-2 pb-4">Después de la homilía de la misa vespertina se hace el rito de envío de los delegados parroquiales. (En la misa de 8:00 AM se omite esta parte y se pasa directo a las peticiones habituales).</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8 uppercase tracking-tight border-b-2 pb-4">II. Textos para Proclamación de la Palabra</h2>
 
-        <div class="mb-8 bg-red-50 p-6 rounded-xl border border-red-100">
-            <h3 class="text-xl font-bold text-red-900 mb-2">Monición para el Envío</h3>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg italic">
-                <p>La Misa Crismal, que el día de mañana presidirá el Sr. Arzobispo Rogelio Cabrera López, es una de las principales manifestaciones de la plenitud sacerdotal del obispo y como un signo de la unión estrecha de los presbíteros con él.</p>
-                <p>En esa Eucaristía, además de ser bendecidos el óleo de los enfermos y el de los catecúmenos, también será consagrado el Crisma. Estos óleos serán usados en la celebración de los sacramentos durante este año.</p>
-                <p>Nuestra parroquia estará oficialmente representada a través de estos hermanos nuestros, a quienes delegamos para trasladar los santos oleos a nuestra parroquia.</p>
+        <div class="space-y-12">
+            <div class="bg-gray-50 p-6 md:p-10 rounded-2xl border border-gray-200">
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-scroll"></i> Primera Lectura</h3>
+                <p class="text-sm font-semibold text-gray-500 mb-6 uppercase tracking-widest">Del libro del profeta Isaías (49, 1-6) | <span class="text-purple-700">Pág. 806</span></p>
+                <div class="prose max-w-none text-gray-800 leading-relaxed text-xl">
+                    <p>Escúchenme, islas; pueblos lejanos, atiéndanme. El Señor me llamó desde el vientre de mi madre; cuando aún estaba yo en el seno materno, él pronunció mi nombre.</p>
+                    <p>Hizo de mi boca una espada filosa, me escondió en la sombra de su mano; me hizo flecha puntiaguda, me guardó en su aljaba y me dijo: "Tú eres mi siervo, Israel; en ti manifestaré mi gloria".</p>
+                    <p>Entonces yo pensé: "En vano me he cansado, inútilmente he gastado mis fuerzas; en realidad mi causa estaba en manos del Señor, mi recompensa la tenía mi Dios".</p>
+                    <p>Pero ahora habla el Señor, el que me formó desde el seno materno para que fuera su servidor, para hacer que Jacob volviera a él y congregar a Israel en torno suyo —tanto así me honró el Señor y mi Dios fue mi fuerza—. Ahora, pues, dice el Señor: "Es poco que seas mi siervo sólo para restablecer a las tribus de Jacob y reunir a los sobrevivientes de Israel; te voy a convertir en luz de las naciones, para que mi salvación llegue hasta los últimos rincones de la tierra".</p>
+                    <p class="mt-6 font-bold text-purple-900 uppercase text-sm tracking-widest text-right">Palabra de Dios.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="mb-8 bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <h3 class="text-xl font-bold text-red-900 mb-2">Plegaria Universal (Oración de los Fieles)</h3>
-            <div class="prose max-w-none text-gray-800 leading-relaxed text-lg">
-                <p>Oremos a Dios, que nos ha dado a su Hijo amado para que sea nuestra luz y nuestra salvación, diciendo: Te rogamos, óyenos.</p>
-                <ul class="list-none space-y-4 mt-4">
-                    <li><strong>1.</strong> Para que la Iglesia, en estos días santos, viva plenamente unida a Cristo, su esposo, por la comunión de la oración y la gracia de los sacramentos. Oremos.</li>
-                    <li><strong>2.</strong> Para que, en todas las naciones, Cristo sea acogido como luz del mundo y fuente de vida verdadera. Oremos.</li>
-                    <li><strong>3.</strong> Para que sepamos ayudar a los pobres, reconociendo en ellos el rostro de Cristo, pobre y sufriente. Oremos.</li>
-                    <li><strong>4.</strong> Para que nuestra fe se acompañe siempre del perfume de las buenas obras que nos hacen más agradables a los ojos de Dios. Oremos.</li>
-                </ul>
-                <p class="mt-4 italic">Escucha, Señor, las súplicas de tu pueblo que, confesando su fe en Jesús como Mesías, invoca tu auxilio; y haz que podamos expresar en toda ocasión nuestro amor por tu Ungido con la santidad de nuestra vida. Por Jesucristo nuestro Señor. R. Amén.</p>
+            <div class="bg-purple-50 p-6 md:p-10 rounded-2xl border border-purple-100">
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-music"></i> Salmo Responsorial</h3>
+                <p class="text-sm font-semibold text-gray-500 mb-6">Del salmo 70 | <span class="text-purple-700 font-bold">Pág. 807</span></p>
+                <div class="text-gray-800 leading-relaxed text-xl">
+                    <p class="font-bold text-purple-900 mb-6 text-2xl text-center">R. Mi boca contará tu auxilio, Señor.</p>
+                    <div class="space-y-6">
+                        <p>En ti, Señor, me refugio, no quede yo jamás defraudado; tú, que eres justo, ayúdame y defiéndeme; escucha mi oración y ponme a salvo. <strong>R.</strong></p>
+                        <p>Sé tú mi roca de refugio y fortaleza de salvación; pues mi roca y mi fortaleza eres tú. Líbrame, Dios mío, de las manos del impío. <strong>R.</strong></p>
+                        <p>Porque tú, Señor, eres mi esperanza y mi seguridad desde mi juventud. En el seno materno me apoyé en ti; desde antes de nacer, tú me sostienes. <strong>R.</strong></p>
+                        <p>Mi boca contará tu justicia, y día tras día, tu salvación. Dios mío, tú me enseñaste desde joven, y hasta hoy he proclamado tus maravillas. <strong>R.</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border-l-8 border-purple-600 shadow-sm">
+                <h3 class="text-xl font-bold text-purple-700 mb-4 uppercase tracking-widest">Aclamación antes del Evangelio</h3>
+                <div class="text-gray-800 text-lg italic bg-gray-50 p-6 rounded-xl">
+                    <p class="font-bold text-purple-900">R. Honor y gloria a ti, Señor Jesús.</p>
+                    <p class="my-2">Salve, Rey nuestro: obediente al Padre, fuiste llevado a la crucifixión, como manso cordero a la matanza.</p>
+                    <p class="font-bold text-purple-900">R. Honor y gloria a ti, Señor Jesús.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-6 md:p-10 rounded-2xl border-t-8 border-gray-400">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i class="fa-solid fa-book-open-reader text-gray-500"></i> Evangelio (Solo Meditación)</h3>
+                <p class="text-sm font-semibold text-gray-500 mb-6">San Juan (13, 21-33. 36-38) | <span class="font-bold">Pág. 807</span></p>
+                <div class="text-gray-600 leading-relaxed text-base italic">
+                    <p class="mb-4">En aquel tiempo, cuando Jesús estaba a la mesa con sus discípulos, se conmovió profundamente y declaró: "Yo les aseguro que uno de ustedes me va a entregar".</p>
+                    <p class="mb-4">...Judas, después de tomar el pan, salió inmediatamente. Era de noche. Una vez que Judas se fue, Jesús dijo: "Ahora ha sido glorificado el Hijo del hombre, y Dios ha sido glorificado en él."</p>
+                    <p>Simón Pedro le dijo: "Señor, ¿a dónde vas?". Jesús le respondió: "A donde yo voy, no me puedes seguir ahora; me seguirás más tarde"...</p>
+                    <p class="mt-4 font-bold text-gray-800 uppercase text-sm tracking-widest">Palabra del Señor.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="registro" class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-purple-600 mt-12">
-        <h2 class="text-3xl font-bold text-purple-700 mb-6 uppercase tracking-tight text-center">Registro Oficial de Lectores</h2>
-        <p class="text-center text-gray-600 mb-8">Completa el formulario y selecciona el horario en el que brindarás tu servicio de proclamación durante el Martes Santo.</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-red-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-2 uppercase tracking-tight">III. Envío de los Delegados</h2>
+        <p class="text-red-600 font-extrabold mb-8 text-lg tracking-widest uppercase flex items-center gap-2">
+            <i class="fa-solid fa-triangle-exclamation"></i> Exclusivo para la Misa de las 7:00 PM
+        </p>
+
+        <div class="space-y-8">
+            <div class="bg-purple-50 p-6 md:p-8 rounded-2xl border-l-8 border-purple-700 shadow-sm">
+                <h3 class="text-xl font-bold text-purple-900 mb-4 uppercase">Monición para el Envío</h3>
+                <div class="text-gray-800 leading-relaxed text-lg italic">
+                    <p>"La Misa Crismal, que el día de mañana presidirá el Sr. Arzobispo Rogelio Cabrera López, es una de las principales manifestaciones de la plenitud sacerdotal del obispo y como un signo de la unión estrecha de los presbíteros con él."</p>
+                    <p class="mt-4">"Nuestra parroquia estará oficialmente representada a través de estos hermanos nuestros, a quienes delegamos para trasladar los santos oleos a nuestra parroquia."</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-200">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 uppercase border-b pb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-hands-praying text-purple-600"></i> Plegaria Universal
+                </h3>
+                <div class="text-gray-800 text-lg leading-relaxed space-y-6">
+                    <p class="font-bold text-purple-900 text-center">Respuesta: Te rogamos, óyenos.</p>
+                    <ul class="space-y-4">
+                        <li class="flex gap-4"><strong>1.</strong> Para que la Iglesia, en estos días santos, viva plenamente unida a Cristo, su esposo, por la comunión de la oración y la gracia de los sacramentos. Oremos.</li>
+                        <li class="flex gap-4"><strong>2.</strong> Para que, en todas las naciones, Cristo sea acogido como luz del mundo y fuente de vida verdadera. Oremos.</li>
+                        <li class="flex gap-4"><strong>3.</strong> Para que sepamos ayudar a los pobres, reconociendo en ellos el rostro de Cristo, pobre y sufriente. Oremos.</li>
+                        <li class="flex gap-4"><strong>4.</strong> Para que nuestra fe se acompañe siempre del perfume de las buenas obras que nos hacen más agradables a los ojos de Dios. Oremos.</li>
+                    </ul>
+                    <p class="mt-8 italic text-purple-900 border-t pt-4">"Escucha, Señor, las súplicas de tu pueblo que, confesando su fe en Jesús como Mesías, invoca tu auxilio..."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12 text-center">
+        <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
+            <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Lectores</h2>
+        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+        <p class="text-center text-gray-600 mb-10 text-lg">Completa el formulario y selecciona el horario en el que brindarás tu servicio de proclamación durante el Martes Santo.</p>
         
-        <div class="rounded-xl overflow-hidden shadow-lg border">
-            <iframe 
-                src="https://docs.google.com/forms/d/e/1FAIpQLSe_dzBNkp4HAWj50DeI1MLGrrbhgY6B0PTjAcXF3IEHCdlBxQ/viewform?embedded=true"
-                width="100%" 
-                height="950"
-                frameborder="0">
-                Cargando...
-            </iframe>
+        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-50">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe_dzBNkp4HAWj50DeI1MLGrrbhgY6B0PTjAcXF3IEHCdlBxQ/viewform?embedded=true" frameborder="0">Cargando...</iframe>
         </div>
     </div>
 
 </section>
 
-<footer class="bg-gray-900 text-gray-400 py-12 text-center text-xs uppercase tracking-widest">
-    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026
+<footer class="bg-gray-950 text-gray-400 py-12 mt-auto text-center text-xs uppercase tracking-widest border-t border-gray-800">
+    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
+    Allende, Nuevo León, México
 </footer>
 
 </body>
