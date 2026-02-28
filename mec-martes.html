@@ -10,142 +10,183 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Imagen de portada uniforme para Martes Santo */
+        .hero-bg { 
+            background-color: #581c87;
+            background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/judas-martes.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+        
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 150%; 
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 768px) {
+            .iframe-container { padding-top: 0; height: 950px; }
+        }
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800">
+<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800 flex flex-col min-h-screen">
 
-<header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="martes.html" class="flex items-center gap-2 text-purple-700 font-semibold hover:underline">
+<header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="martes.html" class="flex items-center gap-2 text-purple-700 font-bold hover:text-purple-800 transition">
             <i class="fa-solid fa-arrow-left"></i> Volver a Martes Santo
         </a>
-        <span class="font-bold text-gray-700 tracking-wide">
-            Camino hacia la Pascua 2026
-        </span>
+        <span class="font-bold text-gray-800 tracking-wide uppercase text-sm">Camino hacia la Pascua 2026</span>
     </div>
 </header>
 
-<section class="text-center py-16 bg-white shadow-sm border-b-8 border-purple-700">
-    <div class="max-w-4xl mx-auto px-4">
-        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Color Litúrgico: Morado</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-purple-700 flex justify-center items-center gap-4 mt-2">
-            <i class="fa-solid fa-hands-praying"></i>
-            Ministros Extraordinarios (MEC)
+<section class="hero-bg text-center py-16 shadow-sm border-b-8 border-purple-700">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <span class="bg-purple-100 text-purple-900 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block shadow-sm">Color Litúrgico: Morado</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white flex justify-center items-center gap-4 mt-2 tracking-tight uppercase">
+            <i class="fa-solid fa-hands-praying text-purple-300"></i> Ministros Extraordinarios (MEC)
         </h1>
-        <p class="mt-6 text-gray-600 text-lg leading-relaxed">
-            Martes Santo: El Anuncio de la Traición. Guía operativa e intervenciones en un clima de profunda sobriedad.
+        <p class="mt-6 text-purple-100 text-lg leading-relaxed font-medium uppercase tracking-widest">
+            Martes Santo: El Anuncio de la Traición.<br>Guía operativa e intervenciones en un clima de profunda sobriedad.
         </p>
-        <div class="mt-8">
-            <a href="#registro" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-purple-700 transition text-lg font-semibold">
-                Registrarme para Servir
-            </a>
+        <div class="mt-10">
+            <a href="#registro" class="inline-block bg-white text-purple-900 px-8 py-4 rounded-xl shadow-lg hover:bg-gray-100 transition text-lg font-bold uppercase tracking-widest text-center">Registrarme para Servir</a>
         </div>
     </div>
 </section>
 
-<section class="py-12 max-w-5xl mx-auto px-4 space-y-12">
+<section class="py-16 max-w-5xl mx-auto px-4 space-y-12 flex-grow">
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-600">
-        <h2 class="text-2xl font-bold text-purple-700 mb-6 uppercase tracking-tight"><i class="fa-solid fa-clock"></i> Horarios y Cupos</h2>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-600">
+        <h2 class="text-2xl font-bold text-purple-800 mb-6 uppercase tracking-tight flex items-center gap-2"><i class="fa-solid fa-clock"></i> Horarios y Cupos</h2>
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2">Parroquia San Pedro Apóstol</h3>
-                <p class="text-sm text-purple-800 font-bold mb-3">Requisito: 2 Ministros por Misa </p>
-                <ul class="space-y-2 text-gray-800 text-sm">
-                    <li><strong>Matutina:</strong> 8:00 AM </li>
-                    <li><strong>Vespertina:</strong> 7:00 PM </li>
+            <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2 uppercase">Parroquia San Pedro Apóstol</h3>
+                <p class="text-sm text-purple-800 font-bold mb-4 bg-purple-100 inline-block px-3 py-1 rounded">Requisito: 2 Ministros por Misa</p>
+                <ul class="space-y-3 text-gray-800 font-bold text-lg">
+                    <li>Matutina: 8:00 AM</li>
+                    <li>Vespertina: 7:00 PM</li>
                 </ul>
             </div>
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center">
-                <h3 class="font-bold text-lg text-gray-900 mb-2">Capilla San Judas Tadeo</h3>
-                <p class="text-sm text-gray-500 font-medium">Sin celebraciones programadas hoy. </p>
-                <p class="text-xs text-gray-400 mt-1 italic">No se requiere asistencia de ministros este día.</p>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center text-gray-500">
+                <h3 class="font-bold text-lg text-gray-900 mb-3 uppercase">Capilla San Judas Tadeo</h3>
+                <p class="italic">Sin celebraciones programadas hoy.</p>
+                <p class="text-xs mt-1">No se requiere asistencia de ministros este día.</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-gray-800">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2 uppercase tracking-tight">Guía de Participación y Servicio</h2>
-        <p class="text-gray-500 mb-8 text-sm">Desarrollo de la celebración y los momentos exactos de intervención del MEC.</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-gray-800 text-lg leading-relaxed">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4 uppercase tracking-tight">I. Sentido del Día: Sobriedad e Intimidad</h2>
+        <div class="w-16 h-1 bg-purple-600 mb-8 rounded"></div>
+        <p class="text-gray-700 mb-6">El Martes Santo nos sumerge en la densidad dramática de la Pasión. El Evangelio narra la Última Cena, pero con un enfoque específico: Jesús se conmueve profundamente ante el anuncio de la traición de Judas y la futura negación de Pedro. El MEC debe ser hoy un signo de fidelidad frente a la fragilidad humana.</p>
+        
+        <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-2xl shadow-sm my-8">
+            <p class="font-bold uppercase tracking-wider text-sm mb-3 flex items-center gap-2 border-b border-yellow-200 pb-2 text-yellow-900">
+                <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
+            </p>
+            <ul class="list-disc pl-5 space-y-3 text-base text-yellow-900 font-medium">
+                <li><strong>Austeridad Visual:</strong> El altar no debe tener flores festivas. La iluminación del templo debe mantenerse en un nivel que favorezca el recogimiento y el "santo temor" ante el relato de la traición.</li>
+                <li><strong>Protocolo de Accidentes:</strong> Si una forma consagrada cae al suelo, debe recogerse con extrema reverencia. Si está limpia, el ministro la consume; si no, se deposita en el vaso de ablución para que se disuelva totalmente.</li>
+            </ul>
+        </div>
+    </div>
 
-        <div class="mb-10">
-            <div class="bg-purple-50 border-l-4 border-purple-700 p-5 rounded-r-lg shadow-sm mb-4">
-                <h3 class="text-purple-900 font-bold text-lg mb-2"><i class="fa-solid fa-user-check"></i> Acción MEC: Preparación Previa</h3>
-                <ul class="list-disc pl-5 text-sm text-purple-800 space-y-1">
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-2 uppercase tracking-tight">Guía de Participación y Servicio</h2>
+        <p class="text-gray-500 mb-10 text-base italic">Desarrollo de la celebración y los momentos exactos de intervención del MEC.</p>
+
+        <div class="space-y-12">
+            <div class="bg-purple-50 border-l-8 border-purple-700 p-8 rounded-r-3xl shadow-sm">
+                <h3 class="text-purple-900 font-bold text-xl mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-user-check"></i> 1. Acción MEC: Preparación Previa
+                </h3>
+                <ul class="list-disc pl-6 space-y-3 text-base text-purple-900">
                     <li>Llegada obligatoria <strong>30 minutos antes</strong> de la misa.</li>
                     <li>Vestimenta formal y sobria, acorde al carácter penitencial del día.</li>
-                    <li>Confirmar la ubicación de los vasos sagrados. El altar no debe tener flores festivas y se mantiene una iluminación que favorezca la meditación sobre la fragilidad humana.</li>
+                    <li>Confirmar la ubicación de los vasos sagrados en la credencia. El altar no debe tener flores festivas y se mantiene una iluminación que favorezca la meditación sobre la fragilidad humana.</li>
                 </ul>
             </div>
-        </div>
 
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-100 pb-2">1. Ambiente de la Liturgia de la Palabra</h3>
-            <div class="text-gray-600 text-sm space-y-3 pl-4 border-l-2 border-gray-200 italic">
-                <p>El Martes Santo nos sumerge en la densidad dramática de la Pasión. El Evangelio narra la Última Cena, pero con un enfoque específico: Jesús se conmueve profundamente ante el anuncio de la traición de Judas y la futura negación de Pedro.</p>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-5 border-b-2 border-gray-100 pb-3 flex items-center gap-3">
+                    <span class="bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Ambiente de la Liturgia de la Palabra
+                </h3>
+                <div class="text-gray-700 text-base space-y-4 pl-6 border-l-4 border-gray-200 italic mb-6">
+                    <p>El Martes Santo nos sumerge en la densidad dramática de la Pasión. El Evangelio narra la Última Cena, pero con un enfoque específico: Jesús se conmueve profundamente ante el anuncio de la traición de Judas y la futura negación de Pedro.</p>
+                </div>
+                <div class="bg-purple-50 border-l-4 border-purple-700 p-6 rounded-r-xl shadow-sm">
+                    <h4 class="text-purple-900 font-bold text-lg mb-2 flex items-center gap-2"><i class="fa-solid fa-pray"></i> Acción MEC: Durante la Palabra</h4>
+                    <p class="text-base text-purple-900 font-medium">Escuchar con atención desde su lugar. La liturgia de hoy debe provocar un santo temor y humildad. No realizar movimientos que puedan distraer a la asamblea del momento solemne del anuncio de la traición.</p>
+                </div>
             </div>
 
-            <div class="bg-purple-50 border-l-4 border-purple-700 p-5 rounded-r-lg shadow-sm my-6">
-                <h3 class="text-purple-900 font-bold text-lg mb-2"><i class="fa-solid fa-pray"></i> Acción MEC: Durante la Palabra</h3>
-                <p class="text-sm text-purple-800">Escuchar con atención desde su lugar. La liturgia de hoy debe provocar un santo temor y humildad. No realizar movimientos que puedan distraer a la asamblea del momento solemne del anuncio de la traición.</p>
-            </div>
-        </div>
-
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-100 pb-2">2. Liturgia Eucarística y Rito de Comunión</h3>
-            <div class="text-gray-600 text-sm space-y-3 pl-4 border-l-2 border-gray-200 italic">
-                <p>Mientras Judas sale hacia la noche de la traición, la comunidad permanece fiel en torno al Altar. El Padre Nuestro se reza pidiendo especialmente "no nos dejes caer en la tentación", la misma en la que cayeron los discípulos. El rito de la paz debe ser sobrio y signo de reconciliación verdadera.</p>
-            </div>
-
-            <div class="bg-purple-50 border-l-4 border-purple-700 p-5 rounded-r-lg shadow-sm my-6">
-                <h3 class="text-purple-900 font-bold text-lg mb-2"><i class="fa-solid fa-hands-holding-circle"></i> Acción MEC: Distribución de la Comunión</h3>
-                <ul class="list-disc pl-5 text-sm text-purple-800 space-y-2">
-                    <li>Acercarse al presbiterio con paso pausado y silencioso al iniciar el canto del "Cordero de Dios".</li>
-                    <li>Recibir la Eucaristía primero y asistir al Sacerdote.</li>
-                    <li>Se requieren solo 2 Ministros Extraordinarios por misa; ubicarse estratégicamente para asegurar un flujo ordenado y respetuoso.</li>
-                    <li>Distribuir la Comunión diciendo de forma clara y sin prisa: <em>"El Cuerpo de Cristo"</em>.</li>
-                    <li>Protocolo de Caída: Si una hostia cae, levantarla con gran reverencia; consumirla inmediatamente si está limpia o entregarla al Sacerdote para su disolución en agua.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="mb-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b-2 border-gray-100 pb-2">3. Rito de Conclusión</h3>
-            <div class="text-gray-600 text-sm space-y-3 pl-4 border-l-2 border-gray-200 italic">
-                <p>Se guarda un momento de silencio estricto. Es vital dejar espacio para que cada fiel le diga al Señor interiormente: "Yo no te entregaré". Se procede a la oración final y la bendición simple.</p>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-5 border-b-2 border-gray-100 pb-3 flex items-center gap-3">
+                    <span class="bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    Liturgia Eucarística y Rito de Comunión
+                </h3>
+                <div class="text-gray-700 text-base space-y-4 pl-6 border-l-4 border-gray-200 italic mb-6">
+                    <p>Mientras Judas sale hacia la noche de la traición, la comunidad permanece fiel en torno al Altar. El Padre Nuestro se reza pidiendo especialmente "no nos dejes caer en la tentación", la misma en la que cayeron los discípulos. El rito de la paz debe ser sobrio y signo de reconciliación verdadera.</p>
+                </div>
+                <div class="bg-purple-50 border-l-4 border-purple-700 p-6 rounded-r-xl shadow-sm">
+                    <h4 class="text-purple-900 font-bold text-lg mb-4 flex items-center gap-2"><i class="fa-solid fa-hands-holding-circle"></i> Acción MEC: Distribución de la Comunión</h4>
+                    <ul class="list-disc pl-6 text-base text-purple-900 space-y-3 font-medium">
+                        <li>Acercarse al presbiterio con paso pausado y silencioso al iniciar el canto del "Cordero de Dios".</li>
+                        <li>Recibir la Eucaristía primero y asistir al Sacerdote.</li>
+                        <li>Al ser solo 2 Ministros requeridos para el Martes Santo, ubicarse estratégicamente para asegurar un flujo ordenado y respetuoso.</li>
+                        <li>Distribuir la Comunión diciendo de forma clara y sin prisa: <em>"El Cuerpo de Cristo"</em>.</li>
+                        <li><strong>Protocolo de Caída:</strong> Si una hostia cae, levantarla con gran reverencia; consumirla inmediatamente si está limpia o entregarla al Sacerdote para su disolución en agua.</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="bg-purple-50 border-l-4 border-purple-700 p-5 rounded-r-lg shadow-sm my-6">
-                <h3 class="text-purple-900 font-bold text-lg mb-2"><i class="fa-solid fa-door-open"></i> Acción MEC: Después de la Misa</h3>
-                <ul class="list-disc pl-5 text-sm text-purple-800 space-y-1">
-                    <li>Revisar exhaustivamente que no queden partículas de la Eucaristía en su área.</li>
-                    <li>Entregar los copones para que el Sacerdote los purifique.</li>
-                    <li>Retirarse en silencio absoluto o con música muy suave, dando testimonio de recogimiento.</li>
-                </ul>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-5 border-b-2 border-gray-100 pb-3 flex items-center gap-3">
+                    <span class="bg-gray-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                    Rito de Conclusión
+                </h3>
+                <div class="text-gray-700 text-base space-y-4 pl-6 border-l-4 border-gray-200 italic mb-6">
+                    <p>Se guarda un momento de silencio estricto. Es vital dejar espacio para que cada fiel le diga al Señor interiormente: "Yo no te entregaré". Se procede a la oración final y la bendición simple.</p>
+                </div>
+                <div class="bg-purple-50 border-l-4 border-purple-700 p-6 rounded-r-xl shadow-sm">
+                    <h4 class="text-purple-900 font-bold text-lg mb-3 flex items-center gap-2"><i class="fa-solid fa-door-open"></i> Acción MEC: Después de la Misa</h4>
+                    <ul class="list-disc pl-6 text-base text-purple-900 space-y-2 font-medium">
+                        <li>Revisar exhaustivamente que no queden partículas de la Eucaristía en su área.</li>
+                        <li>Entregar los copones para que el Sacerdote los purifique.</li>
+                        <li>Retirarse en silencio absoluto o con música muy suave, dando testimonio de recogimiento.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="registro" class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-purple-600">
-        <h2 class="text-3xl font-bold text-purple-700 mb-6 uppercase tracking-tight text-center">Registro Oficial de MEC</h2>
-        <p class="text-center text-gray-600 mb-8">Completa el formulario y selecciona el horario matutino o vespertino donde servirás durante el Martes Santo.</p>
-        
-        <div class="rounded-xl overflow-hidden shadow-lg border">
-            <iframe 
-                src="https://docs.google.com/forms/d/e/1FAIpQLSdr233g3f-4a_Q8dYyeBq0jARD4bgAGnfaTuotPmubs9BJ-_g/viewform?embedded=true"
-                width="100%" 
-                height="950"
-                frameborder="0">
-                Cargando...
-            </iframe>
+    <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12 text-center">
+        <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de MEC</h2>
+        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+        <p class="text-center text-gray-600 mb-10 text-lg">Completa el formulario y selecciona el horario matutino o vespertino donde servirás durante el Martes Santo.</p>
+        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-50">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdr233g3f-4a_Q8dYyeBq0jARD4bgAGnfaTuotPmubs9BJ-_g/viewform?embedded=true" frameborder="0">Cargando...</iframe>
         </div>
     </div>
 
 </section>
 
-<footer class="bg-gray-900 text-gray-400 py-12 text-center text-xs uppercase tracking-widest">
-    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026
+<footer class="bg-gray-950 text-gray-400 py-12 text-center text-xs uppercase tracking-widest border-t border-gray-800 mt-auto">
+    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
+    Allende, Nuevo León, México
 </footer>
 
 </body>
