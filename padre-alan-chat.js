@@ -6,7 +6,10 @@
   window.__PADRE_ALAN_CHAT_LOADED__ = true;
 
   const CONFIG = {
-    title: "Pregúntele al Padre",
+   // Cambie esto:
+title: "Pregúntele al Padre",
+// Por esto:
+title: "Pregúntele a los Padres",
     subtitle: "Semana Santa 2026 (Ciclo A)",
     fabText: "Pregúntele al Padre",
     height: 610,
