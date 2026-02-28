@@ -4,6 +4,7 @@
    - GitHub Pages compatible
    - SIN backend / SIN API
    - “Se alimenta” de tus páginas HTML: ramos.html, jueves.html, misal-ramos.html, coro-jueves.html, etc.
+   - Escalación: si no encuentra respuesta, ofrece botón para enviarte WhatsApp (manual, tú presionas enviar)
 */
 (function () {
   // Evitar doble carga
@@ -31,6 +32,9 @@
     }
   };
 
+  // Tu WhatsApp (formato internacional SIN "+")
+  const WHATSAPP_NUMBER = "19567401370";
+
   // ====== Helpers ======
   const esc = (s) =>
     (s || "").replace(/[&<>"']/g, (c) => ({
@@ -40,6 +44,11 @@
       "\"": "&quot;",
       "'": "&#39;"
     }[c]));
+
+  function waLink(message) {
+    const txt = encodeURIComponent(message);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${txt}`;
+  }
 
   const el = (tag, attrs = {}, children = []) => {
     const n = document.createElement(tag);
@@ -157,6 +166,19 @@
     .pa-send:hover{background:#4c1d95}
     .pa-link{color:#5b21b6;font-weight:900;text-decoration:underline}
     .pa-note{margin-top:8px;font-size:11px;color:#6b7280}
+
+    /* Botón WhatsApp dentro del chat */
+    .pa-wa{
+      display:inline-flex;align-items:center;gap:8px;
+      background:#16a34a;color:#fff;text-decoration:none;
+      padding:10px 12px;border-radius:12px;font-weight:900;
+      box-shadow:0 10px 22px rgba(0,0,0,.15);
+      text-transform:uppercase;letter-spacing:.06em;font-size:11px
+    }
+    .pa-wa:hover{background:#15803d}
+    .pa-wa-dot{
+      width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.85)
+    }
   `]);
   document.head.appendChild(style);
 
@@ -207,7 +229,7 @@
   $("paOpen").addEventListener("click", open);
   $("paClose").addEventListener("click", close);
 
-  // Handlers actualizados para reply async
+  // Handlers (reply async)
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && panel.style.display === "block") close();
     if (e.key === "Enter" && document.activeElement === input) reply(input.value);
@@ -222,7 +244,7 @@
   function normalize(s) {
     return (s || "")
       .toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita acentos
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9\s-]/g, " ")
       .replace(/\s+/g, " ")
       .trim();
@@ -248,19 +270,11 @@
 
   function pickFiles(day, ministry) {
     const files = [];
-
-    // Prioridad: ministerio-día (si existe)
     if (day && ministry) files.push(`${ministry}-${day}.html`);
-
-    // Si no hay ministerio: día principal
     if (day && day !== "sabado" && day !== "pascua") files.push(`${day}.html`);
     if (day === "sabado") files.push("sabado.html");
     if (day === "pascua") files.push("pascua.html");
-
-    // Si no detectó día: index
     if (!day) files.push("index.html");
-
-    // Quitar duplicados
     return [...new Set(files)];
   }
 
@@ -273,7 +287,6 @@
     const html = await res.text();
     const doc = new DOMParser().parseFromString(html, "text/html");
 
-    // Bloques buscables
     const blocks = [];
     doc.querySelectorAll("h1,h2,h3,p,li").forEach(n => {
       const text = (n.textContent || "").replace(/\s+/g, " ").trim();
@@ -310,9 +323,7 @@
           const bonus = (b.tag === "h1" || b.tag === "h2" || b.tag === "h3") ? 1 : 0;
           allHits.push({ file: doc.file, text: b.text, score: base + bonus });
         }
-      } catch (_) {
-        // archivo no existe o no se pudo cargar: ignorar
-      }
+      } catch (_) { /* ignore */ }
     }
 
     allHits.sort((a, b) => b.score - a.score);
@@ -401,7 +412,33 @@
     return null;
   }
 
-  function fallback() {
+  // ====== WhatsApp escalation UI ======
+  function whatsappEscalation(q) {
+    const page = currentFile();
+    const url = window.location.href;
+
+    const message =
+`Pregunta desde Pascua 2026:
+"${q}"
+
+Página: ${page}
+URL: ${url}
+
+(Enviado desde el chatbot del manual)`;
+
+    addMsg("bot", `
+      No encontré una respuesta exacta en el manual.<br><br>
+      Si lo deseas, envíame tu pregunta por WhatsApp y la reviso:<br><br>
+      <a class="pa-wa" href="${waLink(message)}" target="_blank" rel="noopener">
+        <span class="pa-wa-dot"></span> Enviar al Padre Alan por WhatsApp
+      </a>
+    `);
+  }
+
+  function fallback(q = "") {
+    // en fallback siempre ofrece WhatsApp (si hay pregunta)
+    if (q) return whatsappEscalation(q);
+
     if (ctx) {
       addMsg("bot", `
         Estoy en <b>${esc(ctx.label)}</b>.<br>
@@ -443,7 +480,7 @@
 
     const shouldSearch =
       !!ministry ||
-      /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición|lecturas|cantos|ministros|incens|cirio/i
+      /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición|lecturas|cantos|ministros|incens|inciens|cirio|lavatorio|adoracion|adoración/i
         .test(q.toLowerCase());
 
     if (shouldSearch) {
@@ -465,15 +502,19 @@
           return;
         }
 
+        // Nada exacto: ofrece links y WhatsApp
         const files = pickFiles(day, ministry);
         addMsg("bot",
           `No encontré un fragmento exacto, pero puedo llevarte al apartado correcto:<br>` +
           files.map(f => `• <a class="pa-link" href="${f}">${esc(f)}</a>`).join("<br>")
         );
+        // además ofrece WhatsApp
+        whatsappEscalation(q);
         return;
 
       } catch (_) {
-        addMsg("bot", "No pude consultar el manual en este momento. Intenta de nuevo.");
+        addMsg("bot", "No pude consultar el manual en este momento.");
+        whatsappEscalation(q);
         return;
       }
     }
@@ -485,8 +526,8 @@
       return;
     }
 
-    // 4) fallback
-    fallback();
+    // 4) fallback + WhatsApp
+    fallback(q);
   }
 
   // ====== Quick buttons ======
@@ -508,6 +549,9 @@
   addQuick("Pascua", "abrir pascua");
   addQuick("Colores", "colores litúrgicos");
   addQuick("Ayuda", "/help");
+  addQuick("WhatsApp", null, () => {
+    whatsappEscalation("Necesito ayuda con el manual (mensaje manual).");
+  });
 
   // Mensaje inicial
   addMsg("bot", `
