@@ -304,6 +304,147 @@
 
   $("paSend").addEventListener("click", () => reply(input.value));
 
+   // ====== Motor local (lee tus HTML y busca fragmentos relevantes) ======
+const MINISTRIES = [
+  "misal", "mec", "monaguillos", "lectores", "coro", "ujieres", "sacristia"
+];
+
+// días principales (ya los tienes)
+const DAYS = ["ramos","lunes","martes","miercoles","jueves","viernes","sabado","vigilia","pascua"];
+
+// cache en memoria (para no fetch cada vez)
+const __DOC_CACHE__ = new Map();
+
+function normalize(s) {
+  return (s || "")
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // quita acentos
+    .replace(/[^a-z0-9\s-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function detectDay(q) {
+  const t = normalize(q);
+  for (const d of DAYS) {
+    if (t.includes(d)) return d;
+  }
+  // alias útiles
+  if (t.includes("domingo de ramos") || t.includes("ramos")) return "ramos";
+  if (t.includes("miercoles") || t.includes("miércoles")) return "miercoles";
+  if (t.includes("sabado") || t.includes("sábado")) return "sabado";
+  return null;
+}
+
+function detectMinistry(q) {
+  const t = normalize(q);
+  for (const m of MINISTRIES) {
+    if (t.includes(m)) return m;
+  }
+  // alias
+  if (t.includes("ministerio de musica") || t.includes("cantos")) return "coro";
+  if (t.includes("acomodadores")) return "ujieres";
+  if (t.includes("monaguillo")) return "monaguillos";
+  return null;
+}
+
+// Decide qué archivo consultar según día + ministerio
+function pickFiles(day, ministry) {
+  const files = [];
+  // si hay ministerio, prioriza ministerio-dia
+  if (day && ministry) files.push(`${ministry}-${day}.html`);
+
+  // si es sábado o pascua (tú dijiste que suelen NO tener subpáginas), usa página general
+  if (day === "sabado") files.push("sabado.html");
+  if (day === "pascua") files.push("pascua.html");
+
+  // si no hay ministerio o no existe, usa página del día
+  if (day && day !== "sabado" && day !== "pascua") files.push(`${day}.html`);
+
+  // si no detectó día, por defecto index
+  if (!day) files.push("index.html");
+
+  // quitar duplicados
+  return [...new Set(files)];
+}
+
+async function loadDoc(file) {
+  if (__DOC_CACHE__.has(file)) return __DOC_CACHE__.get(file);
+
+  const res = await fetch(file, { cache: "force-cache" });
+  if (!res.ok) throw new Error(`No pude abrir ${file}`);
+  const html = await res.text();
+
+  const doc = new DOMParser().parseFromString(html, "text/html");
+
+  // Extrae bloques “buscables”: headings + p + li
+  const blocks = [];
+  const nodes = doc.querySelectorAll("h1,h2,h3,p,li");
+  nodes.forEach(n => {
+    const text = (n.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    // filtra basura típica
+    if (text.length < 20) return;
+    blocks.push({
+      tag: n.tagName.toLowerCase(),
+      text,
+      norm: normalize(text)
+    });
+  });
+
+  const data = { file, blocks };
+  __DOC_CACHE__.set(file, data);
+  return data;
+}
+
+function scoreBlock(blockNorm, queryTokens) {
+  // score simple: suma de tokens encontrados
+  let s = 0;
+  for (const tok of queryTokens) {
+    if (tok.length < 3) continue;
+    if (blockNorm.includes(tok)) s += 2;
+  }
+  // bonus si viene de heading
+  return s;
+}
+
+async function searchSite(question, day, ministry, maxHits = 3) {
+  const qNorm = normalize(question);
+  const tokens = qNorm.split(" ").filter(Boolean);
+
+  const files = pickFiles(day, ministry);
+
+  const allHits = [];
+  for (const f of files) {
+    try {
+      const doc = await loadDoc(f);
+      for (const b of doc.blocks) {
+        const base = scoreBlock(b.norm, tokens);
+        if (base <= 0) continue;
+        const bonus = (b.tag === "h1" || b.tag === "h2" || b.tag === "h3") ? 1 : 0;
+        allHits.push({ file: doc.file, text: b.text, score: base + bonus });
+      }
+    } catch (e) {
+      // si un archivo no existe, simplemente continúa
+    }
+  }
+
+  allHits.sort((a, b) => b.score - a.score);
+
+  // compacta: toma los top N, evitando repetidos idénticos
+  const seen = new Set();
+  const picks = [];
+  for (const h of allHits) {
+    const key = h.file + "::" + h.text.slice(0, 80);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    picks.push(h);
+    if (picks.length >= maxHits) break;
+  }
+
+  return { files, picks };
+}
+   
   // ====== Knowledge base (respuestas) ======
   const KB = [
     {
@@ -466,7 +607,49 @@
     if (hit) addMsg("bot", (typeof hit.answer === "function") ? hit.answer() : hit.answer);
     else fallback();
   }
+   
+// ====== Intenta responder desde tus HTML (motor local) ======
+const day = detectDay(q) || (typeof ctx !== "undefined" && ctx?.key ? ctx.key : null);
+const ministry = detectMinistry(q);
 
+// Si pregunta menciona un ministerio o pide algo “técnico”, buscamos
+const shouldSearch =
+  !!ministry ||
+  /obligatorio|rubrica|rúbrica|checklist|pasos|estructura|entrada|procesion|procesión|comunion|comunión|oracion|oración|monicion|monición/i.test(q);
+
+if (shouldSearch) {
+  addMsg("bot", "Buscando en el manual…");
+
+  try {
+    const result = await searchSite(q, day, ministry, 3);
+
+    if (result.picks.length) {
+      const header =
+        `<b>Según tu manual${day ? ` (${esc(day)})` : ""}${ministry ? ` — ${esc(ministry)}` : ""}:</b><br><br>`;
+
+      const snippets = result.picks.map(h => {
+        const link = `<a class="pa-link" href="${h.file}">${esc(h.file)}</a>`;
+        return `• ${esc(h.text)}<br><span style="font-size:11px;color:#6b7280;">Fuente: ${link}</span>`;
+      }).join("<br><br>");
+
+      addMsg("bot", header + snippets);
+      return; // ya respondió
+    }
+
+    // si no encontró nada, ofrece links directos
+    const files = pickFiles(day, ministry);
+    addMsg("bot",
+      `No encontré un fragmento exacto, pero puedo llevarte al apartado correcto:<br>` +
+      files.map(f => `• <a class="pa-link" href="${f}">${esc(f)}</a>`).join("<br>")
+    );
+    return;
+
+  } catch (e) {
+    addMsg("bot", "No pude consultar el manual en este momento. Intenta de nuevo.");
+    return;
+  }
+}
+   
   // ====== Quick buttons ======
   function addQuick(label, question, action) {
     const btn = el("button", { class: "pa-chip", type: "button" }, [label]);
