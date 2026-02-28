@@ -10,167 +10,238 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
+        
+        /* Diseño Hero Uniforme con imagen de la Unción/Traición */
+        .hero-bg { 
+            background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/uncion-lunes.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+        }
+
+        /* Contenedor responsivo para evitar cortes en el formulario */
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 150%; 
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+        @media (min-width: 768px) {
+            .iframe-container {
+                padding-top: 0;
+                height: 950px;
+            }
+        }
     </style>
 </head>
 
-<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800">
+<body class="bg-gradient-to-b from-purple-50 to-gray-100 text-gray-800 flex flex-col min-h-screen">
 
 <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
-        <a href="miercoles.html" class="flex items-center gap-2 text-purple-700 font-semibold hover:underline">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+        <a href="miercoles.html" class="flex items-center gap-2 text-purple-700 font-bold hover:text-purple-800 transition">
             <i class="fa-solid fa-arrow-left"></i> Volver a Miércoles Santo
         </a>
-        <span class="font-bold text-gray-700 tracking-wide">
+        <span class="font-bold text-gray-800 tracking-wide uppercase text-sm">
             Camino hacia la Pascua 2026
         </span>
     </div>
 </header>
 
-<section class="text-center py-16 bg-white shadow-sm border-b-8 border-purple-700">
-    <div class="max-w-4xl mx-auto px-4">
-        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">Color Litúrgico: Morado</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-purple-700 flex justify-center items-center gap-4 mt-2">
-            <i class="fa-solid fa-music"></i>
+<section class="hero-bg text-center py-20 shadow-sm border-b-8 border-purple-700">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <span class="bg-purple-100 text-purple-900 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 inline-block shadow-sm border border-purple-200 text-center">Color Litúrgico: Morado</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white flex justify-center items-center gap-4 mt-2 tracking-tight uppercase drop-shadow-md">
+            <i class="fa-solid fa-music text-purple-300"></i>
             Coro y Música Litúrgica
         </h1>
-        <p class="mt-6 text-gray-600 text-lg leading-relaxed">
-            Miércoles Santo: El Pacto de Judas y la Unción de los Enfermos. Guía de ensamble para la recepción de los Óleos y cantos de consuelo y sanación.
+        <p class="mt-6 text-purple-100 text-lg leading-relaxed font-medium uppercase tracking-widest">
+            Miércoles Santo: El Pacto de Judas y la Unción de los Enfermos.<br>Guía de ensamble para la recepción de los Óleos y cantos de consuelo.
         </p>
-        <div class="mt-8">
-            <a href="#registro" class="inline-block bg-purple-600 text-white px-8 py-4 rounded-xl shadow-lg hover:bg-purple-700 transition text-lg font-semibold">
+        <div class="mt-10">
+            <a href="#registro" class="inline-block bg-white text-purple-900 px-8 py-4 rounded-xl shadow-lg hover:bg-gray-100 transition text-lg font-bold uppercase tracking-widest text-center">
                 Registrarme para Cantar
             </a>
         </div>
     </div>
 </section>
 
-<section class="py-12 max-w-5xl mx-auto px-4 space-y-12">
+<section class="py-16 max-w-5xl mx-auto px-4 space-y-12 flex-grow">
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-600">
-        <h2 class="text-2xl font-bold text-purple-700 mb-6 uppercase tracking-tight"><i class="fa-solid fa-clock"></i> Horarios</h2>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-600">
+        <h2 class="text-2xl font-bold text-purple-800 mb-6 uppercase tracking-tight flex items-center gap-2"><i class="fa-solid fa-clock"></i> Horarios</h2>
         <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-purple-50 p-6 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2">Parroquia San Pedro Apóstol</h3>
-                <p class="text-sm text-purple-800 font-bold mb-3">Requisito: Coro completo, Cantor y Salmista</p>
-                <ul class="space-y-2 text-gray-800 text-sm">
-                    <li><strong>Misa Vespertina Única:</strong> 7:00 PM</li>
+            <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-4 border-b border-purple-200 pb-2 uppercase text-center">Parroquia San Pedro Apóstol</h3>
+                <p class="text-sm text-purple-800 font-bold mb-4 bg-purple-100 inline-block px-3 py-1 rounded w-full uppercase tracking-tight text-xs">Requisito: Coro completo, Cantor y Salmista</p>
+                <ul class="space-y-3 text-gray-800 font-bold text-lg">
+                    <li>Misa Vespertina Única: 7:00 PM</li>
                 </ul>
-                <p class="text-xs text-red-600 font-bold mt-4 uppercase">Aviso: Hoy NO HAY misa de 8:00 AM debido a la Misa Crismal en Catedral.</p>
+                <p class="text-xs text-red-600 font-bold mt-4 uppercase border-t border-red-100 pt-4">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Aviso: Hoy NO HAY misa de 8:00 AM debido a la Misa Crismal en Catedral.
+                </p>
             </div>
-            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center">
-                <h3 class="font-bold text-lg text-gray-900 mb-2">Capilla San Judas Tadeo</h3>
-                <p class="text-sm text-gray-500 font-medium">Sin celebraciones programadas hoy.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-gray-800">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight">I. Sentido del Día: Entre la Traición y la Sanación</h2>
-        <div class="text-gray-700 space-y-4 leading-relaxed">
-            <p>El Miércoles Santo nos presenta un profundo contraste espiritual. Por un lado, la crudeza de la traición de Judas en el Evangelio exige un tono penitencial y sobrio. Por otro lado, la Iglesia nos consuela recibiendo los Santos Óleos y ofreciendo la Unción de los Enfermos. El coro debe navegar magistralmente entre el dolor de la cruz y el consuelo de la sanación.</p>
-            
-            <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-700 mt-6">
-                <h3 class="text-purple-900 font-bold mb-2">Consigna para el Coro: Dos Momentos Clave</h3>
-                <ul class="list-disc pl-5 space-y-2 text-sm text-purple-800">
-                    <li><strong>Recepción de los Óleos:</strong> El canto de entrada debe ser solemne y esperanzador, acompañando la procesión de las ánforas con el Crisma y los Óleos.</li>
-                    <li><strong>Unción de los Enfermos:</strong> Tras la homilía, el Sacerdote ungirá a los enfermos. El coro debe proveer música continua, muy suave (cantos de Taizé o adoración), para mantener un clima de oración profunda mientras se imparte el sacramento.</li>
-                </ul>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center items-center text-center text-gray-500">
+                <h3 class="font-bold text-lg text-gray-900 mb-3 uppercase">Capilla San Judas Tadeo</h3>
+                <p class="italic text-base">Sin celebraciones programadas hoy.</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-8 rounded-2xl shadow-lg border-t-4 border-purple-800">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 uppercase tracking-tight border-b-2 pb-4">Guía Musical y Repertorio (Sin errores de Video)</h2>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">1. Canto de Entrada (Procesión de los Óleos)</h3>
-            <p class="text-sm text-gray-600 mb-4">La procesión es solemne porque recibe los aceites consagrados en Catedral. <br><strong>Sugerencia:</strong> <em>"Hacia ti, morada santa"</em> o un canto de peregrinación solemne.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/0h1NU7nNvuA" title="Canto de Entrada Solemne" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">2. Aclamación antes del Evangelio</h3>
-            <p class="text-sm text-gray-600 mb-4"><strong>"Honor y gloria a ti, Señor Jesús".</strong><br>
-            <strong>Verso Proclamado:</strong> <em>"Salve, Rey nuestro, sólo tú te compadeciste de nuestros errores y, obediente al Padre, fuiste llevado a la crucifixión..."</em></p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/MHa2L1A7c1I" title="Honor y gloria a ti, Señor Jesús" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12 bg-purple-50 p-6 rounded-xl border border-purple-200">
-            <h3 class="text-xl font-bold text-purple-900 mb-2">3. Rito de la Unción de los Enfermos (Canto Prolongado)</h3>
-            <p class="text-sm text-gray-600 mb-4">Mientras el Sacerdote unge a los enfermos, se requiere un canto o melodía de sanación y abandono, repetitivo y sumamente suave. <br><strong>Sugerencia:</strong> <em>"Entre tus manos"</em> o <em>"Nada te turbe"</em>.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/v7nCsnHCxTY" title="Entre Tus Manos (Unción)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">4. Preparación de Dones (Ofertorio)</h3>
-            <p class="text-sm text-gray-600 mb-4">Ofrecemos el pan, el vino y nuestra fragilidad. <strong>Sugerencia:</strong> <em>"Mi corazón ha estado esperando"</em> o una melodía suave de entrega.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/WsAME4uIhCg" title="Ofertorio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-12 grid md:grid-cols-2 gap-6">
-            <div>
-                <h3 class="text-xl font-bold text-purple-700 mb-2">5. Santo</h3>
-                <p class="text-sm text-gray-600 mb-4">Solemne, penitencial y exento de ritmos festivos.</p>
-                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/6znuLO9ugp4" title="Santo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div>
-                <h3 class="text-xl font-bold text-purple-700 mb-2">6. Cordero de Dios</h3>
-                <p class="text-sm text-gray-600 mb-4">Acompaña la fracción del Pan de forma pausada y suplicante.</p>
-                <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/LSG2OZZiRbU" title="Cordero de Dios" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-12">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">7. Comunión</h3>
-            <p class="text-sm text-gray-600 mb-4">Recordando que el Pan de Vida es medicina para nuestra debilidad y defensa ante la tentación de traicionar a Jesús. <br><strong>Sugerencia:</strong> <em>"Saliendo del Pretorio"</em> o cantos de adoración a la Cruz.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/taYdbd1SvHs" title="Comunión" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="mb-4">
-            <h3 class="text-xl font-bold text-purple-700 mb-2">8. Despedida y Salida</h3>
-            <p class="text-sm text-gray-600 mb-4"><strong>Opción prioritaria:</strong> Retiro en absoluto silencio, para prepararnos espiritualmente hacia el Triduo Pascual.<br>
-            <strong>Canto alternativo breve:</strong> <em>"Pueblo Mío" (Los Improperios)</em> para recordar la pasión inminente.</p>
-            <div class="aspect-video w-full rounded-xl overflow-hidden shadow-md">
-                <iframe class="w-full h-full" src="https://www.youtube.com/embed/LR52K53JrUM" title="Pueblo Mío" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="registro" class="bg-white p-8 rounded-2xl shadow-xl border-t-4 border-purple-600">
-        <h2 class="text-3xl font-bold text-purple-700 mb-6 uppercase tracking-tight text-center">Registro Oficial de Coros</h2>
-        <p class="text-center text-gray-600 mb-8">Registra a tu ministerio de música, confirma el repertorio para los Santos Óleos y la Unción de Enfermos.</p>
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-gray-800 text-lg leading-relaxed">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-4 uppercase tracking-tight">I. Sentido del Día: Entre la Traición y la Sanación</h2>
+        <div class="w-16 h-1 bg-purple-600 mb-8 rounded"></div>
+        <p class="text-gray-700 mb-6">El Miércoles Santo nos presenta un profundo contraste espiritual. Por un lado, la crudeza de la traición de Judas en el Evangelio exige un tono penitencial y sobrio. Por otro lado, la Iglesia nos consuela recibiendo los Santos Óleos y ofreciendo la Unción de los Enfermos. El coro debe navegar magistralmente entre el dolor de la cruz y el consuelo de la sanación.</p>
         
-        <div class="rounded-xl overflow-hidden shadow-lg border">
-            <iframe 
-                src="https://docs.google.com/forms/d/1BuzBZLf39STzmdGvCqZ-x4NsswEnK6ceX6zgtvDrU5w/viewform?embedded=true"
-                width="100%" 
-                height="950"
-                frameborder="0">
-                Cargando...
-            </iframe>
+        <div class="bg-yellow-50 border border-yellow-200 p-8 rounded-3xl shadow-sm my-8 text-yellow-900">
+            <p class="font-bold uppercase tracking-wider text-sm mb-4 flex items-center gap-2 border-b border-yellow-200 pb-3">
+                <i class="fa-solid fa-scroll text-yellow-600"></i> Directriz Litúrgica Oficial (CEM)
+            </p>
+            <ul class="list-disc pl-6 space-y-4 text-base font-medium">
+                <li><strong>Procesión de los Óleos:</strong> El canto de entrada debe ser de carácter festivo-solemne, acompañando la entrada de los delegados que portan los vasos sagrados desde la **Credencia** hasta el lugar de entronización en el **Presbiterio**.</li>
+                <li><strong>Cantos para la Unción:</strong> La música durante la unción de los enfermos debe ser instrumental o de carácter meditativo (estilo Taizé), evitando cantos excesivamente rítmicos que rompan el clima de oración personal de quien recibe el sacramento.</li>
+                <li><strong>Sobriedad en el Evangelio:</strong> La aclamación debe reflejar la realeza sufriente de Cristo. El Aleluya permanece estrictamente omitido.</li>
+            </ul>
+        </div>
+
+        <div class="bg-purple-50 p-8 rounded-2xl border-l-8 border-purple-700 shadow-sm mt-8">
+            <h3 class="text-purple-950 font-extrabold mb-4 text-xl uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation"></i> Consigna para el Coro: Dos Momentos Clave
+            </h3>
+            <ul class="space-y-4 text-purple-900 font-medium list-disc pl-5 text-base">
+                <li><strong>Recepción de los Óleos:</strong> El canto de entrada debe ser solemne y esperanzador, acompañando la procesión de las ánforas con el Crisma y los Óleos.</li>
+                <li><strong>Unción de los Enfermos:</strong> Tras la homilía desde el **Ambón**, el Sacerdote ungirá a los enfermos. El coro debe proveer música continua, muy suave (cantos de Taizé o adoración), para mantener un clima de oración profunda mientras se imparte el sacramento.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-800">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-10 uppercase tracking-tight border-b-2 pb-4 text-center md:text-left">Guía Musical y Repertorio</h2>
+
+        <div class="space-y-16">
+            <div>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Canto de Entrada (Procesión de los Óleos)
+                </h3>
+                <p class="text-gray-600 mb-6 text-lg">La procesión es solemne porque recibe los aceites consagrados en Catedral. <br><strong>Sugerencia:</strong> <span class="text-purple-700 italic font-bold">"Hacia ti, morada santa"</span> o un canto de peregrinación solemne.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/0h1NU7nNvuA" title="Canto de Entrada Solemne" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    Aclamación antes del Evangelio
+                </h3>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+                    <p class="text-lg font-bold text-gray-800">"Honor y gloria a ti, Señor Jesús"</p>
+                    <p class="text-gray-600 italic">Verso: "Salve, Rey nuestro, sólo tú te compadeciste de nuestros errores y, obediente al Padre, fuiste llevado a la crucifixión..."</p>
+                </div>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/MHa2L1A7c1I" title="Honor y gloria a ti, Señor Jesús" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="bg-purple-50 p-6 md:p-10 rounded-3xl border border-purple-200 shadow-sm">
+                <h3 class="text-2xl font-bold text-purple-900 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-900 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                    Rito de la Unción de los Enfermos (Canto Prolongado)
+                </h3>
+                <p class="text-gray-700 mb-6 text-lg">Mientras el Sacerdote unge a los enfermos, se requiere un canto o melodía de sanación y abandono, repetitivo y sumamente suave. <br><strong>Sugerencia:</strong> <span class="text-purple-800 font-bold italic">"Entre tus manos"</span> o <span class="text-purple-800 font-bold italic">"Nada te turbe"</span>.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/v7nCsnHCxTY" title="Entre Tus Manos (Unción)" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                    Preparación de Dones (Ofertorio)
+                </h3>
+                <p class="text-gray-600 mb-6 text-lg">Ofrecemos el pan, el vino y nuestra fragilidad. <strong>Sugerencia:</strong> <span class="text-purple-700 font-bold italic">"Mi corazón ha estado esperando"</span> o una melodía suave de entrega.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/WsAME4uIhCg" title="Ofertorio" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">5. Santo</h3>
+                    <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest">Solemne y penitencial.</p>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/6znuLO9ugp4" title="Santo" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-purple-800 mb-4">6. Cordero de Dios</h3>
+                    <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest">Acompaña la fracción del Pan.</p>
+                    <div class="aspect-video w-full rounded-xl overflow-hidden shadow-lg">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/LSG2OZZiRbU" title="Cordero de Dios" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-bold text-purple-800 mb-4 flex items-center gap-3">
+                    <span class="bg-purple-800 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
+                    Comunión
+                </h3>
+                <p class="text-gray-600 mb-6 text-lg leading-relaxed">Recordando que el Pan de Vida es medicina para nuestra debilidad y defensa ante la tentación. <br><strong>Sugerencia:</strong> <span class="text-purple-700 font-bold italic">"Saliendo del Pretorio"</span> o cantos de adoración a la Cruz.</p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/taYdbd1SvHs" title="Comunión" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="bg-purple-900 p-8 rounded-3xl shadow-2xl text-white">
+                <h3 class="text-2xl font-extrabold mb-4 flex items-center gap-3 uppercase">
+                    <i class="fa-solid fa-door-open text-purple-300"></i> 8. Despedida y Salida
+                </h3>
+                <p class="text-purple-100 mb-6 text-lg">
+                    <strong>Opción prioritaria:</strong> Retiro en absoluto silencio, para prepararnos espiritualmente hacia el Triduo Pascual.<br>
+                    <strong>Canto alternativo breve:</strong> <em>"Pueblo Mío" (Los Improperios)</em>.
+                </p>
+                <div class="aspect-video w-full rounded-2xl overflow-hidden shadow-lg border-4 border-purple-800">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/LR52K53JrUM" title="Pueblo Mío" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12 text-center">
+        <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
+            <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Coros</h2>
+        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+        <p class="text-center text-gray-600 mb-10 text-lg">Registra a tu ministerio de música, confirma el repertorio para los Santos Óleos y la Unción de Enfermos.</p>
+        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-50">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDd7HEwYBUyG7XRSjlerpRQaiVc7GFqCD_mL728UqoNVnzMQ/viewform?embedded=true" frameborder="0">Cargando...</iframe>
         </div>
     </div>
 
 </section>
 
-<footer class="bg-gray-900 text-gray-400 py-12 text-center text-xs uppercase tracking-widest">
-    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026
+<footer class="bg-gray-950 text-gray-400 py-12 mt-auto text-center text-xs uppercase tracking-widest border-t border-gray-800">
+    Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
+    Allende, Nuevo León, México
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@pashal/chatbot-ui@latest/dist/bundle.js"></script>
+<script>
+  window.initChatbot({
+    contextKey: 'miercoles',
+    contextLabel: 'Miércoles Santo'
+  });
+</script>
 </body>
 </html>
