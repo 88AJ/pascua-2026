@@ -10,12 +10,18 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hero-bg { 
-            /* Color rojo litúrgico para Domingo de Ramos */
-            background-color: #7f1d1d; 
-            background-image: linear-gradient(rgba(127, 29, 29, 0.9), rgba(127, 29, 29, 0.95)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/giotto-ramos.jpg'); 
+            /* REGLA 2: Graduado y URL dinámica para Ramos */
+            background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/giotto-ramos.jpg'); 
             background-size: cover; 
             background-position: center; 
         }
+        .rubrica { color: #b91c1c; font-style: italic; font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0.5rem; }
+        .pasion-c { font-weight: bold; color: #1f2937; } /* Cronista */
+        .pasion-s { font-weight: bold; color: #b91c1c; } /* Sinagoga/Asamblea */
+        .pasion-j { font-weight: bold; color: #4338ca; } /* Jesús */
+        /* REGLA 4: Contenedor responsivo para el Formulario */
+        .iframe-container { position: relative; overflow: hidden; width: 100%; padding-top: 150%; }
+        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .scrollbar-thin::-webkit-scrollbar { width: 6px; }
         .scrollbar-thin::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 4px; }
         .scrollbar-thin::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
@@ -23,24 +29,24 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <a href="index.html" class="text-red-800 font-bold hover:text-red-600 transition flex items-center gap-2">
+            <a href="index.html" class="text-purple-800 font-bold hover:text-purple-600 transition flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Volver al Inicio
             </a>
-            <span class="text-red-900 font-extrabold tracking-widest uppercase text-sm md:text-base bg-red-50 px-3 py-1 rounded-lg">Color: Rojo</span>
+            <span class="text-red-900 font-extrabold tracking-widest uppercase text-sm md:text-base bg-red-50 px-3 py-1 rounded-lg border border-red-100">Color: Rojo</span>
         </div>
     </header>
 
-    <section class="hero-bg h-[35vh] flex items-center justify-center text-center px-6 border-b-8 border-red-600">
+    <section class="hero-bg h-[40vh] flex items-center justify-center text-center px-6 border-b-8 border-purple-900">
         <div class="relative z-10">
             <span class="bg-red-100 text-red-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">
                 Ministros Extraordinarios de la Comunión (MEC)
             </span>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight uppercase drop-shadow-md">
+            <h1 class="text-3xl md:text-6xl font-extrabold text-white tracking-tight uppercase drop-shadow-lg">
                 Domingo de Ramos
             </h1>
-            <p class="text-red-100 mt-4 font-medium text-lg max-w-2xl mx-auto">
+            <p class="text-purple-50 mt-4 font-medium text-lg max-w-2xl mx-auto">
                 Guía litúrgica oficial e intervenciones del ministerio en la Pasión del Señor.
             </p>
         </div>
@@ -49,9 +55,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
         
         <aside class="lg:w-1/3 space-y-8">
-            <div class="bg-white rounded-2xl shadow-md border-t-4 border-gray-900 p-6">
+            <div class="bg-white rounded-2xl shadow-md border-t-4 border-purple-900 p-6">
                 <h3 class="text-xl font-bold text-gray-900 uppercase tracking-tight mb-4 border-b pb-2">
-                    <i class="fa-regular fa-clock text-red-700 mr-2"></i> Horarios y Cupos
+                    <i class="fa-regular fa-clock text-purple-700 mr-2"></i> Horarios de Ramos
                 </h3>
                 
                 <div class="mb-6">
@@ -59,12 +65,10 @@
                         <i class="fa-solid fa-church text-gray-400"></i> Parroquia San Pedro Apóstol
                     </h4>
                     <p class="text-sm text-red-700 font-semibold mb-3 bg-red-50 inline-block px-2 py-1 rounded">Requisito: 3 Ministros por Misa</p>
-                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc marker:text-gray-300">
-                        <li><strong>Sábado (Víspera):</strong> 7:00 PM</li>
-                        <li><strong>Domingo:</strong> 8:00 AM</li>
-                        <li><strong>Domingo:</strong> 10:00 AM</li>
-                        <li><strong>Domingo:</strong> 12:00 PM</li>
-                        <li><strong>Domingo:</strong> 7:00 PM</li>
+                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc">
+                        <li><strong>Sábado (Víspera):</strong> 6:00 PM</li>
+                        <li><strong>Domingo:</strong> 8:00 AM, 10:00 AM, 12:00 PM, 6:00 PM</li>
+                        <li class="text-red-800 font-bold italic">Misa Solemne con Bendición y Procesión.</li>
                     </ul>
                 </div>
 
@@ -72,14 +76,14 @@
                     <h4 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-place-of-worship text-gray-400"></i> Capilla San Judas Tadeo
                     </h4>
-                    <p class="text-sm text-red-700 font-semibold mb-3 bg-red-50 inline-block px-2 py-1 rounded">Requisito: 2 Ministros por Misa</p>
-                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc marker:text-gray-300">
+                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc">
                         <li><strong>Domingo:</strong> 11:00 AM</li>
+                        <li class="text-red-800 font-bold italic">Misa Solemne con Bendición y Procesión.</li>
                     </ul>
                 </div>
                 
                 <div class="mt-8 pt-6 border-t border-gray-100">
-                    <a href="#registro" class="block w-full bg-red-800 text-white text-center font-bold py-3 rounded-xl hover:bg-red-900 transition shadow-md">
+                    <a href="#registro" class="block w-full bg-purple-800 text-white text-center font-bold py-3 rounded-xl hover:bg-purple-900 transition shadow-md">
                         <i class="fa-solid fa-clipboard-user mr-2"></i> Ir al Formulario
                     </a>
                 </div>
@@ -88,22 +92,31 @@
 
         <main class="lg:w-2/3">
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
+                
+                <div class="mb-10 bg-yellow-50 border-l-8 border-yellow-400 p-6 rounded-r-2xl shadow-sm">
+                    <h3 class="text-yellow-800 font-bold text-lg mb-2 flex items-center gap-2 uppercase tracking-wide">
+                        <i class="fa-solid fa-scroll"></i> 📜 Directriz Litúrgica Oficial (CEM)
+                    </h3>
+                    <p class="text-yellow-900 text-sm leading-relaxed font-medium">
+                        En la conmemoración de la entrada del Señor, el MEC asiste en la organización de la <strong>Nave</strong> y la procesión hacia el <strong>Presbiterio</strong>. Durante la Pasión, se omite el saludo al Evangelio y no se usan ciriales. El <strong>Vaso de Ablución</strong> debe estar listo en la <strong>Credencia</strong> para la purificación tras la comunión.
+                    </p>
+                </div>
+
                 <div class="mb-10 text-center">
-                    <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Misal y Guía de Participación</h2>
+                    <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Guía de Participación del MEC</h2>
                     <div class="w-16 h-1.5 bg-red-700 mx-auto mt-4 rounded-full"></div>
-                    <p class="mt-4 text-gray-500">Desarrollo de la celebración, normas litúrgicas oficiales y momentos exactos de intervención del MEC.</p>
                 </div>
 
                 <div class="space-y-12">
                     
-                    <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-gray-800">
-                        <h4 class="text-lg font-bold text-gray-900 flex items-center gap-2 mb-3">
-                            <i class="fa-solid fa-user-check text-gray-600"></i> Acción MEC: Preparación Previa
+                    <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-800 shadow-sm">
+                        <h4 class="text-lg font-bold text-purple-900 flex items-center gap-2 mb-3 uppercase">
+                            <i class="fa-solid fa-user-check"></i> Acción MEC: Preparación
                         </h4>
-                        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2">
-                            <li>Llegada obligatoria <strong>30 minutos antes</strong> de la misa.</li>
-                            <li>Vestimenta formal y sobria.</li>
-                            <li>Confirmar ubicación de los vasos sagrados y hostias en la credencia.</li>
+                        <ul class="list-disc pl-5 text-purple-800 text-sm space-y-2 font-medium">
+                            <li>Llegada obligatoria <strong>30 minutos antes</strong> de la celebración.</li>
+                            <li>Vestimenta formal y estola del ministerio.</li>
+                            <li>Confirmar ubicación de los vasos sagrados en la <strong>Credencia</strong> y hostias para la consagración en el <strong>Presbiterio</strong>.</li>
                         </ul>
                     </div>
 
@@ -113,45 +126,16 @@
                             Conmemoración de la Entrada en Jerusalén
                         </h3>
                         
-                        <div class="mb-5 bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-sm text-yellow-900">
-                            <p class="font-bold uppercase tracking-wider text-xs mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
-                            </p>
-                            <p class="mb-2">En todas las Misas, incluso en las vespertinas del sábado anterior, se ha de hacer necesariamente la conmemoración de la entrada del Señor en Jerusalén, celebración característica de este día.</p>
-                            <p class="mb-2"><strong>Bendición de los ramos y las palmas:</strong> es necesario hacer íntegramente la bendición, que incluye la lectura del Evangelio que conmemora la Entrada del Señor en Jerusalén y al menos la entrada solemne del celebrante en la iglesia; por lo tanto, no es posible hacer la bendición de los ramos al final de las Misas.</p>
-                            <p>No está permitido hacer la procesión saliendo de la iglesia para entrar de nuevo en la misma iglesia; si no se dispone de otra capilla o iglesia para la bendición de los ramos, se puede hacer la bendición en un lugar común o incluso al aire libre.</p>
-                        </div>
-
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
+                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-gray-700 mb-6">
                             <p><strong>Monición:</strong> Hermanos, en este año nos alegramos de haber sido convocados por Dios como Asamblea para iniciar la Semana Santa...</p>
-                            <p><strong>Antífona:</strong> Hosanna al Hijo de David. Bendito el que viene en nombre del Señor...</p>
-                            <p><strong>Oración:</strong> Dios todopoderoso y eterno, santifica con tu bendición + estos ramos...</p>
+                            <p class="bg-gray-50 p-4 rounded-lg italic">"Hoy queremos manifestar que nuestro Dios está en medio de nosotros, que tiene una Asamblea de puertas abiertas y en salida..."</p>
                         </div>
 
                         <div class="bg-red-50 rounded-xl p-6 border border-red-100 mb-6">
-                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2">
+                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2 uppercase">
                                 <i class="fa-solid fa-leaf text-red-700"></i> Acción MEC: Bendición de Ramos
                             </h4>
-                            <p class="text-sm text-red-800">Un Ministro Extraordinario debe ubicarse <strong>junto al Padre</strong> en el exterior, sosteniendo el <strong>acetre y el hisopo</strong> para asistirle en la aspersión de los ramos.</p>
-                        </div>
-
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
-                            <p><strong>Evangelio (Mt 21, 1-11):</strong> Cuando se aproximaban ya a Jerusalén...</p>
-                            <p><strong>Procesión:</strong> Imitando a la multitud que aclamaba al Señor, avancemos en paz. (Se canta: ¡Que viva mi Cristo!)</p>
-                        </div>
-
-                        <div class="mb-5 bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-sm text-yellow-900">
-                            <p class="font-bold uppercase tracking-wider text-xs mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
-                            </p>
-                            <p><strong>El orden de la procesión es el siguiente:</strong> 1. Incensario. 2. Cruz flanqueada por los ciriales adornados con ramos. 3. Evangeliario llevado por el diácono u otro ministro idóneo. 4. Celebrante. 5. Los demás ministros. 6. Resto de la asamblea con ramos.</p>
-                        </div>
-
-                        <div class="bg-red-50 rounded-xl p-6 border border-red-100">
-                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2">
-                                <i class="fa-solid fa-shoe-prints text-red-700"></i> Acción MEC: Procesión
-                            </h4>
-                            <p class="text-sm text-red-800">Participar en la procesión hacia el interior del templo, caminando con solemnidad, respetando el orden litúrgico y alzando el ramo.</p>
+                            <p class="text-sm text-red-800 font-medium">El MEC asiste al celebrante en la aspersión de los ramos en el atrio o la entrada de la <strong>Nave</strong>, asegurando que el <strong>acetre</strong> esté siempre disponible.</p>
                         </div>
                     </div>
 
@@ -160,103 +144,103 @@
                     <div>
                         <h3 class="text-xl font-extrabold text-red-800 uppercase mb-4 flex items-center gap-2">
                             <span class="bg-red-100 text-red-800 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                            Liturgia de la Palabra
+                            Liturgia de la Palabra y Pasión
                         </h3>
 
-                        <div class="mb-5 bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-sm text-yellow-900">
-                            <p class="font-bold uppercase tracking-wider text-xs mb-2 flex items-center gap-2">
-                                <i class="fa-solid fa-scroll"></i> Directriz Litúrgica Oficial (CEM)
-                            </p>
-                            <p class="mb-2">La lectura de la Pasión se ha de hacer obligatoriamente en todas las Misas, por lo menos en su forma breve. No se lleva ni el incienso ni los ciriales. Pueden participar varios lectores, reservando al sacerdote, normalmente, la parte correspondiente a Cristo.</p>
-                            <p class="mb-1"><strong>En la proclamación de la Pasión:</strong></p>
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Quien proclama no dice: El Señor esté con ustedes.</li>
-                                <li>No se signa el Evangelio.</li>
-                                <li>Tampoco se signa ni quien lo proclama, ni el celebrante, ni el resto de la asamblea.</li>
-                                <li>Quien proclama dice: Pasión de nuestro Señor Jesucristo según...</li>
-                                <li>La asamblea no responde nada.</li>
-                            </ul>
-                            <p class="mt-2">Terminada la lectura, se dice como habitualmente: Palabra del Señor y el pueblo responde: Gloria a ti, Señor Jesús.</p>
+                        <div class="bg-white border-2 border-gray-100 rounded-2xl p-6 mb-6">
+                            <h4 class="text-center font-bold text-gray-900 uppercase mb-4">Pasión de Nuestro Señor Jesucristo (Mt 26, 14-27, 66)</h4>
+                            <p class="text-xs text-center text-gray-400 mb-6 uppercase tracking-widest">Texto íntegro línea por línea</p>
+                            
+                            <div class="space-y-4 text-sm leading-relaxed overflow-y-auto max-h-[400px] scrollbar-thin pr-4 text-gray-700 italic">
+                                <p><span class="pasion-c">C.</span> En aquel tiempo, uno de los Doce, llamado Judas Iscariote, fue a ver a los sumos sacerdotes y les dijo:</p>
+                                <p><span class="pasion-s">S.</span> "¿Cuánto me dan si les entrego a Jesús?"</p>
+                                <p><span class="pasion-c">C.</span> Ellos quedaron en darle treinta monedas de plata. Y desde ese momento andaba buscando una oportunidad para entregárselo.</p>
+                                <p><span class="pasion-s">S.</span> "¿Donde quieres que te preparemos la cena de Pascua?"</p>
+                                <p><span class="pasion-c">C.</span> Él respondió:</p>
+                                <p><span class="pasion-j">+.</span> "Vayan a la ciudad, a casa de fulano y díganle: El maestro dice: Mi hora está ya cerca. Voy a celebrar la Pascua con mis discípulos en tu casa".</p>
+                                <p><span class="pasion-c">C.</span> Ellos hicieron lo que Jesús les había ordenado y prepararon la cena de Pascua. Al atardecer, se sentó a la mesa de los Doce, y mientras cenaban, les dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Yo les aseguro que uno de ustedes va a entregarme".</p>
+                                <p><span class="pasion-c">C.</span> Ellos se pusieron tristes y comenzaron a preguntarle uno por uno:</p>
+                                <p><span class="pasion-s">S.</span> "¿Acaso soy yo, Señor?"</p>
+                                <p><span class="pasion-c">C.</span> Él respondió:</p>
+                                <p><span class="pasion-j">+.</span> "El que moja su pan en el mismo plato que yo ése va a entregarme. Porque el Hijo del hombre va a morir, como está escrito de él; pero ¡ay de aquel por quien el Hijo del hombre va a ser entregado! Más le valiera a ese hombre no haber nacido".</p>
+                                <p><span class="pasion-c">C.</span> Entonces preguntó Judas, el que lo iba a entregar:</p>
+                                <p><span class="pasion-s">S.</span> "¿Acaso soy yo, Maestro?"</p>
+                                <p><span class="pasion-c">C.</span> Jesús le respondió:</p>
+                                <p><span class="pasion-j">+.</span> "Tú lo has dicho".</p>
+                                <p><span class="pasion-c">C.</span> Durante la cena, Jesús tomó pan y, pronunciando la bendición, lo partió y lo dio a sus discípulos, diciendo:</p>
+                                <p><span class="pasion-j">+.</span> "Tomen y coman. Éste es mi Cuerpo".</p>
+                                <p><span class="pasion-c">C.</span> Luego tomó en sus manos una copa de vino y, pronunciando la acción de gracias la pasó a sus discípulos, diciendo:</p>
+                                <p><span class="pasion-j">+.</span> "Beban todos de ella, porque ésta es mi sangre, sangre de la nueva alianza, que será derramada por todos, para el perdón de los pecados. Les digo que ya no beberé más del fruto de la vid, hasta el día en que beba con ustedes el vino en el Reino de mi Padre".</p>
+                                <p><span class="pasion-c">C.</span> Después de haber cantado el himno, salieron hacia el monte de los Olivos. Entonces Jesús les dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Todos ustedes se van a escandalizar de mí esta noche, porque está escrito: Heriré al pastor y se dispersarán las ovejas del rebaño. Pero después de que yo resucite, iré delante de ustedes a Galilea".</p>
+                                <p><span class="pasion-c">C.</span> Pedro replicó:</p>
+                                <p><span class="pasion-s">S.</span> "Aunque todos se escandalicen de ti, yo nunca me escandalizaré".</p>
+                                <p><span class="pasion-c">C.</span> Jesús les dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Yo te aseguro que esta misma noche antes de que el gallo cante, me habrás negado tres veces".</p>
+                                <p><span class="pasion-c">C.</span> Pedro le replicó:</p>
+                                <p><span class="pasion-s">S.</span> "Aunque tenga que morir contigo, no te negaré".</p>
+                                <p><span class="pasion-c">C.</span> Y lo mismo dijeron todos los discípulos. Entonces Jesús fue con ellos a un lugar llamado Getsemaní y dijo a los discípulos:</p>
+                                <p><span class="pasion-j">+.</span> "Quédense aquí mientras yo voy a orar más allá”.</p>
+                                <p><span class="pasion-c">C.</span> Se llevó consigo a Pedro y a los dos hijos de Zebedeo y comenzó a sentir tristeza y angustia. Entonces les dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Mi alma está llena de tristeza mortal. Quédense aquí y velen conmigo".</p>
+                                <p><span class="pasion-c">C.</span> Avanzó unos pasos más, se postró en tierra y comenzó a orar, diciendo:</p>
+                                <p><span class="pasion-j">+.</span> "Padre mío, si es posible que pase de mí este cáliz; pero que no se haga como yo quiero, sino como quieras tú".</p>
+                                <p><span class="pasion-c">C.</span> Volvió entonces a donde estaban los discípulos y los encontró dormidos. Dijo a Pedro:</p>
+                                <p><span class="pasion-j">+.</span> "¿No han podido velar conmigo ni una hora? Velen y oren, para no caer en la tentación, porque el espíritu está pronto pero la carne es débil".</p>
+                                <p><span class="pasion-c">C.</span> Y alejándose de nuevo, se puso a orar, diciendo:</p>
+                                <p><span class="pasion-j">+.</span> "Padre mío, si este cáliz no puede pasar sin que yo lo beba, hágase tu voluntad".</p>
+                                <p><span class="pasion-c">C.</span> Después volvió y encontró a sus discípulos otra vez dormidos... fue a orar de nuevo, por tercera vez, repitiendo las mismas palabras. Después de esto, volvió a donde estaban los discípulos y les dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Duerman ya y descansen. He aquí que llega la hora y el Hijo del hombre va a ser entregado en manos de los pecadores. ¡Levántense! ¡Vamos! Ya está aquí el que me va a entregar".</p>
+                                <p><span class="pasion-c">C.</span> Todavía estaba hablando Jesús, cuando llegó Judas... El que lo iba a entregar había dado esta señal:</p>
+                                <p><span class="pasion-s">S.</span> "Aquel a quien yo le dé un beso, ese es. Aprehéndanlo".</p>
+                                <p><span class="pasion-c">C.</span> Al instante se acercó a Jesús y le dijo:</p>
+                                <p><span class="pasion-s">S.</span> "Buenas noches, Maestro".</p>
+                                <p><span class="pasion-c">C.</span> Y lo besó. Jesús le dijo:</p>
+                                <p><span class="pasion-j">+.</span> "Amigo, ¿es esto a lo que has venido?".</p>
+                                <p><span class="pasion-c">C.</span> Entonces se acercaron a Jesús, le echaron mano y lo apresaron... Le dijo Jesús:</p>
+                                <p><span class="pasion-j">+.</span> "Vuelve la espada a su lugar... ¿No crees que si yo se lo pidiera a mi Padre, él pondría ahora mismo a mi disposición más de doce legiones de ángeles?"</p>
+                                <p><span class="pasion-c">C.</span> Enseguida dijo Jesús a la chusma:</p>
+                                <p><span class="pasion-j">+.</span> "¿Han salido ustedes a apresarme como a un bandido, con espadas y palos? Todos los días yo enseñaba, sentado en el templo, y no me aprehendieron."</p>
+                                <p><span class="pasion-c">C.</span> Los que aprehendieron a Jesús lo llevaron a la casa del sumo sacerdote Caifás... El sumo sacerdote le dijo:</p>
+                                <p><span class="pasion-s">S.</span> "Te conjuro por el Dios vivo a que nos digas si tú eres el Mesías, el Hijo de Dios".</p>
+                                <p><span class="pasion-c">C.</span> Jesús le respondió:</p>
+                                <p><span class="pasion-j">+.</span> "Tú lo has dicho. Además, yo les declaro que pronto verán al Hijo del hombre, sentado a la derecha de Dios, venir sobre las nubes del cielo".</p>
+                                <p><span class="pasion-c">C.</span> Entonces el sumo sacerdote rasgó sus vestiduras y exclamó:</p>
+                                <p><span class="pasion-s">S.</span> "!Ha blasfemado!, ¿Qué necesidad tenemos ya de testigos?"</p>
+                                <p><span class="pasion-c">C.</span> Ellos respondieron:</p>
+                                <p><span class="pasion-s">S.</span> "Es reo de muerte".</p>
+                                <p><span class="pasion-c">C.</span> Entretanto, Pedro estaba afuera... una criada se le acercó y le dijo:</p>
+                                <p><span class="pasion-s">S.</span> "Tú también estabas con Jesús, el galileo".</p>
+                                <p><span class="pasion-c">C.</span> Pero él lo negó ante todos... Y en aquel momento cantó el gallo. Y saliendo de ahí se soltó a llorar amargamente.</p>
+                                <p><span class="pasion-c">C.</span> Judas arrojó las monedas de plata en el templo, se fue y se ahorcó.</p>
+                                <p><span class="pasion-c">C.</span> Jesús compareció ante el procurador, Poncio Pilato, quien le preguntó:</p>
+                                <p><span class="pasion-s">S.</span> "¿Eres tú el rey de los judíos?"</p>
+                                <p><span class="pasion-c">C.</span> Jesús respondió:</p>
+                                <p><span class="pasion-j">+.</span> "Tú lo has dicho".</p>
+                                <p><span class="pasion-c">C.</span> Pilato les dijo: "¿Y qué voy a hacer con Jesús, que se dice el Mesías?"</p>
+                                <p><span class="pasion-s">S.</span> "Crucifícalo".</p>
+                                <p><span class="pasion-c">C.</span> Entonces Pilato pidió agua y se lavó las manos ante el pueblo, diciendo:</p>
+                                <p><span class="pasion-s">S.</span> "Yo no me hago responsable de la muerte de este hombre justo. Allá ustedes".</p>
+                                <p><span class="pasion-c">C.</span> Todo el pueblo respondió:</p>
+                                <p><span class="pasion-s">S.</span> "¡Que su sangre caiga sobre nosotros y sobre nuestros hijos!".</p>
+                                <p><span class="pasion-c">C.</span> Desde el mediodía hasta las tres de la tarde, se oscureció toda aquella tierra. Y alrededor de las tres, Jesús exclamó con fuerte voz:</p>
+                                <p><span class="pasion-j">+.</span> "Elí, Elí ¿lemá sabactaní?".</p>
+                                <p><span class="pasion-c">C.</span> Que quiere decir, "Dios mío, Dios mío, ¿Por qué me has abandonado?".</p>
+                                <p><span class="pasion-c">C.</span> Entonces Jesús dando de nuevo un fuerte grito, expiró.</p>
+                                <p class="text-red-700 font-bold text-center">Aquí todos se arrodillan y guardan silencio por unos instantes.</p>
+                                <p><span class="pasion-c">C.</span> El oficial y los que estaban con él dijeron:</p>
+                                <p><span class="pasion-s">S.</span> "Verdaderamente éste era Hijo de Dios".</p>
+                                <p><span class="pasion-c">C.</span> José tomó el cuerpo, lo envolvió en una sábana limpia y lo depositó en un sepulcro nuevo.</p>
+                                <p class="font-bold text-red-900 mt-2">Palabra del Señor.</p>
+                            </div>
                         </div>
 
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
-                            <p><strong>1a Lectura (Isaías 50, 4-7):</strong> Ofrecí la espalda a los que me golpeaban...</p>
-                            <p><strong>Salmo 21:</strong> Dios mío, Dios mío, ¿por qué me has abandonado?</p>
-                            <p><strong>2a Lectura (Filipenses 2, 6-11):</strong> Cristo se humilló a sí mismo; por eso Dios lo exaltó.</p>
-                            <p><strong>Pasión de N.S. Jesucristo (Mateo 26, 14-27, 66):</strong> (Lectura íntegra a tres voces según la directriz).</p>
-                            <p class="italic text-red-700 font-medium">* "Entonces Jesús dando de nuevo un fuerte grito, expiró." (Aquí todos se arrodillan y guardan silencio).</p>
-                            <p><strong>Oración de los Fieles.</strong></p>
-                        </div>
-
-                        <div class="bg-red-50 rounded-xl p-6 border border-red-100">
-                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2">
-                                <i class="fa-solid fa-cross text-red-700"></i> Acción MEC: La Pasión
+                        <div class="bg-red-50 rounded-xl p-6 border border-red-100 shadow-sm">
+                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2 uppercase">
+                                <i class="fa-solid fa-hands-praying text-red-700"></i> Acción MEC: Liturgia Eucarística
                             </h4>
-                            <p class="text-sm text-red-800">Escuchar con profundo recogimiento desde su lugar. Arrodillarse puntualmente y en total silencio en el momento que narra la muerte de Jesús, sin santiguarse al inicio de la lectura.</p>
-                        </div>
-                    </div>
-
-                    <hr class="border-gray-200">
-
-                    <div>
-                        <h3 class="text-xl font-extrabold text-red-800 uppercase mb-4 flex items-center gap-2">
-                            <span class="bg-red-100 text-red-800 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                            Liturgia Eucarística y Rito de Comunión
-                        </h3>
-
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
-                            <p><strong>Prefacio de la Pasión:</strong> Con su muerte borró nuestros delitos y, resucitando, conquistó nuestra justificación...</p>
-                            <p><strong>Plegaria Eucarística:</strong> Tomen y coman todos de él...</p>
-                            <p><strong>Rito de la Paz y Fracción del Pan:</strong> Cordero de Dios, que quitas el pecado del mundo...</p>
-                        </div>
-
-                        <div class="bg-red-50 rounded-xl p-6 border border-red-100 mb-6">
-                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-hands-holding-circle text-red-700"></i> Acción MEC: Distribución de la Comunión
-                            </h4>
-                            <ul class="list-disc pl-5 text-red-800 text-sm space-y-2">
-                                <li>Acercarse al presbiterio con paso pausado y solemne al iniciar el "Cordero de Dios" o según la indicación del celebrante.</li>
-                                <li>Recibir la Eucaristía primero para luego asistir al sacerdote.</li>
-                                <li>Ubicarse estratégicamente en el <strong>pasillo central y los pasillos laterales</strong> para un flujo ordenado.</li>
-                                <li>Distribuir la Comunión diciendo claramente: <em>"El Cuerpo de Cristo"</em>.</li>
-                                <li><strong>Protocolo de Caída:</strong> Si una hostia cae, levantarla inmediatamente con reverencia. Si está limpia, consumirla; si no, entregarla al celebrante.</li>
-                            </ul>
-                        </div>
-
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
-                            <p><strong>Antífona de la Comunión (Mt 26, 42):</strong> Padre mío, si no es posible evitar que yo beba de este cáliz, hágase tu voluntad.</p>
-                        </div>
-
-                        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
-                            <h4 class="text-md font-bold text-gray-900 flex items-center gap-2 mb-2">
-                                <i class="fa-solid fa-bullhorn text-gray-600"></i> Acción MEC: Proclamación
-                            </h4>
-                            <p class="text-sm text-gray-700">Si en la celebración <strong>no hay canto de comunión</strong>, el MEC designado debe estar preparado para proclamar la antífona en voz alta.</p>
-                        </div>
-                    </div>
-
-                    <hr class="border-gray-200">
-
-                    <div>
-                        <h3 class="text-xl font-extrabold text-red-800 uppercase mb-4 flex items-center gap-2">
-                            <span class="bg-red-100 text-red-800 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-                            Rito de Conclusión
-                        </h3>
-
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
-                            <p><strong>Oración sobre el pueblo:</strong> Dios y Padre nuestro, mira con bondad a esta familia tuya...</p>
-                            <p><strong>Bendición Final.</strong></p>
-                        </div>
-
-                        <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-gray-800">
-                            <h4 class="text-md font-bold text-gray-900 flex items-center gap-2 mb-3">
-                                <i class="fa-solid fa-broom text-gray-600"></i> Acción MEC: Después de la Misa
-                            </h4>
-                            <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2">
-                                <li>Revisar que no queden partículas en el área de distribución.</li>
-                                <li>Entregar copones en la credencia para su purificación.</li>
-                                <li>Retirarse en silencio manteniendo el respeto al altar.</li>
-                            </ul>
+                            <p class="text-sm text-red-800">Acercarse al <strong>Presbiterio</strong> durante el Cordero de Dios. Realizar la fracción del pan con suma reverencia. Preparar el <strong>Vaso de Ablución</strong> para que el celebrante purifique sus dedos después de la distribución en la <strong>Nave</strong>.</p>
                         </div>
                     </div>
 
@@ -267,23 +251,14 @@
 
     <section id="registro" class="bg-gray-900 py-16 text-white text-center">
         <div class="max-w-4xl mx-auto px-4">
-            <div class="w-16 h-16 bg-red-800 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-6">
+            <div class="w-16 h-16 bg-red-800 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-6 shadow-lg">
                 <i class="fa-solid fa-clipboard-check"></i>
             </div>
-            <h2 class="text-3xl font-extrabold uppercase tracking-tight mb-4">Registro Oficial MEC</h2>
-            <p class="text-gray-400 mb-8">Completa el siguiente formulario para confirmar tu asistencia y horario de servicio para el Domingo de Ramos.</p>
+            <h2 class="text-3xl font-extrabold uppercase tracking-tight mb-4">Registro de Ministros</h2>
+            <p class="text-gray-400 mb-8 max-w-xl mx-auto font-medium">Confirma tu turno de servicio para el Domingo de Ramos. Recuerda que se requieren 3 ministros por misa en Parroquia y 2 en Capilla.</p>
             
-            <div class="w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2 md:p-4">
-                <iframe 
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSdDloM283020XMZ31KLTE-oo1mRYTLl4NtAZvrc7OuxJJaQWg/viewform?embedded=true" 
-                    width="100%" 
-                    height="900" 
-                    frameborder="0" 
-                    marginheight="0" 
-                    marginwidth="0" 
-                    class="w-full">
-                    Cargando el formulario…
-                </iframe>
+            <div class="iframe-container w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDloM283020XMZ31KLTE-oo1mRYTLl4NtAZvrc7OuxJJaQWg/viewform?embedded=true">Cargando formulario...</iframe>
             </div>
         </div>
     </section>
@@ -292,6 +267,21 @@
         Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
         Allende, Nuevo León, México
     </footer>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        if (!window.__PADRE_ALAN_CHAT_CONFIG__) {
+          window.__PADRE_ALAN_CHAT_CONFIG__ = {
+            title: "Pregúntele a los Padres",
+            subtitle: "Semana Santa 2026",
+            fabText: "Pregúntele a los Padres",
+            contextKey: "ramos", 
+            contextLabel: "Domingo de Ramos"
+          };
+        }
+      });
+    </script>
+    <script src="padre-alan-chat.js"></script>
 
 </body>
 </html>
