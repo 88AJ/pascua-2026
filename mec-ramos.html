@@ -10,18 +10,11 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .hero-bg { 
-            /* REGLA 2: Graduado y URL dinámica para Ramos */
+            /* REGLA 2: Actualización de URL y degradado exacto */
             background-image: linear-gradient(rgba(88, 28, 135, 0.85), rgba(88, 28, 135, 0.85)), url('https://raw.githubusercontent.com/88AJ/pascua-2026/main/giotto-ramos.jpg'); 
             background-size: cover; 
             background-position: center; 
         }
-        .rubrica { color: #b91c1c; font-style: italic; font-size: 0.9rem; margin-top: 1rem; margin-bottom: 0.5rem; }
-        .pasion-c { font-weight: bold; color: #1f2937; } /* Cronista */
-        .pasion-s { font-weight: bold; color: #b91c1c; } /* Sinagoga/Asamblea */
-        .pasion-j { font-weight: bold; color: #4338ca; } /* Jesús */
-        /* REGLA 4: Contenedor responsivo para el Formulario */
-        .iframe-container { position: relative; overflow: hidden; width: 100%; padding-top: 150%; }
-        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         .scrollbar-thin::-webkit-scrollbar { width: 6px; }
         .scrollbar-thin::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 4px; }
         .scrollbar-thin::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
@@ -29,24 +22,24 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-            <a href="index.html" class="text-purple-800 font-bold hover:text-purple-600 transition flex items-center gap-2">
+            <a href="index.html" class="text-red-800 font-bold hover:text-red-600 transition flex items-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Volver al Inicio
             </a>
-            <span class="text-red-900 font-extrabold tracking-widest uppercase text-sm md:text-base bg-red-50 px-3 py-1 rounded-lg border border-red-100">Color: Rojo</span>
+            <span class="text-red-900 font-extrabold tracking-widest uppercase text-sm md:text-base bg-red-50 px-3 py-1 rounded-lg">Color: Rojo</span>
         </div>
     </header>
 
-    <section class="hero-bg h-[40vh] flex items-center justify-center text-center px-6 border-b-8 border-purple-900">
+    <section class="hero-bg h-[35vh] flex items-center justify-center text-center px-6 border-b-8 border-red-600">
         <div class="relative z-10">
             <span class="bg-red-100 text-red-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">
                 Ministros Extraordinarios de la Comunión (MEC)
             </span>
-            <h1 class="text-3xl md:text-6xl font-extrabold text-white tracking-tight uppercase drop-shadow-lg">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight uppercase drop-shadow-md">
                 Domingo de Ramos
             </h1>
-            <p class="text-purple-50 mt-4 font-medium text-lg max-w-2xl mx-auto">
+            <p class="text-red-100 mt-4 font-medium text-lg max-w-2xl mx-auto">
                 Guía litúrgica oficial e intervenciones del ministerio en la Pasión del Señor.
             </p>
         </div>
@@ -55,9 +48,9 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col lg:flex-row gap-10">
         
         <aside class="lg:w-1/3 space-y-8">
-            <div class="bg-white rounded-2xl shadow-md border-t-4 border-purple-900 p-6">
+            <div class="bg-white rounded-2xl shadow-md border-t-4 border-gray-900 p-6">
                 <h3 class="text-xl font-bold text-gray-900 uppercase tracking-tight mb-4 border-b pb-2">
-                    <i class="fa-regular fa-clock text-purple-700 mr-2"></i> Horarios de Ramos
+                    <i class="fa-regular fa-clock text-red-700 mr-2"></i> Horarios y Cupos
                 </h3>
                 
                 <div class="mb-6">
@@ -65,10 +58,9 @@
                         <i class="fa-solid fa-church text-gray-400"></i> Parroquia San Pedro Apóstol
                     </h4>
                     <p class="text-sm text-red-700 font-semibold mb-3 bg-red-50 inline-block px-2 py-1 rounded">Requisito: 3 Ministros por Misa</p>
-                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc">
+                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc marker:text-gray-300">
                         <li><strong>Sábado (Víspera):</strong> 6:00 PM</li>
                         <li><strong>Domingo:</strong> 8:00 AM, 10:00 AM, 12:00 PM, 6:00 PM</li>
-                        <li class="text-red-800 font-bold italic">Misa Solemne con Bendición y Procesión.</li>
                     </ul>
                 </div>
 
@@ -76,14 +68,14 @@
                     <h4 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-place-of-worship text-gray-400"></i> Capilla San Judas Tadeo
                     </h4>
-                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc">
+                    <p class="text-sm text-red-700 font-semibold mb-3 bg-red-50 inline-block px-2 py-1 rounded">Requisito: 2 Ministros por Misa</p>
+                    <ul class="text-sm text-gray-600 space-y-2 pl-6 list-disc marker:text-gray-300">
                         <li><strong>Domingo:</strong> 11:00 AM</li>
-                        <li class="text-red-800 font-bold italic">Misa Solemne con Bendición y Procesión.</li>
                     </ul>
                 </div>
                 
                 <div class="mt-8 pt-6 border-t border-gray-100">
-                    <a href="#registro" class="block w-full bg-purple-800 text-white text-center font-bold py-3 rounded-xl hover:bg-purple-900 transition shadow-md">
+                    <a href="#registro" class="block w-full bg-red-800 text-white text-center font-bold py-3 rounded-xl hover:bg-red-900 transition shadow-md">
                         <i class="fa-solid fa-clipboard-user mr-2"></i> Ir al Formulario
                     </a>
                 </div>
@@ -93,30 +85,31 @@
         <main class="lg:w-2/3">
             <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
                 
-                <div class="mb-10 bg-yellow-50 border-l-8 border-yellow-400 p-6 rounded-r-2xl shadow-sm">
+                <div class="mb-8 bg-yellow-50 border-l-8 border-yellow-400 p-6 rounded-r-2xl shadow-sm">
                     <h3 class="text-yellow-800 font-bold text-lg mb-2 flex items-center gap-2 uppercase tracking-wide">
                         <i class="fa-solid fa-scroll"></i> 📜 Directriz Litúrgica Oficial (CEM)
                     </h3>
                     <p class="text-yellow-900 text-sm leading-relaxed font-medium">
-                        En la conmemoración de la entrada del Señor, el MEC asiste en la organización de la <strong>Nave</strong> y la procesión hacia el <strong>Presbiterio</strong>. Durante la Pasión, se omite el saludo al Evangelio y no se usan ciriales. El <strong>Vaso de Ablución</strong> debe estar listo en la <strong>Credencia</strong> para la purificación tras la comunión.
+                        Durante la Pasión del Señor, los Ministros Extraordinarios deben mantener un clima de profundo silencio y recogimiento. Al momento de la distribución de la Sagrada Comunión en la <strong>Nave</strong>, deben asegurar un flujo digno y ordenado. Es responsabilidad del ministerio verificar que el <strong>Vaso de Ablución</strong> esté preparado en la <strong>Credencia</strong> para la purificación de los dedos tras la distribución.
                     </p>
                 </div>
 
                 <div class="mb-10 text-center">
-                    <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Guía de Participación del MEC</h2>
+                    <h2 class="text-3xl font-extrabold text-gray-900 uppercase tracking-tight">Misal y Guía de Participación</h2>
                     <div class="w-16 h-1.5 bg-red-700 mx-auto mt-4 rounded-full"></div>
+                    <p class="mt-4 text-gray-500">Desarrollo de la celebración y momentos exactos de intervención del MEC.</p>
                 </div>
 
                 <div class="space-y-12">
                     
-                    <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-800 shadow-sm">
-                        <h4 class="text-lg font-bold text-purple-900 flex items-center gap-2 mb-3 uppercase">
-                            <i class="fa-solid fa-user-check"></i> Acción MEC: Preparación
+                    <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-800">
+                        <h4 class="text-lg font-bold text-gray-900 flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-user-check text-gray-600"></i> Acción MEC: Preparación Previa
                         </h4>
-                        <ul class="list-disc pl-5 text-purple-800 text-sm space-y-2 font-medium">
-                            <li>Llegada obligatoria <strong>30 minutos antes</strong> de la celebración.</li>
-                            <li>Vestimenta formal y estola del ministerio.</li>
-                            <li>Confirmar ubicación de los vasos sagrados en la <strong>Credencia</strong> y hostias para la consagración en el <strong>Presbiterio</strong>.</li>
+                        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2">
+                            <li>Llegada obligatoria <strong>30 minutos antes</strong> de la misa.</li>
+                            <li>Vestimenta formal y sobria.</li>
+                            <li>Confirmar ubicación de los vasos sagrados y hostias en la <strong>Credencia</strong>.</li>
                         </ul>
                     </div>
 
@@ -126,16 +119,29 @@
                             Conmemoración de la Entrada en Jerusalén
                         </h3>
                         
-                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-gray-700 mb-6">
+                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
                             <p><strong>Monición:</strong> Hermanos, en este año nos alegramos de haber sido convocados por Dios como Asamblea para iniciar la Semana Santa...</p>
-                            <p class="bg-gray-50 p-4 rounded-lg italic">"Hoy queremos manifestar que nuestro Dios está en medio de nosotros, que tiene una Asamblea de puertas abiertas y en salida..."</p>
+                            <p><strong>Antífona:</strong> Hosanna al Hijo de David. Bendito el que viene en nombre del Señor...</p>
+                            <p><strong>Oración:</strong> Dios todopoderoso y eterno, santifica con tu bendición + estos ramos...</p>
                         </div>
 
                         <div class="bg-red-50 rounded-xl p-6 border border-red-100 mb-6">
-                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2 uppercase">
+                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2">
                                 <i class="fa-solid fa-leaf text-red-700"></i> Acción MEC: Bendición de Ramos
                             </h4>
-                            <p class="text-sm text-red-800 font-medium">El MEC asiste al celebrante en la aspersión de los ramos en el atrio o la entrada de la <strong>Nave</strong>, asegurando que el <strong>acetre</strong> esté siempre disponible.</p>
+                            <p class="text-sm text-red-800">Un Ministro Extraordinario debe ubicarse junto al celebrante en la <strong>Nave</strong> o exterior, sosteniendo el <strong>acetre y el hisopo</strong> para asistirle en la aspersión.</p>
+                        </div>
+
+                        <div class="pl-4 border-l-2 border-gray-200 space-y-4 text-sm text-gray-700 mb-6">
+                            <p><strong>Evangelio (Mt 21, 1-11):</strong> Cuando se aproximaban ya a Jerusalén...</p>
+                            <p><strong>Procesión:</strong> Imitando a la multitud que aclamaba al Señor, avancemos en paz. (Se canta: ¡Que viva mi Cristo!)</p>
+                        </div>
+
+                        <div class="bg-red-50 rounded-xl p-6 border border-red-100">
+                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2">
+                                <i class="fa-solid fa-shoe-prints text-red-700"></i> Acción MEC: Procesión
+                            </h4>
+                            <p class="text-sm text-red-800">Participar en la procesión hacia la <strong>Nave</strong>, caminando con solemnidad, respetando el orden litúrgico y alzando el ramo.</p>
                         </div>
                     </div>
 
@@ -144,12 +150,11 @@
                     <div>
                         <h3 class="text-xl font-extrabold text-red-800 uppercase mb-4 flex items-center gap-2">
                             <span class="bg-red-100 text-red-800 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                            Liturgia de la Palabra y Pasión
+                            Liturgia de la Palabra
                         </h3>
 
                         <div class="bg-white border-2 border-gray-100 rounded-2xl p-6 mb-6">
                             <h4 class="text-center font-bold text-gray-900 uppercase mb-4">Pasión de Nuestro Señor Jesucristo (Mt 26, 14-27, 66)</h4>
-                            <p class="text-xs text-center text-gray-400 mb-6 uppercase tracking-widest">Texto íntegro línea por línea</p>
                             
                             <div class="space-y-4 text-sm leading-relaxed overflow-y-auto max-h-[400px] scrollbar-thin pr-4 text-gray-700 italic">
                                 <p><span class="pasion-c">C.</span> En aquel tiempo, uno de los Doce, llamado Judas Iscariote, fue a ver a los sumos sacerdotes y les dijo:</p>
@@ -228,19 +233,40 @@
                                 <p><span class="pasion-j">+.</span> "Elí, Elí ¿lemá sabactaní?".</p>
                                 <p><span class="pasion-c">C.</span> Que quiere decir, "Dios mío, Dios mío, ¿Por qué me has abandonado?".</p>
                                 <p><span class="pasion-c">C.</span> Entonces Jesús dando de nuevo un fuerte grito, expiró.</p>
-                                <p class="text-red-700 font-bold text-center">Aquí todos se arrodillan y guardan silencio por unos instantes.</p>
+                                <p class="text-red-700 font-bold text-center border-y-2 border-red-50 py-2">Aquí todos se arrodillan y guardan silencio por unos instantes.</p>
                                 <p><span class="pasion-c">C.</span> El oficial y los que estaban con él dijeron:</p>
                                 <p><span class="pasion-s">S.</span> "Verdaderamente éste era Hijo de Dios".</p>
                                 <p><span class="pasion-c">C.</span> José tomó el cuerpo, lo envolvió en una sábana limpia y lo depositó en un sepulcro nuevo.</p>
-                                <p class="font-bold text-red-900 mt-2">Palabra del Señor.</p>
+                                <p class="font-bold mt-4 uppercase">Palabra del Señor.</p>
                             </div>
                         </div>
 
                         <div class="bg-red-50 rounded-xl p-6 border border-red-100 shadow-sm">
                             <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-2 uppercase">
-                                <i class="fa-solid fa-hands-praying text-red-700"></i> Acción MEC: Liturgia Eucarística
+                                <i class="fa-solid fa-cross text-red-700"></i> Acción MEC: La Pasión
                             </h4>
-                            <p class="text-sm text-red-800">Acercarse al <strong>Presbiterio</strong> durante el Cordero de Dios. Realizar la fracción del pan con suma reverencia. Preparar el <strong>Vaso de Ablución</strong> para que el celebrante purifique sus dedos después de la distribución en la <strong>Nave</strong>.</p>
+                            <p class="text-sm text-red-800 font-medium">Escuchar con profundo recogimiento desde su lugar en el <strong>Presbiterio</strong>. Arrodillarse en total silencio en el momento que narra la muerte de Jesús.</p>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-200">
+
+                    <div>
+                        <h3 class="text-xl font-extrabold text-red-800 uppercase mb-4 flex items-center gap-2">
+                            <span class="bg-red-100 text-red-800 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                            Liturgia Eucarística y Comunión
+                        </h3>
+
+                        <div class="bg-red-50 rounded-xl p-6 border border-red-100 mb-6">
+                            <h4 class="text-md font-bold text-red-900 flex items-center gap-2 mb-3 uppercase">
+                                <i class="fa-solid fa-hands-holding-circle text-red-700"></i> Acción MEC: Distribución de la Comunión
+                            </h4>
+                            <ul class="list-disc pl-5 text-red-800 text-sm space-y-2 font-medium">
+                                <li>Acercarse al <strong>Presbiterio</strong> con paso pausado y solemne al iniciar el "Cordero de Dios".</li>
+                                <li>Recibir la Eucaristía primero para luego asistir al sacerdote.</li>
+                                <li>Ubicarse estratégicamente en la <strong>Nave</strong> para un flujo ordenado de los fieles.</li>
+                                <li>Al finalizar, llevar los vasos sagrados a la <strong>Credencia</strong> y utilizar el <strong>Vaso de Ablución</strong> para purificar los dedos.</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -251,37 +277,40 @@
 
     <section id="registro" class="bg-gray-900 py-16 text-white text-center">
         <div class="max-w-4xl mx-auto px-4">
-            <div class="w-16 h-16 bg-red-800 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-6 shadow-lg">
+            <div class="w-16 h-16 bg-red-800 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-6">
                 <i class="fa-solid fa-clipboard-check"></i>
             </div>
-            <h2 class="text-3xl font-extrabold uppercase tracking-tight mb-4">Registro de Ministros</h2>
-            <p class="text-gray-400 mb-8 max-w-xl mx-auto font-medium">Confirma tu turno de servicio para el Domingo de Ramos. Recuerda que se requieren 3 ministros por misa en Parroquia y 2 en Capilla.</p>
+            <h2 class="text-3xl font-extrabold uppercase tracking-tight mb-4">Registro Oficial MEC</h2>
+            <p class="text-gray-400 mb-8 font-medium">Confirma tu asistencia y horario de servicio para la celebración de Ramos.</p>
             
-            <div class="iframe-container w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdDloM283020XMZ31KLTE-oo1mRYTLl4NtAZvrc7OuxJJaQWg/viewform?embedded=true">Cargando formulario...</iframe>
+            <div class="iframe-container w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-2 md:p-4">
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSdDloM283020XMZ31KLTE-oo1mRYTLl4NtAZvrc7OuxJJaQWg/viewform?embedded=true">
+                    Cargando el formulario…
+                </iframe>
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-950 text-gray-500 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full">
+    <footer class="bg-gray-950 text-gray-500 py-10 mt-auto text-center text-xs uppercase tracking-widest w-full border-t border-gray-900">
         Parroquia de San Pedro Apóstol | Camino hacia la Pascua 2026<br>
         Allende, Nuevo León, México
     </footer>
 
-    <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        if (!window.__PADRE_ALAN_CHAT_CONFIG__) {
-          window.__PADRE_ALAN_CHAT_CONFIG__ = {
-            title: "Pregúntele a los Padres",
-            subtitle: "Semana Santa 2026",
-            fabText: "Pregúntele a los Padres",
-            contextKey: "ramos", 
-            contextLabel: "Domingo de Ramos"
-          };
-        }
-      });
-    </script>
-    <script src="padre-alan-chat.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!window.__PADRE_ALAN_CHAT_CONFIG__) {
+      window.__PADRE_ALAN_CHAT_CONFIG__ = {
+        title: "Pregúntele a los Padres",
+        subtitle: "Semana Santa 2026",
+        fabText: "Pregúntele a los Padres",
+        contextKey: "ramos-mec", 
+        contextLabel: "MEC - Domingo de Ramos"
+      };
+    }
+  });
+</script>
+<script src="padre-alan-chat.js"></script>
 
 </body>
 </html>
