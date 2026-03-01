@@ -78,9 +78,7 @@
     const targets = [];
     if (min && day) targets.push(`${min}-${day}.html`);
     if (day) targets.push(`${day}.html`);
-    if (min) targets.push(`${min}.html`);
     targets.push(`kb/general.html`);
-    targets.push(`kb/faq.html`);
     return { targets: [...new Set(targets)], day, min };
   }
 
@@ -141,7 +139,8 @@
   }
 
   const currentFile = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const ctx = Object.entries(CONFIG.pages).find(([k, v]) => v.file.toLowerCase() === currentFile)?.[1] || null;
+  const ctxEntry = Object.entries(CONFIG.pages).find(([, v]) => v.file.toLowerCase() === currentFile);
+  const ctx = ctxEntry ? { key: ctxEntry[0], ...ctxEntry[1] } : null;
 
   document.head.appendChild(el("style", {}, [`
     .pa-fab{position:fixed;right:18px;bottom:18px;z-index:${CONFIG.zIndex}}
