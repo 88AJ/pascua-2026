@@ -40,6 +40,37 @@
   const CELEBRANT_TERMS = [
     "padre", "sacerdote", "preside", "celebra", "celebrante", "parroco", "vicario", "arturo", "alan"
   ];
+  const TEAM_LABELS = {
+    monaguillos: "Monaguillos",
+    lectores: "Lectores",
+    coro: "Coro",
+    sacristia: "Sacristía",
+    ujieres: "Ujieres",
+    mec: "MEC",
+    coordinacion: "Coordinación General"
+  };
+  const TEAM_WA_HINT = {
+    monaguillos: "coordinador de Monaguillos",
+    lectores: "coordinador de Lectores",
+    coro: "coordinador de Coro",
+    sacristia: "sacristán o coordinación de Sacristía",
+    ujieres: "coordinador de Ujieres",
+    mec: "coordinador de MEC",
+    coordinacion: "coordinación general"
+  };
+  const OP_TERMS = {
+    emergency: ["urgente", "emergencia", "desmayo", "accidente", "caida", "sangrado", "incendio", "ambulancia", "seguridad", "riesgo"],
+    roster: ["registro", "registrar", "cupo", "cupos", "lista", "asignado", "asignacion", "turno", "relevo", "ya no puedo", "no aparezco", "me cambian", "me cambiaron"],
+    material: [
+      "misalito", "misalitos", "hojita", "hojitas", "subsidio", "subsidios", "librito", "libritos", "folleto", "folletos",
+      "copon", "copones", "vinajera", "vinajeras", "hostia", "hostias", "incienso", "naveta", "cirial", "ciriales",
+      "manutergio", "purificador", "microfono", "microfonos", "casulla", "estola", "alba", "libro", "leccionario"
+    ],
+    missing: ["falta", "faltan", "no hay", "agotado", "se acabo", "se acabaron", "donde consigo", "donde encuentro", "donde hay", "reponer", "sin "],
+    location: ["puerta", "lateral", "entrada", "acceso", "atrio", "pasillo", "mesa", "credencia", "sacristia", "bodega"],
+    flow: ["fila", "filas", "pasillo", "acceso", "entrada", "salida", "bancos", "asientos", "aglomeracion", "congestion", "orden"],
+    responsibility: ["quien", "responsable", "encargado", "a quien", "con quien", "me toca", "nos toca", "debo", "debe", "puedo", "puede"]
+  };
 
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
@@ -81,9 +112,88 @@
     "lectores": ["lector", "lectura", "proclamar", "pasion", "salmista", "ambon", "leccionario", "epistola", "monicion", "libro"],
     "coro": ["cant", "himno", "salmo", "gloria", "aleluya", "pange lingua", "tantum ergo", "improperios", "secuencia", "organo", "instrumentos"],
     "sacristia": ["sacristan", "pixide", "copon", "sagrario", "custodia", "vasos sagrados", "vinajeras", "purificador", "mantel", "alba", "casulla", "estola", "dalmatica", "morado", "blanco", "rojo"],
-    "ujieres": ["ujier", "acomodador", "orden", "colecta", "santos lugares", "canasta", "puerta", "bienvenida"],
-    "mec": ["ministro", "comunion", "enfermos", "viatico", "distribuir", "copon", "hostias"]
+    "ujieres": ["ujier", "ujieres", "ujiere", "ujuier", "ujer", "acomodador", "orden", "colecta", "santos lugares", "canasta", "puerta", "bienvenida"],
+    "mec": ["mec", "ministro", "comunion", "enfermos", "viatico", "distribuir", "copon", "hostias", "ministro extraordinario", "ministros de comunion"]
   };
+
+  function hasAny(text, terms) {
+    return terms.some(t => text.includes(t));
+  }
+
+  function teamLabel(key) {
+    return TEAM_LABELS[key] || "Coordinación";
+  }
+
+  function getDayLabel(day) {
+    return day && CONFIG.pages[day] ? CONFIG.pages[day].label : "celebración actual";
+  }
+
+  function resolvePrimaryTeam(qNorm) {
+    if (hasAny(qNorm, ["comunion", "copon", "sagrario", "reserva", "enfermos", "viatico"])) return "mec";
+    if (hasAny(qNorm, ["lectura", "evangelio", "ambon", "salmo", "leccionario"])) return "lectores";
+    if (hasAny(qNorm, ["canto", "coro", "aleluya", "salmodia", "microfono del coro"])) return "coro";
+    if (hasAny(qNorm, ["procesion", "incienso", "campanilla", "lavabo", "cirial", "cruz"])) return "monaguillos";
+    if (hasAny(qNorm, ["puerta", "banco", "asiento", "fila", "colecta", "acceso"])) return "ujieres";
+    if (hasAny(qNorm, OP_TERMS.material)) return "sacristia";
+    return "coordinacion";
+  }
+
+  function buildOperationalResponse(qNorm, day, ministry, rawQuestion) {
+    const dayLabel = getDayLabel(day);
+    const whoAsked = ministry ? teamLabel(ministry) : "su ministerio";
+    const primaryByContent = resolvePrimaryTeam(qNorm);
+
+    if (hasAny(qNorm, OP_TERMS.emergency)) {
+      return {
+        html: `<strong>Protocolo inmediato de seguridad (${dayLabel})</strong><ul><li>Detenga la acción no esencial y proteja a la persona o zona de riesgo.</li><li>Avise de inmediato a <strong>${teamLabel("coordinacion")}</strong> y a <strong>${teamLabel("ujieres")}</strong> para despejar el área.</li><li>Si hay riesgo médico, contacte servicios de emergencia locales y luego reporte al párroco/coordinación.</li><li>Una vez controlado, reanude la celebración solo con indicación del celebrante.</li></ul>`
+      };
+    }
+
+    const isMaterialIssue = hasAny(qNorm, OP_TERMS.material) && (hasAny(qNorm, OP_TERMS.missing) || hasAny(qNorm, OP_TERMS.location));
+    if (isMaterialIssue) {
+      const isUjierCase = ministry === "ujieres" || hasAny(qNorm, ["ujier", "ujieres", "ujuier", "puerta", "acceso"]);
+      const headline = isUjierCase
+        ? `Respuesta operativa para Ujieres (${dayLabel})`
+        : `Respuesta operativa de abastecimiento (${dayLabel})`;
+      return {
+        html: `<strong>${headline}</strong><ul><li>Responsable primario: <strong>${teamLabel("sacristia")}</strong>.</li><li>Acción inmediata: redistribuya material desde el punto con mayor existencia al punto faltante (ej. puerta lateral a otra puerta).</li><li>Solicite reposición al <strong>${TEAM_WA_HINT.sacristia}</strong> para mantener ambas entradas equilibradas.</li><li>Si en 2-3 minutos no se resuelve, escale a <strong>${teamLabel("coordinacion")}</strong>.</li></ul><p>En su caso concreto, si faltan misalitos en una puerta, pídalos primero a <strong>Sacristía</strong>.</p>`
+      };
+    }
+
+    if (hasAny(qNorm, OP_TERMS.roster)) {
+      const team = ministry || primaryByContent;
+      return {
+        html: `<strong>Gestión de turnos y cupos (${dayLabel})</strong><ul><li>Valide primero el cupo/lista en el registro oficial del ministerio.</li><li>Si hay conflicto de turno o reemplazo, avise al <strong>${TEAM_WA_HINT[team] || TEAM_WA_HINT.coordinacion}</strong>.</li><li>No cambie funciones por cuenta propia durante la celebración sin confirmación del coordinador.</li><li>Si el caso urge y no hay respuesta, escale a <strong>${teamLabel("coordinacion")}</strong>.</li></ul>`
+      };
+    }
+
+    const isFlowIssue = hasAny(qNorm, OP_TERMS.flow) && hasAny(qNorm, OP_TERMS.location);
+    if (isFlowIssue) {
+      return {
+        html: `<strong>Protocolo de flujo y accesos (${dayLabel})</strong><ul><li>Responsable primario: <strong>${teamLabel("ujieres")}</strong>.</li><li>Abra o cierre accesos según saturación y señalización del equipo.</li><li>Redistribuya filas por pasillos laterales para evitar embudos en puerta principal.</li><li>Coordine con <strong>${teamLabel("sacristia")}</strong> si el ajuste afecta distribución de materiales.</li></ul>`
+      };
+    }
+
+    const asksResponsibility = hasAny(qNorm, OP_TERMS.responsibility) && (hasAny(qNorm, OP_TERMS.location) || hasAny(qNorm, OP_TERMS.material) || hasAny(qNorm, OP_TERMS.flow));
+    if (asksResponsibility) {
+      const owner = primaryByContent;
+      return {
+        html: `<strong>Canal correcto para este caso (${dayLabel})</strong><ul><li>Responsable primario: <strong>${teamLabel(owner)}</strong>.</li><li>Su rol actual: <strong>${whoAsked}</strong> apoya sin duplicar funciones del ministerio responsable.</li><li>Si requiere decisión inmediata, confirme con el <strong>${TEAM_WA_HINT[owner] || TEAM_WA_HINT.coordinacion}</strong>.</li></ul>`
+      };
+    }
+
+    if (
+      hasAny(qNorm, ["donde", "donde consigo", "donde encuentro", "a quien pregunto", "con quien"]) &&
+      (hasAny(qNorm, OP_TERMS.material) || hasAny(qNorm, OP_TERMS.location) || hasAny(qNorm, OP_TERMS.flow) || hasAny(qNorm, OP_TERMS.roster))
+    ) {
+      const owner = primaryByContent;
+      return {
+        html: `<strong>Orientación operativa rápida (${dayLabel})</strong><ul><li>Para esta consulta, comience con <strong>${teamLabel(owner)}</strong>.</li><li>Si no obtiene respuesta en breve, escale a <strong>${teamLabel("coordinacion")}</strong>.</li><li>Mantenga su ministerio en función y evite improvisar cambios litúrgicos sin indicación.</li></ul>`
+      };
+    }
+
+    return null;
+  }
 
   function detectDay(q) {
     const t = normalize(q);
@@ -325,6 +435,23 @@
     return tpl.innerHTML;
   }
 
+  function stripHtml(text) {
+    return (text || "").replace(/<[^>]*>/g, " ");
+  }
+
+  function isDeflectiveReply(text) {
+    const t = normalize(stripHtml(text));
+    return hasAny(t, [
+      "no esta especificado",
+      "no esta detallado",
+      "logistica interna",
+      "consulte directamente",
+      "escribanos por whatsapp",
+      "escribanos por wasap",
+      "enlace a whatsapp"
+    ]);
+  }
+
   async function fetchWithTimeout(url, options = {}, timeoutMs = CONFIG.workerTimeoutMs) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -424,6 +551,16 @@
     $("paInput").value = "";
 
     const pideContacto = ["whatsapp", "wassap", "wasap", "contacto", "telefono", "mensaje"].some(p => qNorm.includes(p));
+    const quickDay = detectDay(q) || (ctx?.key || null);
+    const quickMin = detectMinistry(q) || (ctx?.ministry || null);
+    const quickOperational = buildOperationalResponse(qNorm, quickDay, quickMin, q);
+
+    if (quickOperational) {
+      let opResponse = quickOperational.html;
+      if (pideContacto) opResponse += getWaButtonHtml(q);
+      addMsg("bot", `${opResponse}<div class="pa-src">Ruta operativa sugerida por protocolo interno.</div>`);
+      return;
+    }
 
     addMsg("bot", "Buscando en el Manual...");
 
@@ -448,6 +585,7 @@
       if (min) scope.push(`ministerio=${min}`);
       const contextText = [
         "INSTRUCCION: Responde en español de México, con pasos concretos y horarios si aparecen en las fuentes. Evita respuestas genéricas.",
+        "INSTRUCCION: Si la consulta es operativa/logística, indique: acción inmediata, responsable primario y escalamiento.",
         `CONTEXTO_DETECTADO: ${scope.length ? scope.join(", ") : "no definido"}`,
         `ARCHIVO_PRIORITARIO: ${primaryTarget || "ninguno"}`,
         picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n")
@@ -466,6 +604,10 @@
 
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
       let finalResponse = data.reply.replace(/\n/g, "<br>");
+      const operationalFallback = buildOperationalResponse(qNorm, day, min, q);
+      if (operationalFallback && isDeflectiveReply(finalResponse)) {
+        finalResponse = operationalFallback.html;
+      }
       
       if (pideContacto) {
         finalResponse += getWaButtonHtml(q);
