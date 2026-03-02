@@ -105,8 +105,20 @@ body.liturgia-pro .hero-bg h1 {
 }
 
 body.liturgia-pro .hero-bg p,
-body.liturgia-pro .hero-bg span {
+body.liturgia-pro .hero-bg span:not([class*="bg-"]) {
   color: #f9ecce;
+}
+
+body.liturgia-pro .hero-bg span[class*="bg-"] {
+  background-color: rgba(255, 248, 234, 0.92) !important;
+  border: 1px solid #d1b488;
+  color: #4a2f1b !important;
+  text-shadow: none !important;
+}
+
+body.liturgia-pro .text-xs,
+body.liturgia-pro .text-sm {
+  font-family: "Source Sans 3", "Inter", sans-serif;
 }
 
 body.liturgia-pro .text-4xl,
