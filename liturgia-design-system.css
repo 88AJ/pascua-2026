@@ -109,6 +109,14 @@ body.liturgia-pro .hero-bg span:not([class*="bg-"]) {
   color: #f9ecce;
 }
 
+/* If a hero uses a light panel/card, force dark readable text inside it. */
+body.liturgia-pro .hero-bg [class*="bg-white"] h1,
+body.liturgia-pro .hero-bg [class*="bg-white"] p,
+body.liturgia-pro .hero-bg [class*="bg-white"] span:not([class*="bg-"]) {
+  color: #3f2a1a !important;
+  text-shadow: none !important;
+}
+
 body.liturgia-pro .hero-bg span[class*="bg-"] {
   background-color: rgba(255, 248, 234, 0.92) !important;
   border: 1px solid #d1b488;
