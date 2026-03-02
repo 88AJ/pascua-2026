@@ -25,7 +25,7 @@ create table if not exists public.mec_registrations (
 create unique index if not exists mec_registrations_unique_slot_phone
   on public.mec_registrations(slot_id, phone);
 
--- Seed slots for MEC Ramos
+-- Seed slots for all MEC pages
 insert into public.mec_slots (id, ministry_key, label, capacity)
 values
   ('mec-ramos-parroquia-sab-1800', 'mec-ramos', 'Parroquia San Pedro - Sábado 6:00 PM', 3),
@@ -33,9 +33,21 @@ values
   ('mec-ramos-parroquia-dom-1000', 'mec-ramos', 'Parroquia San Pedro - Domingo 10:00 AM', 3),
   ('mec-ramos-parroquia-dom-1200', 'mec-ramos', 'Parroquia San Pedro - Domingo 12:00 PM', 3),
   ('mec-ramos-parroquia-dom-1800', 'mec-ramos', 'Parroquia San Pedro - Domingo 6:00 PM', 3),
-  ('mec-ramos-capilla-dom-1100', 'mec-ramos', 'Capilla San Judas - Domingo 11:00 AM', 2)
+  ('mec-ramos-capilla-dom-1100', 'mec-ramos', 'Capilla San Judas - Domingo 11:00 AM', 2),
+  ('mec-lunes-parroquia-0800', 'mec-lunes', 'Parroquia San Pedro - 8:00 AM', 2),
+  ('mec-lunes-parroquia-1800', 'mec-lunes', 'Parroquia San Pedro - 6:00 PM', 2),
+  ('mec-martes-parroquia-0800', 'mec-martes', 'Parroquia San Pedro - 8:00 AM', 2),
+  ('mec-martes-parroquia-1800', 'mec-martes', 'Parroquia San Pedro - 6:00 PM', 2),
+  ('mec-miercoles-parroquia-1800', 'mec-miercoles', 'Parroquia San Pedro - 6:00 PM', 2),
+  ('mec-jueves-parroquia-1800', 'mec-jueves', 'Parroquia San Pedro - 6:00 PM', 6),
+  ('mec-jueves-capilla-1800', 'mec-jueves', 'Capilla San Judas - 6:00 PM', 3),
+  ('mec-viernes-parroquia-1700', 'mec-viernes', 'Parroquia San Pedro - 5:00 PM', 2),
+  ('mec-viernes-capilla-1730', 'mec-viernes', 'Capilla San Judas - 5:30 PM', 2),
+  ('mec-vigilia-parroquia-1900', 'mec-vigilia', 'Parroquia San Pedro - 7:00 PM', 8),
+  ('mec-vigilia-capilla-1900', 'mec-vigilia', 'Capilla San Judas - 7:00 PM', 5)
 on conflict (id) do update
 set
+  ministry_key = excluded.ministry_key,
   label = excluded.label,
   capacity = excluded.capacity,
   is_active = true;
