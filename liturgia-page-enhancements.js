@@ -1,5 +1,10 @@
 (function () {
   const dayConfig = {
+    inicio: {
+      css: "inicio",
+      chip: "Camino Hacia la Pascua",
+      note: "La línea visual de todo el sitio parte de la sobriedad litúrgica y orienta cada página al mismo lenguaje pastoral."
+    },
     ramos: {
       css: "ramos",
       chip: "Domingo de Ramos",
@@ -30,10 +35,20 @@
       chip: "Viernes Santo",
       note: "No hay Misa: toda intervención se subordina al silencio, la veneración de la Cruz y la Comunión con la reserva eucarística."
     },
+    sabado: {
+      css: "sabado",
+      chip: "Sábado Santo",
+      note: "Día de silencio y espera confiada junto al sepulcro; la Iglesia permanece en oración sobria antes de la Noche Santa."
+    },
     vigilia: {
       css: "vigilia",
       chip: "Vigilia Pascual",
       note: "Celebración extensa y progresiva: fuego nuevo, pregón, Palabra, sacramentos y Eucaristía con secuencia íntegra."
+    },
+    pascua: {
+      css: "pascua",
+      chip: "Domingo de Pascua",
+      note: "Toda acción ministerial debe reflejar alegría pascual, claridad ritual y servicio ordenado para la asamblea."
     }
   };
 
@@ -76,15 +91,24 @@
     }
   };
 
-  const dayTokens = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "vigilia"];
+  const dayTokens = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
 
   function detectFromPath() {
     const file = (window.location.pathname.split("/").pop() || "").toLowerCase();
+    const filename = file || "index.html";
+
+    if (filename === "index.html") {
+      return { role: "home", day: "inicio", injectMode: false };
+    }
+
+    if (/^(ramos|lunes|martes|miercoles|jueves|viernes|sabado|vigilia|pascua)\.html$/.test(filename)) {
+      return { role: "dia", day: filename.replace(".html", ""), injectMode: false };
+    }
+
     const parts = file.replace(".html", "").split("-");
     const role = parts[0] || "ministerio";
-
-    const day = dayTokens.find((token) => file.includes(token)) || "ramos";
-    return { role, day };
+    const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
+    return { role, day, injectMode: true };
   }
 
   function createModeBlock(role, day) {
@@ -158,7 +182,9 @@
     document.body.classList.add("rol-" + detected.role);
 
     styleSharedBlocks();
-    injectMode(detected.role, detected.day);
+    if (detected.injectMode !== false) {
+      injectMode(detected.role, detected.day);
+    }
   }
 
   if (document.readyState === "loading") {
