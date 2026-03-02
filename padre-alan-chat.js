@@ -34,6 +34,12 @@
   // =======================
   const DAY_KEYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
   const MINISTRY_KEYS = ["monaguillos", "lectores", "coro", "sacristia", "ujieres", "mec", "misal"];
+  const SEARCH_MINISTRY_KEYS = ["monaguillos", "lectores", "coro", "sacristia", "ujieres", "mec"];
+  const MINISTRY_DAY_KEYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "vigilia"];
+  const MISAL_DAY_KEYS = ["ramos", "jueves", "viernes", "vigilia", "pascua"];
+  const CELEBRANT_TERMS = [
+    "padre", "sacerdote", "preside", "celebra", "celebrante", "parroco", "vicario", "arturo", "alan"
+  ];
 
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
@@ -96,6 +102,10 @@
     return null;
   }
 
+  function isCelebrantQuery(normalizedQuery) {
+    return CELEBRANT_TERMS.some(t => normalizedQuery.includes(t));
+  }
+
   function buildMinistryDayFile(ministry, day) {
     if (!ministry || !day) return null;
     if (ministry === "misal" && day === "pascua") return "misal-domingo.html";
@@ -103,6 +113,7 @@
   }
 
   function getSearchTargets(q, currentCtx, currentFile) {
+    const qNorm = normalize(q);
     const day = detectDay(q) || (currentCtx?.key || null);
     const min = detectMinistry(q) || (currentCtx?.ministry || null);
     const targets = [];
@@ -111,6 +122,11 @@
     if (ministryPage) targets.push(ministryPage);
     if (dayPage) targets.push(dayPage);
     if (currentCtx && currentFile && currentFile.endsWith(".html")) targets.push(currentFile);
+    if (isCelebrantQuery(qNorm) || !day) targets.push("index.html");
+    if (day && MISAL_DAY_KEYS.includes(day)) {
+      const misalFile = buildMinistryDayFile("misal", day);
+      if (misalFile) targets.push(misalFile);
+    }
     targets.push(`kb/general.html`);
     const deduped = [...new Set(targets)];
     return {
@@ -119,6 +135,39 @@
       min,
       primaryTarget: ministryPage || dayPage || (currentFile?.endsWith(".html") ? currentFile : "kb/general.html")
     };
+  }
+
+  function buildExpandedTargets(day, currentFile) {
+    const files = [];
+    if (currentFile && currentFile.endsWith(".html")) files.push(currentFile);
+    files.push("index.html");
+    if (day && CONFIG.pages[day]) files.push(CONFIG.pages[day].file);
+
+    if (day && MINISTRY_DAY_KEYS.includes(day)) {
+      SEARCH_MINISTRY_KEYS.forEach((ministry) => {
+        const f = buildMinistryDayFile(ministry, day);
+        if (f) files.push(f);
+      });
+      if (MISAL_DAY_KEYS.includes(day)) {
+        const misalFile = buildMinistryDayFile("misal", day);
+        if (misalFile) files.push(misalFile);
+      }
+    } else {
+      Object.values(CONFIG.pages).forEach(p => files.push(p.file));
+      MINISTRY_DAY_KEYS.forEach((d) => {
+        SEARCH_MINISTRY_KEYS.forEach((m) => {
+          const f = buildMinistryDayFile(m, d);
+          if (f) files.push(f);
+        });
+      });
+      MISAL_DAY_KEYS.forEach((d) => {
+        const f = buildMinistryDayFile("misal", d);
+        if (f) files.push(f);
+      });
+    }
+
+    files.push("kb/general.html");
+    return [...new Set(files)];
   }
 
   // =======================
@@ -380,7 +429,13 @@
 
     try {
       const { targets, day, min, primaryTarget } = getSearchTargets(q, ctx, currentFile);
-      const picks = await searchContent(q, targets, primaryTarget);
+      let picks = await searchContent(q, targets, primaryTarget);
+      const hasNonGeneral = picks.some(p => p.file !== "kb/general.html");
+      if (!hasNonGeneral || picks.length < 4) {
+        const expandedTargets = buildExpandedTargets(day, currentFile);
+        const expandedPicks = await searchContent(q, expandedTargets, primaryTarget);
+        if (expandedPicks.length > picks.length) picks = expandedPicks;
+      }
 
       // Si no hay información en los archivos, remitir a WhatsApp
       if (picks.length === 0) {
@@ -412,7 +467,7 @@
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
       let finalResponse = data.reply.replace(/\n/g, "<br>");
       
-      if (pideContacto || finalResponse.toLowerCase().includes("whatsapp")) {
+      if (pideContacto) {
         finalResponse += getWaButtonHtml(q);
       }
 
