@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Campaña 2026 | Oficina Parroquial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #2b2117;
+      --wine: #5f1f1f;
+      --wine-dark: #401515;
+      --gold: #caa259;
+      --paper: #f6f0e4;
+      --paper-soft: #fdf8ef;
+      --line: #d2be99;
+      --deep: #1d2f4c;
+    }
+
+    body {
+      font-family: "Source Sans 3", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 40%),
+        linear-gradient(150deg, #eadfc9, #d3be99);
+    }
+
+    .fancy {
+      font-family: "Cormorant Garamond", Georgia, serif;
+    }
+
+    .surface {
+      background: linear-gradient(180deg, var(--paper-soft), var(--paper));
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 24px rgba(57, 38, 21, 0.12);
+    }
+
+    .hero {
+      background:
+        linear-gradient(160deg, rgba(25, 13, 13, 0.74), rgba(74, 25, 25, 0.74)),
+        url("portada-noche.jpg") center/cover no-repeat;
+    }
+
+    .asset-card {
+      background: #fffdf7;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 22px rgba(51, 34, 19, 0.1);
+    }
+
+    .asset-preview {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      background: #fff;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      display: inline-block;
+    }
+
+    .kpi {
+      background: linear-gradient(180deg, #fffdf6, #f8f1e4);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.9rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <header class="hero text-white border-b-4 border-yellow-400">
+    <div class="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-14 w-14 rounded-full bg-white p-1 object-contain">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-yellow-100 font-bold">Oficina Parroquial</p>
+          <p class="text-lg font-black uppercase leading-tight">San Pedro Apóstol</p>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-4 text-xs uppercase tracking-[0.12em] font-bold text-yellow-100">
+        <a href="#lanzadores" class="hover:text-white transition">Piezas</a>
+        <a href="#calendario" class="hover:text-white transition">Calendario</a>
+        <a href="#actualizaciones" class="hover:text-white transition">Capillas</a>
+        <a href="#banco-visual" class="hover:text-white transition">Banco visual</a>
+        <a href="#control" class="hover:text-white transition">Control</a>
+      </nav>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pb-10 md:pb-14 pt-2">
+      <p class="badge bg-yellow-100/90 text-[var(--wine-dark)]">Centro de mando de campaña</p>
+      <h1 class="fancy text-5xl md:text-7xl font-bold leading-[0.95] mt-4 uppercase">Portal Marketing 2026</h1>
+      <p class="text-base md:text-xl font-semibold max-w-3xl mt-3 text-yellow-100">Un solo tablero para la oficina parroquial: landing público, mantas listas para imprimir y plan de difusión por fases.</p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href="landing-publico-semana-santa-2026.html" class="bg-white text-[var(--wine-dark)] px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-yellow-100 transition">Abrir landing público</a>
+        <a href="misal-publico-semana-santa-2026.html" class="bg-amber-700 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-amber-800 transition">Misal para fieles</a>
+        <a href="auditoria-visual-facebook-2026.html" class="bg-indigo-700 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-indigo-800 transition">Auditoría visual</a>
+        <a href="index.html" class="bg-red-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-red-700 transition">Portal coordinadores</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-8">
+    <section id="control" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="kpi">
+        <p class="text-xs uppercase tracking-[0.12em] font-black text-red-700">Mensaje oficial</p>
+        <p class="text-sm font-bold mt-1">Recursos disponibles escaneando el QR</p>
+      </div>
+      <div class="kpi">
+        <p class="text-xs uppercase tracking-[0.12em] font-black text-blue-700">Cambio vespertino</p>
+        <p class="text-sm font-bold mt-1">Desde 5 abril 2026: 7:00 PM</p>
+      </div>
+      <div class="kpi">
+        <p class="text-xs uppercase tracking-[0.12em] font-black text-amber-700">Ejercicios Espirituales</p>
+        <p class="text-sm font-bold mt-1">16 al 20 de marzo 2026</p>
+      </div>
+    </section>
+
+    <section id="lanzadores" class="surface rounded-2xl p-6">
+      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Piezas listas</h2>
+      <p class="text-gray-700 font-semibold mt-1">Abrir, revisar y enviar a impresión/publicación.</p>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+        <a href="landing-publico-semana-santa-2026.html" class="bg-[var(--wine)] text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-[var(--wine-dark)] transition">Landing público</a>
+        <a href="misal-publico-semana-santa-2026.html" class="bg-slate-800 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-slate-900 transition">Misal para fieles</a>
+        <a href="auditoria-visual-facebook-2026.html" class="bg-indigo-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-indigo-800 transition">Auditoría visual</a>
+        <a href="manta-semana-santa-2026.html" class="bg-amber-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-amber-800 transition">Manta Semana Santa</a>
+        <a href="manta-cambio-horario-vespertinas-2026.html" class="bg-red-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-red-800 transition">Manta cambio horario</a>
+        <a href="manta-ejercicios-espirituales-2026.html" class="bg-purple-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-purple-800 transition">Manta ejercicios</a>
+        <a href="ejercicios-espirituales-2026-oficial.pdf" target="_blank" rel="noopener noreferrer" class="bg-indigo-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-indigo-800 transition">PDF oficial ejercicios</a>
+        <a href="subsidio-ejercicios-espirituales-cuaresma-2026.pdf" target="_blank" rel="noopener noreferrer" class="bg-amber-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-amber-800 transition">Subsidio cuaresma</a>
+      </div>
+    </section>
+
+    <section id="calendario" class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+      <article class="surface rounded-2xl p-6">
+        <h3 class="fancy text-4xl font-bold text-[var(--wine)] uppercase">Calendario de campaña</h3>
+        <div class="mt-4 space-y-3 text-sm">
+          <div class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="font-black uppercase text-purple-700 tracking-wide">Fase 1 | 1-15 marzo</p>
+            <p class="mt-1">Convocatoria general de Semana Santa + llamada a voluntariado.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="font-black uppercase text-amber-700 tracking-wide">Fase 2 | 16-20 marzo</p>
+            <p class="mt-1">Ejercicios Espirituales: pieza diaria + recordatorio en WhatsApp.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="font-black uppercase text-red-700 tracking-wide">Fase 3 | 21 marzo-5 abril</p>
+            <p class="mt-1">Horarios de Semana Santa y Triduo con frecuencia alta.</p>
+          </div>
+          <div class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="font-black uppercase text-blue-700 tracking-wide">Fase 4 | Desde 5 abril</p>
+            <p class="mt-1">Campaña exclusiva del nuevo horario vespertino: 7:00 PM.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="surface rounded-2xl p-6">
+        <h3 class="fancy text-4xl font-bold text-[var(--wine)] uppercase">Checklist operativo</h3>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+          <label><input type="checkbox" class="mr-2">QR probado (Android y iPhone)</label>
+          <label><input type="checkbox" class="mr-2">Landing público aprobado</label>
+          <label><input type="checkbox" class="mr-2">Manta Semana Santa impresa</label>
+          <label><input type="checkbox" class="mr-2">Manta cambio horario impresa</label>
+          <label><input type="checkbox" class="mr-2">Manta ejercicios impresa</label>
+          <label><input type="checkbox" class="mr-2">Publicaciones calendarizadas</label>
+          <label><input type="checkbox" class="mr-2">Difusión en grupos de WhatsApp</label>
+          <label><input type="checkbox" class="mr-2">Material colocado en puntos clave</label>
+        </div>
+      </article>
+    </section>
+
+    <section id="actualizaciones" class="surface rounded-2xl p-6">
+      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Actualización Oficial de Capillas</h2>
+      <p class="text-gray-700 font-semibold mt-1">Cambios confirmados para Semana Santa 2026 que deben reflejarse en toda difusión.</p>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+        <article class="bg-white rounded-xl border border-[var(--line)] p-3">
+          <p class="font-black uppercase text-red-700 tracking-wide">Jueves Santo</p>
+          <p class="mt-1 font-semibold">No hay Misa en la capilla de Nuestra Señora de Fátima.</p>
+        </article>
+        <article class="bg-white rounded-xl border border-[var(--line)] p-3">
+          <p class="font-black uppercase text-red-700 tracking-wide">Vigilia Pascual</p>
+          <p class="mt-1 font-semibold">No hay Misa en la capilla del Señor de la Misericordia.</p>
+        </article>
+        <article class="bg-white rounded-xl border border-[var(--line)] p-3">
+          <p class="font-black uppercase text-blue-700 tracking-wide">Domingo de Resurrección</p>
+          <p class="mt-1 font-semibold">Sagrado Corazón 9:00 AM, San Judas Tadeo 11:00 AM y Nuestra Señora del Rosario 1:00 PM.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="banco-visual" class="surface rounded-2xl p-6">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Banco Visual Oficial</h2>
+          <p class="text-gray-700 font-semibold mt-1">Imágenes reales exportadas de Facebook y listas para diseño de mantas, posts y stories.</p>
+        </div>
+        <span class="badge bg-emerald-100 text-emerald-800">Fuente: export 2026-03-02</span>
+      </div>
+
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 text-xs">
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/ramos-entrada-templo.jpg" alt="Domingo de Ramos en el templo" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Ramos - Entrada</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/ramos-fieles-palmas.jpg" alt="Fieles con palmas en Domingo de Ramos" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Ramos - Asamblea</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/jueves-procesion-nocturna.jpg" alt="Procesión nocturna" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Jueves Santo</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/pasion-via-crucis.jpg" alt="Representación de la pasión" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Viernes Santo</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/templo-interior-perspectiva.jpg" alt="Interior del templo parroquial" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Templo - Interior</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/pentecostes-predicacion.jpg" alt="Celebración con asamblea" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Liturgia solemne</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/comunidad-plaza.jpg" alt="Comunidad parroquial reunida en plaza" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Comunidad</figcaption>
+        </figure>
+        <figure class="bg-white rounded-xl border border-[var(--line)] p-2">
+          <img src="assets/campana-2026/sacerdotes-bautisterio.jpg" alt="Sacerdotes en celebración litúrgica" class="w-full h-44 object-cover rounded-lg border border-gray-200">
+          <figcaption class="mt-2 font-bold uppercase tracking-wide text-gray-700">Sacerdotes</figcaption>
+        </figure>
+      </div>
+
+      <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4 text-sm">
+        <p class="font-black uppercase tracking-wide text-[var(--wine)]">Ruta para diseño</p>
+        <p class="mt-1">Usar carpeta local: <code>assets/campana-2026/</code> dentro del proyecto para crear las piezas de impresión y redes.</p>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Vista previa de piezas</h2>
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Landing público</p>
+            <a href="landing-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="landing-publico-semana-santa-2026.html" class="asset-preview" title="Preview landing"></iframe>
+        </article>
+
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Misal para fieles</p>
+            <a href="misal-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="misal-publico-semana-santa-2026.html" class="asset-preview" title="Preview misal publico"></iframe>
+        </article>
+
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Auditoría visual Facebook</p>
+            <a href="auditoria-visual-facebook-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="auditoria-visual-facebook-2026.html" class="asset-preview" title="Preview auditoria visual"></iframe>
+        </article>
+
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta Semana Santa</p>
+            <a href="manta-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="manta-semana-santa-2026.html" class="asset-preview" title="Preview manta semana santa"></iframe>
+        </article>
+
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta cambio horario</p>
+            <a href="manta-cambio-horario-vespertinas-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="manta-cambio-horario-vespertinas-2026.html" class="asset-preview" title="Preview manta cambio horario"></iframe>
+        </article>
+
+        <article class="asset-card">
+          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
+            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta ejercicios espirituales</p>
+            <a href="manta-ejercicios-espirituales-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          </div>
+          <iframe src="manta-ejercicios-espirituales-2026.html" class="asset-preview" title="Preview manta ejercicios"></iframe>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#141414] text-gray-200 py-8 text-center text-xs uppercase tracking-[0.14em]">
+    Oficina Parroquial | Portal interno de campaña Semana Santa 2026
+  </footer>
+</body>
+</html>

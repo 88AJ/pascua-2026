@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misal para Fieles | Semana Santa 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal: #1f1b22;
+      --gold: #b7893d;
+      --paper: #f7f2e8;
+      --paper-soft: #fdfaf2;
+      --line: #d1be99;
+    }
+
+    body {
+      font-family: "Source Sans 3", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.62), transparent 42%),
+        linear-gradient(150deg, #e4d9c5, #ccb694);
+      color: #2a2118;
+    }
+
+    .fancy {
+      font-family: "Cormorant Garamond", Georgia, serif;
+    }
+
+    .hero {
+      background:
+        linear-gradient(155deg, rgba(22, 19, 24, 0.84), rgba(58, 48, 66, 0.75)),
+        url("portada-noche.jpg") center/cover no-repeat;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--paper-soft), var(--paper));
+      box-shadow: 0 12px 22px rgba(56, 39, 22, 0.1);
+    }
+
+    .cover {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.68));
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <header class="hero text-white">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <p class="text-xs uppercase tracking-[0.2em] text-[#efe2c7] font-bold">Parroquia San Pedro Apóstol</p>
+      <h1 class="fancy text-5xl md:text-6xl font-bold leading-[0.95] uppercase mt-2">Misal para Fieles</h1>
+      <p class="text-base md:text-xl text-[#f1e7d4] font-semibold mt-3 max-w-3xl">Recurso público para seguir las celebraciones litúrgicas de Semana Santa 2026. Sin directrices internas de coordinación.</p>
+      <div class="mt-4">
+        <a href="landing-publico-semana-santa-2026.html" class="inline-block bg-white text-[var(--charcoal)] px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[#f2ecdf] transition">Volver al landing</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10">
+    <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      <article class="card">
+        <div class="cover" style="background-image: url('giotto-ramos.jpg');"></div>
+        <div class="p-5">
+          <p class="text-xs uppercase tracking-widest font-black text-red-700">Domingo de Ramos</p>
+          <h2 class="text-2xl font-black mt-2">Misal de la celebración</h2>
+          <p class="text-sm text-gray-700 mt-1">Lecturas y textos litúrgicos para participar con la asamblea.</p>
+          <a href="misal-ramos.html" class="inline-block mt-4 bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-red-800 transition">Abrir misal</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover" style="background-image: url('lavatorio-jueves.jpg');"></div>
+        <div class="p-5">
+          <p class="text-xs uppercase tracking-widest font-black text-gray-800">Jueves Santo</p>
+          <h2 class="text-2xl font-black mt-2">Misa de la Cena del Señor</h2>
+          <p class="text-sm text-gray-700 mt-1">Misal completo para la liturgia vespertina.</p>
+          <a href="misal-jueves.html" class="inline-block mt-4 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-gray-900 transition">Abrir misal</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover" style="background-image: url('cristocrucificado-viernes.jpg');"></div>
+        <div class="p-5">
+          <p class="text-xs uppercase tracking-widest font-black text-red-700">Viernes Santo</p>
+          <h2 class="text-2xl font-black mt-2">Pasión del Señor</h2>
+          <p class="text-sm text-gray-700 mt-1">Pasión, oración universal y rito de adoración de la cruz.</p>
+          <a href="misal-viernes.html" class="inline-block mt-4 bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-red-800 transition">Abrir misal</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover" style="background-image: url('piero-vigilia.jpeg');"></div>
+        <div class="p-5">
+          <p class="text-xs uppercase tracking-widest font-black text-amber-700">Vigilia Pascual</p>
+          <h2 class="text-2xl font-black mt-2">Noche Santa</h2>
+          <p class="text-sm text-gray-700 mt-1">Liturgia de la Luz, Palabra, Bautismal y Eucarística.</p>
+          <a href="misal-vigilia.html" class="inline-block mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-amber-800 transition">Abrir misal</a>
+        </div>
+      </article>
+
+      <article class="card md:col-span-2 xl:col-span-2">
+        <div class="cover" style="background-image: url('angelico-domingo.jpg');"></div>
+        <div class="p-5">
+          <p class="text-xs uppercase tracking-widest font-black text-amber-700">Domingo de Pascua</p>
+          <h2 class="text-2xl font-black mt-2">Resurrección del Señor</h2>
+          <p class="text-sm text-gray-700 mt-1">Misal completo para la Misa del día de Pascua.</p>
+          <a href="misal-domingo.html" class="inline-block mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-amber-800 transition">Abrir misal</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="bg-[#141414] text-gray-200 py-8 text-center text-xs uppercase tracking-[0.14em] mt-10">
+    Misal para Fieles | Semana Santa 2026 | Parroquia San Pedro Apóstol
+  </footer>
+</body>
+</html>
