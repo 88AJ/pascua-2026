@@ -298,6 +298,22 @@
     return [...new Set(files)];
   }
 
+  const PAGE_LABEL_OVERRIDES = {
+    "landing-publico-semana-santa-2026.html": "Landing Público Semana Santa 2026",
+    "portal-marketing-parroquial-2026.html": "Portal Marketing Parroquial 2026",
+    "misal-publico-semana-santa-2026.html": "Misal Público Semana Santa 2026",
+    "panel-coordinador.html": "Panel Coordinador"
+  };
+
+  function prettyLabelFromFile(file) {
+    if (!file) return "página actual";
+    if (PAGE_LABEL_OVERRIDES[file]) return PAGE_LABEL_OVERRIDES[file];
+    return file
+      .replace(/\.html$/i, "")
+      .replace(/[-_]/g, " ")
+      .replace(/\b\w/g, (m) => m.toUpperCase());
+  }
+
   // =======================
   // LÓGICA DE BÚSQUEDA Y CACHE
   // =======================
@@ -328,6 +344,9 @@
   async function searchContent(q, files, primaryTarget) {
     const tokens = tokenizeQuery(q);
     const normalizedQuery = normalize(q);
+    const asksSchedule = hasAny(normalizedQuery, [
+      "horario", "horarios", "hora", "misa", "misas", "celebracion", "celebraciones"
+    ]);
     const fileOrder = new Map(files.map((f, i) => [f, i]));
     const hits = [];
     for (const f of files) {
@@ -352,6 +371,7 @@
           if (f === primaryTarget) score += 3;
           if (f === "kb/general.html") score -= 1;
           if (normalizedQuery && b.norm.includes(normalizedQuery)) score += 2;
+          if (asksSchedule && /\b\d{1,2}\s+\d{2}\s*(am|pm)\b/.test(b.norm)) score += 2;
           tokens.forEach(t => { if (b.norm.includes(t)) score++; });
           if (score > 0) hits.push({ file: f, text: b.text, score });
         });
@@ -503,8 +523,13 @@
     const direct = Object.entries(CONFIG.pages).find(([, v]) => v.file.toLowerCase() === file);
     if (direct) return { key: direct[0], ...direct[1], ministry: inferMinistryFromFile(file) };
     const day = inferDayFromFile(file);
-    if (!day || !CONFIG.pages[day]) return null;
-    return { key: day, label: CONFIG.pages[day].label, file, ministry: inferMinistryFromFile(file) };
+    if (day && CONFIG.pages[day]) {
+      return { key: day, label: CONFIG.pages[day].label, file, ministry: inferMinistryFromFile(file) };
+    }
+    if (file && file.endsWith(".html")) {
+      return { key: null, label: prettyLabelFromFile(file), file, ministry: inferMinistryFromFile(file) };
+    }
+    return null;
   }
   const ctx = buildPageContext(currentFile);
 
@@ -603,6 +628,8 @@
       if (min) scope.push(`ministerio=${min}`);
       const contextText = [
         "INSTRUCCION: Responde en español de México, con pasos concretos y horarios si aparecen en las fuentes. Evita respuestas genéricas.",
+        "INSTRUCCION CRITICA: Si las fuentes contienen horarios concretos, repórtelos explícitamente y no diga que no están publicados.",
+        "INSTRUCCION CRITICA: Si la pregunta pide horarios de Semana Santa, entregue resumen claro por día y capillas cuando esté en las fuentes.",
         "INSTRUCCION: Si la consulta es operativa/logística, indique: acción inmediata, responsable primario y escalamiento.",
         `CONTEXTO_DETECTADO: ${scope.length ? scope.join(", ") : "no definido"}`,
         `ARCHIVO_PRIORITARIO: ${primaryTarget || "ninguno"}`,

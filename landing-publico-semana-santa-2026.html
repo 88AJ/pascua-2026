@@ -165,6 +165,44 @@
       line-height: 1.36;
     }
 
+    .video-frame {
+      width: 100%;
+      max-height: 420px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .ee-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.9rem;
+    }
+
+    .ee-meta-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.65rem 0.7rem;
+      box-shadow: 0 6px 14px rgba(57, 38, 22, 0.08);
+    }
+
+    .ee-meta-item p:first-child {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      color: #7a5a24;
+    }
+
+    .ee-meta-item p:last-child {
+      margin-top: 0.25rem;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #2a2118;
+      line-height: 1.25;
+    }
+
     .skip-link {
       position: absolute;
       left: 0.75rem;
@@ -274,7 +312,7 @@
         </div>
         <span class="chip bg-amber-100 text-amber-800">El Camino a la Pascua</span>
       </div>
-      <video controls playsinline preload="metadata" aria-label="Video de introducción El Camino a la Pascua" poster="assets/ejercicios-adultos-2026/portada-camino-a-la-pascua.jpg" class="mt-4 w-full rounded-xl border border-[var(--line)] bg-black">
+      <video controls playsinline preload="metadata" aria-label="Video de introducción El Camino a la Pascua" poster="assets/ejercicios-adultos-2026/portada-camino-a-la-pascua.jpg" class="video-frame mt-4 rounded-xl border border-[var(--line)] bg-black">
         <source src="assets/ejercicios-adultos-2026/el-camino-a-la-pascua.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
       </video>
@@ -452,6 +490,20 @@
           <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Ejercicios Espirituales 2026</h2>
           <p class="text-xl font-black mt-2">Del 16 al 20 de marzo de 2026</p>
           <p class="mt-2 text-gray-800 font-semibold">Imparten: Pbro. Arturo Bernardo Flores Aguirre (Párroco) y Pbro. Alan Lorenzo Sánchez Valencia.</p>
+          <div class="ee-meta">
+            <div class="ee-meta-item">
+              <p>Horario</p>
+              <p>Después de misa de 6:00 PM</p>
+            </div>
+            <div class="ee-meta-item">
+              <p>Lugar</p>
+              <p>Sede parroquial, Allende, N.L.</p>
+            </div>
+            <div class="ee-meta-item">
+              <p>Formato</p>
+              <p>Encuentros del 16 al 20 de marzo</p>
+            </div>
+          </div>
         </div>
         <span class="chip bg-amber-100 text-amber-800">Preparación intensa para Semana Santa</span>
       </div>
@@ -460,7 +512,7 @@
         <article class="bg-white rounded-xl border border-[var(--line)] p-4">
           <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Material complementario</p>
           <p class="text-sm text-gray-700 mt-1">“Del Desierto al Hogar Pascual” es la introducción directa a los Ejercicios Espirituales 2026.</p>
-          <video controls playsinline preload="metadata" aria-label="Video complementario Del Desierto al Hogar Pascual" poster="assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg" class="mt-3 w-full rounded-xl border border-gray-200 bg-black">
+          <video controls playsinline preload="metadata" aria-label="Video complementario Del Desierto al Hogar Pascual" poster="assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg" class="video-frame mt-3 rounded-xl border border-gray-200 bg-black">
             <source src="assets/ejercicios-adultos-2026/del-desierto-al-hogar-pascual.mp4" type="video/mp4">
             Tu navegador no soporta video HTML5.
           </video>
@@ -582,6 +634,13 @@
       const nextBtn = document.getElementById("flashcard-next");
       let flashcards = [];
       let current = null;
+      const fallbackItinerary = [
+        ["Lunes", "1er Encuentro", "Desierto y combate espiritual", "Mt 4, 1-11"],
+        ["Martes", "2do Encuentro", "Subir al monte y escuchar", "Mt 17, 1-9"],
+        ["Miércoles", "3er Encuentro", "Sed de amor y Agua Viva", "Jn 4, 5-42"],
+        ["Jueves", "4to Encuentro", "Ver con los ojos de Cristo", "Jn 9, 1-41"],
+        ["Viernes", "5to Encuentro", "Esperanza que vence la muerte", "Jn 11, 1-45"]
+      ];
 
       function parseCsvLine(line) {
         const out = [];
@@ -634,20 +693,12 @@
       }
 
       async function loadItinerary() {
-        try {
-          const res = await fetch("assets/ejercicios-adultos-2026/itinerario-ejercicios-espirituales-2026/tabla-itinerario.html");
-          if (!res.ok) throw new Error("Tabla no disponible");
-          const html = await res.text();
-          const doc = new DOMParser().parseFromString(html, "text/html");
-          const rows = Array.from(doc.querySelectorAll("tbody tr"));
-          const parsed = rows.map(r => Array.from(r.querySelectorAll("td")).map(td => td.textContent.trim())).filter(c => c.length >= 8);
-          const items = parsed.slice(1, 6);
+        const renderItems = (items) => {
           itineraryEl.innerHTML = items.map(c => `
             <article class="border border-gray-200 rounded-xl p-3 bg-gray-50">
               <p class="text-xs uppercase tracking-wide font-black text-amber-800">${c[0]} · ${c[1]}</p>
               <p class="font-black text-gray-900 mt-1">${c[2]}</p>
-              <p class="text-sm text-gray-700 mt-1">${c[3]}</p>
-              <p class="text-xs text-blue-800 font-semibold mt-2">Texto bíblico: ${c[4]}</p>
+              <p class="text-xs text-blue-800 font-semibold mt-2">Texto bíblico: ${c[3]}</p>
             </article>
           `).join("");
           const pptxColors = ["bg-purple-100 text-purple-900", "bg-amber-100 text-amber-900", "bg-sky-100 text-sky-900", "bg-rose-100 text-rose-900", "bg-emerald-100 text-emerald-900"];
@@ -655,12 +706,25 @@
             <article class="${pptxColors[i % pptxColors.length]} border border-gray-200 rounded-xl p-3">
               <p class="text-[11px] uppercase tracking-wide font-black">${c[0]}</p>
               <p class="text-sm font-black mt-1">${c[2]}</p>
-              <p class="text-xs mt-1">Cita: ${c[4]}</p>
+              <p class="text-xs mt-1">Cita: ${c[3]}</p>
             </article>
           `).join("");
+        };
+
+        try {
+          const res = await fetch("assets/ejercicios-adultos-2026/itinerario-ejercicios-espirituales-2026/tabla-itinerario.html");
+          if (!res.ok) throw new Error("Tabla no disponible");
+          const html = await res.text();
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const rows = Array.from(doc.querySelectorAll("tbody tr"));
+          const parsed = rows.map(r => Array.from(r.querySelectorAll("td")).map(td => td.textContent.trim())).filter(c => c.length >= 8);
+          const items = parsed
+            .filter(c => (c[0] || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") !== "dia")
+            .slice(0, 5)
+            .map(c => [c[0], c[1], c[2], c[4]]);
+          renderItems(items.length ? items : fallbackItinerary);
         } catch (e) {
-          itineraryEl.innerHTML = "<p class=\"text-sm text-gray-600\">No se pudo cargar el itinerario interactivo.</p>";
-          pptxEl.innerHTML = "<p class=\"text-sm text-gray-600\">No se pudo cargar la vista visual de la presentación.</p>";
+          renderItems(fallbackItinerary);
         }
       }
 
@@ -670,13 +734,13 @@
       loadItinerary();
     })();
   </script>
-  <script src="padre-alan-chat.js" defer></script>
+  <script src="padre-alan-chat.js?v=20260302b" defer></script>
   <script>
     (function () {
       setTimeout(function () {
         if (!document.querySelector(".pa-fab")) {
           const retry = document.createElement("script");
-          retry.src = "padre-alan-chat.js?v=2";
+          retry.src = "padre-alan-chat.js?v=20260302b";
           document.body.appendChild(retry);
         }
       }, 900);
