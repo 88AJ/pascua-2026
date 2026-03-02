@@ -14,7 +14,7 @@
   --lit-link-hover: #8a3d28;
 }
 
-body.liturgia-pro {
+body {
   font-family: "Crimson Text", Georgia, serif;
   color: var(--lit-text);
   background-color: var(--lit-bg);
@@ -25,35 +25,34 @@ body.liturgia-pro {
   text-rendering: optimizeLegibility;
 }
 
-body.liturgia-pro a {
+body a {
   color: var(--lit-link);
 }
 
-body.liturgia-pro a:hover {
+body a:hover {
   color: var(--lit-link-hover);
 }
 
-body.liturgia-pro main,
-body.liturgia-pro section,
-body.liturgia-pro div {
+body main,
+body section,
+body div {
   scroll-margin-top: 90px;
 }
 
-body.liturgia-pro header {
+body header {
   background: linear-gradient(180deg, #faf6ea, #f3ead9);
   border-top: 5px solid #5a2b1a;
   border-bottom: 3px double #b89967;
   box-shadow: 0 8px 14px rgba(53, 37, 22, 0.12);
 }
 
-body.liturgia-pro header a,
-body.liturgia-pro header span {
+body header a,
+body header span {
   font-family: "Source Sans 3", "Inter", sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-body.liturgia-pro .hero-bg {
+body .hero-bg {
   min-height: clamp(280px, 40vh, 540px);
   position: relative;
   overflow: hidden;
@@ -61,7 +60,7 @@ body.liturgia-pro .hero-bg {
   box-shadow: inset 0 -10px 26px rgba(26, 17, 9, 0.35);
 }
 
-body.liturgia-pro .hero-bg::before {
+body .hero-bg::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -71,157 +70,216 @@ body.liturgia-pro .hero-bg::before {
   pointer-events: none;
 }
 
-body.liturgia-pro .hero-bg > * {
+body .hero-bg > * {
   position: relative;
   z-index: 1;
 }
 
-body.liturgia-pro h1,
-body.liturgia-pro h2,
-body.liturgia-pro h3,
-body.liturgia-pro h4,
-body.liturgia-pro h5,
-body.liturgia-pro h6 {
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
   color: #2b1d14;
   font-family: "Cormorant Garamond", Georgia, serif;
   letter-spacing: 0.02em;
 }
 
-body.liturgia-pro p,
-body.liturgia-pro li,
-body.liturgia-pro label,
-body.liturgia-pro input,
-body.liturgia-pro select,
-body.liturgia-pro textarea,
-body.liturgia-pro button,
-body.liturgia-pro span {
+body p,
+body li,
+body label,
+body input,
+body select,
+body textarea,
+body button,
+body span {
   font-family: "Crimson Text", Georgia, serif;
-  line-height: 1.6;
+  line-height: 1.58;
 }
 
-body.liturgia-pro .hero-bg h1 {
+body .uppercase {
+  letter-spacing: 0.045em;
+}
+
+body .tracking-widest {
+  letter-spacing: 0.1em !important;
+}
+
+body .fa-solid,
+body .fa-regular {
+  opacity: 0.86;
+}
+
+body .hero-bg h1 {
   color: #fffdf6;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.48);
 }
 
-body.liturgia-pro .hero-bg p,
-body.liturgia-pro .hero-bg span:not([class*="bg-"]) {
+body .hero-bg p,
+body .hero-bg span:not([class*="bg-"]) {
   color: #f9ecce;
 }
 
 /* If a hero uses a light panel/card, force dark readable text inside it. */
-body.liturgia-pro .hero-bg [class*="bg-white"] h1,
-body.liturgia-pro .hero-bg [class*="bg-white"] p,
-body.liturgia-pro .hero-bg [class*="bg-white"] span:not([class*="bg-"]) {
+body .hero-bg [class*="bg-white"] h1,
+body .hero-bg [class*="bg-white"] p,
+body .hero-bg [class*="bg-white"] span:not([class*="bg-"]) {
   color: #3f2a1a !important;
   text-shadow: none !important;
 }
 
-body.liturgia-pro .hero-bg span[class*="bg-"] {
+body .hero-bg span[class*="bg-"] {
   background-color: rgba(255, 248, 234, 0.92) !important;
   border: 1px solid #d1b488;
   color: #4a2f1b !important;
   text-shadow: none !important;
 }
 
-body.liturgia-pro .text-xs,
-body.liturgia-pro .text-sm {
+body .text-xs,
+body .text-sm {
   font-family: "Source Sans 3", "Inter", sans-serif;
 }
 
-body.liturgia-pro .text-4xl,
-body.liturgia-pro .text-5xl,
-body.liturgia-pro .text-6xl {
+body .text-4xl,
+body .text-5xl,
+body .text-6xl {
   letter-spacing: 0.03em;
 }
 
-body.liturgia-pro .bg-white,
-body.liturgia-pro .bg-gray-50,
-body.liturgia-pro .bg-gray-100,
-body.liturgia-pro .bg-gradient-to-b {
+body .bg-white,
+body .bg-gray-50,
+body .bg-gray-100,
+body .bg-gradient-to-b {
   color: var(--lit-text);
 }
 
 /* Improve legibility for muted text on light cards/panels. */
-body.liturgia-pro .bg-white .text-gray-500,
-body.liturgia-pro .bg-gray-50 .text-gray-500 {
+body .bg-white .text-gray-500,
+body .bg-gray-50 .text-gray-500 {
   color: #5e5346 !important;
 }
 
-body.liturgia-pro .bg-white .text-gray-400,
-body.liturgia-pro .bg-gray-50 .text-gray-400 {
+body .bg-white .text-gray-400,
+body .bg-gray-50 .text-gray-400 {
   color: #6e6253 !important;
 }
 
-body.liturgia-pro .bg-white.rounded-2xl.shadow-xl,
-body.liturgia-pro .bg-white.rounded-3xl.shadow-xl,
-body.liturgia-pro .bg-white.rounded-xl.shadow-md,
-body.liturgia-pro .bg-white.rounded-xl.shadow-lg,
-body.liturgia-pro .bg-white.p-8,
-body.liturgia-pro .bg-white.p-10,
-body.liturgia-pro .bg-white.p-6 {
+/* Global fallback for muted tones on light surfaces. */
+body .text-gray-500 {
+  color: #5e5346 !important;
+}
+
+body .text-gray-400 {
+  color: #6e6253 !important;
+}
+
+body .bg-white.rounded-2xl.shadow-xl,
+body .bg-white.rounded-3xl.shadow-xl,
+body .bg-white.rounded-xl.shadow-md,
+body .bg-white.rounded-xl.shadow-lg,
+body .bg-white.p-8,
+body .bg-white.p-10,
+body .bg-white.p-6 {
   background: linear-gradient(180deg, #fffdf8, #fcf8ef);
   border: 1px solid var(--lit-border);
   box-shadow: 0 10px 20px rgba(59, 42, 24, 0.09);
 }
 
-body.liturgia-pro input,
-body.liturgia-pro select,
-body.liturgia-pro textarea {
+/* Semantics in a muted liturgical palette (less corporate/saturated). */
+body .bg-green-50 {
+  background-color: #edf2e6 !important;
+}
+
+body .border-green-200 {
+  border-color: #c4cfb0 !important;
+}
+
+body .text-green-900 {
+  color: #435137 !important;
+}
+
+body .bg-amber-50 {
+  background-color: #f5ebd7 !important;
+}
+
+body .border-amber-200 {
+  border-color: #d9c19a !important;
+}
+
+body .text-amber-900 {
+  color: #5f4521 !important;
+}
+
+body .bg-red-50 {
+  background-color: #f3e7e4 !important;
+}
+
+body .border-red-200 {
+  border-color: #d8bbb5 !important;
+}
+
+body .text-red-900 {
+  color: #5a2f2d !important;
+}
+
+body input,
+body select,
+body textarea {
   background: #fffdf8;
   border: 1px solid #cdbb9d !important;
   color: #2e2519;
   font-family: "Source Sans 3", sans-serif !important;
 }
 
-body.liturgia-pro input:focus,
-body.liturgia-pro select:focus,
-body.liturgia-pro textarea:focus {
+body input:focus,
+body select:focus,
+body textarea:focus {
   outline: none;
   border-color: #a67e49 !important;
   box-shadow: 0 0 0 2px rgba(166, 126, 73, 0.18);
 }
 
-body.liturgia-pro button {
+body button {
   font-family: "Source Sans 3", sans-serif !important;
   letter-spacing: 0.03em;
 }
 
-body.liturgia-pro table {
+body table {
   background: #fffdf8;
 }
 
-body.liturgia-pro thead {
+body thead {
   background: #efe3cc !important;
   color: #4a3a2a !important;
 }
 
-body.liturgia-pro tbody tr {
+body tbody tr {
   background: #fffdf8 !important;
 }
 
-body.liturgia-pro .rounded-xl,
-body.liturgia-pro .rounded-2xl,
-body.liturgia-pro .rounded-3xl {
+body .rounded-xl,
+body .rounded-2xl,
+body .rounded-3xl {
   border-radius: 0.5rem !important;
 }
 
-body.liturgia-pro a.block.bg-white.rounded-xl.shadow-md.overflow-hidden,
-body.liturgia-pro a.bg-white.rounded-xl.shadow-md.overflow-hidden {
+body a.block.bg-white.rounded-xl.shadow-md.overflow-hidden,
+body a.bg-white.rounded-xl.shadow-md.overflow-hidden {
   border: 1px solid var(--lit-border);
   box-shadow: 0 10px 18px rgba(58, 41, 24, 0.09);
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
-body.liturgia-pro a.block.bg-white.rounded-xl.shadow-md.overflow-hidden:hover,
-body.liturgia-pro a.bg-white.rounded-xl.shadow-md.overflow-hidden:hover {
+body a.block.bg-white.rounded-xl.shadow-md.overflow-hidden:hover,
+body a.bg-white.rounded-xl.shadow-md.overflow-hidden:hover {
   border-color: #bca071;
   box-shadow: 0 16px 24px rgba(58, 41, 24, 0.14);
   transform: translateY(-2px);
 }
 
-body.liturgia-pro .holyweek-img,
-body.liturgia-pro .ministry-img {
+body .holyweek-img,
+body .ministry-img {
   background-color: #d2c0a0 !important;
   border-bottom: 1px solid #bfa47d;
   height: 225px;
@@ -229,8 +287,8 @@ body.liturgia-pro .ministry-img {
   position: relative;
 }
 
-body.liturgia-pro .holyweek-img::after,
-body.liturgia-pro .ministry-img::after {
+body .holyweek-img::after,
+body .ministry-img::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -239,8 +297,8 @@ body.liturgia-pro .ministry-img::after {
   pointer-events: none;
 }
 
-body.liturgia-pro .holyweek-img img,
-body.liturgia-pro .ministry-img img {
+body .holyweek-img img,
+body .ministry-img img {
   filter: saturate(1.02) contrast(1.04) brightness(0.95);
   height: 100%;
   width: 100%;
@@ -249,13 +307,13 @@ body.liturgia-pro .ministry-img img {
   transition: transform 0.7s ease, filter 0.45s ease;
 }
 
-body.liturgia-pro .group:hover .holyweek-img img,
-body.liturgia-pro .group:hover .ministry-img img {
+body .group:hover .holyweek-img img,
+body .group:hover .ministry-img img {
   filter: saturate(1.06) contrast(1.06) brightness(0.98);
   transform: scale(1.05);
 }
 
-body.liturgia-pro .lit-panel {
+body .lit-panel {
   background: linear-gradient(180deg, #fffdf8, #faf3e6) !important;
   border-top-color: var(--lit-accent) !important;
   border-top-width: 4px !important;
@@ -263,43 +321,43 @@ body.liturgia-pro .lit-panel {
 }
 
 /* Keep strong contrast in dark instructional blocks. */
-body.liturgia-pro .bg-gray-900,
-body.liturgia-pro .bg-gray-950 {
+body .bg-gray-900,
+body .bg-gray-950 {
   color: #f2eadb !important;
 }
 
-body.liturgia-pro .bg-gray-900 .text-gray-200,
-body.liturgia-pro .bg-gray-950 .text-gray-200 {
+body .bg-gray-900 .text-gray-200,
+body .bg-gray-950 .text-gray-200 {
   color: #f2eadb !important;
 }
 
-body.liturgia-pro .bg-gray-900 .text-gray-300,
-body.liturgia-pro .bg-gray-950 .text-gray-300 {
+body .bg-gray-900 .text-gray-300,
+body .bg-gray-950 .text-gray-300 {
   color: #eadfcb !important;
 }
 
-body.liturgia-pro .bg-gray-900 .text-gray-400,
-body.liturgia-pro .bg-gray-950 .text-gray-400 {
+body .bg-gray-900 .text-gray-400,
+body .bg-gray-950 .text-gray-400 {
   color: #d8cbb4 !important;
 }
 
-body.liturgia-pro .bg-gray-900 .text-white,
-body.liturgia-pro .bg-gray-950 .text-white {
+body .bg-gray-900 .text-white,
+body .bg-gray-950 .text-white {
   color: #fffdf8 !important;
 }
 
-body.liturgia-pro .bg-gray-900 .text-purple-400,
-body.liturgia-pro .bg-gray-950 .text-purple-400 {
+body .bg-gray-900 .text-purple-400,
+body .bg-gray-950 .text-purple-400 {
   color: #dbc1f1 !important;
 }
 
-body.liturgia-pro #coordinacion-interministerial,
-body.liturgia-pro #matriz-normativa,
-body.liturgia-pro #registro {
+body #coordinacion-interministerial,
+body #matriz-normativa,
+body #registro {
   background: linear-gradient(180deg, #fffdf7, #fbf5e7);
 }
 
-body.liturgia-pro .lit-mode {
+body .lit-mode {
   background: linear-gradient(180deg, #fffef9, #f8f0e1);
   border: 1px solid var(--lit-border);
   border-top: 4px solid var(--lit-accent);
@@ -309,7 +367,7 @@ body.liturgia-pro .lit-mode {
   padding: 1.7rem;
 }
 
-body.liturgia-pro .lit-mode-title {
+body .lit-mode-title {
   color: var(--lit-accent-ink);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 1.7rem;
@@ -319,7 +377,7 @@ body.liturgia-pro .lit-mode-title {
   text-transform: uppercase;
 }
 
-body.liturgia-pro .lit-mode-subtitle {
+body .lit-mode-subtitle {
   color: var(--lit-muted);
   font-size: 1.03rem;
   margin: 0.7rem auto 1.4rem;
@@ -327,7 +385,7 @@ body.liturgia-pro .lit-mode-subtitle {
   text-align: center;
 }
 
-body.liturgia-pro .lit-day-chip {
+body .lit-day-chip {
   align-items: center;
   background: var(--lit-accent-soft);
   border: 1px solid #c8b59b;
@@ -343,7 +401,7 @@ body.liturgia-pro .lit-day-chip {
   text-transform: uppercase;
 }
 
-body.liturgia-pro .lit-gradient-strip {
+body .lit-gradient-strip {
   border-radius: 0;
   height: 0.2rem;
   margin: 0.9rem auto 1.2rem;
@@ -351,13 +409,13 @@ body.liturgia-pro .lit-gradient-strip {
   background: linear-gradient(90deg, #8d6a3b, var(--lit-accent));
 }
 
-body.liturgia-pro .lit-mode-grid {
+body .lit-mode-grid {
   display: grid;
   gap: 0.9rem;
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
-body.liturgia-pro .lit-mode-card {
+body .lit-mode-card {
   background: #fbf7ef;
   border: 1px solid #d9c9ad;
   border-left: 3px solid var(--lit-accent);
@@ -365,7 +423,7 @@ body.liturgia-pro .lit-mode-card {
   padding: 0.9rem 1rem;
 }
 
-body.liturgia-pro .lit-mode-card h4 {
+body .lit-mode-card h4 {
   color: #3c2b1e;
   font-family: "Source Sans 3", sans-serif;
   font-size: 0.75rem;
@@ -375,13 +433,13 @@ body.liturgia-pro .lit-mode-card h4 {
   text-transform: uppercase;
 }
 
-body.liturgia-pro .lit-mode-card p {
+body .lit-mode-card p {
   color: #3e3428;
   font-size: 1rem;
   line-height: 1.45;
 }
 
-body.liturgia-pro .lit-mode-note {
+body .lit-mode-note {
   border-top: 1px dashed #cdbca0;
   color: #56493d;
   font-size: 0.97rem;
@@ -389,74 +447,73 @@ body.liturgia-pro .lit-mode-note {
   padding-top: 0.8rem;
 }
 
-body.liturgia-pro .text-purple-700,
-body.liturgia-pro .text-red-700,
-body.liturgia-pro .text-yellow-600,
-body.liturgia-pro .text-yellow-700 {
+body .text-purple-700,
+body .text-red-700,
+body .text-yellow-600,
+body .text-yellow-700 {
   color: var(--lit-accent-ink) !important;
 }
 
-body.liturgia-pro .bg-purple-100,
-body.liturgia-pro .bg-red-100,
-body.liturgia-pro .bg-yellow-100,
-body.liturgia-pro .bg-yellow-50,
-body.liturgia-pro .bg-red-50,
-body.liturgia-pro .bg-purple-50 {
+body .bg-purple-100,
+body .bg-red-100,
+body .bg-yellow-100,
+body .bg-yellow-50,
+body .bg-purple-50 {
   background-color: var(--lit-accent-soft) !important;
 }
 
-body.liturgia-pro footer {
+body footer {
   background: linear-gradient(180deg, #2f2418, #1f1710) !important;
   border-top: 4px double #a98b60 !important;
   color: #ddcfb4 !important;
 }
 
 @media (min-width: 768px) {
-  body.liturgia-pro .lit-mode {
+  body .lit-mode {
     padding: 1.95rem;
   }
 
-  body.liturgia-pro .lit-mode-grid {
+  body .lit-mode-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  body.liturgia-pro .holyweek-img,
-  body.liturgia-pro .ministry-img {
+  body .holyweek-img,
+  body .ministry-img {
     height: 235px;
   }
 }
 
-body.liturgia-pro.dia-ramos {
+body.dia-ramos {
   --lit-accent: #7b2323;
   --lit-accent-soft: #f4e4df;
   --lit-accent-ink: #5e1e1e;
 }
 
-body.liturgia-pro.dia-lunes,
-body.liturgia-pro.dia-martes,
-body.liturgia-pro.dia-miercoles {
+body.dia-lunes,
+body.dia-martes,
+body.dia-miercoles {
   --lit-accent: #5b3a63;
   --lit-accent-soft: #ece3f0;
   --lit-accent-ink: #4e3159;
 }
 
-body.liturgia-pro.dia-jueves,
-body.liturgia-pro.dia-vigilia,
-body.liturgia-pro.dia-pascua,
-body.liturgia-pro.dia-inicio {
+body.dia-jueves,
+body.dia-vigilia,
+body.dia-pascua,
+body.dia-inicio {
   --lit-accent: #8a652f;
   --lit-accent-soft: #f4ead2;
   --lit-accent-ink: #745426;
 }
 
-body.liturgia-pro.dia-viernes,
-body.liturgia-pro.dia-sabado {
+body.dia-viernes,
+body.dia-sabado {
   --lit-accent: #4b2525;
   --lit-accent-soft: #ede1de;
   --lit-accent-ink: #3d1f1f;
 }
 
-body.liturgia-pro.rol-monaguillos .lit-mode-card,
-body.liturgia-pro.rol-sacristia .lit-mode-card {
+body.rol-monaguillos .lit-mode-card,
+body.rol-sacristia .lit-mode-card {
   background: linear-gradient(180deg, #fbf7ef, #f6eddd);
 }
