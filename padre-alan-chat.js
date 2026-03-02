@@ -608,10 +608,18 @@
         `ARCHIVO_PRIORITARIO: ${primaryTarget || "ninguno"}`,
         picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n")
       ].join("\n\n");
+      const requestMeta = {
+        day: day || (ctx?.key || null),
+        ministry: min || (ctx?.ministry || null),
+        primaryTarget: primaryTarget || null,
+        page: currentFile,
+        targets,
+        locale: "es-MX"
+      };
       const response = await fetchWithTimeout(CONFIG.workerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: q, context: contextText })
+        body: JSON.stringify({ query: q, context: contextText, meta: requestMeta })
       });
       if (!response.ok) throw new Error(`Worker HTTP ${response.status}`);
 
