@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Coordinador | Pascua 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+  <header class="bg-white border-b sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <h1 class="text-lg md:text-xl font-extrabold text-gray-900 uppercase tracking-wide">
+        Panel Coordinador
+      </h1>
+      <a href="index.html" class="text-sm font-semibold text-blue-700 hover:text-blue-800">
+        Volver al inicio
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+    <section class="bg-white rounded-xl shadow-sm border p-4 md:p-6">
+      <h2 class="text-base font-bold uppercase mb-3">Acceso Administrador</h2>
+      <div class="grid md:grid-cols-4 gap-3">
+        <input id="admin-email" type="email" placeholder="Email admin" class="border rounded-lg px-3 py-2">
+        <input id="admin-password" type="password" placeholder="Contraseña" class="border rounded-lg px-3 py-2">
+        <button id="login-btn" class="bg-gray-900 text-white rounded-lg px-4 py-2 font-semibold hover:bg-black">Entrar</button>
+        <button id="logout-btn" class="bg-gray-200 text-gray-900 rounded-lg px-4 py-2 font-semibold hover:bg-gray-300">Salir</button>
+      </div>
+      <p id="auth-status" class="text-sm mt-3 text-gray-600">Modo lectura activo (sin sesión).</p>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-sm border p-4 md:p-6">
+      <div class="flex flex-col md:flex-row md:items-center gap-3 md:justify-between mb-4">
+        <h2 class="text-base font-bold uppercase">Cupos y Control</h2>
+        <div class="flex gap-2 items-center">
+          <label for="filtro" class="text-sm font-semibold">Ministerio:</label>
+          <select id="filtro" class="border rounded-lg px-3 py-2 text-sm">
+            <option value="">Todos</option>
+            <option value="mec">MEC</option>
+            <option value="monaguillos">Monaguillos</option>
+            <option value="lectores">Lectores</option>
+            <option value="coro">Coro</option>
+            <option value="ujieres">Ujieres</option>
+            <option value="sacristia">Sacristía</option>
+          </select>
+          <button id="refresh-btn" class="bg-blue-700 text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-blue-800">
+            Actualizar
+          </button>
+        </div>
+      </div>
+
+      <div id="status-box" class="hidden mb-4 p-3 rounded-lg text-sm font-medium"></div>
+
+      <div class="overflow-auto border rounded-lg">
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-100 text-gray-700 uppercase text-xs tracking-wide">
+            <tr>
+              <th class="text-left px-3 py-2">Ministerio</th>
+              <th class="text-left px-3 py-2">Celebración</th>
+              <th class="text-center px-3 py-2">Estado</th>
+              <th class="text-center px-3 py-2">Registrados</th>
+              <th class="text-center px-3 py-2">Disponibles</th>
+              <th class="text-center px-3 py-2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-body" class="divide-y"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://ujezbieadbhegilxteeg.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1';
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const body = document.getElementById('tabla-body');
+    const filtro = document.getElementById('filtro');
+    const authStatus = document.getElementById('auth-status');
+    const statusBox = document.getElementById('status-box');
+
+    function showStatus(msg, type = 'info') {
+      statusBox.classList.remove('hidden', 'bg-red-100', 'text-red-900', 'bg-green-100', 'text-green-900', 'bg-yellow-100', 'text-yellow-900', 'bg-blue-100', 'text-blue-900');
+      if (type === 'ok') statusBox.classList.add('bg-green-100', 'text-green-900');
+      else if (type === 'warn') statusBox.classList.add('bg-yellow-100', 'text-yellow-900');
+      else if (type === 'error') statusBox.classList.add('bg-red-100', 'text-red-900');
+      else statusBox.classList.add('bg-blue-100', 'text-blue-900');
+      statusBox.textContent = msg;
+    }
+
+    function ministryBase(key) {
+      return (key || '').split('-')[0] || '';
+    }
+
+    function render(rows) {
+      const base = filtro.value;
+      const filtered = rows.filter((r) => !base || ministryBase(r.ministry_key) === base);
+      body.innerHTML = '';
+
+      filtered.forEach((r) => {
+        const tr = document.createElement('tr');
+        tr.className = 'bg-white';
+
+        const stateTag = r.is_active
+          ? '<span class="px-2 py-1 rounded-full bg-green-100 text-green-800 text-xs font-semibold">Abierto</span>'
+          : '<span class="px-2 py-1 rounded-full bg-gray-200 text-gray-700 text-xs font-semibold">Cerrado</span>';
+
+        const btnClose = `<button data-id="${r.slot_id}" data-open="false" class="toggle-btn px-3 py-1 rounded bg-red-700 text-white text-xs font-semibold hover:bg-red-800 ${r.is_active ? '' : 'opacity-50 cursor-not-allowed'}" ${r.is_active ? '' : 'disabled'}>Cerrar</button>`;
+        const btnOpen = `<button data-id="${r.slot_id}" data-open="true" class="toggle-btn px-3 py-1 rounded bg-green-700 text-white text-xs font-semibold hover:bg-green-800 ${r.is_active ? 'opacity-50 cursor-not-allowed' : ''}" ${r.is_active ? 'disabled' : ''}>Reabrir</button>`;
+
+        tr.innerHTML = `
+          <td class="px-3 py-2 font-semibold">${r.ministry_key}</td>
+          <td class="px-3 py-2">${r.label}</td>
+          <td class="px-3 py-2 text-center">${stateTag}</td>
+          <td class="px-3 py-2 text-center">${r.registered} / ${r.capacity}</td>
+          <td class="px-3 py-2 text-center">${r.available}</td>
+          <td class="px-3 py-2 text-center"><div class="flex items-center justify-center gap-2">${btnClose}${btnOpen}</div></td>
+        `;
+
+        body.appendChild(tr);
+      });
+
+      document.querySelectorAll('.toggle-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const slotId = btn.getAttribute('data-id');
+          const open = btn.getAttribute('data-open') === 'true';
+          await toggleSlot(slotId, open);
+        });
+      });
+    }
+
+    async function loadRows() {
+      const { data, error } = await client
+        .from('v_panel_coordinador')
+        .select('slot_id, ministry_key, label, capacity, registered, available, is_full, is_active')
+        .order('ministry_key', { ascending: true })
+        .order('label', { ascending: true });
+
+      if (error) {
+        showStatus('No se pudo cargar el panel. Verifica que exista la vista v_panel_coordinador.', 'error');
+        return;
+      }
+
+      render(data || []);
+    }
+
+    async function toggleSlot(slotId, shouldOpen) {
+      const { error } = await client
+        .from('mec_slots')
+        .update({ is_active: shouldOpen })
+        .eq('id', slotId);
+
+      if (error) {
+        showStatus('No se pudo actualizar. Inicia sesión o verifica policy de update en mec_slots.', 'error');
+        return;
+      }
+
+      showStatus(shouldOpen ? 'Celebración reabierta.' : 'Celebración cerrada.', 'ok');
+      await loadRows();
+    }
+
+    async function refreshAuthStatus() {
+      const { data } = await client.auth.getSession();
+      if (data?.session?.user) {
+        authStatus.textContent = `Sesión activa: ${data.session.user.email}`;
+      } else {
+        authStatus.textContent = 'Modo lectura activo (sin sesión).';
+      }
+    }
+
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const email = document.getElementById('admin-email').value.trim();
+      const password = document.getElementById('admin-password').value;
+      const { error } = await client.auth.signInWithPassword({ email, password });
+      if (error) {
+        showStatus('No se pudo iniciar sesión. Revisa email y contraseña.', 'error');
+      } else {
+        showStatus('Sesión iniciada correctamente.', 'ok');
+      }
+      await refreshAuthStatus();
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await client.auth.signOut();
+      showStatus('Sesión cerrada.', 'info');
+      await refreshAuthStatus();
+    });
+
+    document.getElementById('refresh-btn').addEventListener('click', loadRows);
+    filtro.addEventListener('change', loadRows);
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await refreshAuthStatus();
+      await loadRows();
+    });
+  </script>
+</body>
+</html>
