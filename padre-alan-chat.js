@@ -12,6 +12,7 @@
     height: 610,
     width: 450,
     zIndex: 9999,
+    workerTimeoutMs: 12000,
     workerUrl: "https://flat-scene-ca7c.88alansanchez.workers.dev",
     pages: {
       ramos: { file: "ramos.html", label: "Domingo de Ramos" },
@@ -31,8 +32,30 @@
   // =======================
   // MOTOR SEMÁNTICO (Basado en el Manual 2026)
   // =======================
+  const DAY_KEYS = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
+  const MINISTRY_KEYS = ["monaguillos", "lectores", "coro", "sacristia", "ujieres", "mec", "misal"];
+
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function inferDayFromFile(file) {
+    const f = (file || "").toLowerCase();
+    if (!f.endsWith(".html")) return null;
+    if (f === "misal-domingo.html" || f.includes("pascua")) return "pascua";
+    for (const day of DAY_KEYS) {
+      if (day === "pascua") continue;
+      if (f.includes(day)) return day;
+    }
+    return null;
+  }
+
+  function inferMinistryFromFile(file) {
+    const f = (file || "").toLowerCase();
+    if (!f.endsWith(".html")) return null;
+    const m = f.match(/^([a-z]+)-[a-z]+\.html$/);
+    if (m && MINISTRY_KEYS.includes(m[1])) return m[1];
+    return null;
   }
 
   const dayKeywords = {
@@ -69,15 +92,24 @@
     for (const [ministry, keywords] of Object.entries(ministryKeywords)) {
       if (keywords.some(kw => t.includes(kw))) return ministry;
     }
+    if (t.includes("misal")) return "misal";
     return null;
   }
 
-  function getSearchTargets(q, currentCtx) {
+  function buildMinistryDayFile(ministry, day) {
+    if (!ministry || !day) return null;
+    if (ministry === "misal" && day === "pascua") return "misal-domingo.html";
+    return `${ministry}-${day}.html`;
+  }
+
+  function getSearchTargets(q, currentCtx, currentFile) {
     const day = detectDay(q) || (currentCtx?.key || null);
-    const min = detectMinistry(q);
+    const min = detectMinistry(q) || (currentCtx?.ministry || null);
     const targets = [];
-    if (min && day) targets.push(`${min}-${day}.html`);
-    if (day) targets.push(`${day}.html`);
+    if (currentCtx && currentFile && currentFile.endsWith(".html")) targets.push(currentFile);
+    const ministryPage = buildMinistryDayFile(min, day);
+    if (ministryPage) targets.push(ministryPage);
+    if (day && CONFIG.pages[day]) targets.push(CONFIG.pages[day].file);
     targets.push(`kb/general.html`);
     return { targets: [...new Set(targets)], day, min };
   }
@@ -86,9 +118,24 @@
   // LÓGICA DE BÚSQUEDA Y CACHE
   // =======================
   const __CACHE__ = new Map();
+  const SHORT_TOKENS = new Set(["am", "pm", "jn", "mt", "mc", "lc", "is", "sal", "hech"]);
+
+  function tokenizeQuery(q) {
+    const base = normalize(q);
+    const pieces = base.split(" ").filter(Boolean);
+    const tokens = pieces.filter(t => (
+      t.length >= 4 ||
+      SHORT_TOKENS.has(t) ||
+      /^\d{1,2}$/.test(t) ||
+      /^\d{1,2}:\d{2}$/.test(t)
+    ));
+    if (tokens.length > 0) return [...new Set(tokens)];
+    return base ? [base] : [];
+  }
 
   async function searchContent(q, files) {
-    const tokens = normalize(q).split(" ").filter(t => t.length > 3);
+    const tokens = tokenizeQuery(q);
+    const normalizedQuery = normalize(q);
     const hits = [];
     for (const f of files) {
       try {
@@ -107,6 +154,7 @@
         }
         data.blocks.forEach(b => {
           let score = 0;
+          if (normalizedQuery && b.norm.includes(normalizedQuery)) score += 2;
           tokens.forEach(t => { if (b.norm.includes(t)) score++; });
           if (score > 0) hits.push({ file: f, text: b.text, score });
         });
@@ -119,6 +167,84 @@
   // INTERFAZ DE USUARIO (UI)
   // =======================
   const esc = (s) => (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]));
+  const CLASS_ALLOWLIST = new Set(["pa-wa", "pa-src"]);
+
+  function isSafeHref(href) {
+    const value = (href || "").trim();
+    if (!value) return false;
+    if (/^\s*(javascript|data|vbscript):/i.test(value)) return false;
+    try {
+      const parsed = new URL(value, window.location.origin);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function sanitizeClasses(raw) {
+    if (!raw) return "";
+    return raw
+      .split(/\s+/)
+      .filter(Boolean)
+      .filter(c => CLASS_ALLOWLIST.has(c))
+      .join(" ");
+  }
+
+  function sanitizeChatHtml(unsafeHtml) {
+    const tpl = document.createElement("template");
+    tpl.innerHTML = unsafeHtml || "";
+    const allowedTags = new Set(["A", "B", "BR", "DIV", "EM", "I", "LI", "OL", "P", "SPAN", "STRONG", "UL"]);
+    const blockedTags = new Set(["SCRIPT", "STYLE", "IFRAME", "OBJECT", "EMBED", "FORM", "INPUT", "BUTTON", "TEXTAREA", "SELECT"]);
+
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((child) => {
+        if (child.nodeType !== Node.ELEMENT_NODE) return;
+        const tag = child.tagName;
+        if (blockedTags.has(tag)) {
+          child.remove();
+          return;
+        }
+        if (!allowedTags.has(tag)) {
+          const fragment = document.createDocumentFragment();
+          while (child.firstChild) fragment.appendChild(child.firstChild);
+          child.replaceWith(fragment);
+          walk(fragment);
+          return;
+        }
+
+        const href = child.getAttribute("href");
+        const cls = child.getAttribute("class");
+        Array.from(child.attributes).forEach((attr) => child.removeAttribute(attr.name));
+
+        const safeClass = sanitizeClasses(cls);
+        if (safeClass) child.setAttribute("class", safeClass);
+
+        if (tag === "A") {
+          if (!isSafeHref(href)) {
+            child.replaceWith(document.createTextNode(child.textContent || ""));
+            return;
+          }
+          child.setAttribute("href", href);
+          child.setAttribute("target", "_blank");
+          child.setAttribute("rel", "noopener noreferrer");
+        }
+        walk(child);
+      });
+    };
+
+    walk(tpl.content);
+    return tpl.innerHTML;
+  }
+
+  async function fetchWithTimeout(url, options = {}, timeoutMs = CONFIG.workerTimeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
   
   const el = (tag, attrs = {}, children = []) => {
     const n = document.createElement(tag);
@@ -139,8 +265,14 @@
   }
 
   const currentFile = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
-  const ctxEntry = Object.entries(CONFIG.pages).find(([, v]) => v.file.toLowerCase() === currentFile);
-  const ctx = ctxEntry ? { key: ctxEntry[0], ...ctxEntry[1] } : null;
+  function buildPageContext(file) {
+    const direct = Object.entries(CONFIG.pages).find(([, v]) => v.file.toLowerCase() === file);
+    if (direct) return { key: direct[0], ...direct[1], ministry: inferMinistryFromFile(file) };
+    const day = inferDayFromFile(file);
+    if (!day || !CONFIG.pages[day]) return null;
+    return { key: day, label: CONFIG.pages[day].label, file, ministry: inferMinistryFromFile(file) };
+  }
+  const ctx = buildPageContext(currentFile);
 
   document.head.appendChild(el("style", {}, [`
     .pa-fab{position:fixed;right:18px;bottom:18px;z-index:${CONFIG.zIndex}}
@@ -187,7 +319,7 @@
 
   function addMsg(role, html) {
     const row = el("div", { class: "pa-row " + role }, [el("div", { class: "pa-bubble" }, [])]);
-    row.firstChild.innerHTML = html;
+    row.firstChild.innerHTML = role === "bot" ? sanitizeChatHtml(html) : html;
     msgs.appendChild(row);
     msgs.scrollTop = msgs.scrollHeight;
   }
@@ -207,7 +339,7 @@
     addMsg("bot", "Buscando en el Manual...");
 
     try {
-      const { targets } = getSearchTargets(q, ctx);
+      const { targets } = getSearchTargets(q, ctx, currentFile);
       const picks = await searchContent(q, targets);
 
       // Si no hay información en los archivos, remitir a WhatsApp
@@ -217,11 +349,12 @@
       }
 
       const contextText = picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n");
-      const response = await fetch(CONFIG.workerUrl, {
+      const response = await fetchWithTimeout(CONFIG.workerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: q, context: contextText })
       });
+      if (!response.ok) throw new Error(`Worker HTTP ${response.status}`);
 
       const data = await response.json();
       
