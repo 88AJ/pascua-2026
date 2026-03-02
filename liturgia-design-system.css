@@ -142,6 +142,17 @@ body.liturgia-pro .bg-gradient-to-b {
   color: var(--lit-text);
 }
 
+/* Improve legibility for muted text on light cards/panels. */
+body.liturgia-pro .bg-white .text-gray-500,
+body.liturgia-pro .bg-gray-50 .text-gray-500 {
+  color: #5e5346 !important;
+}
+
+body.liturgia-pro .bg-white .text-gray-400,
+body.liturgia-pro .bg-gray-50 .text-gray-400 {
+  color: #6e6253 !important;
+}
+
 body.liturgia-pro .bg-white.rounded-2xl.shadow-xl,
 body.liturgia-pro .bg-white.rounded-3xl.shadow-xl,
 body.liturgia-pro .bg-white.rounded-xl.shadow-md,
@@ -249,6 +260,37 @@ body.liturgia-pro .lit-panel {
   border-top-color: var(--lit-accent) !important;
   border-top-width: 4px !important;
   box-shadow: 0 14px 26px rgba(59, 42, 24, 0.11) !important;
+}
+
+/* Keep strong contrast in dark instructional blocks. */
+body.liturgia-pro .bg-gray-900,
+body.liturgia-pro .bg-gray-950 {
+  color: #f2eadb !important;
+}
+
+body.liturgia-pro .bg-gray-900 .text-gray-200,
+body.liturgia-pro .bg-gray-950 .text-gray-200 {
+  color: #f2eadb !important;
+}
+
+body.liturgia-pro .bg-gray-900 .text-gray-300,
+body.liturgia-pro .bg-gray-950 .text-gray-300 {
+  color: #eadfcb !important;
+}
+
+body.liturgia-pro .bg-gray-900 .text-gray-400,
+body.liturgia-pro .bg-gray-950 .text-gray-400 {
+  color: #d8cbb4 !important;
+}
+
+body.liturgia-pro .bg-gray-900 .text-white,
+body.liturgia-pro .bg-gray-950 .text-white {
+  color: #fffdf8 !important;
+}
+
+body.liturgia-pro .bg-gray-900 .text-purple-400,
+body.liturgia-pro .bg-gray-950 .text-purple-400 {
+  color: #dbc1f1 !important;
 }
 
 body.liturgia-pro #coordinacion-interministerial,
