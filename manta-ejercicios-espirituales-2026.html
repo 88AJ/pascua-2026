@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manta Ejercicios Espirituales 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --violet: #663a93;
+      --violet-dark: #4f2a75;
+      --gold: #e1c16a;
+      --white: #ffffff;
+      --ink: #1c1525;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: linear-gradient(155deg, #2a2e34, #40454d);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem;
+      font-family: "Montserrat", Arial, sans-serif;
+    }
+
+    .flyer {
+      width: 1080px;
+      min-height: 1350px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 46% 54%;
+      border: 6px solid #2b163f;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .left {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.14)),
+        url("assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg") 24% center / 150% auto no-repeat;
+      filter: grayscale(92%);
+    }
+
+    .left::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.32), transparent 46%),
+        linear-gradient(130deg, rgba(255,255,255,0.12), rgba(255,255,255,0)),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.18), transparent 42%);
+    }
+
+    .left .brand {
+      position: absolute;
+      top: 20px;
+      left: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 2;
+      color: #111;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0,0,0,0.2);
+      border-radius: 14px;
+      padding: 8px 10px;
+    }
+
+    .left .brand img {
+      width: 84px;
+      height: 84px;
+      border-radius: 14px;
+      background: #fff;
+      padding: 6px;
+      object-fit: contain;
+      border: 1px solid rgba(0,0,0,0.18);
+    }
+
+    .left .brand p {
+      font-size: 16px;
+      line-height: 1.1;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .vertical-title {
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: 0;
+      width: 108px;
+      background: linear-gradient(180deg, rgba(102,58,147,0.95), rgba(79,42,117,0.96));
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: "Cinzel", serif;
+      font-size: 58px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 0.95;
+      z-index: 2;
+      border-left: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .right {
+      background:
+        linear-gradient(150deg, rgba(102,58,147,0.96), rgba(79,42,117,0.96)),
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.08), transparent 40%);
+      color: var(--white);
+      padding: 52px 46px 34px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+    }
+
+    .right h1 {
+      font-family: "Cinzel", serif;
+      font-size: 64px;
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: 0.03em;
+    }
+
+    .right .lead {
+      font-size: 42px;
+      color: var(--gold);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .right .intro {
+      font-size: 42px;
+      line-height: 1.25;
+      font-weight: 700;
+      max-width: 520px;
+    }
+
+    .right .intro strong { color: var(--gold); }
+
+    .right .intro-note {
+      font-size: 25px;
+      font-weight: 700;
+      line-height: 1.26;
+      color: #efe2ff;
+      margin-top: -8px;
+    }
+
+    .details {
+      margin-top: 2px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 18px 18px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .details p {
+      font-size: 31px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .details strong {
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .priests {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .priest {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 10px;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .priest img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .priest .name {
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .priest .role {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #e9d8ff;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .footer {
+      margin-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .footer p {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      color: #f3e6ff;
+    }
+
+    .footer .qr {
+      width: 74px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.4);
+      background: #fff;
+      padding: 2px;
+    }
+
+    @media (max-width: 1080px) {
+      .flyer {
+        width: 100%;
+        grid-template-columns: 1fr;
+      }
+      .left { min-height: 420px; }
+      .vertical-title {
+        width: auto;
+        height: 86px;
+        right: 0;
+        left: 0;
+        top: auto;
+        bottom: 0;
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 44px;
+        border-left: 0;
+        border-top: 3px solid rgba(255,255,255,0.2);
+      }
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .flyer { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <article class="flyer" aria-label="Manta ejercicios espirituales 2026">
+    <section class="left">
+      <div class="brand">
+        <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+        <p>Parroquia San Pedro Apóstol<br>Allende, N.L.</p>
+      </div>
+      <div class="vertical-title">Ejercicios Espirituales</div>
+    </section>
+
+    <section class="right">
+      <p class="lead">¿Quieres cambiar tu vida?</p>
+      <h1>Ejercicios<br>Espirituales</h1>
+      <p class="intro">Vive un tiempo de reflexión, oración y <strong>renovación interior</strong> en esta Cuaresma.</p>
+      <p class="intro-note">Serán impartidos por los sacerdotes de la parroquia: Pbro. Arturo Bernardo Flores Aguirre y Pbro. Alan Lorenzo Sánchez Valencia.</p>
+
+      <div class="details">
+        <p><strong>Inicio:</strong> 16 al 20 de marzo de 2026</p>
+        <p><strong>Lugar:</strong> Sede Parroquial, Allende, N.L.</p>
+        <p><strong>Horario:</strong> Después de misa de 6:00 PM</p>
+      </div>
+
+      <div class="priests">
+        <article class="priest">
+          <img src="Pbro. Arturo Bernardo Flores Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre">
+          <div>
+            <p class="name">Pbro. Arturo Bernardo Flores Aguirre</p>
+            <p class="role">Párroco</p>
+          </div>
+        </article>
+        <article class="priest">
+          <img src="Pbro. Alan Lorenzo Sanchez Valencia.JPEG" alt="Pbro. Alan Lorenzo Sánchez Valencia">
+          <div>
+            <p class="name">Pbro. Alan Lorenzo Sánchez Valencia</p>
+            <p class="role">Vicario Parroquial</p>
+          </div>
+        </article>
+      </div>
+
+      <footer class="footer">
+        <p>Informes: +52 826 268 4887</p>
+        <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR recursos parroquiales">
+      </footer>
+    </section>
+  </article>
+</body>
+</html>

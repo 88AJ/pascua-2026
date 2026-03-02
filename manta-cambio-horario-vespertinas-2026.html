@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manta | Cambio de Horario de Misas Vespertinas 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1a2435;
+      --navy-soft: #24344d;
+      --red: #ba2430;
+      --red-deep: #8e1b24;
+      --gold: #e2bf78;
+      --cream: #f7f2e7;
+      --white: #ffffff;
+      --ink: #151922;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255, 255, 255, 0.18), transparent 36%),
+        linear-gradient(150deg, #0f141d, #1f2b3d);
+      font-family: "Montserrat", Arial, sans-serif;
+      color: var(--white);
+    }
+
+    .manta {
+      width: min(2000px, 100%);
+      aspect-ratio: 4 / 1;
+      min-height: 760px;
+      border-radius: 18px;
+      border: 8px solid var(--gold);
+      overflow: hidden;
+      box-shadow: 0 28px 52px rgba(0, 0, 0, 0.45);
+      background:
+        linear-gradient(160deg, rgba(21, 29, 44, 0.88), rgba(36, 52, 78, 0.88)),
+        url("assets/horario/cambiodehorario2026.jpg") 50% 80% / cover no-repeat;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.9rem 1.2rem 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(90deg, rgba(186, 36, 48, 0.9), rgba(142, 27, 36, 0.9));
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .brand img {
+      width: 72px;
+      height: 72px;
+      background: var(--white);
+      border-radius: 50%;
+      padding: 5px;
+      object-fit: contain;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand p {
+      margin: 0;
+      font-size: 0.79rem;
+      text-transform: uppercase;
+      line-height: 1.2;
+      letter-spacing: 0.07em;
+      font-weight: 800;
+      color: var(--cream);
+    }
+
+    .phone {
+      display: block;
+      margin-top: 0.14rem;
+      font-size: 0.67rem;
+      text-transform: none;
+      letter-spacing: 0.04em;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .title-wrap h1 {
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: clamp(1.95rem, 3.9vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: 0.03em;
+      font-weight: 900;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .title-wrap p {
+      margin: 0.2rem 0 0;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 1.02vw, 1rem);
+      letter-spacing: 0.19em;
+      font-weight: 700;
+      color: #fdeccd;
+    }
+
+    .tag {
+      justify-self: end;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.16);
+      padding: 0.35rem 0.75rem;
+      text-transform: uppercase;
+      font-size: 0.64rem;
+      letter-spacing: 0.11em;
+      font-weight: 800;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 0.9rem;
+      padding: 0.9rem 1rem;
+      align-items: stretch;
+    }
+
+    .left-panel {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+      padding: 0.86rem;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 0.65rem;
+    }
+
+    .date-line {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: clamp(0.88rem, 1.23vw, 1.25rem);
+      letter-spacing: 0.05em;
+      font-weight: 800;
+      color: #f8e6bf;
+    }
+
+    .hero-message {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2vw, 2.1rem);
+      line-height: 1.08;
+      letter-spacing: 0.02em;
+      font-weight: 900;
+    }
+
+    .hour-box {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.7rem;
+      align-items: center;
+      border-radius: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.82);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08));
+      padding: 0.7rem;
+    }
+
+    .clock {
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      border: 7px solid var(--gold);
+      background: radial-gradient(circle at 35% 30%, #fff, #ebedf1);
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 3px #a31e2a;
+      color: var(--ink);
+      font-size: 2.2rem;
+    }
+
+    .hour-info p {
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      line-height: 1.06;
+    }
+
+    .hour-info .small {
+      font-size: clamp(0.76rem, 1vw, 0.95rem);
+      color: #f8e7c4;
+    }
+
+    .hour-info .big {
+      margin-top: 0.26rem;
+      font-size: clamp(1.9rem, 4.35vw, 4.6rem);
+      color: var(--gold);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.34);
+    }
+
+    .transition {
+      margin-top: 0.32rem;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 0.5rem 0.58rem;
+      font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+      line-height: 1.3;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .contact {
+      margin-top: 0.4rem;
+      border-radius: 10px;
+      background: rgba(186, 36, 48, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 0.44rem 0.56rem;
+      text-transform: uppercase;
+      font-size: clamp(0.66rem, 0.86vw, 0.82rem);
+      line-height: 1.25;
+      letter-spacing: 0.04em;
+      font-weight: 800;
+    }
+
+    .right-panel {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(155deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+      padding: 0.75rem;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 0.6rem;
+    }
+
+    .right-panel h2 {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: clamp(0.98rem, 1.3vw, 1.3rem);
+      letter-spacing: 0.05em;
+      font-weight: 900;
+      color: #f8e7c2;
+    }
+
+    .photo {
+      border-radius: 12px;
+      min-height: 250px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background:
+        linear-gradient(155deg, rgba(16, 25, 39, 0.2), rgba(16, 25, 39, 0.72)),
+        url("assets/horario/cambiodehorario2026.jpg") 50% 84% / cover no-repeat;
+    }
+
+    .qr-box {
+      display: grid;
+      grid-template-columns: 102px 1fr;
+      gap: 0.55rem;
+      align-items: center;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 0.45rem;
+    }
+
+    .qr-box img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #d7dde7;
+      background: #fff;
+      padding: 2px;
+    }
+
+    .qr-box p {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: clamp(0.64rem, 0.9vw, 0.86rem);
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      color: #f5e4c0;
+    }
+
+    .footer {
+      background: linear-gradient(90deg, rgba(12, 16, 22, 0.98), rgba(29, 41, 60, 0.98));
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.56rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .footer p {
+      margin: 0;
+      text-transform: uppercase;
+      font-size: clamp(0.72rem, 0.97vw, 0.93rem);
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      color: #f6ead2;
+    }
+
+    .footer strong { color: var(--gold); }
+
+    @media (max-width: 1600px) {
+      .manta { aspect-ratio: auto; min-height: auto; }
+      .top { grid-template-columns: 1fr; }
+      .content { grid-template-columns: 1fr; }
+      .footer { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 0.6rem; }
+      .hour-box { grid-template-columns: 1fr; }
+      .clock { width: 86px; height: 86px; font-size: 1.8rem; }
+      .qr-box { grid-template-columns: 84px 1fr; }
+    }
+
+    @media print {
+      body { padding: 0; background: #fff; }
+      .manta { width: 100%; border-radius: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <article class="manta" aria-label="Manta de cambio de horario de misas vespertinas">
+    <header class="top">
+      <div class="brand">
+        <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+        <p>Parroquia San Pedro Apóstol<br>Allende, N.L.<span class="phone">Informes: +52 826 268 4887</span></p>
+      </div>
+
+      <div class="title-wrap">
+        <h1>Cambio de horario de las Misas vespertinas</h1>
+        <p>Aviso oficial parroquial</p>
+      </div>
+
+      <div class="tag">Visible de día y de noche</div>
+    </header>
+
+    <section class="content">
+      <div class="left-panel">
+        <p class="date-line">A partir del Domingo de Pascua, <strong>5 de abril de 2026</strong></p>
+        <p class="hero-message">Nuestras Misas por la tarde en el templo parroquial ahora serán a las:</p>
+
+        <div class="hour-box">
+          <div class="clock" aria-hidden="true">⏰</div>
+          <div class="hour-info">
+            <p class="small">Nuevo horario vespertino</p>
+            <p class="big">7:00 PM</p>
+            <p class="transition">Antes: 6:00 PM  ·  Ahora: 7:00 PM</p>
+            <p class="contact">Informes Oficina Parroquial: +52 826 268 4887</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="right-panel">
+        <h2>Consulta todos los horarios de Semana Santa y Pascua</h2>
+        <div class="photo" role="img" aria-label="Templo parroquial iluminado por la noche"></div>
+        <div class="qr-box">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR de recursos parroquiales">
+          <p>Recursos disponibles escaneando el QR para horarios oficiales, avisos y celebraciones.</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <p>Difunde este aviso en grupos y comercios. <strong>Horario vespertino oficial: 7:00 PM.</strong></p>
+      <p>Semana Santa y Pascua 2026 · Tel. +52 826 268 4887</p>
+    </footer>
+  </article>
+</body>
+</html>

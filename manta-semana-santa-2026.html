@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semana Santa 2026 | San Pedro Apóstol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #050505;
+      --gold: #d6b26e;
+      --red: #d32f2f;
+      --white: #ffffff;
+      --panel: rgba(6, 6, 6, 0.68);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: "Montserrat", sans-serif;
+      padding: 0.9rem;
+    }
+
+    .poster {
+      width: 1000px;
+      min-height: 1414px;
+      background-color: var(--black);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      border: 5px solid var(--gold);
+    }
+
+    .bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 62%;
+      height: 100%;
+      background-image: url("cristocrucificado-viernes.jpg");
+      background-position: 90% 46%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .bg-image::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, var(--black) 0%, rgba(5, 5, 5, 0.72) 40%, transparent 100%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 44px 54px 120px;
+      width: 66%;
+      min-height: 1414px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .top-row img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 4px;
+      object-fit: contain;
+    }
+
+    .top-row p {
+      color: #e8d8b7;
+      font-size: 13px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .title {
+      font-family: "Cinzel", serif;
+      font-size: 72px;
+      color: var(--white);
+      line-height: 0.95;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-family: "Cinzel", serif;
+      font-size: 28px;
+      color: var(--white);
+      margin-top: 8px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .subtitle span {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 34px;
+    }
+
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 22px;
+      flex-grow: 1;
+    }
+
+    .day-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .day-title {
+      font-family: "Cinzel", serif;
+      font-size: 18px;
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 2px;
+    }
+
+    .event {
+      font-size: 14px;
+      color: var(--white);
+      line-height: 1.32;
+      font-weight: 600;
+    }
+
+    .time {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .capillas {
+      margin-top: 12px;
+      background: rgba(12, 28, 44, 0.78);
+      border: 1px solid rgba(214, 178, 110, 0.6);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .capillas h4 {
+      font-family: "Cinzel", serif;
+      color: var(--gold);
+      font-size: 16px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .capillas p {
+      font-size: 13px;
+      color: #fff;
+      line-height: 1.33;
+      font-weight: 600;
+    }
+
+    .qr-access {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 10px;
+      align-items: center;
+      border-radius: 10px;
+      background: rgba(9, 21, 35, 0.82);
+      border: 1px solid rgba(214, 178, 110, 0.5);
+      padding: 8px;
+    }
+
+    .qr-access img {
+      width: 84px;
+      border-radius: 8px;
+      border: 1px solid #d9dbe0;
+      background: #fff;
+      padding: 2px;
+    }
+
+    .qr-access p {
+      font-size: 12px;
+      line-height: 1.32;
+      color: #fff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .footer {
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      bottom: 22px;
+      left: 0;
+      z-index: 3;
+      padding: 0 40px;
+    }
+
+    .footer-text {
+      font-family: "Cinzel", serif;
+      color: var(--white);
+      font-size: 14px;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      line-height: 1.35;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    @media (max-width: 1040px) {
+      .poster {
+        width: 100%;
+        min-height: auto;
+      }
+      .bg-image {
+        width: 100%;
+        opacity: 0.45;
+      }
+      .content {
+        width: 100%;
+        min-height: auto;
+        padding-bottom: 140px;
+      }
+    }
+
+    @media print {
+      body { padding: 0; background: #fff; }
+      .poster { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster" aria-label="Manta oficial Semana Santa 2026">
+    <div class="bg-image"></div>
+
+    <div class="content">
+      <div class="top-row">
+        <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+        <p>Parroquia San Pedro Apóstol<br>Allende, N.L. · Informes +52 826 268 4887</p>
+      </div>
+
+      <header class="header">
+        <h1 class="title">Semana Santa</h1>
+        <h2 class="subtitle">Parroquia San Pedro Apóstol <span>2026</span></h2>
+      </header>
+
+      <main class="schedule-list">
+        <div class="day-block">
+          <h3 class="day-title">29 marzo · Domingo de Ramos</h3>
+          <p class="event"><span class="time">6:00 PM</span> Misa de víspera (sábado).</p>
+          <p class="event"><span class="time">8:00 AM, 10:00 AM, 12:00 PM, 6:00 PM</span> Santa Misa.</p>
+          <p class="event">Bendición de ramos en todas las Misas.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">30 marzo · Lunes Santo</h3>
+          <p class="event"><span class="time">8:00 AM y 6:00 PM</span> Santa Misa.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">31 marzo · Martes Santo</h3>
+          <p class="event"><span class="time">8:00 AM y 6:00 PM</span> Santa Misa.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">1 abril · Miércoles Santo</h3>
+          <p class="event"><span class="time">6:00 PM</span> Única Misa, recepción de óleos y unción de enfermos.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">2 abril · Jueves Santo</h3>
+          <p class="event"><span class="time">6:00 PM</span> Misa de la Cena del Señor.</p>
+          <p class="event"><span class="time">7:00 PM a 10:00 PM</span> Adoración al Santísimo.</p>
+          <p class="event">No hay Misa en capilla de Nuestra Señora de Fátima.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">3 abril · Viernes Santo</h3>
+          <p class="event"><span class="time">10:00 AM</span> Santo Viacrucis.</p>
+          <p class="event"><span class="time">5:00 PM</span> Oficios de la Pasión.</p>
+          <p class="event"><span class="time">6:00 PM</span> Las Siete Palabras.</p>
+          <p class="event"><span class="time">7:00 PM</span> Procesión del Silencio.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">4 abril · Sábado Santo</h3>
+          <p class="event"><span class="time">7:00 PM</span> Solemne Vigilia Pascual (inicia en el atrio).</p>
+          <p class="event">No hay Misa en capilla del Señor de la Misericordia.</p>
+        </div>
+
+        <div class="day-block">
+          <h3 class="day-title">5 abril · Domingo de Resurrección</h3>
+          <p class="event"><span class="time">10:00 AM, 12:00 PM y 7:00 PM</span> Santa Misa en templo parroquial.</p>
+        </div>
+
+        <div class="capillas">
+          <h4>Capillas (horarios oficiales)</h4>
+          <p>San Judas Tadeo: Ramos 11:00 AM · Jueves 6:00 PM · Viernes 5:30 PM · Vigilia 7:00 PM · Resurrección 11:00 AM.</p>
+          <p>Domingo de Resurrección adicional: Sagrado Corazón 9:00 AM · Nuestra Señora del Rosario 1:00 PM.</p>
+        </div>
+
+        <div class="qr-access">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR landing Semana Santa 2026">
+          <p>Escanea para ver horarios completos, recursos de Semana Santa, misal para fieles y registro de voluntariado.</p>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-text">Parroquia San Pedro Apóstol · Allende, N.L.<br>A partir del domingo 5 de abril de 2026, la misa vespertina ordinaria será a las 7:00 PM.</p>
+    </footer>
+  </div>
+</body>
+</html>
