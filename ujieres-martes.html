@@ -106,8 +106,8 @@
             </p>
             <ul class="list-disc pl-6 space-y-4 text-base text-yellow-950 font-medium leading-relaxed">
                 <li><strong>Austeridad en el Ingreso:</strong> Durante las ferias de Semana Santa, se debe prescindir de procesiones solemnes con ciriales o incienso al inicio. El acceso de los fieles debe ser guiado con especial sobriedad.</li>
-                <li><strong>Custodia del Silencio Sagrado:</strong> Los ujieres deben asegurar el silencio absoluto durante el tiempo de meditación posterior a la homilía, evitando cualquier ruido en el **cancel** o las naves laterales.</li>
-                <li><strong>Rito de Envío (6:00 PM):</strong> Se debe prever un espacio despejado en los pasillos frontales para que los delegados a la Misa Crismal puedan acercarse al **Presbiterio** con dignidad.</li>
+                <li><strong>Custodia del Silencio Sagrado:</strong> Los ujieres deben asegurar el silencio absoluto durante el tiempo de meditación posterior a la homilía, evitando cualquier ruido en el <strong>cancel</strong> o las naves laterales.</li>
+                <li><strong>Rito de Envío (6:00 PM):</strong> Se debe prever un espacio despejado en los pasillos frontales para que los delegados a la Misa Crismal puedan acercarse al <strong>Presbiterio</strong> con dignidad.</li>
             </ul>
         </div>
 
@@ -134,7 +134,7 @@
                     <ul class="list-disc pl-6 space-y-4 text-base text-purple-900 font-medium leading-relaxed">
                         <li><strong>Llegada Puntual:</strong> Llegar <strong>30 minutos antes</strong> de la celebración. Estar ubicados en las entradas de la Parroquia.</li>
                         <li><strong>Atención Especializada:</strong> Seguir identificando y acomodando a personas mayores, embarazadas o con problemas de movilidad en los asientos de fácil acceso en pasillos centrales o laterales.</li>
-                        <li><strong>Evitar las Charlas:</strong> Pedir discretamente a quienes se quedan conversando en el **cancel** que tomen asiento para entrar en clima de oración.</li>
+                        <li><strong>Evitar las Charlas:</strong> Pedir discretamente a quienes se quedan conversando en el <strong>cancel</strong> que tomen asiento para entrar en clima de oración.</li>
                     </ul>
                 </div>
             </div>
@@ -158,7 +158,7 @@
                 </h3>
                 <div class="bg-purple-50 p-6 md:p-8 rounded-2xl border border-purple-100">
                     <ul class="list-disc pl-6 space-y-4 text-base text-purple-900 font-medium leading-relaxed">
-                        <li><strong>Salida Silenciosa:</strong> El manual recomienda fuertemente una salida en completo silencio. Invitar a la gente a retirarse despacio para respetar a quienes se quedan haciendo oración personal frente al **Sagrario**.</li>
+                        <li><strong>Salida Silenciosa:</strong> El manual recomienda fuertemente una salida en completo silencio. Invitar a la gente a retirarse despacio para respetar a quienes se quedan haciendo oración personal frente al <strong>Sagrario</strong>.</li>
                         <li><strong>Mantenimiento del Templo:</strong> Recoger cualquier hoja, boletín o desorden que haya quedado en las bancas para asegurar la limpieza del recinto para la siguiente jornada.</li>
                         <li><strong>Despedida:</strong> Despedir a la comunidad amablemente, animándolos a asistir a la Misa Crismal y a prepararse para el inicio del Triduo Pascual.</li>
                     </ul>
@@ -168,21 +168,50 @@
     </div>
 
     <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12 text-center">
-        <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
-            <i class="fa-solid fa-clipboard-check"></i>
-        </div>
-        <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Ujieres</h2>
-        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
-        <p class="text-center text-gray-600 mb-10 text-lg">Completa el formulario y selecciona el horario en el que brindarás tu servicio de acogida y custodia durante el Martes Santo.</p>
-        
-        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-50">
-            <iframe 
-                src="https://docs.google.com/forms/d/e/1FAIpQLSekiTUdp-xqxonZET-INZ47j68ma_W82PSQQf9gzDj5EA_ceQ/viewform?embedded=true"
-                frameborder="0">
-                Cargando...
-            </iframe>
-        </div>
+    <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
+        <i class="fa-solid fa-clipboard-check"></i>
     </div>
+    <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Ujieres</h2>
+    <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+    <p class="text-center text-gray-600 mb-8 text-lg">Regístrate aquí mismo. El sistema cierra automáticamente al llenarse cada cupo.</p>
+
+    <div class="bg-gray-50 text-gray-800 rounded-2xl shadow-lg p-6 md:p-8 text-left border border-gray-200">
+        <div id="registro-status" class="hidden mb-6 p-4 rounded-lg text-sm font-medium"></div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Cupos por celebración</h3>
+            <div id="cupos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"></div>
+        </div>
+
+        <form id="ministerio-registro-form" class="space-y-4">
+            <div>
+                <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-1">Nombre completo</label>
+                <input id="nombre" name="nombre" type="text" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Ej. Juan Pérez López">
+            </div>
+            <div>
+                <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-1">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="10 dígitos">
+            </div>
+            <div>
+                <label for="slot" class="block text-sm font-semibold text-gray-700 mb-1">Celebración (sede y horario)</label>
+                <select id="slot" name="slot" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700">
+                    <option value="">Selecciona una opción</option>
+                </select>
+            </div>
+            <div>
+                <label for="notas" class="block text-sm font-semibold text-gray-700 mb-1">Notas (opcional)</label>
+                <textarea id="notas" name="notas" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Ej. Confirmo llegada 30 min antes."></textarea>
+            </div>
+            <button id="submit-btn" type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 rounded-xl transition">
+                Registrar servicio
+            </button>
+        </form>
+
+        <p class="mt-4 text-xs text-gray-500">
+            Si una celebración aparece como <strong>Cupo lleno</strong>, ya no acepta registros.
+        </p>
+    </div>
+</div>
 
 </section>
 
@@ -191,17 +220,19 @@
     Allende, Nuevo León, México
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ministerio-registration.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    if (!window.__PADRE_ALAN_CHAT_CONFIG__) {
-      window.__PADRE_ALAN_CHAT_CONFIG__ = {
-        title: "Pregúntele a los Padres",
-        subtitle: "Semana Santa 2026",
-        fabText: "Pregúntele a los Padres",
-        contextKey: "martes", // Identifica que estamos en el contexto del Martes Santo
-        contextLabel: "Martes Santo",
-      };
-    }
+    window.initMinisterioRegistration({
+      supabaseUrl: 'https://ujezbieadbhegilxteeg.supabase.co',
+      supabaseKey: 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1',
+      ministryKey: 'ujieres-martes',
+      slots: [
+      { id: 'ujieres-martes-parroquia-0800', label: 'Parroquia San Pedro - 8:00 AM', capacity: 4 },
+      { id: 'ujieres-martes-parroquia-1800', label: 'Parroquia San Pedro - 6:00 PM', capacity: 4 }
+    ]
+    });
   });
 </script>
 <script src="padre-alan-chat.js"></script>

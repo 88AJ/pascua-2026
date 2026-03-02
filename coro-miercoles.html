@@ -106,7 +106,7 @@
                 <i class="fa-solid fa-scroll text-yellow-600"></i> Directriz Litúrgica Oficial (CEM)
             </p>
             <ul class="list-disc pl-6 space-y-4 text-base font-medium">
-                <li><strong>Procesión de los Óleos:</strong> El canto de entrada debe ser de carácter festivo-solemne, acompañando la entrada de los delegados que portan los vasos sagrados desde la **Credencia** hasta el lugar de entronización en el **Presbiterio**.</li>
+                <li><strong>Procesión de los Óleos:</strong> El canto de entrada debe ser de carácter festivo-solemne, acompañando la entrada de los delegados que portan los vasos sagrados desde la <strong>Credencia</strong> hasta el lugar de entronización en el <strong>Presbiterio</strong>.</li>
                 <li><strong>Cantos para la Unción:</strong> La música durante la unción de los enfermos debe ser instrumental o de carácter meditativo (estilo Taizé), evitando cantos excesivamente rítmicos que rompan el clima de oración personal de quien recibe el sacramento.</li>
                 <li><strong>Sobriedad en el Evangelio:</strong> La aclamación debe reflejar la realeza sufriente de Cristo. El Aleluya permanece estrictamente omitido.</li>
             </ul>
@@ -118,7 +118,7 @@
             </h3>
             <ul class="space-y-4 text-purple-900 font-medium list-disc pl-5 text-base">
                 <li><strong>Recepción de los Óleos:</strong> El canto de entrada debe ser solemne y esperanzador, acompañando la procesión de las ánforas con el Crisma y los Óleos.</li>
-                <li><strong>Unción de los Enfermos:</strong> Tras la homilía desde el **Ambón**, el Sacerdote ungirá a los enfermos. El coro debe proveer música continua, muy suave (cantos de Taizé o adoración), para mantener un clima de oración profunda mientras se imparte el sacramento.</li>
+                <li><strong>Unción de los Enfermos:</strong> Tras la homilía desde el <strong>Ambón</strong>, el Sacerdote ungirá a los enfermos. El coro debe proveer música continua, muy suave (cantos de Taizé o adoración), para mantener un clima de oración profunda mientras se imparte el sacramento.</li>
             </ul>
         </div>
     </div>
@@ -218,16 +218,50 @@
     </div>
 
     <div id="registro" class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-purple-700 mt-12 text-center">
-        <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
-            <i class="fa-solid fa-clipboard-check"></i>
-        </div>
-        <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Coros</h2>
-        <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
-        <p class="text-center text-gray-600 mb-10 text-lg">Registra a tu ministerio de música, confirma el repertorio para los Santos Óleos y la Unción de Enfermos.</p>
-        <div class="iframe-container rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-gray-50">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScDd7HEwYBUyG7XRSjlerpRQaiVc7GFqCD_mL728UqoNVnzMQ/viewform?embedded=true" frameborder="0">Cargando...</iframe>
-        </div>
+    <div class="w-20 h-20 bg-purple-100 text-purple-800 rounded-full flex items-center justify-center text-3xl mx-auto mb-6 shadow-sm">
+        <i class="fa-solid fa-clipboard-check"></i>
     </div>
+    <h2 class="text-3xl font-extrabold text-purple-700 mb-4 uppercase tracking-tight">Registro Oficial de Coro</h2>
+    <div class="w-16 h-1 bg-purple-600 mx-auto mb-6 rounded"></div>
+    <p class="text-center text-gray-600 mb-8 text-lg">Regístrate aquí mismo. El sistema cierra automáticamente al llenarse cada cupo.</p>
+
+    <div class="bg-gray-50 text-gray-800 rounded-2xl shadow-lg p-6 md:p-8 text-left border border-gray-200">
+        <div id="registro-status" class="hidden mb-6 p-4 rounded-lg text-sm font-medium"></div>
+
+        <div class="mb-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Cupos por celebración</h3>
+            <div id="cupos-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm"></div>
+        </div>
+
+        <form id="ministerio-registro-form" class="space-y-4">
+            <div>
+                <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-1">Nombre completo</label>
+                <input id="nombre" name="nombre" type="text" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Ej. Juan Pérez López">
+            </div>
+            <div>
+                <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-1">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="10 dígitos">
+            </div>
+            <div>
+                <label for="slot" class="block text-sm font-semibold text-gray-700 mb-1">Celebración (sede y horario)</label>
+                <select id="slot" name="slot" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700">
+                    <option value="">Selecciona una opción</option>
+                </select>
+            </div>
+            <div>
+                <label for="notas" class="block text-sm font-semibold text-gray-700 mb-1">Notas (opcional)</label>
+                <textarea id="notas" name="notas" rows="3" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-700" placeholder="Ej. Confirmo llegada 30 min antes."></textarea>
+            </div>
+            <button id="submit-btn" type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold py-3 rounded-xl transition">
+                Registrar servicio
+            </button>
+        </form>
+
+        <p class="mt-4 text-xs text-gray-500">
+            Si una celebración aparece como <strong>Cupo lleno</strong>, ya no acepta registros.
+        </p>
+    </div>
+</div>
 
 </section>
 
@@ -236,13 +270,20 @@
     Allende, Nuevo León, México
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@pashal/chatbot-ui@latest/dist/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ministerio-registration.js"></script>
 <script>
-  window.initChatbot({
-    contextKey: 'miercoles',
-    contextLabel: 'Miércoles Santo'
+  window.addEventListener('DOMContentLoaded', () => {
+    window.initMinisterioRegistration({
+      supabaseUrl: 'https://ujezbieadbhegilxteeg.supabase.co',
+      supabaseKey: 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1',
+      ministryKey: 'coro-miercoles',
+      slots: [
+      { id: 'coro-miercoles-parroquia-1800', label: 'Parroquia San Pedro - 6:00 PM', capacity: 3 }
+    ]
+    });
   });
 </script>
-    <script src="padre-alan-chat.js"></script>
+<script src="padre-alan-chat.js"></script>
 </body>
 </html>
