@@ -64,7 +64,8 @@
     material: [
       "misalito", "misalitos", "hojita", "hojitas", "subsidio", "subsidios", "librito", "libritos", "folleto", "folletos",
       "copon", "copones", "vinajera", "vinajeras", "hostia", "hostias", "incienso", "naveta", "cirial", "ciriales",
-      "manutergio", "purificador", "microfono", "microfonos", "casulla", "estola", "alba", "libro", "leccionario"
+      "manutergio", "purificador", "microfono", "microfonos", "casulla", "estola", "alba", "libro", "leccionario",
+      "agua bendita", "agua bendito", "dispensador", "dispensadores", "pila", "pila de agua bendita", "aspersorio"
     ],
     missing: ["falta", "faltan", "no hay", "agotado", "se acabo", "se acabaron", "donde consigo", "donde encuentro", "donde hay", "reponer", "sin "],
     location: ["puerta", "lateral", "entrada", "acceso", "atrio", "pasillo", "mesa", "credencia", "sacristia", "bodega"],
@@ -138,6 +139,15 @@
     return "coordinacion";
   }
 
+  function detectResourceLabel(qNorm) {
+    if (hasAny(qNorm, ["agua bendita", "agua bendito", "dispensador", "pila de agua bendita", "aspersorio"])) return "agua bendita";
+    if (hasAny(qNorm, ["misalito", "misalitos", "hojita", "hojitas", "subsidio", "subsidios", "librito", "libritos"])) return "misalitos";
+    if (hasAny(qNorm, ["microfono", "microfonos"])) return "micrófonos";
+    if (hasAny(qNorm, ["copon", "copones", "hostia", "hostias"])) return "elementos de comunión";
+    if (hasAny(qNorm, ["vinajera", "vinajeras"])) return "vinajeras";
+    return "material litúrgico";
+  }
+
   function buildOperationalResponse(qNorm, day, ministry, rawQuestion) {
     const dayLabel = getDayLabel(day);
     const whoAsked = ministry ? teamLabel(ministry) : "su ministerio";
@@ -149,14 +159,22 @@
       };
     }
 
+    const isHolyWaterIssue = hasAny(qNorm, ["agua bendita", "agua bendito", "dispensador", "pila de agua bendita", "aspersorio"]) && (hasAny(qNorm, OP_TERMS.missing) || hasAny(qNorm, OP_TERMS.location));
+    if (isHolyWaterIssue) {
+      return {
+        html: `<strong>Protocolo operativo: agua bendita (${dayLabel})</strong><ul><li>Responsable primario: <strong>${teamLabel("sacristia")}</strong>.</li><li>Acción inmediata: avise a sacristía para rellenar/trasladar el recipiente y habilitar el punto de acceso faltante.</li><li>Mientras se repone, indique con claridad a los fieles el punto alterno disponible para evitar desorden.</li><li>Si no se resuelve en minutos, escale a <strong>${teamLabel("coordinacion")}</strong>.</li></ul>`
+      };
+    }
+
     const isMaterialIssue = hasAny(qNorm, OP_TERMS.material) && (hasAny(qNorm, OP_TERMS.missing) || hasAny(qNorm, OP_TERMS.location));
     if (isMaterialIssue) {
       const isUjierCase = ministry === "ujieres" || hasAny(qNorm, ["ujier", "ujieres", "ujuier", "puerta", "acceso"]);
+      const resource = detectResourceLabel(qNorm);
       const headline = isUjierCase
         ? `Respuesta operativa para Ujieres (${dayLabel})`
         : `Respuesta operativa de abastecimiento (${dayLabel})`;
       return {
-        html: `<strong>${headline}</strong><ul><li>Responsable primario: <strong>${teamLabel("sacristia")}</strong>.</li><li>Acción inmediata: redistribuya material desde el punto con mayor existencia al punto faltante (ej. puerta lateral a otra puerta).</li><li>Solicite reposición al <strong>${TEAM_WA_HINT.sacristia}</strong> para mantener ambas entradas equilibradas.</li><li>Si en 2-3 minutos no se resuelve, escale a <strong>${teamLabel("coordinacion")}</strong>.</li></ul><p>En su caso concreto, si faltan misalitos en una puerta, pídalos primero a <strong>Sacristía</strong>.</p>`
+        html: `<strong>${headline}</strong><ul><li>Responsable primario: <strong>${teamLabel("sacristia")}</strong>.</li><li>Acción inmediata: redistribuya ${resource} desde el punto con mayor existencia al punto faltante.</li><li>Solicite reposición al <strong>${TEAM_WA_HINT.sacristia}</strong> para mantener los accesos equilibrados.</li><li>Si en 2-3 minutos no se resuelve, escale a <strong>${teamLabel("coordinacion")}</strong>.</li></ul><p>En su caso concreto, si falta ${resource}, pídalo primero a <strong>Sacristía</strong>.</p>`
       };
     }
 
