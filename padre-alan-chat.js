@@ -106,23 +106,38 @@
     const day = detectDay(q) || (currentCtx?.key || null);
     const min = detectMinistry(q) || (currentCtx?.ministry || null);
     const targets = [];
-    if (currentCtx && currentFile && currentFile.endsWith(".html")) targets.push(currentFile);
     const ministryPage = buildMinistryDayFile(min, day);
+    const dayPage = day && CONFIG.pages[day] ? CONFIG.pages[day].file : null;
     if (ministryPage) targets.push(ministryPage);
-    if (day && CONFIG.pages[day]) targets.push(CONFIG.pages[day].file);
+    if (dayPage) targets.push(dayPage);
+    if (currentCtx && currentFile && currentFile.endsWith(".html")) targets.push(currentFile);
     targets.push(`kb/general.html`);
-    return { targets: [...new Set(targets)], day, min };
+    const deduped = [...new Set(targets)];
+    return {
+      targets: deduped,
+      day,
+      min,
+      primaryTarget: ministryPage || dayPage || (currentFile?.endsWith(".html") ? currentFile : "kb/general.html")
+    };
   }
 
   // =======================
   // LÓGICA DE BÚSQUEDA Y CACHE
   // =======================
   const __CACHE__ = new Map();
-  const SHORT_TOKENS = new Set(["am", "pm", "jn", "mt", "mc", "lc", "is", "sal", "hech"]);
+  const SHORT_TOKENS = new Set(["am", "pm", "jn", "mt", "mc", "lc", "is", "sal", "hech", "mec"]);
+  const STOPWORDS = new Set([
+    "que", "como", "cuando", "donde", "cual", "cuales", "quien", "quienes",
+    "tengo", "hacer", "hago", "hacen", "debo", "deben", "puedo", "podemos",
+    "el", "la", "los", "las", "un", "una", "unos", "unas",
+    "de", "del", "en", "por", "para", "con", "sin", "sobre",
+    "y", "o", "u", "se", "me", "te", "mi", "tu", "su", "sus",
+    "al", "lo", "es", "son", "hay", "hoy"
+  ]);
 
   function tokenizeQuery(q) {
     const base = normalize(q);
-    const pieces = base.split(" ").filter(Boolean);
+    const pieces = base.split(" ").filter(Boolean).filter(t => !STOPWORDS.has(t));
     const tokens = pieces.filter(t => (
       t.length >= 4 ||
       SHORT_TOKENS.has(t) ||
@@ -133,9 +148,10 @@
     return base ? [base] : [];
   }
 
-  async function searchContent(q, files) {
+  async function searchContent(q, files, primaryTarget) {
     const tokens = tokenizeQuery(q);
     const normalizedQuery = normalize(q);
+    const fileOrder = new Map(files.map((f, i) => [f, i]));
     const hits = [];
     for (const f of files) {
       try {
@@ -154,13 +170,37 @@
         }
         data.blocks.forEach(b => {
           let score = 0;
+          const order = fileOrder.get(f) ?? files.length;
+          score += Math.max(0, 4 - order);
+          if (f === primaryTarget) score += 3;
+          if (f === "kb/general.html") score -= 1;
           if (normalizedQuery && b.norm.includes(normalizedQuery)) score += 2;
           tokens.forEach(t => { if (b.norm.includes(t)) score++; });
           if (score > 0) hits.push({ file: f, text: b.text, score });
         });
       } catch (e) { console.error("Error cargando:", f); }
     }
-    return hits.sort((a, b) => b.score - a.score).slice(0, 5);
+    const sorted = hits.sort((a, b) => b.score - a.score);
+    const selected = [];
+    const counts = new Map();
+
+    if (primaryTarget) {
+      const first = sorted.find(h => h.file === primaryTarget);
+      if (first) {
+        selected.push(first);
+        counts.set(primaryTarget, 1);
+      }
+    }
+
+    for (const h of sorted) {
+      if (selected.length >= 8) break;
+      if (selected.includes(h)) continue;
+      const c = counts.get(h.file) || 0;
+      if (c >= 3) continue;
+      selected.push(h);
+      counts.set(h.file, c + 1);
+    }
+    return selected;
   }
 
   // =======================
@@ -339,8 +379,8 @@
     addMsg("bot", "Buscando en el Manual...");
 
     try {
-      const { targets } = getSearchTargets(q, ctx, currentFile);
-      const picks = await searchContent(q, targets);
+      const { targets, day, min, primaryTarget } = getSearchTargets(q, ctx, currentFile);
+      const picks = await searchContent(q, targets, primaryTarget);
 
       // Si no hay información en los archivos, remitir a WhatsApp
       if (picks.length === 0) {
@@ -348,7 +388,15 @@
         return;
       }
 
-      const contextText = picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n");
+      const scope = [];
+      if (day) scope.push(`día=${day}`);
+      if (min) scope.push(`ministerio=${min}`);
+      const contextText = [
+        "INSTRUCCION: Responde en español de México, con pasos concretos y horarios si aparecen en las fuentes. Evita respuestas genéricas.",
+        `CONTEXTO_DETECTADO: ${scope.length ? scope.join(", ") : "no definido"}`,
+        `ARCHIVO_PRIORITARIO: ${primaryTarget || "ninguno"}`,
+        picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n")
+      ].join("\n\n");
       const response = await fetchWithTimeout(CONFIG.workerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
