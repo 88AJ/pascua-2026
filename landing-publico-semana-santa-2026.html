@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Semana Santa 2026 | Parroquia San Pedro Apóstol</title>
   <meta name="description" content="Horarios oficiales, ejercicios espirituales, misal para fieles y voluntariado de Semana Santa 2026 en la Parroquia San Pedro Apóstol.">
+  <meta name="theme-color" content="#1f1b22">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,9 +164,33 @@
       font-size: 0.95rem;
       line-height: 1.36;
     }
+
+    .skip-link {
+      position: absolute;
+      left: 0.75rem;
+      top: -48px;
+      background: #111827;
+      color: #fff;
+      padding: 0.55rem 0.75rem;
+      border-radius: 0.55rem;
+      z-index: 20000;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.72rem;
+      border: 1px solid #fff;
+      transition: top 0.16s ease;
+    }
+
+    .skip-link:focus {
+      top: 0.75rem;
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body class="min-h-screen">
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
   <header class="hero text-white">
     <div class="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
@@ -176,7 +201,7 @@
           <p class="text-[11px] uppercase tracking-[0.13em] text-[#efe2c7]">Allende, N.L.</p>
         </div>
       </div>
-      <nav class="hidden md:flex items-center gap-4 text-xs uppercase tracking-[0.12em] font-bold text-[#e9ddc4]">
+      <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-4 text-xs uppercase tracking-[0.12em] font-bold text-[#e9ddc4]">
         <a href="#destacados" class="hover:text-white transition">Destacados</a>
         <a href="#galeria" class="hover:text-white transition">Galería</a>
         <a href="#horarios" class="hover:text-white transition">Horarios</a>
@@ -197,7 +222,12 @@
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-9">
+  <main id="contenido-principal" class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-9">
+    <noscript>
+      <section class="surface rounded-2xl p-4 border-l-8 border-red-700">
+        <p class="font-bold text-red-700">Este sitio funciona mejor con JavaScript activado para el chatbot y los módulos interactivos de ejercicios.</p>
+      </section>
+    </noscript>
     <section id="destacados" class="space-y-4">
       <div>
         <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Destacados</h2>
@@ -244,8 +274,9 @@
         </div>
         <span class="chip bg-amber-100 text-amber-800">El Camino a la Pascua</span>
       </div>
-      <video controls preload="metadata" poster="assets/ejercicios-adultos-2026/portada-camino-a-la-pascua.jpg" class="mt-4 w-full rounded-xl border border-[var(--line)] bg-black">
+      <video controls playsinline preload="metadata" aria-label="Video de introducción El Camino a la Pascua" poster="assets/ejercicios-adultos-2026/portada-camino-a-la-pascua.jpg" class="mt-4 w-full rounded-xl border border-[var(--line)] bg-black">
         <source src="assets/ejercicios-adultos-2026/el-camino-a-la-pascua.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
       </video>
     </section>
 
@@ -257,27 +288,27 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/ramos-fieles-palmas.jpg" alt="Fieles con palmas en Domingo de Ramos" class="gallery-img">
+          <img src="assets/campana-2026/ramos-fieles-palmas.jpg" alt="Fieles con palmas en Domingo de Ramos" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Domingo de Ramos | Bendición de palmas</figcaption>
         </figure>
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/jueves-procesion-nocturna.jpg" alt="Procesión nocturna con el Santísimo" class="gallery-img">
+          <img src="assets/campana-2026/jueves-procesion-nocturna.jpg" alt="Procesión nocturna con el Santísimo" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Jueves Santo | Procesión eucarística</figcaption>
         </figure>
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/pasion-via-crucis.jpg" alt="Representación de la pasión de Cristo" class="gallery-img">
+          <img src="assets/campana-2026/pasion-via-crucis.jpg" alt="Representación de la pasión de Cristo" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Viernes Santo | Pasión del Señor</figcaption>
         </figure>
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/templo-interior-perspectiva.jpg" alt="Interior del templo parroquial" class="gallery-img">
+          <img src="assets/campana-2026/templo-interior-perspectiva.jpg" alt="Interior del templo parroquial" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Templo Parroquial | Espacio litúrgico</figcaption>
         </figure>
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/pentecostes-predicacion.jpg" alt="Celebración litúrgica con asamblea" class="gallery-img">
+          <img src="assets/campana-2026/pentecostes-predicacion.jpg" alt="Celebración litúrgica con asamblea" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Asamblea en celebración solemne</figcaption>
         </figure>
         <figure class="bg-white rounded-xl p-3 border border-[var(--line)]">
-          <img src="assets/campana-2026/comunidad-plaza.jpg" alt="Comunidad reunida en la plaza parroquial" class="gallery-img">
+          <img src="assets/campana-2026/comunidad-plaza.jpg" alt="Comunidad reunida en la plaza parroquial" loading="lazy" decoding="async" class="gallery-img">
           <figcaption class="text-xs mt-2 font-semibold text-gray-700 uppercase tracking-wide">Comunidad Parroquial | Vida en misión</figcaption>
         </figure>
       </div>
@@ -429,8 +460,9 @@
         <article class="bg-white rounded-xl border border-[var(--line)] p-4">
           <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Material complementario</p>
           <p class="text-sm text-gray-700 mt-1">“Del Desierto al Hogar Pascual” es la introducción directa a los Ejercicios Espirituales 2026.</p>
-          <video controls preload="metadata" class="mt-3 w-full rounded-xl border border-gray-200 bg-black">
+          <video controls playsinline preload="metadata" aria-label="Video complementario Del Desierto al Hogar Pascual" poster="assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg" class="mt-3 w-full rounded-xl border border-gray-200 bg-black">
             <source src="assets/ejercicios-adultos-2026/del-desierto-al-hogar-pascual.mp4" type="video/mp4">
+            Tu navegador no soporta video HTML5.
           </video>
         </article>
 
@@ -445,12 +477,12 @@
         <div class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <article class="bg-white rounded-xl border border-[var(--line)] p-4 text-center">
-              <img src="Pbro. Arturo Bernardo Flores Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre" class="portrait mx-auto">
+              <img src="Pbro. Arturo Bernardo Flores Aguirre.JPEG" alt="Pbro. Arturo Bernardo Flores Aguirre" loading="lazy" decoding="async" class="portrait mx-auto">
               <p class="mt-3 font-black uppercase text-sm">Pbro. Arturo Bernardo Flores Aguirre</p>
               <p class="text-xs uppercase tracking-wider text-gray-600">Párroco</p>
             </article>
             <article class="bg-white rounded-xl border border-[var(--line)] p-4 text-center">
-              <img src="Pbro. Alan Lorenzo Sanchez Valencia.JPEG" alt="Pbro. Alan Lorenzo Sánchez Valencia" class="portrait mx-auto">
+              <img src="Pbro. Alan Lorenzo Sanchez Valencia.JPEG" alt="Pbro. Alan Lorenzo Sánchez Valencia" loading="lazy" decoding="async" class="portrait mx-auto">
               <p class="mt-3 font-black uppercase text-sm">Pbro. Alan Lorenzo Sánchez Valencia</p>
               <p class="text-xs uppercase tracking-wider text-gray-600">Vicario Parroquial</p>
             </article>
@@ -472,11 +504,11 @@
             <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Flashcards de formación (interactivas)</p>
             <p class="text-sm text-gray-700 mt-1">Usa “Siguiente” para practicar temas clave de los ejercicios.</p>
             <div class="mt-3 border border-gray-200 rounded-xl p-4 bg-gray-50">
-              <p id="flashcard-question" class="font-semibold text-gray-900">Cargando pregunta...</p>
-              <p id="flashcard-answer" class="mt-3 text-gray-700 hidden"></p>
+              <p id="flashcard-question" aria-live="polite" class="font-semibold text-gray-900">Cargando pregunta...</p>
+              <p id="flashcard-answer" aria-live="polite" class="mt-3 text-gray-700 hidden"></p>
               <div class="mt-3 flex flex-wrap gap-2">
-                <button id="flashcard-show" class="bg-[var(--charcoal)] text-white px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wide">Mostrar respuesta</button>
-                <button id="flashcard-next" class="bg-amber-700 text-white px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wide">Siguiente</button>
+                <button id="flashcard-show" type="button" aria-controls="flashcard-answer" class="bg-[var(--charcoal)] text-white px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wide">Mostrar respuesta</button>
+                <button id="flashcard-next" type="button" aria-controls="flashcard-question flashcard-answer" class="bg-amber-700 text-white px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wide">Siguiente</button>
               </div>
             </div>
           </div>
@@ -484,7 +516,7 @@
 
         <div class="bg-white rounded-xl border border-[var(--line)] p-4 text-center max-w-[220px]">
           <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700 mb-3">Documento oficial</p>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://88aj.github.io/pascua-2026/assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf" alt="QR PDF ejercicios espirituales adultos" class="w-full rounded-lg border border-gray-200 bg-white p-1">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://88aj.github.io/pascua-2026/assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf" alt="QR PDF ejercicios espirituales adultos" loading="lazy" decoding="async" class="w-full rounded-lg border border-gray-200 bg-white p-1">
           <a href="assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf" target="_blank" rel="noopener noreferrer" class="inline-block mt-3 text-sm font-black uppercase text-blue-700">Abrir PDF ejercicios</a>
         </div>
       </div>
@@ -497,8 +529,8 @@
           <p class="text-lg mt-2">El servicio no es una tarea, es camino de encuentro con Cristo. Te invitamos a sumarte en Semana Santa 2026.</p>
           <p class="text-sm text-gray-700 mt-1">Aquí también puedes consultar dudas con el botón <strong>“Pregúntele a los Padres”</strong> en la esquina inferior derecha.</p>
           <div class="mt-4 flex flex-wrap gap-3">
-            <a href="https://wa.me/528262684887?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
-            <a href="https://88aj.github.io/pascua-2026/panel-coordinador.html" target="_blank" rel="noopener noreferrer" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Registrarme ahora</a>
+            <a href="https://wa.me/528262684887?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para voluntariado" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
+            <a href="https://88aj.github.io/pascua-2026/panel-coordinador.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir panel de registro de voluntariado" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Registrarme ahora</a>
           </div>
         </div>
         <article class="volunteer-card">
