@@ -97,6 +97,10 @@
     const file = (window.location.pathname.split("/").pop() || "").toLowerCase();
     const filename = file || "index.html";
 
+    if (filename === "panel-coordinador.html") {
+      return { role: "panel", day: "inicio", injectMode: false };
+    }
+
     if (filename === "index.html") {
       return { role: "home", day: "inicio", injectMode: false };
     }

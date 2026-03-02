@@ -134,6 +134,41 @@ body.liturgia-pro .bg-white.p-6 {
   box-shadow: 0 10px 20px rgba(59, 42, 24, 0.09);
 }
 
+body.liturgia-pro input,
+body.liturgia-pro select,
+body.liturgia-pro textarea {
+  background: #fffdf8;
+  border: 1px solid #cdbb9d !important;
+  color: #2e2519;
+  font-family: "Source Sans 3", sans-serif !important;
+}
+
+body.liturgia-pro input:focus,
+body.liturgia-pro select:focus,
+body.liturgia-pro textarea:focus {
+  outline: none;
+  border-color: #a67e49 !important;
+  box-shadow: 0 0 0 2px rgba(166, 126, 73, 0.18);
+}
+
+body.liturgia-pro button {
+  font-family: "Source Sans 3", sans-serif !important;
+  letter-spacing: 0.03em;
+}
+
+body.liturgia-pro table {
+  background: #fffdf8;
+}
+
+body.liturgia-pro thead {
+  background: #efe3cc !important;
+  color: #4a3a2a !important;
+}
+
+body.liturgia-pro tbody tr {
+  background: #fffdf8 !important;
+}
+
 body.liturgia-pro .rounded-xl,
 body.liturgia-pro .rounded-2xl,
 body.liturgia-pro .rounded-3xl {
