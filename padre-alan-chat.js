@@ -301,7 +301,6 @@
   const PAGE_LABEL_OVERRIDES = {
     "landing-publico-semana-santa-2026.html": "Landing Público Semana Santa 2026",
     "portal-marketing-parroquial-2026.html": "Portal Marketing Parroquial 2026",
-    "misal-publico-semana-santa-2026.html": "Misal Público Semana Santa 2026",
     "panel-coordinador.html": "Panel Coordinador"
   };
 
