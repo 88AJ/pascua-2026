@@ -123,31 +123,82 @@
 
   const dayTokens = ["ramos", "lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "vigilia", "pascua"];
 
+  function isPublicRegistrationFlow() {
+    const params = new URLSearchParams(window.location.search || "");
+    return params.get("publico") === "1" || params.get("public") === "1" || params.get("modo") === "publico";
+  }
+
   function detectFromPath() {
     const file = (window.location.pathname.split("/").pop() || "").toLowerCase();
     const filename = file || "index.html";
+    const publicRegistration = isPublicRegistrationFlow();
 
     if (filename === "panel-coordinador.html") {
-      return { role: "panel", day: "inicio", injectMode: false, injectTraining: false, injectCover: false };
+      return { role: "panel", day: "inicio", injectMode: false, injectTraining: false, injectCover: false, publicRegistration: false };
     }
 
     if (filename === "index.html") {
-      return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true };
+      return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true, publicRegistration: false };
     }
 
     if (/^misal-.*\.html$/.test(filename)) {
       const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
-      return { role: "misal", day, injectMode: false, injectTraining: false, injectCover: true };
+      return { role: "misal", day, injectMode: false, injectTraining: false, injectCover: true, publicRegistration: false };
     }
 
     if (/^(ramos|lunes|martes|miercoles|jueves|viernes|sabado|vigilia|pascua)\.html$/.test(filename)) {
-      return { role: "dia", day: filename.replace(".html", ""), injectMode: false, injectTraining: true, injectCover: true };
+      return { role: "dia", day: filename.replace(".html", ""), injectMode: false, injectTraining: true, injectCover: true, publicRegistration: false };
     }
 
     const parts = file.replace(".html", "").split("-");
     const role = parts[0] || "dia";
     const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
-    return { role, day, injectMode: true, injectTraining: true, injectCover: true };
+    return { role, day, injectMode: !publicRegistration, injectTraining: !publicRegistration, injectCover: true, publicRegistration };
+  }
+
+  function applyPublicRegistrationMode(detected) {
+    if (!detected.publicRegistration) return;
+    if (["home", "dia", "misal", "panel"].includes(detected.role)) return;
+
+    const hiddenIds = ["modo-celebracion", "ruta-entrenamiento", "coordinacion-interministerial", "matriz-normativa"];
+    hiddenIds.forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) node.style.display = "none";
+    });
+
+    const backLink = document.querySelector("header a");
+    if (backLink) {
+      backLink.setAttribute("href", "landing-publico-semana-santa-2026.html#voluntariado");
+      backLink.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Volver al registro público';
+    }
+
+    const headerLabel = document.querySelector("header span");
+    if (headerLabel) {
+      headerLabel.textContent = "Registro público de voluntariado";
+    }
+
+    const hero = document.querySelector(".hero-bg");
+    if (hero) {
+      hero.style.display = "none";
+    }
+
+    const registro = document.getElementById("registro");
+    if (!registro) return;
+
+    const container = registro.parentElement;
+    if (container) {
+      Array.from(container.children).forEach((child) => {
+        if (child !== registro) child.style.display = "none";
+      });
+    }
+
+    if (!document.getElementById("registro-publico-note")) {
+      const note = document.createElement("p");
+      note.id = "registro-publico-note";
+      note.className = "text-center text-gray-600 mb-6 text-sm";
+      note.textContent = "Este formulario es de registro público. La información interna de coordinación no se muestra en esta vista.";
+      registro.insertBefore(note, registro.querySelector(".bg-gray-50"));
+    }
   }
 
   function createModeBlock(role, day) {
@@ -460,6 +511,7 @@
 
     if (detected.injectMode !== false) injectMode(detected.role, detected.day);
     if (detected.injectTraining !== false) injectTraining(detected.role, detected.day);
+    applyPublicRegistrationMode(detected);
     styleSharedBlocks();
     if (detected.injectCover !== false) {
       applyCinematicRevealTargets();
