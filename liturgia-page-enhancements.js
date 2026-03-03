@@ -444,18 +444,21 @@
     const detected = detectFromPath();
 
     document.body.classList.add("liturgia-pro");
-    document.body.classList.add("campaign-cinematic");
     document.body.classList.add("dia-" + detected.day);
     document.body.classList.add("rol-" + detected.role);
 
-    applyCinematicRevealTargets();
+    if (detected.injectCover !== false) {
+      applyCinematicRevealTargets();
+    }
     if (detected.injectCover !== false) injectCampaignCover();
     else document.body.classList.add("campaign-ready");
 
     if (detected.injectMode !== false) injectMode(detected.role, detected.day);
     if (detected.injectTraining !== false) injectTraining(detected.role, detected.day);
     styleSharedBlocks();
-    applyCinematicRevealTargets();
+    if (detected.injectCover !== false) {
+      applyCinematicRevealTargets();
+    }
   }
 
   if (document.readyState === "loading") {
