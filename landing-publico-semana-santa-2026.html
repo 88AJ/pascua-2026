@@ -40,10 +40,48 @@
     }
 
     .hero {
-      background:
-        linear-gradient(155deg, rgba(22, 19, 24, 0.84), rgba(58, 48, 66, 0.75)),
-        url("assets/campana-2026/pentecostes-predicacion.jpg") center 38% / cover no-repeat;
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(560px, 88vh, 980px);
+      background: #0d1119;
       border-bottom: 4px solid var(--gold);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(200, 168, 107, 0.2), transparent 38%),
+        linear-gradient(155deg, rgba(22, 19, 24, 0.82), rgba(58, 48, 66, 0.72));
+    }
+
+    .hero > .max-w-7xl {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero-video-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 177.78vh;
+      height: 56.25vw;
+      min-width: 100%;
+      min-height: 100%;
+      transform: translate(-50%, -50%);
+      border: 0;
     }
 
     .surface {
@@ -246,9 +284,12 @@
 
     body.campaign-page .hero {
       border-bottom-color: var(--gold-soft);
+    }
+
+    body.campaign-page .hero::before {
       background:
-        linear-gradient(160deg, rgba(8, 10, 15, 0.84), rgba(20, 30, 47, 0.76)),
-        url("assets/campana-2026/pentecostes-predicacion.jpg") center 38% / cover no-repeat;
+        radial-gradient(circle at 16% 12%, rgba(200, 168, 107, 0.2), transparent 36%),
+        linear-gradient(160deg, rgba(8, 10, 15, 0.74), rgba(20, 30, 47, 0.62));
     }
 
     body.campaign-page .surface,
@@ -379,6 +420,15 @@
     </div>
   </div>
   <header class="hero text-white">
+    <div class="hero-media" aria-hidden="true">
+      <iframe
+        class="hero-video-bg"
+        src="https://www.youtube.com/embed/FoAV4Y_PHCA?autoplay=1&mute=1&loop=1&playlist=FoAV4Y_PHCA&controls=0&modestbranding=1&rel=0&playsinline=1"
+        title="Parroquia San Pedro Apóstol, Allende Nuevo León."
+        allow="autoplay; encrypted-media; picture-in-picture"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
     <div class="max-w-7xl mx-auto px-4 py-5 flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol" class="h-14 w-14 rounded-full bg-white p-1 object-contain shadow-md">
@@ -418,42 +468,39 @@
     <section id="destacados" class="space-y-4">
       <div>
         <h2 class="fancy text-5xl font-bold uppercase">Destacados</h2>
-        <p class="text-gray-700 font-semibold">Mensajes prioritarios de la campaña parroquial.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <article class="highlight-card" style="background: url('assets/campana-2026/ramos-entrada-templo.jpg') center/cover no-repeat;">
+        <article class="highlight-card" style="background: url('assets/campana-2026/semanasantahorarios2026.jpeg') center/cover no-repeat;">
           <div class="p-4 h-full flex flex-col justify-end text-white">
-            <p class="chip bg-red-600/95 text-white">Semana Santa</p>
             <h3 class="text-2xl font-black leading-tight mt-2">Horarios Oficiales 2026</h3>
-            <p class="text-sm text-[#f3e9d0] mt-1">Conecta con la manta oficial y el detalle completo por día y capilla.</p>
             <div class="mt-3 flex flex-wrap gap-2">
               <a href="#horarios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver horarios</a>
-              <a href="manta-semana-santa-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Abrir manta</a>
+              <a href="assets/campana-2026/semanasantahorarios2026.jpeg" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver imagen</a>
             </div>
           </div>
         </article>
 
-        <article class="highlight-card" style="background: url('portada-noche.jpg') center/cover no-repeat;">
+        <article class="highlight-card" style="background: url('assets/campana-2026/cambiodehorario2026.jpeg') center/cover no-repeat;">
           <div class="p-4 h-full flex flex-col justify-end text-white">
             <p class="chip bg-blue-700/95 text-white">Aviso importante</p>
-            <h3 class="text-2xl font-black leading-tight mt-2">Misas vespertinas ahora 7:00 PM</h3>
-            <p class="text-sm text-[#f3e9d0] mt-1">A partir del Domingo de Pascua (5 de abril de 2026).</p>
+            <h3 class="text-2xl font-black leading-tight mt-2">Cambio de Horario</h3>
+            <p class="text-sm text-[#f3e9d0] mt-1">A partir del Domingo de Pascua (5 de abril de 2026) será a las 7:00 PM.</p>
             <div class="mt-3 flex flex-wrap gap-2">
               <a href="#horarios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver detalle</a>
-              <a href="manta-cambio-horario-vespertinas-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Manta cambio</a>
+              <a href="assets/campana-2026/cambiodehorario2026.jpeg" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver imagen</a>
             </div>
           </div>
         </article>
 
-        <article class="highlight-card" style="background: url('assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg') center/cover no-repeat;">
+        <article class="highlight-card" style="background: url('assets/campana-2026/ejercicioscuaresma2026.jpeg') center/cover no-repeat;">
           <div class="p-4 h-full flex flex-col justify-end text-white">
             <p class="chip bg-[var(--gold)] text-[var(--charcoal)]">Comunidad</p>
             <h3 class="text-2xl font-black leading-tight mt-2">Ejercicios Espirituales 2026</h3>
-            <p class="text-sm text-[#f3e9d0] mt-1">Conecta con la preparación de Cuaresma y su material complementario.</p>
+            <p class="text-sm text-[#f3e9d0] mt-1">16 al 20 de marzo del 2026, después de la Santa Misa de 6:00 PM.</p>
             <div class="mt-3 flex flex-wrap gap-2">
               <a href="#ejercicios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ir a ejercicios</a>
-              <a href="manta-ejercicios-espirituales-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver manta</a>
+              <a href="assets/campana-2026/ejercicioscuaresma2026.jpeg" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver imagen</a>
             </div>
           </div>
         </article>
@@ -464,7 +511,6 @@
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 class="fancy text-5xl font-bold uppercase">Misal para Fieles</h2>
-          <p class="text-gray-700 font-semibold">Solo contenidos litúrgicos para participar en la celebración (sin instrucciones de coordinación).</p>
         </div>
         <a href="misal-publico-semana-santa-2026.html" class="bg-[var(--charcoal)] text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Abrir índice completo</a>
       </div>
@@ -474,7 +520,7 @@
           <div class="misal-cover" style="background-image: url('giotto-ramos.jpg');"></div>
           <div class="p-4">
             <p class="font-black uppercase text-sm">Domingo de Ramos</p>
-            <a href="misal-ramos.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+            <a href="#fuente-ramos" class="text-red-700 font-extrabold text-sm uppercase">Ver fuente</a>
           </div>
         </article>
 
@@ -482,7 +528,7 @@
           <div class="misal-cover" style="background-image: url('lavatorio-jueves.jpg');"></div>
           <div class="p-4">
             <p class="font-black uppercase text-sm">Jueves Santo</p>
-            <a href="misal-jueves.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+            <a href="#fuente-jueves" class="text-red-700 font-extrabold text-sm uppercase">Ver fuente</a>
           </div>
         </article>
 
@@ -490,7 +536,7 @@
           <div class="misal-cover" style="background-image: url('cristocrucificado-viernes.jpg');"></div>
           <div class="p-4">
             <p class="font-black uppercase text-sm">Viernes Santo</p>
-            <a href="misal-viernes.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+            <a href="#fuente-viernes" class="text-red-700 font-extrabold text-sm uppercase">Ver fuente</a>
           </div>
         </article>
 
@@ -498,7 +544,7 @@
           <div class="misal-cover" style="background-image: url('piero-vigilia.jpeg');"></div>
           <div class="p-4">
             <p class="font-black uppercase text-sm">Vigilia Pascual</p>
-            <a href="misal-vigilia.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+            <a href="#fuente-vigilia" class="text-red-700 font-extrabold text-sm uppercase">Ver fuente</a>
           </div>
         </article>
 
@@ -506,8 +552,72 @@
           <div class="misal-cover" style="background-image: url('angelico-domingo.jpg');"></div>
           <div class="p-4">
             <p class="font-black uppercase text-sm">Domingo de Pascua</p>
-            <a href="misal-domingo.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+            <a href="#fuente-domingo" class="text-red-700 font-extrabold text-sm uppercase">Ver fuente</a>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="fuentes-misal" class="surface rounded-2xl p-6 md:p-8 space-y-4">
+      <div>
+        <h2 class="fancy text-4xl md:text-5xl font-bold uppercase">Fuente Litúrgica por Día</h2>
+        <p class="text-gray-700 font-semibold">Estructura para fieles: solo secciones I a V.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <article id="fuente-ramos" class="day-card p-5">
+          <p class="chip bg-red-100 text-red-800">Domingo de Ramos</p>
+          <ol class="mt-3 space-y-1 text-sm font-semibold">
+            <li>I. Conmemoración de la Entrada del Señor en Jerusalén</li>
+            <li>II. Liturgia de la Palabra</li>
+            <li>III. Pasión del Señor</li>
+            <li>IV. Oración Universal de los Fieles</li>
+            <li>V. Liturgia Eucarística y Rito de Conclusión</li>
+          </ol>
+        </article>
+
+        <article id="fuente-jueves" class="day-card p-5">
+          <p class="chip bg-gray-100 text-gray-800">Jueves Santo</p>
+          <ol class="mt-3 space-y-1 text-sm font-semibold">
+            <li>I. Ritos Iniciales</li>
+            <li>II. Liturgia de la Palabra</li>
+            <li>III. Homilía y Lavatorio de los Pies</li>
+            <li>IV. Oración Universal de los Fieles</li>
+            <li>V. Liturgia Eucarística</li>
+          </ol>
+        </article>
+
+        <article id="fuente-viernes" class="day-card p-5">
+          <p class="chip bg-red-100 text-red-800">Viernes Santo</p>
+          <ol class="mt-3 space-y-1 text-sm font-semibold">
+            <li>I. Ritos Iniciales</li>
+            <li>II. Liturgia de la Palabra</li>
+            <li>III. Oración Universal de los Fieles</li>
+            <li>IV. Adoración de la Santa Cruz</li>
+            <li>V. Rito de la Comunión</li>
+          </ol>
+        </article>
+
+        <article id="fuente-vigilia" class="day-card p-5">
+          <p class="chip bg-amber-100 text-amber-800">Vigilia Pascual</p>
+          <ol class="mt-3 space-y-1 text-sm font-semibold">
+            <li>I. Lucernario</li>
+            <li>II. Liturgia de la Palabra</li>
+            <li>III. Liturgia Bautismal</li>
+            <li>IV. Liturgia Eucarística</li>
+            <li>V. Rito de Conclusión</li>
+          </ol>
+        </article>
+
+        <article id="fuente-domingo" class="day-card p-5">
+          <p class="chip bg-amber-100 text-amber-800">Domingo de Pascua</p>
+          <ol class="mt-3 space-y-1 text-sm font-semibold">
+            <li>I. Ritos Iniciales</li>
+            <li>II. Liturgia de la Palabra</li>
+            <li>III. Renovación Bautismal (aspersión)</li>
+            <li>IV. Liturgia Eucarística</li>
+            <li>V. Rito de Conclusión</li>
+          </ol>
         </article>
       </div>
     </section>
