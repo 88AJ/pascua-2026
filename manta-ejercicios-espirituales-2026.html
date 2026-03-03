@@ -7,45 +7,56 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/campaign-2026-theme.css">
+  <link rel="stylesheet" href="assets/css/campaign-2026-motion.css">
   <style>
     :root {
-      --violet: #663a93;
-      --violet-dark: #4f2a75;
-      --gold: #e1c16a;
-      --white: #ffffff;
-      --ink: #1c1525;
+      --violet: #4e2c70;
+      --violet-soft: #63418a;
+      --deep: #111827;
+      --gold: #c8a86b;
+      --ivory: #f7f2e8;
+      --line: rgba(200, 168, 107, 0.42);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      background: linear-gradient(155deg, #2a2e34, #40454d);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      place-items: center;
       padding: 0.8rem;
       font-family: "Montserrat", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(200, 168, 107, 0.14), transparent 36%),
+        linear-gradient(150deg, #0f1521, #1f2b41 52%, #2f2245);
+      color: var(--ivory);
     }
 
     .flyer {
-      width: 1080px;
+      width: min(1080px, 100%);
       min-height: 1350px;
-      background: #fff;
-      display: grid;
-      grid-template-columns: 46% 54%;
-      border: 6px solid #2b163f;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      border: 4px solid var(--line);
+      border-radius: 18px;
       overflow: hidden;
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.56);
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      background: #0b111b;
       position: relative;
     }
 
     .left {
       position: relative;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.14)),
-        url("assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg") 24% center / 150% auto no-repeat;
-      filter: grayscale(92%);
+        linear-gradient(170deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.3)),
+        url("assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg") 24% center / 160% auto no-repeat;
+      filter: grayscale(94%);
+      border-right: 1px solid rgba(200, 168, 107, 0.2);
     }
 
     .left::after {
@@ -53,248 +64,263 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.32), transparent 46%),
-        linear-gradient(130deg, rgba(255,255,255,0.12), rgba(255,255,255,0)),
-        linear-gradient(90deg, rgba(0, 0, 0, 0.18), transparent 42%);
+        linear-gradient(90deg, rgba(11, 17, 27, 0.18), rgba(11, 17, 27, 0.65));
     }
 
-    .left .brand {
+    .brand {
       position: absolute;
-      top: 20px;
-      left: 18px;
+      top: 18px;
+      left: 16px;
+      z-index: 2;
       display: flex;
       align-items: center;
-      gap: 14px;
-      z-index: 2;
-      color: #111;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0,0,0,0.2);
-      border-radius: 14px;
-      padding: 8px 10px;
+      gap: 0.6rem;
+      border: 1px solid rgba(200, 168, 107, 0.34);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 0.34rem 0.52rem;
+      color: #181818;
     }
 
-    .left .brand img {
-      width: 84px;
-      height: 84px;
-      border-radius: 14px;
+    .brand img {
+      width: 60px;
+      height: 60px;
       background: #fff;
-      padding: 6px;
+      border-radius: 10px;
       object-fit: contain;
-      border: 1px solid rgba(0,0,0,0.18);
+      padding: 0.2rem;
+      border: 1px solid rgba(0, 0, 0, 0.16);
     }
 
-    .left .brand p {
-      font-size: 16px;
-      line-height: 1.1;
+    .brand p {
+      font-size: 0.72rem;
+      line-height: 1.2;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.1em;
     }
 
-    .vertical-title {
+    .vertical {
       position: absolute;
-      right: -2px;
+      right: 0;
       top: 0;
       bottom: 0;
-      width: 108px;
-      background: linear-gradient(180deg, rgba(102,58,147,0.95), rgba(79,42,117,0.96));
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 106px;
+      z-index: 2;
+      background: linear-gradient(180deg, rgba(78, 44, 112, 0.96), rgba(99, 65, 138, 0.96));
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      font-family: "Cinzel", serif;
-      font-size: 58px;
-      letter-spacing: 1px;
+      display: grid;
+      place-items: center;
+      font-family: "Cinzel", "Times New Roman", serif;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 52px;
+      line-height: 0.94;
+      color: #fff;
       text-align: center;
-      line-height: 0.95;
-      z-index: 2;
-      border-left: 3px solid rgba(255,255,255,0.2);
+      padding: 1rem 0.2rem;
     }
 
     .right {
+      padding: 1.05rem 1rem 0.9rem;
       background:
-        linear-gradient(150deg, rgba(102,58,147,0.96), rgba(79,42,117,0.96)),
-        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.08), transparent 40%);
-      color: var(--white);
-      padding: 52px 46px 34px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
+        linear-gradient(150deg, rgba(78, 44, 112, 0.95), rgba(33, 23, 56, 0.95)),
+        radial-gradient(circle at 14% 14%, rgba(255, 255, 255, 0.1), transparent 40%);
+      display: grid;
+      grid-template-rows: auto auto auto 1fr auto;
+      gap: 0.65rem;
       position: relative;
+      z-index: 2;
     }
 
-    .right h1 {
-      font-family: "Cinzel", serif;
-      font-size: 64px;
+    .kicker {
       text-transform: uppercase;
-      line-height: 0.95;
-      letter-spacing: 0.03em;
-    }
-
-    .right .lead {
-      font-size: 42px;
-      color: var(--gold);
+      letter-spacing: 0.14em;
+      font-size: 0.74rem;
       font-weight: 900;
+      color: #ecd7ad;
+    }
+
+    .title {
+      font-family: "Cinzel", "Times New Roman", serif;
       text-transform: uppercase;
-      line-height: 1;
+      letter-spacing: 0.04em;
+      line-height: 0.94;
+      font-size: clamp(2rem, 5vw, 4rem);
     }
 
-    .right .intro {
-      font-size: 42px;
-      line-height: 1.25;
+    .intro {
+      font-size: clamp(1rem, 2vw, 1.75rem);
+      line-height: 1.24;
       font-weight: 700;
-      max-width: 520px;
+      color: #f6ecff;
     }
 
-    .right .intro strong { color: var(--gold); }
-
-    .right .intro-note {
-      font-size: 25px;
-      font-weight: 700;
-      line-height: 1.26;
-      color: #efe2ff;
-      margin-top: -8px;
+    .intro strong {
+      color: var(--gold);
     }
 
     .details {
-      margin-top: 2px;
-      background: rgba(0,0,0,0.2);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 14px;
-      padding: 18px 18px;
+      background: rgba(11, 17, 27, 0.36);
+      padding: 0.72rem;
       display: grid;
-      gap: 7px;
+      gap: 0.3rem;
     }
 
     .details p {
-      font-size: 31px;
+      font-size: clamp(0.95rem, 1.8vw, 1.45rem);
       font-weight: 700;
       line-height: 1.25;
     }
 
     .details strong {
-      color: var(--gold);
       text-transform: uppercase;
+      color: var(--gold);
     }
 
     .priests {
-      margin-top: auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 0.62rem;
+      align-self: end;
     }
 
     .priest {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 10px;
-      align-items: center;
-      background: rgba(0, 0, 0, 0.24);
-      border: 1px solid rgba(255,255,255,0.22);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 12px;
-      padding: 8px;
+      background: rgba(11, 17, 27, 0.36);
+      padding: 0.45rem;
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 0.54rem;
+      align-items: center;
     }
 
     .priest img {
-      width: 80px;
-      height: 80px;
+      width: 74px;
+      height: 74px;
+      border-radius: 8px;
       object-fit: cover;
       object-position: top;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     .priest .name {
-      font-size: 13px;
+      font-size: 0.73rem;
+      line-height: 1.24;
       font-weight: 800;
-      line-height: 1.2;
     }
 
     .priest .role {
-      font-size: 11px;
+      margin-top: 0.18rem;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #e9d8ff;
+      letter-spacing: 0.08em;
+      font-size: 0.6rem;
       font-weight: 700;
-      margin-top: 3px;
+      color: #e8d9ff;
     }
 
     .footer {
-      margin-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      padding-top: 10px;
-      display: flex;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      padding-top: 0.55rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      gap: 0.5rem;
     }
 
     .footer p {
-      font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-weight: 800;
-      color: #f3e6ff;
+      font-size: 0.64rem;
+      line-height: 1.26;
+      font-weight: 900;
+      color: #f2e7ff;
     }
 
-    .footer .qr {
-      width: 74px;
+    .footer img {
+      width: 76px;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.32);
       background: #fff;
       padding: 2px;
     }
 
-    @media (max-width: 1080px) {
+    @media (max-width: 1060px) {
       .flyer {
-        width: 100%;
         grid-template-columns: 1fr;
       }
-      .left { min-height: 420px; }
-      .vertical-title {
-        width: auto;
-        height: 86px;
-        right: 0;
+
+      .left {
+        min-height: 420px;
+      }
+
+      .vertical {
         left: 0;
-        top: auto;
+        right: 0;
         bottom: 0;
+        top: auto;
+        width: auto;
+        height: 92px;
         writing-mode: horizontal-tb;
         transform: none;
         font-size: 44px;
         border-left: 0;
-        border-top: 3px solid rgba(255,255,255,0.2);
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .priests {
+        grid-template-columns: 1fr;
       }
     }
 
     @media print {
-      body { background: #fff; padding: 0; }
-      .flyer { box-shadow: none; border: 0; }
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .flyer {
+        border-radius: 0;
+        box-shadow: none;
+      }
     }
   </style>
 </head>
-<body>
-  <article class="flyer" aria-label="Manta ejercicios espirituales 2026">
+<body class="campaign-page">
+  <div class="campaign-cover" data-campaign-cover aria-hidden="true">
+    <div class="campaign-cover__inner">
+      <img class="campaign-cover__logo" src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+      <p class="campaign-cover__title">Ejercicios Espirituales 2026</p>
+      <button class="campaign-cover__skip" type="button" data-cover-skip>Saltar animación</button>
+    </div>
+  </div>
+
+  <article class="flyer campaign-shell" aria-label="Manta ejercicios espirituales 2026">
+    <div class="campaign-glow" aria-hidden="true"></div>
+
     <section class="left">
       <div class="brand">
         <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
         <p>Parroquia San Pedro Apóstol<br>Allende, N.L.</p>
       </div>
-      <div class="vertical-title">Ejercicios Espirituales</div>
+      <div class="vertical">Ejercicios Espirituales</div>
     </section>
 
     <section class="right">
-      <p class="lead">¿Quieres cambiar tu vida?</p>
-      <h1>Ejercicios<br>Espirituales</h1>
+      <p class="kicker">Preparación intensa para Semana Santa</p>
+      <h1 class="title">Ejercicios Espirituales 2026</h1>
       <p class="intro">Vive un tiempo de reflexión, oración y <strong>renovación interior</strong> en esta Cuaresma.</p>
-      <p class="intro-note">Serán impartidos por los sacerdotes de la parroquia: Pbro. Arturo Bernardo Flores Aguirre y Pbro. Alan Lorenzo Sánchez Valencia.</p>
 
       <div class="details">
-        <p><strong>Inicio:</strong> 16 al 20 de marzo de 2026</p>
-        <p><strong>Lugar:</strong> Sede Parroquial, Allende, N.L.</p>
+        <p><strong>Fechas:</strong> 16 al 20 de marzo de 2026</p>
         <p><strong>Horario:</strong> Después de misa de 6:00 PM</p>
+        <p><strong>Lugar:</strong> Sede Parroquial, Allende, N.L.</p>
+        <p><strong>Impartidos por sacerdotes:</strong> Pbro. Arturo Bernardo Flores Aguirre y Pbro. Alan Lorenzo Sánchez Valencia.</p>
       </div>
 
       <div class="priests">
@@ -305,6 +331,7 @@
             <p class="role">Párroco</p>
           </div>
         </article>
+
         <article class="priest">
           <img src="Pbro. Alan Lorenzo Sanchez Valencia.JPEG" alt="Pbro. Alan Lorenzo Sánchez Valencia">
           <div>
@@ -315,10 +342,12 @@
       </div>
 
       <footer class="footer">
-        <p>Informes: +52 826 268 4887</p>
-        <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR recursos parroquiales">
+        <p>Informes: +52 826 268 4887 · Escanea para horarios, materiales y recursos de Semana Santa 2026.</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR recursos parroquiales">
       </footer>
     </section>
   </article>
+
+  <script src="assets/js/campaign-cover.js" defer></script>
 </body>
 </html>

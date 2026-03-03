@@ -1,0 +1,31 @@
+:root {
+  --campaign-bg: #0e0f12;
+  --campaign-night: #1e2a44;
+  --campaign-gold: #c8a86b;
+  --campaign-ivory: #f7f2e8;
+  --campaign-wine: #7c2a2a;
+}
+
+body.campaign-page {
+  background-color: var(--campaign-bg);
+}
+
+.campaign-shell {
+  position: relative;
+}
+
+.campaign-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(200, 168, 107, 0.14), transparent 36%),
+    radial-gradient(circle at 92% 14%, rgba(30, 42, 68, 0.2), transparent 34%);
+}
+
+.campaign-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  color: var(--campaign-gold);
+}

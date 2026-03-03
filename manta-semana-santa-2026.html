@@ -1,629 +1,362 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Semana Santa 2026 | San Pedro Apóstol</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/campaign-2026-theme.css">
+  <link rel="stylesheet" href="assets/css/campaign-2026-motion.css">
   <style>
-
     :root {
-
-      --black: #050505;
-
-      --gold: #d6b26e;
-
-      --red: #d32f2f;
-
-      --white: #ffffff;
-
-      --panel: rgba(6, 6, 6, 0.68);
-
+      --bg: #090b11;
+      --panel: rgba(8, 11, 18, 0.72);
+      --panel-strong: rgba(12, 16, 28, 0.84);
+      --line: rgba(200, 168, 107, 0.44);
+      --text: #f7f2e8;
+      --muted: #dfcfb1;
+      --hour: #e5bf76;
+      --danger: #d18686;
     }
 
-
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-
-      background-color: #333;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
       min-height: 100vh;
-
-      font-family: "Montserrat", sans-serif;
-
-      padding: 0.9rem;
-
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+      font-family: "Montserrat", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(200, 168, 107, 0.14), transparent 30%),
+        linear-gradient(150deg, #0a0c14, #141b29 58%, #1b2438);
     }
-
-
 
     .poster {
-
-      width: 1000px;
-
-      min-height: 1414px;
-
-      background-color: var(--black);
-
-      position: relative;
-
+      width: min(1040px, 100%);
+      min-height: 1450px;
+      border: 4px solid var(--line);
+      border-radius: 20px;
       overflow: hidden;
-
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-
-      border: 5px solid var(--gold);
-
-    }
-
-
-
-    .bg-image {
-
-      position: absolute;
-
-      top: 0;
-
-      right: 0;
-
-      width: 62%;
-
-      height: 100%;
-
-      background-image: url("cristocrucificado-viernes.jpg");
-
-      background-position: 90% 46%;
-
-      background-size: cover;
-
-      background-repeat: no-repeat;
-
-      z-index: 1;
-
-    }
-
-
-
-    .bg-image::before {
-
-      content: "";
-
-      position: absolute;
-
-      top: 0;
-
-      left: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      background: linear-gradient(to right, var(--black) 0%, rgba(5, 5, 5, 0.72) 40%, transparent 100%);
-
-    }
-
-
-
-    .content {
-
       position: relative;
+      background: var(--bg);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
+      display: grid;
+      grid-template-columns: 1.22fr 0.78fr;
+    }
 
+    .left {
+      position: relative;
       z-index: 2;
-
-      padding: 44px 54px 120px;
-
-      width: 66%;
-
-      min-height: 1414px;
-
-      display: flex;
-
-      flex-direction: column;
-
+      padding: 1.2rem 1.15rem 1rem;
+      background:
+        linear-gradient(155deg, rgba(9, 12, 20, 0.78), rgba(12, 16, 24, 0.9));
+      border-right: 1px solid rgba(200, 168, 107, 0.22);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 0.72rem;
     }
 
-
-
-    .top-row {
-
+    .brand {
       display: flex;
-
       align-items: center;
-
-      gap: 12px;
-
-      margin-bottom: 24px;
-
+      gap: 0.75rem;
+      border: 1px solid rgba(200, 168, 107, 0.36);
+      background: rgba(7, 10, 16, 0.62);
+      border-radius: 14px;
+      padding: 0.45rem 0.6rem;
     }
 
-
-
-    .top-row img {
-
-      width: 54px;
-
-      height: 54px;
-
+    .brand img {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-
-      background: #fff;
-
-      padding: 4px;
-
       object-fit: contain;
-
+      background: #fff;
+      padding: 0.25rem;
     }
 
-
-
-    .top-row p {
-
-      color: #e8d8b7;
-
-      font-size: 13px;
-
+    .brand p {
+      font-size: 0.73rem;
       text-transform: uppercase;
-
-      font-weight: 700;
-
-      letter-spacing: 1px;
-
-      line-height: 1.2;
-
+      letter-spacing: 0.11em;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--muted);
     }
 
-
-
-    .title {
-
-      font-family: "Cinzel", serif;
-
-      font-size: 72px;
-
-      color: var(--white);
-
+    .headline h1 {
+      font-family: "Cinzel", "Times New Roman", serif;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
       line-height: 0.95;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+    }
 
-      letter-spacing: 1.5px;
-
+    .headline h2 {
+      margin-top: 0.2rem;
       text-transform: uppercase;
-
+      font-size: clamp(0.84rem, 1.2vw, 1.05rem);
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      font-weight: 800;
     }
 
-
-
-    .subtitle {
-
-      font-family: "Cinzel", serif;
-
-      font-size: 28px;
-
-      color: var(--white);
-
-      margin-top: 8px;
-
-      letter-spacing: 0.8px;
-
-      text-transform: uppercase;
-
+    .schedule {
+      display: grid;
+      gap: 0.5rem;
     }
 
-
-
-    .subtitle span {
-
-      color: var(--gold);
-
-      font-weight: 700;
-
-      font-size: 34px;
-
-    }
-
-
-
-    .schedule-list {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 14px;
-
-      margin-top: 22px;
-
-      flex-grow: 1;
-
-    }
-
-
-
-    .day-block {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 4px;
-
+    .day {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-left: 3px solid rgba(200, 168, 107, 0.68);
+      border-radius: 12px;
       background: var(--panel);
-
-      border: 1px solid rgba(255, 255, 255, 0.18);
-
-      border-radius: 10px;
-
-      padding: 10px 12px;
-
+      padding: 0.42rem 0.55rem;
+      display: grid;
+      gap: 0.2rem;
     }
 
-
-
-    .day-title {
-
-      font-family: "Cinzel", serif;
-
-      font-size: 18px;
-
-      color: var(--gold);
-
-      font-weight: 700;
-
+    .day h3 {
+      font-family: "Cinzel", "Times New Roman", serif;
       text-transform: uppercase;
-
-      letter-spacing: 0.8px;
-
-      margin-bottom: 2px;
-
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--hour);
     }
 
-
-
-    .event {
-
-      font-size: 14px;
-
-      color: var(--white);
-
-      line-height: 1.32;
-
-      font-weight: 600;
-
-    }
-
-
-
-    .time {
-
-      color: var(--red);
-
+    .day p {
+      font-size: 0.71rem;
+      line-height: 1.28;
       font-weight: 700;
-
     }
 
+    .day strong {
+      color: var(--hour);
+      font-weight: 900;
+    }
 
+    .day .note {
+      color: var(--danger);
+      font-weight: 800;
+    }
 
     .capillas {
-
-      margin-top: 12px;
-
-      background: rgba(12, 28, 44, 0.78);
-
-      border: 1px solid rgba(214, 178, 110, 0.6);
-
-      border-radius: 10px;
-
-      padding: 10px 12px;
-
+      border: 1px solid rgba(200, 168, 107, 0.45);
+      border-radius: 12px;
+      background: var(--panel-strong);
+      padding: 0.5rem 0.55rem;
+      display: grid;
+      gap: 0.22rem;
     }
 
-
-
-    .capillas h4 {
-
-      font-family: "Cinzel", serif;
-
-      color: var(--gold);
-
-      font-size: 16px;
-
+    .capillas h3 {
+      font-family: "Cinzel", "Times New Roman", serif;
       text-transform: uppercase;
-
-      margin-bottom: 4px;
-
+      letter-spacing: 0.08em;
+      color: var(--hour);
+      font-size: 0.8rem;
     }
-
-
 
     .capillas p {
-
-      font-size: 13px;
-
-      color: #fff;
-
-      line-height: 1.33;
-
-      font-weight: 600;
-
-    }
-
-
-
-    .qr-access {
-
-      margin-top: 10px;
-
-      display: grid;
-
-      grid-template-columns: 84px 1fr;
-
-      gap: 10px;
-
-      align-items: center;
-
-      border-radius: 10px;
-
-      background: rgba(9, 21, 35, 0.82);
-
-      border: 1px solid rgba(214, 178, 110, 0.5);
-
-      padding: 8px;
-
-    }
-
-
-
-    .qr-access img {
-
-      width: 84px;
-
-      border-radius: 8px;
-
-      border: 1px solid #d9dbe0;
-
-      background: #fff;
-
-      padding: 2px;
-
-    }
-
-
-
-    .qr-access p {
-
-      font-size: 12px;
-
-      line-height: 1.32;
-
-      color: #fff;
-
+      font-size: 0.7rem;
       font-weight: 700;
+      line-height: 1.24;
+    }
 
+    .footer-line {
+      margin-top: 0.08rem;
+      border: 1px solid rgba(200, 168, 107, 0.44);
+      border-radius: 12px;
+      background: rgba(20, 32, 51, 0.68);
+      padding: 0.52rem 0.6rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
-
       letter-spacing: 0.04em;
-
+      font-weight: 800;
+      line-height: 1.3;
     }
 
+    .right {
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      min-height: 100%;
+    }
 
+    .cristo {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(7, 10, 16, 0.18), rgba(7, 10, 16, 0.88)),
+        url("cristocrucificado-viernes.jpg") 92% 45% / cover no-repeat;
+    }
 
-    .footer {
-
-      text-align: center;
-
-      width: 100%;
-
+    .cristo::before {
+      content: "";
       position: absolute;
-
-      bottom: 22px;
-
-      left: 0;
-
-      z-index: 3;
-
-      padding: 0 40px;
-
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 10, 16, 0.65), transparent 40%),
+        radial-gradient(circle at 78% 24%, rgba(200, 168, 107, 0.18), transparent 30%);
     }
 
+    .qr {
+      border-top: 1px solid rgba(200, 168, 107, 0.28);
+      background: rgba(8, 11, 18, 0.88);
+      padding: 0.75rem;
+      display: grid;
+      grid-template-columns: 98px 1fr;
+      gap: 0.6rem;
+      align-items: center;
+    }
 
-
-    .footer-text {
-
-      font-family: "Cinzel", serif;
-
-      color: var(--white);
-
-      font-size: 14px;
-
-      letter-spacing: 1.3px;
-
-      text-transform: uppercase;
-
-      line-height: 1.35;
-
-      background: rgba(0, 0, 0, 0.5);
-
-      border: 1px solid rgba(255, 255, 255, 0.24);
-
+    .qr img {
+      width: 98px;
       border-radius: 10px;
-
-      padding: 10px;
-
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: #fff;
+      padding: 2px;
     }
 
+    .qr p {
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      line-height: 1.3;
+      letter-spacing: 0.07em;
+      font-weight: 900;
+      color: var(--muted);
+    }
 
+    .qr p strong {
+      color: var(--hour);
+    }
 
-    @media (max-width: 1040px) {
-
+    @media (max-width: 980px) {
       .poster {
-
-        width: 100%;
-
-        min-height: auto;
-
+        grid-template-columns: 1fr;
       }
 
-      .bg-image {
-
-        width: 100%;
-
-        opacity: 0.45;
-
+      .right {
+        min-height: 520px;
       }
 
-      .content {
-
-        width: 100%;
-
-        min-height: auto;
-
-        padding-bottom: 140px;
-
+      .cristo {
+        background-position: 82% 36%;
       }
-
     }
-
-
 
     @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
 
-      body { padding: 0; background: #fff; }
-
-      .poster { box-shadow: none; border: 0; }
-
+      .poster {
+        border-radius: 0;
+        box-shadow: none;
+      }
     }
-
   </style>
-
 </head>
+<body class="campaign-page">
+  <div class="campaign-cover" data-campaign-cover aria-hidden="true">
+    <div class="campaign-cover__inner">
+      <img class="campaign-cover__logo" src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+      <p class="campaign-cover__title">Semana Santa 2026</p>
+      <button class="campaign-cover__skip" type="button" data-cover-skip>Saltar animación</button>
+    </div>
+  </div>
 
-<body>
+  <article class="poster campaign-shell" aria-label="Manta oficial Semana Santa 2026">
+    <div class="campaign-glow" aria-hidden="true"></div>
 
-  <div class="poster" aria-label="Manta oficial Semana Santa 2026">
-
-    <div class="bg-image"></div>
-
-
-
-    <div class="content">
-
-      <div class="top-row">
-
+    <section class="left">
+      <div class="brand">
         <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
-
         <p>Parroquia San Pedro Apóstol<br>Allende, N.L. · Informes +52 826 268 4887</p>
-
       </div>
 
-
-
-      <header class="header">
-
-        <h1 class="title">Semana Santa</h1>
-
-        <h2 class="subtitle">Parroquia San Pedro Apóstol <span>2026</span></h2>
-
+      <header class="headline">
+        <h1>Semana Santa 2026</h1>
+        <h2>Horarios oficiales · Templo Parroquial</h2>
       </header>
 
+      <main class="schedule">
+        <article class="day">
+          <h3>29 marzo · Domingo de Ramos</h3>
+          <p><strong>6:00 PM</strong> Misa de víspera (sábado).</p>
+          <p><strong>8:00 AM, 10:00 AM, 12:00 PM y 6:00 PM</strong> Santa Misa.</p>
+          <p>Bendición de ramos en todas las Misas.</p>
+        </article>
 
+        <article class="day">
+          <h3>30 marzo · Lunes Santo</h3>
+          <p><strong>8:00 AM y 6:00 PM</strong> Santa Misa.</p>
+        </article>
 
-      <main class="schedule-list">
+        <article class="day">
+          <h3>31 marzo · Martes Santo</h3>
+          <p><strong>8:00 AM y 6:00 PM</strong> Santa Misa.</p>
+        </article>
 
-        <div class="day-block">
+        <article class="day">
+          <h3>1 abril · Miércoles Santo</h3>
+          <p><strong>6:00 PM</strong> Única Misa. Recepción de óleos y unción de enfermos.</p>
+        </article>
 
-          <h3 class="day-title">29 marzo · Domingo de Ramos</h3>
+        <article class="day">
+          <h3>2 abril · Jueves Santo</h3>
+          <p><strong>6:00 PM</strong> Misa de la Cena del Señor.</p>
+          <p><strong>7:00 PM a 10:00 PM</strong> Adoración al Santísimo.</p>
+          <p class="note">No hay Misa en capilla de Nuestra Señora de Fátima.</p>
+        </article>
 
-          <p class="event"><span class="time">6:00 PM</span> Misa de víspera (sábado).</p>
+        <article class="day">
+          <h3>3 abril · Viernes Santo</h3>
+          <p><strong>10:00 AM</strong> Santo Viacrucis.</p>
+          <p><strong>5:00 PM</strong> Oficios de la Pasión.</p>
+          <p><strong>6:00 PM</strong> Las Siete Palabras.</p>
+          <p><strong>7:00 PM</strong> Procesión del Silencio.</p>
+        </article>
 
-          <p class="event"><span class="time">8:00 AM, 10:00 AM, 12:00 PM, 6:00 PM</span> Santa Misa.</p>
+        <article class="day">
+          <h3>4 abril · Sábado Santo</h3>
+          <p><strong>7:00 PM</strong> Solemne Vigilia Pascual (inicia en el atrio).</p>
+          <p class="note">No hay Misa en capilla del Señor de la Misericordia.</p>
+        </article>
 
-          <p class="event">Bendición de ramos en todas las Misas.</p>
+        <article class="day">
+          <h3>5 abril · Domingo de Resurrección</h3>
+          <p><strong>10:00 AM, 12:00 PM y 7:00 PM</strong> Santa Misa en templo parroquial.</p>
+          <p>No habrá Misa de 8:00 AM.</p>
+        </article>
+      </main>
 
-        </div>
+      <section class="capillas">
+        <h3>Capillas · Horarios confirmados</h3>
+        <p>San Judas Tadeo: Ramos 11:00 AM · Jueves 6:00 PM · Viernes 5:30 PM · Vigilia 7:00 PM · Resurrección 11:00 AM.</p>
+        <p>Resurrección adicional: Sagrado Corazón 9:00 AM · Nuestra Señora del Rosario 1:00 PM.</p>
+      </section>
 
+      <p class="footer-line">A partir del domingo 5 de abril de 2026, la Misa vespertina ordinaria será a las <strong>7:00 PM</strong>.</p>
+    </section>
 
+    <aside class="right">
+      <div class="cristo" role="img" aria-label="Cristo crucificado con iluminación dramática"></div>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html" alt="QR para landing de Semana Santa 2026">
+        <p><strong>Escanea aquí</strong> para ver horarios completos, recursos para fieles y registro de voluntariado.</p>
+      </div>
+    </aside>
+  </article>
 
-        <div class="day-block">
-
-          <h3 class="day-title">30 marzo · Lunes Santo</h3>
-
-          <p class="event"><span class="time">8:00 AM y 6:00 PM</span> Santa Misa.</p>
-
-        </div>
-
-
-
-        <div class="day-block">
-
-          <h3 class="day-title">31 marzo · Martes Santo</h3>
-
-          <p class="event"><span class="time">8:00 AM y 6:00 PM</span> Santa Misa.</p>
-
-        </div>
-
-
-
-        <div class="day-block">
-
-          <h3 class="day-title">1 abril · Miércoles Santo</h3>
-
-          <p class="event"><span class="time">6:00 PM</span> Única Misa, recepción de óleos y unción de enfermos.</p>
-
-        </div>
-
-
-
-        <div class="day-block">
-
-          <h3 class="day-title">2 abril · Jueves Santo</h3>
-
-          <p class="event"><span class="time">6:00 PM</span> Misa de la Cena del Señor.</p>
-
-          <p class="event"><span class="time">7:00 PM a 10:00 PM</span> Adoración al Santísimo.</p>
-
-          <p class="event">No hay Misa en capilla de Nuestra Señora de Fátima.</p>
-
-        </div>
-
-
-
-        <div class="day-block">
-
-          <h3 class="day-title">3 abril · Viernes Santo</h3>
-
-          <p class="event"><span class="time">10:00 AM</span> Santo Viacrucis.</p>
-
-          <p class="event"><span class="time">5:00 PM</span> Oficios de la Pasión.</p>
-
-          <p class="event"><span class="time">6:00 PM</span> Las Siete Palabras.</p>
-
-          <p class="event"><span class="time">7:00 PM</span> Procesión del Silencio.</p>
-
-        </div>
-
-
-
-        <div class="day-block">
-
-          <h3 class="day-title">4 abril · Sábado Santo</h3>
-
-          <p class="event"><span class="time">7:00
+  <script src="assets/js/campaign-cover.js" defer></script>
+</body>
+</html>
