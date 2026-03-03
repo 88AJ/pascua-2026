@@ -135,6 +135,11 @@
       return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true };
     }
 
+    if (/^misal-[a-z]+\.html$/.test(filename)) {
+      const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
+      return { role: "misal", day, injectMode: false, injectTraining: false, injectCover: true };
+    }
+
     if (/^(ramos|lunes|martes|miercoles|jueves|viernes|sabado|vigilia|pascua)\.html$/.test(filename)) {
       return { role: "dia", day: filename.replace(".html", ""), injectMode: false, injectTraining: true, injectCover: true };
     }
