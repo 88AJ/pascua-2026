@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/campaign-2026-theme.css">
+  <link rel="stylesheet" href="assets/css/campaign-2026-motion.css">
   <style>
     :root {
       --charcoal: #1f1b22;
@@ -32,9 +34,46 @@
       border: 1px solid var(--line);
       box-shadow: 0 12px 24px rgba(57, 38, 22, 0.12);
     }
+
+    body.campaign-page {
+      color: #f2e8d4;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(200, 168, 107, 0.18), transparent 36%),
+        radial-gradient(circle at 90% 14%, rgba(124, 42, 42, 0.16), transparent 34%),
+        linear-gradient(150deg, #0c1119, #182133 52%, #212b43);
+    }
+
+    body.campaign-page .surface,
+    body.campaign-page article.bg-white,
+    body.campaign-page figure.bg-white {
+      background: linear-gradient(180deg, rgba(15, 20, 31, 0.94), rgba(14, 18, 29, 0.94)) !important;
+      border-color: rgba(200, 168, 107, 0.32) !important;
+      color: #f4ead6;
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.34);
+    }
+
+    body.campaign-page .text-gray-600,
+    body.campaign-page .text-gray-700 {
+      color: #d9ccb2 !important;
+    }
+
+    body.campaign-page .text-green-700 {
+      color: #aee3c2 !important;
+    }
+
+    body.campaign-page .text-red-700 {
+      color: #f2a8a8 !important;
+    }
   </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen campaign-page">
+  <div class="campaign-cover" data-campaign-cover aria-hidden="true">
+    <div class="campaign-cover__inner">
+      <img class="campaign-cover__logo" src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+      <p class="campaign-cover__title">Auditoría Visual 2026</p>
+      <button class="campaign-cover__skip" type="button" data-cover-skip>Saltar animación</button>
+    </div>
+  </div>
   <header class="bg-[#1f1b22] text-white border-b-4 border-[#b7893d]">
     <div class="max-w-7xl mx-auto px-4 py-8">
       <p class="text-xs uppercase tracking-[0.2em] text-[#e7d5b6] font-bold">Auditoría de Imagen</p>
@@ -113,5 +152,6 @@
       <p class="text-sm mt-2">Banco visual ejecutado en <code>assets/campana-2026/</code>. Siguiente paso: mantener curaduría mensual (12 fotos nuevas) para que cada temporada litúrgica tenga material actualizado y consistente con la marca parroquial.</p>
     </section>
   </main>
+  <script src="assets/js/campaign-cover.js" defer></script>
 </body>
 </html>

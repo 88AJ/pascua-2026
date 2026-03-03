@@ -128,21 +128,21 @@
     const filename = file || "index.html";
 
     if (filename === "panel-coordinador.html") {
-      return { role: "panel", day: "inicio", injectMode: false, injectTraining: false };
+      return { role: "panel", day: "inicio", injectMode: false, injectTraining: false, injectCover: false };
     }
 
     if (filename === "index.html") {
-      return { role: "home", day: "inicio", injectMode: false, injectTraining: true };
+      return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true };
     }
 
     if (/^(ramos|lunes|martes|miercoles|jueves|viernes|sabado|vigilia|pascua)\.html$/.test(filename)) {
-      return { role: "dia", day: filename.replace(".html", ""), injectMode: false, injectTraining: true };
+      return { role: "dia", day: filename.replace(".html", ""), injectMode: false, injectTraining: true, injectCover: true };
     }
 
     const parts = file.replace(".html", "").split("-");
     const role = parts[0] || "dia";
     const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
-    return { role, day, injectMode: true, injectTraining: true };
+    return { role, day, injectMode: true, injectTraining: true, injectCover: true };
   }
 
   function createModeBlock(role, day) {
@@ -379,16 +379,83 @@
     }
   }
 
+  function applyCinematicRevealTargets() {
+    const targets = Array.from(document.querySelectorAll("header, main > section, section, article, .bg-white, .bg-gray-50, .lit-mode"));
+    targets.forEach((node, index) => {
+      if (!node || node.classList.contains("lit-campaign-cover")) return;
+      if (!node.hasAttribute("data-campaign-reveal")) {
+        node.setAttribute("data-campaign-reveal", "");
+      }
+      if (!node.style.getPropertyValue("--reveal-delay")) {
+        node.style.setProperty("--reveal-delay", Math.min(index * 55, 720) + "ms");
+      }
+    });
+  }
+
+  function injectCampaignCover() {
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const existing = document.querySelector("[data-campaign-cover]");
+    if (existing || reducedMotion) {
+      document.body.classList.add("campaign-ready");
+      return;
+    }
+
+    const cover = document.createElement("div");
+    cover.className = "lit-campaign-cover";
+    cover.setAttribute("data-campaign-cover", "");
+    cover.setAttribute("aria-hidden", "true");
+    cover.innerHTML = [
+      '<div class="lit-campaign-cover-inner">',
+      '  <img class="lit-campaign-logo" src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">',
+      '  <p class="lit-campaign-title">Semana Santa 2026</p>',
+      '  <button class="lit-campaign-skip" type="button" data-cover-skip>Saltar animación</button>',
+      "</div>"
+    ].join("");
+
+    document.body.appendChild(cover);
+
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      document.body.classList.add("campaign-ready");
+      cover.classList.add("is-hidden");
+      window.setTimeout(() => cover.remove(), 650);
+    };
+
+    const timer = window.setTimeout(finish, 2000);
+    const skip = cover.querySelector("[data-cover-skip]");
+    if (skip) {
+      skip.addEventListener("click", () => {
+        window.clearTimeout(timer);
+        finish();
+      });
+    }
+
+    window.addEventListener("keydown", (evt) => {
+      if (evt.key === "Escape") {
+        window.clearTimeout(timer);
+        finish();
+      }
+    });
+  }
+
   function init() {
     const detected = detectFromPath();
 
     document.body.classList.add("liturgia-pro");
+    document.body.classList.add("campaign-cinematic");
     document.body.classList.add("dia-" + detected.day);
     document.body.classList.add("rol-" + detected.role);
+
+    applyCinematicRevealTargets();
+    if (detected.injectCover !== false) injectCampaignCover();
+    else document.body.classList.add("campaign-ready");
 
     if (detected.injectMode !== false) injectMode(detected.role, detected.day);
     if (detected.injectTraining !== false) injectTraining(detected.role, detected.day);
     styleSharedBlocks();
+    applyCinematicRevealTargets();
   }
 
   if (document.readyState === "loading") {
