@@ -25,12 +25,12 @@ rg -q "A partir del Domingo de Pascua" manta-cambio-horario-vespertinas-2026.htm
 rg -q "16 al 20 de marzo de 2026" manta-ejercicios-espirituales-2026.html
 rg -q "Después de misa de 6:00 PM" manta-ejercicios-espirituales-2026.html
 rg -q "registro-ministerio-select" landing-publico-semana-santa-2026.html
-rg -Fq "mec-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
-rg -Fq "monaguillos-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
-rg -Fq "lectores-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
-rg -Fq "coro-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
-rg -Fq "ujieres-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
-rg -Fq "sacristia-ramos.html?publico=1#registro" landing-publico-semana-santa-2026.html
+rg -q "id=\"registro-ministerio-select\"" landing-publico-semana-santa-2026.html
+rg -q "id=\"registro-dia-select\"" landing-publico-semana-santa-2026.html
+rg -q "value=\"mec\"" landing-publico-semana-santa-2026.html
+rg -q "value=\"sacristia\"" landing-publico-semana-santa-2026.html
+rg -q "value=\"vigilia\"" landing-publico-semana-santa-2026.html
+rg -Fq '${ministerio}-${dia}.html?publico=1#registro' landing-publico-semana-santa-2026.html
 rg -q "padre-alan-chat.js" landing-publico-semana-santa-2026.html
 
 printf 'OK: campaign page checks passed\n'

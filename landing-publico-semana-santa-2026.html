@@ -693,14 +693,23 @@
 
           <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4">
             <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700">Registro directo por ministerio</p>
-            <div class="mt-3 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3">
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-3">
               <select id="registro-ministerio-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona un ministerio para registrarte">
-                <option value="mec-ramos.html?publico=1#registro">Ministro Extraordinario de la Comunión (MEC)</option>
-                <option value="monaguillos-ramos.html?publico=1#registro">Monaguillos</option>
-                <option value="lectores-ramos.html?publico=1#registro">Lectores</option>
-                <option value="coro-ramos.html?publico=1#registro">Coro</option>
-                <option value="ujieres-ramos.html?publico=1#registro">Ujieres</option>
-                <option value="sacristia-ramos.html?publico=1#registro">Sacristía</option>
+                <option value="mec">Ministro Extraordinario de la Comunión (MEC)</option>
+                <option value="monaguillos">Monaguillos</option>
+                <option value="lectores">Lectores</option>
+                <option value="coro">Coro</option>
+                <option value="ujieres">Ujieres</option>
+                <option value="sacristia">Sacristía</option>
+              </select>
+              <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona el día de celebración para registrarte">
+                <option value="ramos">Domingo de Ramos</option>
+                <option value="lunes">Lunes Santo</option>
+                <option value="martes">Martes Santo</option>
+                <option value="miercoles">Miércoles Santo</option>
+                <option value="jueves">Jueves Santo</option>
+                <option value="viernes">Viernes Santo</option>
+                <option value="vigilia">Vigilia Pascual</option>
               </select>
               <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Ir al registro</button>
             </div>
@@ -811,10 +820,13 @@
       loadFlashcards();
 
       const ministerioSelect = document.getElementById("registro-ministerio-select");
+      const diaSelect = document.getElementById("registro-dia-select");
       const ministerioBtn = document.getElementById("registro-ministerio-btn");
-      if (ministerioSelect && ministerioBtn) {
+      if (ministerioSelect && diaSelect && ministerioBtn) {
         ministerioBtn.addEventListener("click", () => {
-          const url = ministerioSelect.value;
+          const ministerio = ministerioSelect.value;
+          const dia = diaSelect.value;
+          const url = `${ministerio}-${dia}.html?publico=1#registro`;
           if (url) window.location.href = url;
         });
       }
