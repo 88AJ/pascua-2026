@@ -174,6 +174,13 @@
       object-fit: cover;
     }
 
+    .video-frame.logo-poster {
+      object-fit: contain;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(200, 168, 107, 0.24), rgba(9, 12, 19, 0.98));
+      padding: 0.5rem;
+    }
+
     .ee-meta {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -321,6 +328,16 @@
       color: #fff3dd !important;
     }
 
+    body.campaign-page .fancy {
+      color: #f6ecd9 !important;
+    }
+
+    body.campaign-page .volunteer-item span {
+      color: #f2d39c;
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
     body.campaign-page .text-red-700 {
       color: #f2a7a7 !important;
     }
@@ -400,7 +417,7 @@
     </noscript>
     <section id="destacados" class="space-y-4">
       <div>
-        <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Destacados</h2>
+        <h2 class="fancy text-5xl font-bold uppercase">Destacados</h2>
         <p class="text-gray-700 font-semibold">Mensajes prioritarios de la campaña parroquial.</p>
       </div>
 
@@ -409,7 +426,11 @@
           <div class="p-4 h-full flex flex-col justify-end text-white">
             <p class="chip bg-red-600/95 text-white">Semana Santa</p>
             <h3 class="text-2xl font-black leading-tight mt-2">Horarios Oficiales 2026</h3>
-            <p class="text-sm text-[#f3e9d0] mt-1">Templo Parroquial y capillas de la parroquia.</p>
+            <p class="text-sm text-[#f3e9d0] mt-1">Conecta con la manta oficial y el detalle completo por día y capilla.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="#horarios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver horarios</a>
+              <a href="manta-semana-santa-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Abrir manta</a>
+            </div>
           </div>
         </article>
 
@@ -418,14 +439,74 @@
             <p class="chip bg-blue-700/95 text-white">Aviso importante</p>
             <h3 class="text-2xl font-black leading-tight mt-2">Misas vespertinas ahora 7:00 PM</h3>
             <p class="text-sm text-[#f3e9d0] mt-1">A partir del Domingo de Pascua (5 de abril de 2026).</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="#horarios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver detalle</a>
+              <a href="manta-cambio-horario-vespertinas-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Manta cambio</a>
+            </div>
           </div>
         </article>
 
-        <article class="highlight-card" style="background: url('assets/campana-2026/equipo-liturgico.jpg') center/cover no-repeat;">
+        <article class="highlight-card" style="background: url('assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg') center/cover no-repeat;">
           <div class="p-4 h-full flex flex-col justify-end text-white">
             <p class="chip bg-[var(--gold)] text-[var(--charcoal)]">Comunidad</p>
-            <h3 class="text-2xl font-black leading-tight mt-2">Servidores para Semana Santa</h3>
-            <p class="text-sm text-[#f3e9d0] mt-1">Monaguillos, lectores, ujieres, coro y sacristía.</p>
+            <h3 class="text-2xl font-black leading-tight mt-2">Ejercicios Espirituales 2026</h3>
+            <p class="text-sm text-[#f3e9d0] mt-1">Conecta con la preparación de Cuaresma y su material complementario.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <a href="#ejercicios" class="bg-white text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ir a ejercicios</a>
+              <a href="manta-ejercicios-espirituales-2026.html" target="_blank" rel="noopener noreferrer" class="bg-amber-500 text-gray-900 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wide">Ver manta</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="misal" class="surface rounded-2xl p-6 md:p-8">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="fancy text-5xl font-bold uppercase">Misal para Fieles</h2>
+          <p class="text-gray-700 font-semibold">Solo contenidos litúrgicos para participar en la celebración (sin instrucciones de coordinación).</p>
+        </div>
+        <a href="misal-publico-semana-santa-2026.html" class="bg-[var(--charcoal)] text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Abrir índice completo</a>
+      </div>
+
+      <div class="mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+        <article class="misal-card">
+          <div class="misal-cover" style="background-image: url('giotto-ramos.jpg');"></div>
+          <div class="p-4">
+            <p class="font-black uppercase text-sm">Domingo de Ramos</p>
+            <a href="misal-ramos.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+          </div>
+        </article>
+
+        <article class="misal-card">
+          <div class="misal-cover" style="background-image: url('lavatorio-jueves.jpg');"></div>
+          <div class="p-4">
+            <p class="font-black uppercase text-sm">Jueves Santo</p>
+            <a href="misal-jueves.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+          </div>
+        </article>
+
+        <article class="misal-card">
+          <div class="misal-cover" style="background-image: url('cristocrucificado-viernes.jpg');"></div>
+          <div class="p-4">
+            <p class="font-black uppercase text-sm">Viernes Santo</p>
+            <a href="misal-viernes.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+          </div>
+        </article>
+
+        <article class="misal-card">
+          <div class="misal-cover" style="background-image: url('piero-vigilia.jpeg');"></div>
+          <div class="p-4">
+            <p class="font-black uppercase text-sm">Vigilia Pascual</p>
+            <a href="misal-vigilia.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
+          </div>
+        </article>
+
+        <article class="misal-card">
+          <div class="misal-cover" style="background-image: url('angelico-domingo.jpg');"></div>
+          <div class="p-4">
+            <p class="font-black uppercase text-sm">Domingo de Pascua</p>
+            <a href="misal-domingo.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
           </div>
         </article>
       </div>
@@ -439,12 +520,12 @@
     <section id="intro-cuaresma" class="surface rounded-2xl p-6 md:p-8 border-l-8 border-[var(--gold)]">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Video de Introducción</h2>
+          <h2 class="fancy text-5xl font-bold uppercase">Video de Introducción</h2>
           <p class="text-gray-700 font-semibold mt-1">Este video abre el camino espiritual de la Cuaresma para toda la comunidad.</p>
         </div>
         <span class="chip bg-amber-100 text-amber-800">El Camino a la Pascua</span>
       </div>
-      <video controls playsinline preload="metadata" aria-label="Video de introducción El Camino a la Pascua" poster="assets/ejercicios-adultos-2026/portada-camino-a-la-pascua.jpg" class="video-frame mt-4 rounded-xl border border-[var(--line)] bg-black">
+      <video controls playsinline preload="metadata" aria-label="Video de introducción El Camino a la Pascua" poster="logo.PNG" class="video-frame logo-poster mt-4 rounded-xl border border-[var(--line)] bg-black">
         <source src="assets/ejercicios-adultos-2026/el-camino-a-la-pascua.mp4" type="video/mp4">
         Tu navegador no soporta video HTML5.
       </video>
@@ -452,7 +533,7 @@
 
     <section id="galeria" class="space-y-4">
       <div class="text-center">
-        <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Vida Parroquial en Imágenes</h2>
+        <h2 class="fancy text-5xl font-bold uppercase">Vida Parroquial en Imágenes</h2>
         <p class="text-gray-700 font-semibold">Selección visual real de celebraciones, liturgia y comunidad.</p>
       </div>
 
@@ -486,8 +567,22 @@
 
     <section id="horarios" class="space-y-4">
       <div class="text-center">
-        <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Horarios Oficiales 2026</h2>
+        <h2 class="fancy text-5xl font-bold uppercase">Horarios Oficiales 2026</h2>
         <p class="text-gray-700 font-semibold">Semana Santa en Parroquia y Capilla</p>
+      </div>
+
+      <div class="surface rounded-2xl p-4 md:p-5">
+        <p class="chip bg-amber-100 text-amber-800">Mantas oficiales insertadas</p>
+        <div class="mt-3 grid grid-cols-1 xl:grid-cols-2 gap-4">
+          <article class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="text-xs uppercase tracking-wider font-black text-gray-700 mb-2">Manta principal · Semana Santa</p>
+            <iframe src="manta-semana-santa-2026.html" class="w-full h-[420px] rounded-lg border border-gray-200 bg-white" title="Manta Semana Santa 2026"></iframe>
+          </article>
+          <article class="bg-white rounded-xl border border-[var(--line)] p-3">
+            <p class="text-xs uppercase tracking-wider font-black text-gray-700 mb-2">Manta secundaria · Cambio de horario vespertino</p>
+            <iframe src="manta-cambio-horario-vespertinas-2026.html" class="w-full h-[420px] rounded-lg border border-gray-200 bg-white" title="Manta cambio de horario vespertino 2026"></iframe>
+          </article>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -564,62 +659,10 @@
       </div>
     </section>
 
-    <section id="misal" class="surface rounded-2xl p-6 md:p-8">
-      <div class="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Misal para Fieles</h2>
-          <p class="text-gray-700 font-semibold">Solo contenidos litúrgicos para participar en la celebración (sin instrucciones de coordinación).</p>
-        </div>
-        <a href="misal-publico-semana-santa-2026.html" class="bg-[var(--charcoal)] text-white px-4 py-2 rounded-lg text-sm font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Abrir índice completo</a>
-      </div>
-
-      <div class="mt-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-        <article class="misal-card">
-          <div class="misal-cover" style="background-image: url('giotto-ramos.jpg');"></div>
-          <div class="p-4">
-            <p class="font-black uppercase text-sm">Domingo de Ramos</p>
-            <a href="misal-ramos.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
-          </div>
-        </article>
-
-        <article class="misal-card">
-          <div class="misal-cover" style="background-image: url('lavatorio-jueves.jpg');"></div>
-          <div class="p-4">
-            <p class="font-black uppercase text-sm">Jueves Santo</p>
-            <a href="misal-jueves.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
-          </div>
-        </article>
-
-        <article class="misal-card">
-          <div class="misal-cover" style="background-image: url('cristocrucificado-viernes.jpg');"></div>
-          <div class="p-4">
-            <p class="font-black uppercase text-sm">Viernes Santo</p>
-            <a href="misal-viernes.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
-          </div>
-        </article>
-
-        <article class="misal-card">
-          <div class="misal-cover" style="background-image: url('piero-vigilia.jpeg');"></div>
-          <div class="p-4">
-            <p class="font-black uppercase text-sm">Vigilia Pascual</p>
-            <a href="misal-vigilia.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
-          </div>
-        </article>
-
-        <article class="misal-card">
-          <div class="misal-cover" style="background-image: url('angelico-domingo.jpg');"></div>
-          <div class="p-4">
-            <p class="font-black uppercase text-sm">Domingo de Pascua</p>
-            <a href="misal-domingo.html" class="text-red-700 font-extrabold text-sm uppercase">Abrir misal</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <section id="ejercicios" class="surface rounded-2xl p-6 md:p-8 border-l-8 border-[var(--gold)]">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Ejercicios Espirituales 2026</h2>
+          <h2 class="fancy text-5xl font-bold uppercase">Ejercicios Espirituales 2026</h2>
           <p class="text-xl font-black mt-2">Del 16 al 20 de marzo de 2026</p>
           <p class="mt-2 text-gray-800 font-semibold">Imparten: Pbro. Arturo Bernardo Flores Aguirre (Párroco) y Pbro. Alan Lorenzo Sánchez Valencia.</p>
           <div class="ee-meta">
@@ -642,7 +685,7 @@
 
       <div class="mt-5 grid grid-cols-1 xl:grid-cols-[1.25fr_1fr] gap-4">
         <article class="bg-white rounded-xl border border-[var(--line)] p-4">
-          <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Material complementario</p>
+          <p class="font-black uppercase tracking-wide text-[#f6ecd9]">Material complementario</p>
           <p class="text-sm text-gray-700 mt-1">“Del Desierto al Hogar Pascual” es la introducción directa a los Ejercicios Espirituales 2026.</p>
           <video controls playsinline preload="metadata" aria-label="Video complementario Del Desierto al Hogar Pascual" poster="assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg" class="video-frame mt-3 rounded-xl border border-gray-200 bg-black">
             <source src="assets/ejercicios-adultos-2026/del-desierto-al-hogar-pascual.mp4" type="video/mp4">
@@ -651,7 +694,7 @@
         </article>
 
         <article class="bg-white rounded-xl border border-[var(--line)] p-4">
-          <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Recursos descargables</p>
+          <p class="font-black uppercase tracking-wide text-[#f6ecd9]">Recursos descargables</p>
           <a href="assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf" target="_blank" rel="noopener noreferrer" class="inline-block mt-3 text-sm font-black uppercase text-blue-700">PDF Ejercicios Espirituales (Adultos)</a>
           <p class="text-xs text-gray-600 mt-2">Documento oficial para participantes.</p>
         </article>
@@ -673,19 +716,19 @@
           </div>
 
           <div class="bg-white rounded-xl border border-[var(--line)] p-4">
-            <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Itinerario visual (interactivo)</p>
+            <p class="font-black uppercase tracking-wide text-[#f6ecd9]">Itinerario visual (interactivo)</p>
             <p class="text-sm text-gray-700 mt-1">Resumen por día de los encuentros de Cuaresma.</p>
             <div id="itinerario-interactivo" class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
           </div>
 
           <div class="bg-white rounded-xl border border-[var(--line)] p-4">
-            <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Presentación visual (PPTX convertido)</p>
+            <p class="font-black uppercase tracking-wide text-[#f6ecd9]">Presentación visual (PPTX convertido)</p>
             <p class="text-sm text-gray-700 mt-1">Síntesis gráfica de “Del Desierto al Hogar Pascual”.</p>
             <div id="pptx-visual" class="mt-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-2"></div>
           </div>
 
           <div class="bg-white rounded-xl border border-[var(--line)] p-4">
-            <p class="font-black uppercase tracking-wide text-[var(--charcoal)]">Flashcards de formación (interactivas)</p>
+            <p class="font-black uppercase tracking-wide text-[#f6ecd9]">Flashcards de formación (interactivas)</p>
             <p class="text-sm text-gray-700 mt-1">Usa “Siguiente” para practicar temas clave de los ejercicios.</p>
             <div class="mt-3 border border-gray-200 rounded-xl p-4 bg-gray-50">
               <p id="flashcard-question" aria-live="polite" class="font-semibold text-gray-900">Cargando pregunta...</p>
@@ -709,12 +752,26 @@
     <section id="voluntariado" class="surface rounded-2xl p-6 md:p-8 border-l-8 border-purple-700">
       <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-5 items-start">
         <div>
-          <h2 class="fancy text-5xl font-bold text-[var(--charcoal)] uppercase">Voluntariado Parroquial</h2>
+          <h2 class="fancy text-5xl font-bold uppercase">Voluntariado Parroquial</h2>
           <p class="text-lg mt-2">El servicio no es una tarea, es camino de encuentro con Cristo. Te invitamos a sumarte en Semana Santa 2026.</p>
           <p class="text-sm text-gray-700 mt-1">Aquí también puedes consultar dudas con el botón <strong>“Pregúntele a los Padres”</strong> en la esquina inferior derecha.</p>
           <div class="mt-4 flex flex-wrap gap-3">
             <a href="https://wa.me/528262684887?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para voluntariado" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
-            <a href="https://88aj.github.io/pascua-2026/panel-coordinador.html" target="_blank" rel="noopener noreferrer" aria-label="Abrir panel de registro de voluntariado" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Registrarme ahora</a>
+          </div>
+
+          <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4">
+            <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700">Registro directo por ministerio</p>
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3">
+              <select id="registro-ministerio-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona un ministerio para registrarte">
+                <option value="mec-ramos.html#registro">Ministro Extraordinario de la Comunión (MEC)</option>
+                <option value="monaguillos-ramos.html#registro">Monaguillos</option>
+                <option value="lectores-ramos.html#registro">Lectores</option>
+                <option value="coro-ramos.html#registro">Coro</option>
+                <option value="ujieres-ramos.html#registro">Ujieres</option>
+                <option value="sacristia-ramos.html#registro">Sacristía</option>
+              </select>
+              <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Ir al registro</button>
+            </div>
           </div>
         </div>
         <article class="volunteer-card">
@@ -864,6 +921,15 @@
       nextBtn.addEventListener("click", renderFlashcard);
       loadFlashcards();
       loadItinerary();
+
+      const ministerioSelect = document.getElementById("registro-ministerio-select");
+      const ministerioBtn = document.getElementById("registro-ministerio-btn");
+      if (ministerioSelect && ministerioBtn) {
+        ministerioBtn.addEventListener("click", () => {
+          const url = ministerioSelect.value;
+          if (url) window.location.href = url;
+        });
+      }
     })();
   </script>
   <script src="assets/js/campaign-cover.js" defer></script>

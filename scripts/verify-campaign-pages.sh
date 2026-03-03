@@ -24,7 +24,13 @@ rg -q "7:00 PM" manta-semana-santa-2026.html
 rg -q "A partir del Domingo de Pascua" manta-cambio-horario-vespertinas-2026.html
 rg -q "16 al 20 de marzo de 2026" manta-ejercicios-espirituales-2026.html
 rg -q "Después de misa de 6:00 PM" manta-ejercicios-espirituales-2026.html
-rg -q "panel-coordinador.html" landing-publico-semana-santa-2026.html
+rg -q "registro-ministerio-select" landing-publico-semana-santa-2026.html
+rg -q "mec-ramos.html#registro" landing-publico-semana-santa-2026.html
+rg -q "monaguillos-ramos.html#registro" landing-publico-semana-santa-2026.html
+rg -q "lectores-ramos.html#registro" landing-publico-semana-santa-2026.html
+rg -q "coro-ramos.html#registro" landing-publico-semana-santa-2026.html
+rg -q "ujieres-ramos.html#registro" landing-publico-semana-santa-2026.html
+rg -q "sacristia-ramos.html#registro" landing-publico-semana-santa-2026.html
 rg -q "padre-alan-chat.js" landing-publico-semana-santa-2026.html
 
 printf 'OK: campaign page checks passed\n'
