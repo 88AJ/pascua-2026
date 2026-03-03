@@ -135,7 +135,7 @@
       return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true };
     }
 
-    if (/^misal-[a-z]+\.html$/.test(filename)) {
+    if (/^misal-.*\.html$/.test(filename)) {
       const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
       return { role: "misal", day, injectMode: false, injectTraining: false, injectCover: true };
     }
