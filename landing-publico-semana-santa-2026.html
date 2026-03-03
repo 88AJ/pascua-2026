@@ -227,6 +227,94 @@
       outline: 2px solid #fff;
       outline-offset: 2px;
     }
+
+    /* Campaign-wide dark editorial treatment (all content, not only intro) */
+    body.campaign-page {
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(200, 168, 107, 0.18), transparent 36%),
+        radial-gradient(circle at 88% 12%, rgba(124, 42, 42, 0.16), transparent 34%),
+        linear-gradient(145deg, #0d1018, #182133 52%, #212b43);
+    }
+
+    body.campaign-page .hero {
+      border-bottom-color: var(--gold-soft);
+      background:
+        linear-gradient(160deg, rgba(8, 10, 15, 0.84), rgba(20, 30, 47, 0.76)),
+        url("assets/campana-2026/pentecostes-predicacion.jpg") center 38% / cover no-repeat;
+    }
+
+    body.campaign-page .surface,
+    body.campaign-page .day-card,
+    body.campaign-page .misal-card,
+    body.campaign-page .ee-meta-item,
+    body.campaign-page figure.bg-white,
+    body.campaign-page article.bg-white,
+    body.campaign-page .kpi {
+      background: linear-gradient(180deg, rgba(15, 20, 31, 0.92), rgba(14, 18, 29, 0.92));
+      border-color: rgba(200, 168, 107, 0.32);
+      box-shadow: 0 14px 24px rgba(0, 0, 0, 0.34);
+      color: #f2e8d4;
+    }
+
+    body.campaign-page .day-card,
+    body.campaign-page .misal-card,
+    body.campaign-page .ee-meta-item {
+      border-radius: 14px;
+    }
+
+    body.campaign-page .chip {
+      border: 1px solid rgba(200, 168, 107, 0.34);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    body.campaign-page .misal-cover::after {
+      background: linear-gradient(180deg, rgba(4, 6, 10, 0.15), rgba(4, 6, 10, 0.78));
+    }
+
+    body.campaign-page .gallery-img {
+      border-color: rgba(200, 168, 107, 0.26);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.32);
+    }
+
+    body.campaign-page .text-gray-700,
+    body.campaign-page .text-gray-800 {
+      color: #d9ccb2 !important;
+    }
+
+    body.campaign-page .text-gray-900 {
+      color: #f5ecdb !important;
+    }
+
+    body.campaign-page .text-red-700 {
+      color: #f2a7a7 !important;
+    }
+
+    body.campaign-page .text-blue-700 {
+      color: #9ec5ff !important;
+    }
+
+    body.campaign-page .text-amber-800 {
+      color: #ffdca0 !important;
+    }
+
+    body.campaign-page .bg-gray-50 {
+      background: rgba(19, 24, 36, 0.9) !important;
+      border-color: rgba(200, 168, 107, 0.26) !important;
+    }
+
+    body.campaign-page .border-gray-200 {
+      border-color: rgba(200, 168, 107, 0.22) !important;
+    }
+
+    body.campaign-page .bg-white {
+      background: rgba(19, 24, 36, 0.92) !important;
+    }
+
+    body.campaign-page .hover\:bg-\[\#f2ecdf\]:hover,
+    body.campaign-page .hover\:bg-\[\#c99a4f\]:hover {
+      filter: brightness(1.04);
+    }
   </style>
 </head>
 <body class="min-h-screen campaign-page">
