@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios Espirituales 2026 · Texto completo</title>
+  <style>
+    :root {
+      --bg: #0f1625;
+      --paper: #f8f5ef;
+      --ink: #171717;
+      --gold: #c5a059;
+      --line: #d4c7a8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Montserrat", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #213255 0%, var(--bg) 60%);
+      color: var(--paper);
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .topbar a {
+      color: #f3e5c5;
+      text-decoration: none;
+      border: 1px solid rgba(243, 229, 197, 0.5);
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .subtitle {
+      margin: 0.5rem 0 1rem;
+      color: #eadcc0;
+      font-weight: 600;
+    }
+    .status {
+      margin-bottom: 0.9rem;
+      color: #e9dfcc;
+      font-size: 0.95rem;
+    }
+    .paper {
+      background: var(--paper);
+      color: var(--ink);
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+    }
+    .page-block {
+      border: 1px solid #e5dcc8;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 0.9rem 0;
+      background: #fffefb;
+    }
+    .page-title {
+      margin: 0 0 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #7b5a1c;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+    .page-text {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.52;
+      font-size: 0.98rem;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topbar">
+      <a href="landing-publico-semana-santa-2026.html#ejercicios">Volver al landing público</a>
+      <a href="assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf" target="_blank" rel="noopener noreferrer">Ver PDF original</a>
+    </div>
+    <h1>Ejercicios Espirituales 2026</h1>
+    <p class="subtitle">Texto completo para lectura en línea</p>
+    <p id="status" class="status">Cargando contenido del documento oficial...</p>
+
+    <section class="paper">
+      <div id="content"></div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const PDF_URL = "assets/ejercicios-adultos-2026/ejercicios-espirituales-adultos-2026.pdf";
+      const statusEl = document.getElementById("status");
+      const contentEl = document.getElementById("content");
+
+      function extractPageText(items) {
+        const linesByY = new Map();
+        items.forEach((item) => {
+          const y = Math.round(item.transform[5]);
+          const x = item.transform[4];
+          if (!linesByY.has(y)) linesByY.set(y, []);
+          linesByY.get(y).push({ x, text: item.str || "" });
+        });
+
+        const ys = Array.from(linesByY.keys()).sort((a, b) => b - a);
+        const lines = ys.map((y) => {
+          const row = linesByY.get(y).sort((a, b) => a.x - b.x);
+          return row.map((cell) => cell.text).join(" ").replace(/\s+/g, " ").trim();
+        }).filter(Boolean);
+
+        return lines.join("\n");
+      }
+
+      async function renderPdfText() {
+        try {
+          if (!window.pdfjsLib) throw new Error("PDF.js no disponible");
+          pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+          const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
+          statusEl.textContent = `Documento cargado (${pdf.numPages} páginas).`;
+          const blocks = [];
+
+          for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
+            const page = await pdf.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            const pageText = extractPageText(textContent.items);
+            blocks.push(
+              `<article class="page-block">
+                <h2 class="page-title">Página ${pageNum}</h2>
+                <p class="page-text">${pageText.replace(/</g, "&lt;").replace(/>/g, "&gt;") || "Sin texto extraíble en esta página."}</p>
+              </article>`
+            );
+          }
+
+          contentEl.innerHTML = blocks.join("");
+        } catch (error) {
+          statusEl.textContent = "No se pudo convertir el PDF a texto desde el navegador.";
+          contentEl.innerHTML = `<article class="page-block"><p class="page-text">Puedes consultar el documento oficial aquí: <a href="${PDF_URL}" target="_blank" rel="noopener noreferrer">Abrir PDF</a></p></article>`;
+        }
+      }
+
+      renderPdfText();
+    })();
+  </script>
+</body>
+</html>
