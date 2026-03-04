@@ -2,8 +2,9 @@
    Actualizado: Ciclo A (2025-2026) según el Manual de Semana Santa
 */
 (function () {
-  if (window.__PADRE_ALAN_CHAT_LOADED__) return;
-  window.__PADRE_ALAN_CHAT_LOADED__ = true;
+  if (window.__PADRE_ALAN_CHAT_READY__ || window.__PADRE_ALAN_CHAT_LOADING__) return;
+  window.__PADRE_ALAN_CHAT_LOADING__ = true;
+  try {
 
   const CONFIG = {
     title: "Pregúntele a los Padres",
@@ -675,5 +676,13 @@
   addMsg("bot", `Paz y bien. Somos los <b>Padres</b>. ${ctx ? `Vemos que consulta sobre el <b>${ctx.label}</b>.` : ""} ¿Qué duda litúrgica tiene hoy?`);
   
   $("paInput").addEventListener("keypress", (e) => { if(e.key === 'Enter') reply($("paInput").value); });
+  window.__PADRE_ALAN_CHAT_READY__ = true;
+  window.__PADRE_ALAN_CHAT_LOADED__ = true;
+  } catch (err) {
+    console.error("Padre Alan chat init error:", err);
+    window.__PADRE_ALAN_CHAT_READY__ = false;
+  } finally {
+    window.__PADRE_ALAN_CHAT_LOADING__ = false;
+  }
 
 })();
