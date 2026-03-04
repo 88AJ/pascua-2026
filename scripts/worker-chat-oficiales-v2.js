@@ -310,6 +310,85 @@ function extractConfessionScheduleFromContext(text) {
   return "";
 }
 
+function hasParishGeneralScheduleContext(text) {
+  const plain = normalize(String(text || ""));
+  return (
+    plain.includes("misa diaria") &&
+    plain.includes("misa dominical") &&
+    plain.includes("horarios de oficina")
+  );
+}
+
+function buildDeterministicParishScheduleReply(query, intent, mergedContext) {
+  if (!hasParishGeneralScheduleContext(mergedContext)) return "";
+  const q = normalize(query);
+
+  const asksOffice = hasAny(q, [
+    "horario de oficina",
+    "horarios de oficina",
+    "oficina",
+    "secretaria",
+    "telefono",
+    "tel",
+    "contacto",
+  ]);
+
+  const asksDailyMass = hasAny(q, [
+    "misa diaria",
+    "misas diarias",
+    "diaria",
+    "diarias",
+    "entre semana",
+  ]);
+
+  const asksSundayMass = hasAny(q, [
+    "misa dominical",
+    "misas dominicales",
+    "misa domingo",
+    "misas domingo",
+    "domingo",
+    "domingos",
+  ]);
+
+  const asksGeneralMass = intent === "horarios" && hasAny(q, ["misa", "misas", "horario", "horarios"]);
+
+  if (!(asksOffice || asksDailyMass || asksSundayMass || asksGeneralMass)) return "";
+
+  if (asksOffice && !asksDailyMass && !asksSundayMass && !asksGeneralMass) {
+    return (
+      `<strong>Horario de oficina parroquial</strong><ul>` +
+      `<li>Lunes a viernes: 9:00 AM a 1:00 PM y 3:00 PM a 7:00 PM.</li>` +
+      `<li>Sábados: 9:00 AM a 1:00 PM.</li>` +
+      `</ul>` +
+      `Contacto: <strong>${PARISH_OFFICE_PHONE}</strong>.`
+    );
+  }
+
+  if (asksDailyMass && !asksSundayMass && !asksGeneralMass) {
+    return (
+      `<strong>Misa diaria</strong>: 8:00 AM y 6:00 PM.<br><br>` +
+      `Para confirmar celebraciones extraordinarias, contacte a <strong>${PARISH_OFFICE_LABEL}</strong>: <strong>${PARISH_OFFICE_PHONE}</strong>.`
+    );
+  }
+
+  if (asksSundayMass && !asksDailyMass && !asksGeneralMass) {
+    return (
+      `<strong>Misa dominical</strong>: 8:00 AM, 10:00 AM, 12:00 PM y 6:00 PM.<br><br>` +
+      `Para confirmar ajustes extraordinarios, contacte a <strong>${PARISH_OFFICE_LABEL}</strong>: <strong>${PARISH_OFFICE_PHONE}</strong>.`
+    );
+  }
+
+  return (
+    `<strong>Horarios parroquiales generales</strong><ul>` +
+    `<li>Misa diaria: 8:00 AM y 6:00 PM.</li>` +
+    `<li>Misa dominical: 8:00 AM, 10:00 AM, 12:00 PM y 6:00 PM.</li>` +
+    `<li>Confesiones: todos los días.</li>` +
+    `<li>Oficina parroquial: lunes a viernes de 9:00 AM a 1:00 PM y de 3:00 PM a 7:00 PM; sábados de 9:00 AM a 1:00 PM.</li>` +
+    `</ul>` +
+    `Contacto parroquial: <strong>${PARISH_OFFICE_PHONE}</strong>.`
+  );
+}
+
 function operationalFallback(owner) {
   return `<strong>Orientación operativa inmediata</strong><ul><li>Acción inmediata: reporte la incidencia y estabilice la operación del punto (acceso/material/flujo) sin detener la celebración.</li><li>Responsable primario: <strong>${escapeHtml(owner)}</strong>.</li><li>Escalamiento: si no se resuelve en minutos, avise a <strong>Coordinación General</strong>.</li></ul>`;
 }
@@ -645,6 +724,7 @@ export default {
       const externalContext = buildExternalContextBlock(query, intent, snapshot);
       const mergedContextForDetectors = `${manualContext}\n\n${externalContext}`;
       const confessionScheduleHint = extractConfessionScheduleFromContext(mergedContextForDetectors);
+      const parishScheduleReply = buildDeterministicParishScheduleReply(query, intent, mergedContextForDetectors);
 
       // Guardarraíl fuerte: si el contexto oficial ya trae "Confesiones: todos los días",
       // respondemos eso directamente y evitamos ambigüedad del modelo.
@@ -656,6 +736,20 @@ export default {
           reply: directReply,
           meta: {
             model: "deterministic-confession-override",
+            intent,
+            ownerHint: "Oficina Parroquial",
+            sourceSnapshotAt: snapshot?.updatedAt || null,
+            externalSourcesUsed: Boolean(externalContext),
+          },
+        });
+      }
+
+      // Guardarraíl fuerte: horarios parroquiales generales desde fuente oficial.
+      if (parishScheduleReply) {
+        return jsonResponse({
+          reply: parishScheduleReply,
+          meta: {
+            model: "deterministic-parish-schedule-override",
             intent,
             ownerHint: "Oficina Parroquial",
             sourceSnapshotAt: snapshot?.updatedAt || null,
