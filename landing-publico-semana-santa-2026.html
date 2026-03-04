@@ -833,13 +833,13 @@
     })();
   </script>
   <script src="assets/js/campaign-cover.js" defer></script>
-  <script src="padre-alan-chat.js?v=20260302c" defer></script>
+  <script src="padre-alan-chat.js?v=20260303a" defer></script>
   <script>
     (function () {
       function retryChatIfNeeded() {
         if (window.__PADRE_ALAN_CHAT_READY__ || window.__PADRE_ALAN_CHAT_LOADING__) return;
         const retry = document.createElement("script");
-        retry.src = "padre-alan-chat.js?v=20260302c";
+        retry.src = "padre-alan-chat.js?v=20260303a";
         retry.defer = true;
         document.body.appendChild(retry);
       }

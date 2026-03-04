@@ -550,6 +550,14 @@
     .pa-send{background:#5b21b6;color:#fff;border:0;padding:10px 15px;border-radius:8px;cursor:pointer;font-weight:bold}
     .pa-src{font-size:11px;color:#6b7280;margin-top:10px;border-top:1px solid #eee;padding-top:5px}
     .pa-wa{display:inline-block;margin-top:5px;background:#16a34a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;text-transform:uppercase}
+    .pa-card .pa-head, .pa-card .pa-head *{color:#fff !important}
+    .pa-card .pa-row.bot .pa-bubble, .pa-card .pa-row.bot .pa-bubble *{color:#111827 !important}
+    .pa-card .pa-row.user .pa-bubble, .pa-card .pa-row.user .pa-bubble *{color:#fff !important}
+    .pa-card .pa-row.bot .pa-bubble a{color:#1d4ed8 !important;text-decoration:underline}
+    .pa-card .pa-row.bot .pa-bubble .pa-wa{color:#fff !important;text-decoration:none}
+    .pa-card .pa-src{color:#6b7280 !important}
+    .pa-card .pa-input, .pa-card .pa-input::placeholder{color:#111827 !important}
+    .pa-card .pa-send{color:#fff !important}
   `]));
 
   const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
