@@ -404,7 +404,7 @@
   // INTERFAZ DE USUARIO (UI)
   // =======================
   const esc = (s) => (s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c]));
-  const CLASS_ALLOWLIST = new Set(["pa-wa", "pa-src"]);
+  const CLASS_ALLOWLIST = new Set(["pa-wa", "pa-src", "pa-official"]);
 
   function isSafeHref(href) {
     const value = (href || "").trim();
@@ -475,6 +475,17 @@
 
   function stripHtml(text) {
     return (text || "").replace(/<[^>]*>/g, " ");
+  }
+
+  function formatSnapshotDate(iso) {
+    if (!iso) return "";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return "";
+    try {
+      return d.toLocaleString("es-MX", { dateStyle: "short", timeStyle: "short" });
+    } catch (e) {
+      return d.toISOString().replace("T", " ").slice(0, 16);
+    }
   }
 
   function isDeflectiveReply(text) {
@@ -549,6 +560,7 @@
     .pa-input{flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;outline:none}
     .pa-send{background:#5b21b6;color:#fff;border:0;padding:10px 15px;border-radius:8px;cursor:pointer;font-weight:bold}
     .pa-src{font-size:11px;color:#6b7280;margin-top:10px;border-top:1px solid #eee;padding-top:5px}
+    .pa-official{display:inline-block;background:#dcfce7;border:1px solid #86efac;color:#14532d;font-weight:700;font-size:10px;letter-spacing:.02em;padding:4px 8px;border-radius:999px}
     .pa-wa{display:inline-block;margin-top:5px;background:#16a34a;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:12px;text-transform:uppercase}
     .pa-card .pa-head, .pa-card .pa-head *{color:#fff !important}
     .pa-card .pa-row.bot .pa-bubble, .pa-card .pa-row.bot .pa-bubble *{color:#111827 !important}
@@ -556,6 +568,7 @@
     .pa-card .pa-row.bot .pa-bubble a{color:#1d4ed8 !important;text-decoration:underline}
     .pa-card .pa-row.bot .pa-bubble .pa-wa{color:#fff !important;text-decoration:none}
     .pa-card .pa-src{color:#6b7280 !important}
+    .pa-card .pa-official{color:#14532d !important}
     .pa-card .pa-input, .pa-card .pa-input::placeholder{color:#111827 !important}
     .pa-card .pa-send{color:#fff !important}
   `]));
@@ -665,6 +678,8 @@
 
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
       let finalResponse = data.reply.replace(/\n/g, "<br>");
+      const usesExternalSources = data?.meta?.externalSourcesUsed === true;
+      const snapshotLabel = formatSnapshotDate(data?.meta?.sourceSnapshotAt);
       const operationalFallback = buildOperationalResponse(qNorm, day, min, q);
       if (operationalFallback && isDeflectiveReply(finalResponse)) {
         finalResponse = operationalFallback.html;
@@ -674,7 +689,11 @@
         finalResponse += getWaButtonHtml(q);
       }
 
-      addMsg("bot", `${finalResponse}<div class="pa-src">Fuentes: ${sources}</div>`);
+      const officialBadge = usesExternalSources
+        ? `<div class="pa-src"><span class="pa-official">Fuente oficial actualizada${snapshotLabel ? ` · ${esc(snapshotLabel)}` : ""}</span></div>`
+        : "";
+
+      addMsg("bot", `${finalResponse}${officialBadge}<div class="pa-src">Fuentes: ${sources}</div>`);
 
     } catch (e) {
       addMsg("bot", "Paz y bien. Tuvimos un inconveniente técnico al consultar el manual. Por favor escríbanos por WhatsApp:" + getWaButtonHtml(q));
