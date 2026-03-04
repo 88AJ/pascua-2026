@@ -287,7 +287,11 @@ function looksGeneric(text) {
 
 function hasConcreteScheduleInfo(text) {
   const t = String(text || "");
-  return /\b\d{1,2}(:\d{2})?\s*(am|pm)\b/i.test(t) || /lunes|martes|miercoles|jueves|viernes|sabado|domingo/i.test(t);
+  return (
+    /\b\d{1,2}(:\d{2})?\s*(am|pm)\b/i.test(t) ||
+    /lunes|martes|miercoles|jueves|viernes|sabado|domingo/i.test(t) ||
+    /todos\s+los\s+dias|diariamente|cada\s+dia/i.test(t)
+  );
 }
 
 function isWeakConfessionReply(text) {
@@ -296,6 +300,14 @@ function isWeakConfessionReply(text) {
   // Si no hay hora concreta de confesiones, preferimos no inventar.
   if (!hasConcreteScheduleInfo(plain)) return true;
   return false;
+}
+
+function extractConfessionScheduleFromContext(text) {
+  const plain = normalize(String(text || ""));
+  if (/confesiones?\s+todos\s+los\s+dias|todos\s+los\s+dias\s+confesiones?/.test(plain)) {
+    return "Confesiones: todos los días.";
+  }
+  return "";
 }
 
 function operationalFallback(owner) {
@@ -631,6 +643,26 @@ export default {
         ctx.waitUntil(refreshOfficialContext(env));
       }
       const externalContext = buildExternalContextBlock(query, intent, snapshot);
+      const mergedContextForDetectors = `${manualContext}\n\n${externalContext}`;
+      const confessionScheduleHint = extractConfessionScheduleFromContext(mergedContextForDetectors);
+
+      // Guardarraíl fuerte: si el contexto oficial ya trae "Confesiones: todos los días",
+      // respondemos eso directamente y evitamos ambigüedad del modelo.
+      if (intent === "confesiones" && confessionScheduleHint) {
+        const directReply =
+          `${confessionScheduleHint}<br><br>` +
+          `Para confirmar detalles específicos (lugar o ajustes extraordinarios), comuníquese a <strong>${PARISH_OFFICE_LABEL}</strong>: <strong>${PARISH_OFFICE_PHONE}</strong>.`;
+        return jsonResponse({
+          reply: directReply,
+          meta: {
+            model: "deterministic-confession-override",
+            intent,
+            ownerHint: "Oficina Parroquial",
+            sourceSnapshotAt: snapshot?.updatedAt || null,
+            externalSourcesUsed: Boolean(externalContext),
+          },
+        });
+      }
 
       const systemInstruction = buildSystemInstruction();
       const userPrompt = buildUserPrompt({
