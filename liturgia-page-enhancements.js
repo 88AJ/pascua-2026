@@ -153,7 +153,7 @@
     const parts = file.replace(".html", "").split("-");
     const role = parts[0] || "dia";
     const day = dayTokens.find((token) => filename.includes(token)) || "ramos";
-    return { role, day, injectMode: !publicRegistration, injectTraining: !publicRegistration, injectCover: true, publicRegistration };
+    return { role, day, injectMode: !publicRegistration, injectTraining: false, injectCover: true, publicRegistration };
   }
 
   function applyPublicRegistrationMode(detected) {
@@ -307,7 +307,7 @@
       }
     ];
 
-    return { roleName, dayText, route, checklist, escalation };
+    return { roleName, dayText, roleText, route, checklist, escalation };
   }
 
   function createTrainingBlock(role, day) {
@@ -317,65 +317,27 @@
     container.className = "lit-training bg-white p-8 md:p-10 rounded-3xl shadow-xl border-t-4 border-gray-700 mt-12";
 
     container.innerHTML = [
-      '<h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 uppercase tracking-tight text-center">Ruta De Formación Ministerial</h2>',
-      '<p class="text-center text-gray-600 mt-3">Bloque de entrenamiento práctico para voluntarios: nivel inicial, servicio activo y coordinación.</p>',
+      '<h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 uppercase tracking-tight text-center">Recordatorio Operativo</h2>',
+      '<p class="text-center text-gray-600 mt-3">Resumen breve para mantener unidad de criterios y evitar repetición del manual.</p>',
       '<p class="text-center text-gray-600 mb-8">Ministerio: <strong>' + bp.roleName + "</strong> | Día: <strong>" + bp.dayText.chip + "</strong></p>",
-
-      '<div class="grid grid-cols-1 md:grid-cols-3 gap-4">',
-      '  <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">',
-      '    <h3 class="text-sm font-bold text-gray-900 uppercase mb-3">Nivel 1: Ingreso</h3>',
-      asList(bp.route.new),
-      "  </article>",
-      '  <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">',
-      '    <h3 class="text-sm font-bold text-gray-900 uppercase mb-3">Nivel 2: Servicio Activo</h3>',
-      asList(bp.route.active),
-      "  </article>",
-      '  <article class="bg-gray-50 rounded-xl p-5 border border-gray-200">',
-      '    <h3 class="text-sm font-bold text-gray-900 uppercase mb-3">Nivel 3: Coordinación</h3>',
-      asList(bp.route.lead),
-      "  </article>",
-      "</div>",
-
-      '<h3 class="text-xl font-bold text-gray-900 uppercase tracking-tight mt-10 mb-4 text-center">Checklist Operativo</h3>',
       '<div class="grid grid-cols-1 md:grid-cols-3 gap-4">',
       '  <article class="bg-green-50 rounded-xl p-5 border border-green-200">',
       '    <h4 class="text-sm font-bold text-green-900 uppercase mb-3">Antes</h4>',
-      asList(bp.checklist.before),
+      "<p class=\"text-sm text-gray-800\">" + bp.roleText.before + "</p>",
       "  </article>",
       '  <article class="bg-amber-50 rounded-xl p-5 border border-amber-200">',
       '    <h4 class="text-sm font-bold text-amber-900 uppercase mb-3">Durante</h4>',
-      asList(bp.checklist.during),
+      "<p class=\"text-sm text-gray-800\">" + bp.roleText.during + "</p>",
       "  </article>",
       '  <article class="bg-red-50 rounded-xl p-5 border border-red-200">',
       '    <h4 class="text-sm font-bold text-red-900 uppercase mb-3">Después</h4>',
-      asList(bp.checklist.after),
+      "<p class=\"text-sm text-gray-800\">" + bp.roleText.after + "</p>",
       "  </article>",
       "</div>",
-
-      '<h3 class="text-xl font-bold text-gray-900 uppercase tracking-tight mt-10 mb-4 text-center">Matriz De Escalamiento</h3>',
-      '<div class="overflow-auto border rounded-lg">',
-      '  <table class="min-w-full text-sm">',
-      '    <thead class="bg-gray-100 text-gray-700 uppercase text-xs tracking-wide">',
-      "      <tr>",
-      '        <th class="text-left px-3 py-2">Incidente</th>',
-      '        <th class="text-left px-3 py-2">Responsable Primario</th>',
-      '        <th class="text-left px-3 py-2">Escalamiento</th>',
-      '        <th class="text-left px-3 py-2">Tiempo Objetivo</th>',
-      "      </tr>",
-      "    </thead>",
-      '    <tbody class="divide-y">',
-      bp.escalation.map((row) => [
-        "<tr>",
-        '<td class="px-3 py-2 text-gray-900">' + row.incident + "</td>",
-        '<td class="px-3 py-2 text-gray-800 font-semibold">' + row.primary + "</td>",
-        '<td class="px-3 py-2 text-gray-800">' + row.secondary + "</td>",
-        '<td class="px-3 py-2 text-gray-700">' + row.timing + "</td>",
-        "</tr>"
-      ].join("")).join(""),
-      "    </tbody>",
-      "  </table>",
-      "</div>",
-      '<p class="mt-6 text-sm text-gray-600 text-center"><strong>Clave de formación:</strong> este manual no solo informa; entrena decisiones en tiempo real para evitar improvisación litúrgica.</p>'
+      '<div class="mt-6 bg-indigo-50 border border-indigo-100 rounded-xl p-4">',
+      '<p class="text-sm text-gray-800 leading-relaxed"><strong>Clave del día:</strong> ' + bp.dayText.note + '</p>',
+      '<p class="text-xs text-gray-600 mt-2">Este bloque es resumen. El protocolo completo queda en el contenido principal de cada manual.</p>',
+      "</div>"
     ].join("");
 
     return container;
@@ -421,6 +383,15 @@
 
   function injectTraining(role, day) {
     if (document.getElementById("ruta-entrenamiento")) return;
+
+    if (role === "dia") {
+      const footer = document.querySelector("footer");
+      if (!footer || !footer.parentNode) return;
+      const training = createTrainingBlock(role, day);
+      training.classList.add("max-w-7xl", "mx-auto", "px-4", "sm:px-6", "lg:px-8", "mb-12");
+      footer.parentNode.insertBefore(training, footer);
+      return;
+    }
 
     const anchor = findInsertionAnchor();
     if (!anchor) return;
