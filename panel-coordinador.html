@@ -29,10 +29,11 @@
         <button id="login-btn" class="bg-gray-900 text-white rounded-lg px-4 py-2 font-semibold hover:bg-black">Entrar</button>
         <button id="logout-btn" class="bg-gray-200 text-gray-900 rounded-lg px-4 py-2 font-semibold hover:bg-gray-300">Salir</button>
       </div>
-      <p id="auth-status" class="text-sm mt-3 text-gray-600">Modo lectura activo (sin sesión).</p>
+      <p id="auth-status" class="text-sm mt-3 text-gray-600">Sesión no iniciada.</p>
+      <p class="text-xs mt-2 text-gray-500">Este panel solo está disponible para cuentas administradoras autorizadas.</p>
     </section>
 
-    <section class="bg-white rounded-xl shadow-sm border p-4 md:p-6">
+    <section id="secure-panel" class="hidden bg-white rounded-xl shadow-sm border p-4 md:p-6">
       <div class="flex flex-col md:flex-row md:items-center gap-3 md:justify-between mb-4">
         <h2 class="text-base font-bold uppercase">Cupos y Control</h2>
         <div class="flex gap-2 items-center">
@@ -82,6 +83,18 @@
     const filtro = document.getElementById('filtro');
     const authStatus = document.getElementById('auth-status');
     const statusBox = document.getElementById('status-box');
+    const securePanel = document.getElementById('secure-panel');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const refreshBtn = document.getElementById('refresh-btn');
+
+    // Define aquí tu(s) correo(s) administrador(es).
+    // Si dejas la lista vacía, cualquier cuenta autenticada podrá entrar.
+    const ADMIN_EMAIL_ALLOWLIST = [
+      // 'tu-correo@dominio.com',
+    ].map((s) => String(s || '').trim().toLowerCase()).filter(Boolean);
+
+    let hasPanelAccess = false;
 
     function showStatus(msg, type = 'info') {
       statusBox.classList.remove('hidden', 'bg-red-100', 'text-red-900', 'bg-green-100', 'text-green-900', 'bg-yellow-100', 'text-yellow-900', 'bg-amber-100', 'text-amber-900');
@@ -94,6 +107,13 @@
 
     function ministryBase(key) {
       return (key || '').split('-')[0] || '';
+    }
+
+    function isAllowedAdminEmail(email) {
+      const normalized = String(email || '').trim().toLowerCase();
+      if (!normalized) return false;
+      if (!ADMIN_EMAIL_ALLOWLIST.length) return true;
+      return ADMIN_EMAIL_ALLOWLIST.includes(normalized);
     }
 
     function render(rows) {
@@ -134,6 +154,11 @@
     }
 
     async function loadRows() {
+      if (!hasPanelAccess) {
+        showStatus('Inicia sesión con una cuenta admin para ver registros.', 'warn');
+        return;
+      }
+
       const { data, error } = await client
         .from('v_panel_coordinador')
         .select('slot_id, ministry_key, label, capacity, registered, available, is_full, is_active')
@@ -149,6 +174,11 @@
     }
 
     async function toggleSlot(slotId, shouldOpen) {
+      if (!hasPanelAccess) {
+        showStatus('No autorizado. Inicia sesión con cuenta admin.', 'error');
+        return;
+      }
+
       const { error } = await client
         .from('mec_slots')
         .update({ is_active: shouldOpen })
@@ -165,14 +195,32 @@
 
     async function refreshAuthStatus() {
       const { data } = await client.auth.getSession();
-      if (data?.session?.user) {
-        authStatus.textContent = `Sesión activa: ${data.session.user.email}`;
-      } else {
-        authStatus.textContent = 'Modo lectura activo (sin sesión).';
+      const user = data?.session?.user || null;
+
+      if (!user) {
+        hasPanelAccess = false;
+        securePanel.classList.add('hidden');
+        authStatus.textContent = 'Sesión no iniciada.';
+        showStatus('Inicia sesión para acceder al panel de coordinación.', 'warn');
+        return;
       }
+
+      const email = String(user.email || '').trim().toLowerCase();
+      if (!isAllowedAdminEmail(email)) {
+        hasPanelAccess = false;
+        securePanel.classList.add('hidden');
+        authStatus.textContent = `Sesión activa sin permisos: ${email}`;
+        showStatus('Esta cuenta no está autorizada para el panel.', 'error');
+        return;
+      }
+
+      hasPanelAccess = true;
+      securePanel.classList.remove('hidden');
+      authStatus.textContent = `Sesión admin activa: ${email}`;
+      showStatus('Acceso administrador validado.', 'ok');
     }
 
-    document.getElementById('login-btn').addEventListener('click', async () => {
+    loginBtn.addEventListener('click', async () => {
       const email = document.getElementById('admin-email').value.trim();
       const password = document.getElementById('admin-password').value;
       const { error } = await client.auth.signInWithPassword({ email, password });
@@ -182,20 +230,27 @@
         showStatus('Sesión iniciada correctamente.', 'ok');
       }
       await refreshAuthStatus();
+      if (hasPanelAccess) await loadRows();
     });
 
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+    logoutBtn.addEventListener('click', async () => {
       await client.auth.signOut();
+      body.innerHTML = '';
       showStatus('Sesión cerrada.', 'info');
       await refreshAuthStatus();
     });
 
-    document.getElementById('refresh-btn').addEventListener('click', loadRows);
+    refreshBtn.addEventListener('click', loadRows);
     filtro.addEventListener('change', loadRows);
 
     window.addEventListener('DOMContentLoaded', async () => {
       await refreshAuthStatus();
-      await loadRows();
+      if (hasPanelAccess) await loadRows();
+    });
+
+    client.auth.onAuthStateChange(async () => {
+      await refreshAuthStatus();
+      if (hasPanelAccess) await loadRows();
     });
   </script>
   <script src="padre-alan-chat.js"></script>
