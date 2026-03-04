@@ -138,7 +138,7 @@
     }
 
     if (filename === "index.html") {
-      return { role: "home", day: "inicio", injectMode: false, injectTraining: true, injectCover: true, publicRegistration: false };
+      return { role: "home", day: "inicio", injectMode: false, injectTraining: false, injectCover: true, publicRegistration: false };
     }
 
     if (/^misal-.*\.html$/.test(filename)) {
