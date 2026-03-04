@@ -320,7 +320,6 @@ function hasParishGeneralScheduleContext(text) {
 }
 
 function buildDeterministicParishScheduleReply(query, intent, mergedContext) {
-  if (!hasParishGeneralScheduleContext(mergedContext)) return "";
   const q = normalize(query);
 
   const asksOffice = hasAny(q, [
@@ -350,11 +349,18 @@ function buildDeterministicParishScheduleReply(query, intent, mergedContext) {
     "domingos",
   ]);
 
-  const asksGeneralMass = intent === "horarios" && hasAny(q, ["misa", "misas", "horario", "horarios"]);
+  const asksGeneralParishSchedule = hasAny(q, [
+    "horario parroquial",
+    "horarios parroquiales",
+    "horario general",
+    "horarios generales",
+    "misa diaria y dominical",
+    "misas de siempre",
+  ]);
 
-  if (!(asksOffice || asksDailyMass || asksSundayMass || asksGeneralMass)) return "";
+  if (!(asksOffice || asksDailyMass || asksSundayMass || asksGeneralParishSchedule)) return "";
 
-  if (asksOffice && !asksDailyMass && !asksSundayMass && !asksGeneralMass) {
+  if (asksOffice && !asksDailyMass && !asksSundayMass && !asksGeneralParishSchedule) {
     return (
       `<strong>Horario de oficina parroquial</strong><ul>` +
       `<li>Lunes a viernes: 9:00 AM a 1:00 PM y 3:00 PM a 7:00 PM.</li>` +
@@ -364,14 +370,14 @@ function buildDeterministicParishScheduleReply(query, intent, mergedContext) {
     );
   }
 
-  if (asksDailyMass && !asksSundayMass && !asksGeneralMass) {
+  if (asksDailyMass && !asksSundayMass && !asksGeneralParishSchedule) {
     return (
       `<strong>Misa diaria</strong>: 8:00 AM y 6:00 PM.<br><br>` +
       `Para confirmar celebraciones extraordinarias, contacte a <strong>${PARISH_OFFICE_LABEL}</strong>: <strong>${PARISH_OFFICE_PHONE}</strong>.`
     );
   }
 
-  if (asksSundayMass && !asksDailyMass && !asksGeneralMass) {
+  if (asksSundayMass && !asksDailyMass && !asksGeneralParishSchedule) {
     return (
       `<strong>Misa dominical</strong>: 8:00 AM, 10:00 AM, 12:00 PM y 6:00 PM.<br><br>` +
       `Para confirmar ajustes extraordinarios, contacte a <strong>${PARISH_OFFICE_LABEL}</strong>: <strong>${PARISH_OFFICE_PHONE}</strong>.`
