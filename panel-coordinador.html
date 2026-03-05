@@ -31,6 +31,7 @@
       </div>
       <p id="auth-status" class="text-sm mt-3 text-gray-600">Sesión no iniciada.</p>
       <p class="text-xs mt-2 text-gray-500">Este panel solo está disponible para cuentas administradoras autorizadas.</p>
+      <p id="auth-feedback" class="hidden mt-3 p-3 rounded-lg text-sm font-medium"></p>
     </section>
 
     <section id="secure-panel" class="hidden bg-white rounded-xl shadow-sm border p-4 md:p-6">
@@ -82,6 +83,7 @@
     const body = document.getElementById('tabla-body');
     const filtro = document.getElementById('filtro');
     const authStatus = document.getElementById('auth-status');
+    const authFeedback = document.getElementById('auth-feedback');
     const statusBox = document.getElementById('status-box');
     const securePanel = document.getElementById('secure-panel');
     const loginBtn = document.getElementById('login-btn');
@@ -97,12 +99,15 @@
     let hasPanelAccess = false;
 
     function showStatus(msg, type = 'info') {
-      statusBox.classList.remove('hidden', 'bg-red-100', 'text-red-900', 'bg-green-100', 'text-green-900', 'bg-yellow-100', 'text-yellow-900', 'bg-amber-100', 'text-amber-900');
-      if (type === 'ok') statusBox.classList.add('bg-green-100', 'text-green-900');
-      else if (type === 'warn') statusBox.classList.add('bg-yellow-100', 'text-yellow-900');
-      else if (type === 'error') statusBox.classList.add('bg-red-100', 'text-red-900');
-      else statusBox.classList.add('bg-amber-100', 'text-amber-900');
-      statusBox.textContent = msg;
+      const targets = [authFeedback, statusBox].filter(Boolean);
+      targets.forEach((el) => {
+        el.classList.remove('hidden', 'bg-red-100', 'text-red-900', 'bg-green-100', 'text-green-900', 'bg-yellow-100', 'text-yellow-900', 'bg-amber-100', 'text-amber-900');
+        if (type === 'ok') el.classList.add('bg-green-100', 'text-green-900');
+        else if (type === 'warn') el.classList.add('bg-yellow-100', 'text-yellow-900');
+        else if (type === 'error') el.classList.add('bg-red-100', 'text-red-900');
+        else el.classList.add('bg-amber-100', 'text-amber-900');
+        el.textContent = msg;
+      });
     }
 
     function ministryBase(key) {
