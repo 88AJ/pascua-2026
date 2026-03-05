@@ -28,7 +28,7 @@
     }
   };
 
-  const WHATSAPP_NUMBER = "19567401370";
+  const WHATSAPP_NUMBER = "5218262620211";
 
   // =======================
   // MOTOR SEMÁNTICO (Basado en el Manual 2026)

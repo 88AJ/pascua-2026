@@ -82,3 +82,12 @@ set
   label = excluded.label,
   capacity = excluded.capacity,
   is_active = true;
+
+-- 7) Evitar reemplazo de registros:
+-- Permite que una misma persona se registre en varias celebraciones
+-- y bloquea solo duplicados en la MISMA celebración.
+drop index if exists public.mec_registrations_phone_key;
+drop index if exists public.mec_registrations_unique_phone;
+drop index if exists public.mec_registrations_unique_ministry_phone;
+create unique index if not exists mec_registrations_unique_slot_phone
+  on public.mec_registrations (slot_id, phone);

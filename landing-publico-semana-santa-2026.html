@@ -719,7 +719,7 @@
           <p class="text-lg mt-2">El servicio no es una tarea, es camino de encuentro con Cristo. Te invitamos a sumarte en Semana Santa 2026.</p>
           <p class="text-sm text-gray-700 mt-1">Aquí también puedes consultar dudas con el botón <strong>“Pregúntele a los Padres”</strong> en la esquina inferior derecha.</p>
           <div class="mt-4 flex flex-wrap gap-3">
-            <a href="https://wa.me/5218262684887?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para voluntariado" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
+            <a href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para voluntariado" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
           </div>
 
           <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4">
@@ -744,15 +744,16 @@
               </select>
               <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Ir al registro</button>
             </div>
+            <p class="mt-2 text-xs text-gray-600">Puedes registrarte en varios días: envía tu registro de cada día y conservarás los anteriores.</p>
           </div>
 
           <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4">
             <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700">Registro rápido · Voluntario general</p>
-            <p class="text-xs text-gray-600 mt-1">Si aún no eliges ministerio, regístrate como voluntario y elige el día en que deseas apoyar.</p>
+            <p class="text-xs text-gray-600 mt-1">Si aún no eliges ministerio, regístrate como voluntario y selecciona uno o más días de apoyo.</p>
             <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
               <input id="voluntario-nombre" type="text" placeholder="Nombre completo" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
               <input id="voluntario-telefono" type="tel" placeholder="Teléfono (solo números)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
-              <select id="voluntario-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona el día para voluntario general">
+              <select id="voluntario-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días para voluntario general" multiple>
                 <option value="ramos">Domingo de Ramos</option>
                 <option value="lunes">Lunes Santo</option>
                 <option value="martes">Martes Santo</option>
@@ -763,6 +764,7 @@
               </select>
               <input id="voluntario-notas" type="text" placeholder="Notas (opcional)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
             </div>
+            <p class="mt-2 text-xs text-gray-600">Tip: en computadora usa <strong>Cmd</strong> para seleccionar varios días. En celular selecciona uno y vuelve a abrir para elegir los demás.</p>
             <div class="mt-3 flex flex-wrap gap-2 items-center">
               <button id="voluntario-registro-btn" type="button" class="bg-purple-700 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-purple-800 transition">Registrar voluntario</button>
               <p id="voluntario-registro-status" class="hidden text-sm font-semibold px-3 py-2 rounded-lg"></p>
@@ -798,7 +800,22 @@
           <div class="mt-4 rounded-lg border border-[#c5a059] bg-[#c5a0591f] p-3">
             <p class="text-sm font-bold">Informes e inscripciones:</p>
             <p class="text-sm mt-1">Betty Silva: +52 826 104 3288</p>
-            <p class="text-sm">Oficina parroquial: +52 826 268 4887</p>
+            <p class="text-sm">Oficina parroquial: +52 826 262 0211</p>
+          </div>
+
+          <div class="mt-4 rounded-lg border border-[#c5a059] bg-white p-3">
+            <p class="text-sm font-bold">Seguimiento por grupos de WhatsApp</p>
+            <p class="text-xs text-gray-600 mt-1">Al registrarte, te daremos acceso al grupo de tu ministerio y día de servicio.</p>
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20MEC%20-%20Semana%20Santa%202026.">MEC · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Monaguillos%20-%20Semana%20Santa%202026.">Monaguillos · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Lectores%20-%20Semana%20Santa%202026.">Lectores · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Coro%20-%20Semana%20Santa%202026.">Coro · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Ujieres%20-%20Semana%20Santa%202026.">Ujieres · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Sacrist%C3%ADa%20-%20Semana%20Santa%202026.">Sacristía · Solicitar acceso</a>
+              <a class="px-3 py-2 rounded-lg border border-green-200 bg-green-50 text-green-900 font-semibold hover:bg-green-100 transition sm:col-span-2" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Voluntariado%20General%20-%20Semana%20Santa%202026.">Voluntariado general · Solicitar acceso</a>
+            </div>
+            <p class="text-xs text-gray-600 mt-2">Administración de grupos: Betty Silva (+52 826 104 3288), Oficina parroquial (+52 826 262 0211) y P. Alan Sánchez (+1 956 740 1370).</p>
           </div>
         </article>
       </div>
@@ -813,6 +830,7 @@
     (function () {
       const SUPABASE_URL = 'https://ujezbieadbhegilxteeg.supabase.co';
       const SUPABASE_KEY = 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1';
+      const PARISH_WA_NUMBER = '5218262620211';
       const VOLUNTARIO_SLOTS = {
         ramos: 'voluntario-ramos-general',
         lunes: 'voluntario-lunes-general',
@@ -822,6 +840,7 @@
         viernes: 'voluntario-viernes-general',
         vigilia: 'voluntario-vigilia-general',
       };
+      const VOLUNTARIO_GROUP_LABEL = 'Voluntariado General - Semana Santa 2026';
 
       const qEl = document.getElementById("flashcard-question");
       const aEl = document.getElementById("flashcard-answer");
@@ -909,13 +928,19 @@
         return (input || "").replace(/\D/g, "").slice(0, 15);
       }
 
-      function showVoluntarioStatus(message, kind) {
+      function showVoluntarioStatus(message, kind, asHtml) {
         if (!voluntarioStatus) return;
         voluntarioStatus.classList.remove("hidden", "bg-red-100", "text-red-900", "bg-green-100", "text-green-900", "bg-yellow-100", "text-yellow-900");
         if (kind === "ok") voluntarioStatus.classList.add("bg-green-100", "text-green-900");
         else if (kind === "warn") voluntarioStatus.classList.add("bg-yellow-100", "text-yellow-900");
         else voluntarioStatus.classList.add("bg-red-100", "text-red-900");
-        voluntarioStatus.textContent = message;
+        if (asHtml) voluntarioStatus.innerHTML = message;
+        else voluntarioStatus.textContent = message;
+      }
+
+      function buildVoluntarioGroupLink() {
+        const text = `Hola, ya me registré y quiero unirme al grupo ${VOLUNTARIO_GROUP_LABEL}. Mi nombre es: `;
+        return `https://wa.me/${PARISH_WA_NUMBER}?text=${encodeURIComponent(text)}`;
       }
 
       if (voluntarioBtn && voluntarioNombre && voluntarioTelefono && voluntarioDia) {
@@ -927,17 +952,13 @@
 
           const fullName = (voluntarioNombre.value || "").trim();
           const phone = normalizePhone(voluntarioTelefono.value || "");
-          const day = (voluntarioDia.value || "").trim();
+          const selectedDays = Array.from(voluntarioDia.selectedOptions || [])
+            .map((o) => String(o.value || "").trim())
+            .filter(Boolean);
           const notes = (voluntarioNotas?.value || "").trim();
 
-          if (!fullName || !phone || !day) {
-            showVoluntarioStatus("Completa nombre, teléfono y día.", "warn");
-            return;
-          }
-
-          const slotId = VOLUNTARIO_SLOTS[day];
-          if (!slotId) {
-            showVoluntarioStatus("No hay cupo configurado para ese día.", "error");
+          if (!fullName || !phone || !selectedDays.length) {
+            showVoluntarioStatus("Completa nombre, teléfono y al menos un día.", "warn");
             return;
           }
 
@@ -946,36 +967,60 @@
 
           try {
             const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            const ministryKey = `voluntario-${day}`;
+            let inserted = 0;
+            let duplicated = 0;
+            let invalid = 0;
 
-            const { error } = await client
-              .from("mec_registrations")
-              .insert([
-                {
-                  ministry_key: ministryKey,
-                  slot_id: slotId,
-                  full_name: fullName,
-                  phone,
-                  notes,
-                },
-              ]);
-
-            if (error) {
-              const msg = String(error.message || "").toLowerCase();
-              if (msg.includes("duplicate")) {
-                showVoluntarioStatus("Este teléfono ya está registrado para ese día.", "error");
-              } else if (msg.includes("foreign key")) {
-                showVoluntarioStatus("Falta configurar cupos de voluntario en la base de datos.", "error");
-              } else {
-                showVoluntarioStatus("No fue posible registrar. Intenta de nuevo.", "error");
+            for (const day of [...new Set(selectedDays)]) {
+              const slotId = VOLUNTARIO_SLOTS[day];
+              if (!slotId) {
+                invalid += 1;
+                continue;
               }
+
+              const ministryKey = `voluntario-${day}`;
+              const { error } = await client
+                .from("mec_registrations")
+                .insert([
+                  {
+                    ministry_key: ministryKey,
+                    slot_id: slotId,
+                    full_name: fullName,
+                    phone,
+                    notes,
+                  },
+                ]);
+
+              if (!error) {
+                inserted += 1;
+                continue;
+              }
+
+              const msg = String(error.message || "").toLowerCase();
+              if (msg.includes("duplicate")) duplicated += 1;
+              else if (msg.includes("foreign key")) invalid += 1;
+              else invalid += 1;
+            }
+
+            if (!inserted) {
+              if (duplicated) showVoluntarioStatus("Tu teléfono ya está registrado en los días seleccionados.", "warn");
+              else showVoluntarioStatus("No fue posible registrar en los días seleccionados. Intenta de nuevo.", "error");
               return;
             }
 
-            voluntarioNombre.value = "";
-            voluntarioTelefono.value = "";
             if (voluntarioNotas) voluntarioNotas.value = "";
-            showVoluntarioStatus("Registro de voluntario enviado correctamente.", "ok");
+            Array.from(voluntarioDia.options || []).forEach((opt) => { opt.selected = false; });
+
+            const groupLink = buildVoluntarioGroupLink();
+            const extra = [];
+            if (duplicated) extra.push(`${duplicated} ya estaban registrados`);
+            if (invalid) extra.push(`${invalid} no pudieron procesarse`);
+            const extraText = extra.length ? `<br><span class="text-xs">Nota: ${extra.join(" · ")}.</span>` : "";
+            showVoluntarioStatus(
+              `Gracias por registrarte. Confirmamos <strong>${inserted}</strong> día(s) de servicio.${extraText}<br><a class="underline font-bold" href="${groupLink}" target="_blank" rel="noopener noreferrer">Unirme al grupo de seguimiento por WhatsApp</a>`,
+              "ok",
+              true
+            );
           } catch (_) {
             showVoluntarioStatus("Error de conexión con el sistema de registro.", "error");
           } finally {
