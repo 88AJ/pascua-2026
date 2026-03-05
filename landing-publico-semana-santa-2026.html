@@ -733,7 +733,7 @@
                 <option value="ujieres">Ujieres</option>
                 <option value="sacristia">Sacristía</option>
               </select>
-              <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona el día de celebración para registrarte">
+              <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días de celebración para registrarte" multiple>
                 <option value="ramos">Domingo de Ramos</option>
                 <option value="lunes">Lunes Santo</option>
                 <option value="martes">Martes Santo</option>
@@ -742,9 +742,9 @@
                 <option value="viernes">Viernes Santo</option>
                 <option value="vigilia">Vigilia Pascual</option>
               </select>
-              <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Ir al registro</button>
+              <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Abrir registros</button>
             </div>
-            <p class="mt-2 text-xs text-gray-600">Puedes registrarte en varios días: envía tu registro de cada día y conservarás los anteriores.</p>
+            <p class="mt-2 text-xs text-gray-600">Puedes seleccionar varios días. Tu registro en un día no borra los anteriores.</p>
           </div>
 
           <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4">
@@ -911,9 +911,18 @@
       if (ministerioSelect && diaSelect && ministerioBtn) {
         ministerioBtn.addEventListener("click", () => {
           const ministerio = ministerioSelect.value;
-          const dia = diaSelect.value;
-          const url = `${ministerio}-${dia}.html?publico=1#registro`;
-          if (url) window.location.href = url;
+          const dias = Array.from(diaSelect.selectedOptions || [])
+            .map((opt) => String(opt.value || "").trim())
+            .filter(Boolean);
+          if (!ministerio || !dias.length) return;
+
+          const urls = dias.map((dia) => `${ministerio}-${dia}.html?publico=1#registro`);
+          if (urls.length > 1) {
+            for (let i = 1; i < urls.length; i += 1) {
+              window.open(urls[i], "_blank", "noopener");
+            }
+          }
+          window.location.href = urls[0];
         });
       }
 

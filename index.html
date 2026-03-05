@@ -229,6 +229,35 @@
         </div>
     </section>
 
+    <section class="max-w-6xl mx-auto px-4 py-4 relative z-20">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-extrabold text-gray-900 uppercase tracking-tight">Registro directo por ministerio</h2>
+                <p class="text-sm text-gray-600 mt-2">Puedes seleccionar varios días. Tu registro en un día no borra los anteriores.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-3">
+                <select id="registro-ministerio-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona un ministerio para registrarte">
+                    <option value="mec">Ministro Extraordinario de la Comunión (MEC)</option>
+                    <option value="monaguillos">Monaguillos</option>
+                    <option value="lectores">Lectores</option>
+                    <option value="coro">Coro</option>
+                    <option value="ujieres">Ujieres</option>
+                    <option value="sacristia">Sacristía</option>
+                </select>
+                <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días de celebración para registrarte" multiple>
+                    <option value="ramos">Domingo de Ramos</option>
+                    <option value="lunes">Lunes Santo</option>
+                    <option value="martes">Martes Santo</option>
+                    <option value="miercoles">Miércoles Santo</option>
+                    <option value="jueves">Jueves Santo</option>
+                    <option value="viernes">Viernes Santo</option>
+                    <option value="vigilia">Vigilia Pascual</option>
+                </select>
+                <button id="registro-ministerio-btn" type="button" class="bg-gray-900 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-gray-800 transition">Abrir registros</button>
+            </div>
+        </div>
+    </section>
+
     <section class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-grow mb-8">
         <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border-t-4 border-gray-900 overflow-hidden">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 uppercase tracking-tight border-b-2 pb-4">
@@ -490,6 +519,31 @@
         © 2026 Manual Litúrgico - Parroquia San Pedro Apóstol<br>
         Allende, Nuevo León, México
     </footer>
+
+    <script>
+      (function () {
+        const ministerioSelect = document.getElementById("registro-ministerio-select");
+        const diaSelect = document.getElementById("registro-dia-select");
+        const ministerioBtn = document.getElementById("registro-ministerio-btn");
+        if (!ministerioSelect || !diaSelect || !ministerioBtn) return;
+
+        ministerioBtn.addEventListener("click", () => {
+          const ministerio = ministerioSelect.value;
+          const dias = Array.from(diaSelect.selectedOptions || [])
+            .map((opt) => String(opt.value || "").trim())
+            .filter(Boolean);
+          if (!ministerio || !dias.length) return;
+
+          const urls = dias.map((dia) => `${ministerio}-${dia}.html?publico=1#registro`);
+          if (urls.length > 1) {
+            for (let i = 1; i < urls.length; i += 1) {
+              window.open(urls[i], "_blank", "noopener");
+            }
+          }
+          window.location.href = urls[0];
+        });
+      })();
+    </script>
 
     <script src="liturgia-page-enhancements.js"></script>
 <script src="padre-alan-chat.js"></script>
