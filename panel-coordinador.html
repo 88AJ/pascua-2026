@@ -26,8 +26,8 @@
       <div class="grid md:grid-cols-4 gap-3">
         <input id="admin-email" type="email" placeholder="Email admin" class="border rounded-lg px-3 py-2">
         <input id="admin-password" type="password" placeholder="Contraseña" class="border rounded-lg px-3 py-2">
-        <button id="login-btn" class="bg-gray-900 text-white rounded-lg px-4 py-2 font-semibold hover:bg-black">Entrar</button>
-        <button id="logout-btn" class="bg-gray-200 text-gray-900 rounded-lg px-4 py-2 font-semibold hover:bg-gray-300">Salir</button>
+        <button id="login-btn" type="button" class="bg-gray-900 text-white rounded-lg px-4 py-2 font-semibold hover:bg-black">Entrar</button>
+        <button id="logout-btn" type="button" class="bg-gray-200 text-gray-900 rounded-lg px-4 py-2 font-semibold hover:bg-gray-300">Salir</button>
       </div>
       <p id="auth-status" class="text-sm mt-3 text-gray-600">Sesión no iniciada.</p>
       <p class="text-xs mt-2 text-gray-500">Este panel solo está disponible para cuentas administradoras autorizadas.</p>
@@ -78,8 +78,6 @@
   <script>
     const SUPABASE_URL = 'https://ujezbieadbhegilxteeg.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1';
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
     const body = document.getElementById('tabla-body');
     const filtro = document.getElementById('filtro');
     const authStatus = document.getElementById('auth-status');
@@ -97,6 +95,7 @@
     ].map((s) => String(s || '').trim().toLowerCase()).filter(Boolean);
 
     let hasPanelAccess = false;
+    let client = null;
 
     function showStatus(msg, type = 'info') {
       const targets = [authFeedback, statusBox].filter(Boolean);
@@ -107,6 +106,16 @@
         else if (type === 'error') el.classList.add('bg-red-100', 'text-red-900');
         else el.classList.add('bg-amber-100', 'text-amber-900');
         el.textContent = msg;
+      });
+    }
+
+    function setButtonsEnabled(enabled) {
+      loginBtn.disabled = !enabled;
+      logoutBtn.disabled = !enabled;
+      refreshBtn.disabled = !enabled;
+      [loginBtn, logoutBtn, refreshBtn].forEach((btn) => {
+        btn.classList.toggle('opacity-50', !enabled);
+        btn.classList.toggle('cursor-not-allowed', !enabled);
       });
     }
 
@@ -159,6 +168,10 @@
     }
 
     async function loadRows() {
+      if (!client) {
+        showStatus('Supabase no está disponible. Recarga la página e intenta de nuevo.', 'error');
+        return;
+      }
       if (!hasPanelAccess) {
         showStatus('Inicia sesión con una cuenta admin para ver registros.', 'warn');
         return;
@@ -179,6 +192,10 @@
     }
 
     async function toggleSlot(slotId, shouldOpen) {
+      if (!client) {
+        showStatus('Supabase no está disponible. Recarga la página e intenta de nuevo.', 'error');
+        return;
+      }
       if (!hasPanelAccess) {
         showStatus('No autorizado. Inicia sesión con cuenta admin.', 'error');
         return;
@@ -199,6 +216,11 @@
     }
 
     async function refreshAuthStatus() {
+      if (!client) {
+        authStatus.textContent = 'Conexión no disponible.';
+        showStatus('No se cargó el SDK de Supabase. Verifica conexión a internet y recarga.', 'error');
+        return;
+      }
       const { data } = await client.auth.getSession();
       const user = data?.session?.user || null;
 
@@ -226,11 +248,21 @@
     }
 
     loginBtn.addEventListener('click', async () => {
-      const email = document.getElementById('admin-email').value.trim();
+      if (!client) {
+        showStatus('No hay conexión con Supabase. Recarga la página.', 'error');
+        return;
+      }
+
+      const email = document.getElementById('admin-email').value.trim().toLowerCase();
       const password = document.getElementById('admin-password').value;
+      if (!email || !password) {
+        showStatus('Captura email y contraseña.', 'warn');
+        return;
+      }
+
       const { error } = await client.auth.signInWithPassword({ email, password });
       if (error) {
-        showStatus('No se pudo iniciar sesión. Revisa email y contraseña.', 'error');
+        showStatus(`No se pudo iniciar sesión: ${error.message}`, 'error');
       } else {
         showStatus('Sesión iniciada correctamente.', 'ok');
       }
@@ -249,13 +281,25 @@
     filtro.addEventListener('change', loadRows);
 
     window.addEventListener('DOMContentLoaded', async () => {
+      if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+        setButtonsEnabled(false);
+        authStatus.textContent = 'Conexión no disponible.';
+        showStatus('No se pudo cargar Supabase (CDN). Revisa internet y recarga.', 'error');
+        return;
+      }
+
+      client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      setButtonsEnabled(true);
       await refreshAuthStatus();
       if (hasPanelAccess) await loadRows();
     });
 
-    client.auth.onAuthStateChange(async () => {
-      await refreshAuthStatus();
-      if (hasPanelAccess) await loadRows();
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!client) return;
+      client.auth.onAuthStateChange(async () => {
+        await refreshAuthStatus();
+        if (hasPanelAccess) await loadRows();
+      });
     });
   </script>
   <script src="padre-alan-chat.js"></script>
