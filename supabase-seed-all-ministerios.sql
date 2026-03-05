@@ -150,6 +150,22 @@ set
   capacity = excluded.capacity,
   is_active = true;
 
+insert into public.mec_slots (id, ministry_key, label, capacity)
+values
+  ('voluntario-ramos-general', 'voluntario-ramos', 'Voluntario General - Domingo de Ramos', 30),
+  ('voluntario-lunes-general', 'voluntario-lunes', 'Voluntario General - Lunes Santo', 30),
+  ('voluntario-martes-general', 'voluntario-martes', 'Voluntario General - Martes Santo', 30),
+  ('voluntario-miercoles-general', 'voluntario-miercoles', 'Voluntario General - Miércoles Santo', 30),
+  ('voluntario-jueves-general', 'voluntario-jueves', 'Voluntario General - Jueves Santo', 30),
+  ('voluntario-viernes-general', 'voluntario-viernes', 'Voluntario General - Viernes Santo', 30),
+  ('voluntario-vigilia-general', 'voluntario-vigilia', 'Voluntario General - Vigilia Pascual', 30)
+on conflict (id) do update
+set
+  ministry_key = excluded.ministry_key,
+  label = excluded.label,
+  capacity = excluded.capacity,
+  is_active = true;
+
 commit;
 
 -- Verificación rápida
