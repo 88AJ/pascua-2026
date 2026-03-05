@@ -72,6 +72,29 @@
         </table>
       </div>
     </section>
+
+    <section id="roster-panel" class="hidden bg-white rounded-xl shadow-sm border p-4 md:p-6">
+      <div class="flex flex-col md:flex-row md:items-center gap-3 md:justify-between mb-4">
+        <h2 class="text-base font-bold uppercase">Nombres Registrados</h2>
+        <p class="text-xs text-gray-500">Visible solo para cuenta administradora</p>
+      </div>
+
+      <div class="overflow-auto border rounded-lg">
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-100 text-gray-700 uppercase text-xs tracking-wide">
+            <tr>
+              <th class="text-left px-3 py-2">Nombre</th>
+              <th class="text-left px-3 py-2">Teléfono</th>
+              <th class="text-left px-3 py-2">Ministerio</th>
+              <th class="text-left px-3 py-2">Celebración</th>
+              <th class="text-left px-3 py-2">Fecha</th>
+              <th class="text-left px-3 py-2">Notas</th>
+            </tr>
+          </thead>
+          <tbody id="roster-body" class="divide-y"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -79,11 +102,13 @@
     const SUPABASE_URL = 'https://ujezbieadbhegilxteeg.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1';
     const body = document.getElementById('tabla-body');
+    const rosterBody = document.getElementById('roster-body');
     const filtro = document.getElementById('filtro');
     const authStatus = document.getElementById('auth-status');
     const authFeedback = document.getElementById('auth-feedback');
     const statusBox = document.getElementById('status-box');
     const securePanel = document.getElementById('secure-panel');
+    const rosterPanel = document.getElementById('roster-panel');
     const loginBtn = document.getElementById('login-btn');
     const logoutBtn = document.getElementById('logout-btn');
     const refreshBtn = document.getElementById('refresh-btn');
@@ -167,6 +192,48 @@
       });
     }
 
+    function formatDateTime(value) {
+      if (!value) return '';
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return String(value);
+      return d.toLocaleString('es-MX', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    function renderRoster(rows) {
+      const base = filtro.value;
+      const filtered = rows.filter((r) => !base || ministryBase(r.ministry_key) === base);
+      rosterBody.innerHTML = '';
+
+      if (!filtered.length) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="px-3 py-3 text-gray-500" colspan="6">No hay registros para este filtro.</td>
+        `;
+        rosterBody.appendChild(tr);
+        return;
+      }
+
+      filtered.forEach((r) => {
+        const tr = document.createElement('tr');
+        tr.className = 'bg-white';
+        tr.innerHTML = `
+          <td class="px-3 py-2 font-semibold text-gray-900">${r.full_name || ''}</td>
+          <td class="px-3 py-2 text-gray-800">${r.phone || ''}</td>
+          <td class="px-3 py-2 text-gray-800">${r.ministry_key || ''}</td>
+          <td class="px-3 py-2 text-gray-800">${r.slot_label || ''}</td>
+          <td class="px-3 py-2 text-gray-700">${formatDateTime(r.created_at)}</td>
+          <td class="px-3 py-2 text-gray-700">${r.notes || ''}</td>
+        `;
+        rosterBody.appendChild(tr);
+      });
+    }
+
     async function loadRows() {
       if (!client) {
         showStatus('Supabase no está disponible. Recarga la página e intenta de nuevo.', 'error');
@@ -189,6 +256,29 @@
       }
 
       render(data || []);
+    }
+
+    async function loadRoster() {
+      if (!client) {
+        showStatus('Supabase no está disponible. Recarga la página e intenta de nuevo.', 'error');
+        return;
+      }
+      if (!hasPanelAccess) {
+        return;
+      }
+
+      const { data, error } = await client
+        .from('v_mec_registration_roster')
+        .select('registration_id, created_at, ministry_key, slot_label, full_name, phone, notes')
+        .order('created_at', { ascending: false })
+        .limit(1000);
+
+      if (error) {
+        showStatus('No se pudo cargar la lista de nombres. Verifica la vista v_mec_registration_roster.', 'error');
+        return;
+      }
+
+      renderRoster(data || []);
     }
 
     async function toggleSlot(slotId, shouldOpen) {
@@ -227,6 +317,7 @@
       if (!user) {
         hasPanelAccess = false;
         securePanel.classList.add('hidden');
+        rosterPanel.classList.add('hidden');
         authStatus.textContent = 'Sesión no iniciada.';
         showStatus('Inicia sesión para acceder al panel de coordinación.', 'warn');
         return;
@@ -236,6 +327,7 @@
       if (!isAllowedAdminEmail(email)) {
         hasPanelAccess = false;
         securePanel.classList.add('hidden');
+        rosterPanel.classList.add('hidden');
         authStatus.textContent = `Sesión activa sin permisos: ${email}`;
         showStatus('Esta cuenta no está autorizada para el panel.', 'error');
         return;
@@ -243,6 +335,7 @@
 
       hasPanelAccess = true;
       securePanel.classList.remove('hidden');
+      rosterPanel.classList.remove('hidden');
       authStatus.textContent = `Sesión admin activa: ${email}`;
       showStatus('Acceso administrador validado.', 'ok');
     }
@@ -267,18 +360,28 @@
         showStatus('Sesión iniciada correctamente.', 'ok');
       }
       await refreshAuthStatus();
-      if (hasPanelAccess) await loadRows();
+      if (hasPanelAccess) {
+        await loadRows();
+        await loadRoster();
+      }
     });
 
     logoutBtn.addEventListener('click', async () => {
       await client.auth.signOut();
       body.innerHTML = '';
+      rosterBody.innerHTML = '';
       showStatus('Sesión cerrada.', 'info');
       await refreshAuthStatus();
     });
 
-    refreshBtn.addEventListener('click', loadRows);
-    filtro.addEventListener('change', loadRows);
+    refreshBtn.addEventListener('click', async () => {
+      await loadRows();
+      await loadRoster();
+    });
+    filtro.addEventListener('change', async () => {
+      await loadRows();
+      await loadRoster();
+    });
 
     window.addEventListener('DOMContentLoaded', async () => {
       if (!window.supabase || typeof window.supabase.createClient !== 'function') {
@@ -291,14 +394,20 @@
       client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       setButtonsEnabled(true);
       await refreshAuthStatus();
-      if (hasPanelAccess) await loadRows();
+      if (hasPanelAccess) {
+        await loadRows();
+        await loadRoster();
+      }
     });
 
     window.addEventListener('DOMContentLoaded', () => {
       if (!client) return;
       client.auth.onAuthStateChange(async () => {
         await refreshAuthStatus();
-        if (hasPanelAccess) await loadRows();
+        if (hasPanelAccess) {
+          await loadRows();
+          await loadRoster();
+        }
       });
     });
   </script>
