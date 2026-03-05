@@ -89,6 +89,7 @@
               <th class="text-left px-3 py-2">Celebración</th>
               <th class="text-left px-3 py-2">Fecha</th>
               <th class="text-left px-3 py-2">Notas</th>
+              <th class="text-center px-3 py-2">Acciones</th>
             </tr>
           </thead>
           <tbody id="roster-body" class="divide-y"></tbody>
@@ -213,7 +214,7 @@
       if (!filtered.length) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td class="px-3 py-3 text-gray-500" colspan="6">No hay registros para este filtro.</td>
+          <td class="px-3 py-3 text-gray-500" colspan="7">No hay registros para este filtro.</td>
         `;
         rosterBody.appendChild(tr);
         return;
@@ -222,6 +223,9 @@
       filtered.forEach((r) => {
         const tr = document.createElement('tr');
         tr.className = 'bg-white';
+        const deleteBtn = r.registration_id
+          ? `<button type="button" data-registration-id="${r.registration_id}" class="delete-reg-btn px-3 py-1 rounded bg-red-700 text-white text-xs font-semibold hover:bg-red-800">Eliminar</button>`
+          : '';
         tr.innerHTML = `
           <td class="px-3 py-2 font-semibold text-gray-900">${r.full_name || ''}</td>
           <td class="px-3 py-2 text-gray-800">${r.phone || ''}</td>
@@ -229,8 +233,17 @@
           <td class="px-3 py-2 text-gray-800">${r.slot_label || ''}</td>
           <td class="px-3 py-2 text-gray-700">${formatDateTime(r.created_at)}</td>
           <td class="px-3 py-2 text-gray-700">${r.notes || ''}</td>
+          <td class="px-3 py-2 text-center">${deleteBtn}</td>
         `;
         rosterBody.appendChild(tr);
+      });
+
+      document.querySelectorAll('.delete-reg-btn').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const registrationId = btn.getAttribute('data-registration-id');
+          if (!registrationId) return;
+          await deleteRegistration(registrationId);
+        });
       });
     }
 
@@ -279,6 +292,34 @@
       }
 
       renderRoster(data || []);
+    }
+
+    async function deleteRegistration(registrationId) {
+      if (!client) {
+        showStatus('Supabase no está disponible. Recarga la página e intenta de nuevo.', 'error');
+        return;
+      }
+      if (!hasPanelAccess) {
+        showStatus('No autorizado para eliminar registros.', 'error');
+        return;
+      }
+
+      const ok = window.confirm('¿Seguro que deseas eliminar este registro? Esta acción no se puede deshacer.');
+      if (!ok) return;
+
+      const { error } = await client
+        .from('mec_registrations')
+        .delete()
+        .eq('id', registrationId);
+
+      if (error) {
+        showStatus(`No se pudo eliminar: ${error.message}`, 'error');
+        return;
+      }
+
+      showStatus('Registro eliminado correctamente.', 'ok');
+      await loadRows();
+      await loadRoster();
     }
 
     async function toggleSlot(slotId, shouldOpen) {

@@ -55,5 +55,12 @@ for select
 to authenticated
 using (public.is_panel_admin());
 
+drop policy if exists mec_registrations_delete_admin on public.mec_registrations;
+create policy mec_registrations_delete_admin
+on public.mec_registrations
+for delete
+to authenticated
+using (public.is_panel_admin());
+
 -- 5) Si la vista v_panel_coordinador se apoya en esas tablas,
 -- quedará protegida por estas políticas al consultar desde el cliente.
