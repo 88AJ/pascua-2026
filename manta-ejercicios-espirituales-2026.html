@@ -6,17 +6,18 @@
   <title>Manta Ejercicios Espirituales 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/campaign-2026-theme.css">
   <link rel="stylesheet" href="assets/css/campaign-2026-motion.css">
   <style>
     :root {
-      --violet: #4e2c70;
-      --violet-soft: #63418a;
-      --deep: #111827;
+      --black: #07080b;
+      --panel: #111215;
       --gold: #c8a86b;
-      --ivory: #f7f2e8;
-      --line: rgba(200, 168, 107, 0.42);
+      --gold-soft: #ebd7ad;
+      --cream: #f5efe5;
+      --line: rgba(200, 168, 107, 0.4);
+      --violet-accent: rgba(84, 49, 123, 0.35);
     }
 
     * {
@@ -29,252 +30,254 @@
       min-height: 100vh;
       display: grid;
       place-items: center;
-      padding: 0.8rem;
+      padding: 1rem;
       font-family: "Montserrat", Arial, sans-serif;
       background:
-        radial-gradient(circle at 12% 10%, rgba(200, 168, 107, 0.14), transparent 36%),
-        linear-gradient(150deg, #0f1521, #1f2b41 52%, #2f2245);
-      color: var(--ivory);
+        radial-gradient(circle at 15% 10%, rgba(200, 168, 107, 0.14), transparent 28%),
+        linear-gradient(180deg, #0a0d13 0%, #131927 100%);
+      color: var(--cream);
     }
 
-    .flyer {
-      width: min(1080px, 100%);
-      min-height: 1350px;
-      border: 4px solid var(--line);
-      border-radius: 18px;
+    .poster {
+      width: min(860px, 100%);
+      aspect-ratio: 3 / 4;
+      background: var(--black);
+      border: 2px solid var(--line);
+      border-radius: 26px;
       overflow: hidden;
-      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.56);
+      box-shadow: 0 34px 72px rgba(0, 0, 0, 0.58);
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      background: #0b111b;
+      grid-template-rows: 52% 48%;
       position: relative;
     }
 
-    .left {
+    .hero {
       position: relative;
+      overflow: hidden;
       background:
-        linear-gradient(170deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.3)),
-        url("assets/ejercicios-adultos-2026/ejercicioscuaresmalesflyer2026.jpg") 24% center / 160% auto no-repeat;
-      filter: grayscale(94%);
-      border-right: 1px solid rgba(200, 168, 107, 0.2);
+        linear-gradient(180deg, rgba(12, 14, 20, 0.08), rgba(12, 14, 20, 0.48)),
+        url("assets/campana-2026/ejercicioscuaresma2026.jpeg") 10% 92% / 220% auto no-repeat;
     }
 
-    .left::after {
+    .hero::before {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(11, 17, 27, 0.18), rgba(11, 17, 27, 0.65));
+        linear-gradient(180deg, rgba(7, 8, 11, 0.98) 0%, rgba(7, 8, 11, 0.96) 14%, rgba(7, 8, 11, 0.72) 30%, rgba(7, 8, 11, 0.24) 52%, rgba(7, 8, 11, 0.36) 100%),
+        linear-gradient(90deg, rgba(7, 8, 11, 0.12), rgba(7, 8, 11, 0.28) 38%, rgba(7, 8, 11, 0.9) 74%, rgba(7, 8, 11, 0.98) 100%),
+        radial-gradient(circle at 30% 34%, rgba(255, 255, 255, 0.14), transparent 26%),
+        radial-gradient(circle at 28% 34%, rgba(69, 161, 255, 0.18), transparent 16%);
+      pointer-events: none;
     }
 
-    .brand {
+    .hero::after {
+      content: "";
       position: absolute;
-      top: 18px;
-      left: 16px;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      border: 1px solid rgba(200, 168, 107, 0.34);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.82);
-      padding: 0.34rem 0.52rem;
-      color: #181818;
+      inset: auto 0 0;
+      height: 32%;
+      background: linear-gradient(180deg, rgba(6, 8, 12, 0), rgba(6, 8, 12, 0.9));
     }
 
-    .brand img {
-      width: 60px;
-      height: 60px;
-      background: #fff;
-      border-radius: 10px;
-      object-fit: contain;
-      padding: 0.2rem;
-      border: 1px solid rgba(0, 0, 0, 0.16);
-    }
-
-    .brand p {
-      font-size: 0.72rem;
-      line-height: 1.2;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .vertical {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 106px;
-      z-index: 2;
-      background: linear-gradient(180deg, rgba(78, 44, 112, 0.96), rgba(99, 65, 138, 0.96));
-      border-left: 2px solid rgba(255, 255, 255, 0.2);
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      display: grid;
-      place-items: center;
-      font-family: "Cinzel", "Times New Roman", serif;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 52px;
-      line-height: 0.94;
-      color: #fff;
-      text-align: center;
-      padding: 1rem 0.2rem;
-    }
-
-    .right {
-      padding: 1.05rem 1rem 0.9rem;
-      background:
-        linear-gradient(150deg, rgba(78, 44, 112, 0.95), rgba(33, 23, 56, 0.95)),
-        radial-gradient(circle at 14% 14%, rgba(255, 255, 255, 0.1), transparent 40%);
-      display: grid;
-      grid-template-rows: auto auto auto 1fr auto;
-      gap: 0.65rem;
+    .content {
       position: relative;
-      z-index: 2;
+      padding: 1.15rem 1.25rem 1.1rem;
+      background:
+        linear-gradient(180deg, rgba(19, 20, 24, 0.99), rgba(10, 10, 12, 0.99)),
+        radial-gradient(circle at 50% 0%, var(--violet-accent), transparent 34%);
+      display: grid;
+      grid-template-rows: auto auto auto auto 1fr auto;
+      gap: 0.58rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .kicker {
+    .parish-line {
+      text-align: center;
+      font-family: "Cinzel", serif;
+      font-size: clamp(0.94rem, 1.35vw, 1.1rem);
+      color: var(--cream);
+      line-height: 1.2;
+    }
+
+    .eyebrow {
+      text-align: center;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-size: 0.74rem;
-      font-weight: 900;
-      color: #ecd7ad;
+      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--gold-soft);
     }
 
-    .title {
-      font-family: "Cinzel", "Times New Roman", serif;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      line-height: 0.94;
-      font-size: clamp(2rem, 5vw, 4rem);
-    }
-
-    .intro {
-      font-size: clamp(1rem, 2vw, 1.75rem);
-      line-height: 1.24;
-      font-weight: 700;
-      color: #f6ecff;
-    }
-
-    .intro strong {
+    .theme-title {
+      text-align: center;
+      font-family: "Cinzel", serif;
+      font-size: clamp(1.72rem, 3.7vw, 3.2rem);
+      line-height: 0.96;
       color: var(--gold);
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34);
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-family: "Cinzel", serif;
+      font-size: clamp(0.94rem, 1.5vw, 1.2rem);
+      line-height: 1.22;
+      color: var(--cream);
+      text-wrap: balance;
+      max-width: 32rem;
+      margin: 0 auto;
     }
 
     .details {
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 14px;
-      background: rgba(11, 17, 27, 0.36);
-      padding: 0.72rem;
       display: grid;
-      gap: 0.3rem;
+      gap: 0.42rem;
+      padding: 0.72rem 0.82rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 0 0 1px rgba(200, 168, 107, 0.08);
     }
 
     .details p {
-      font-size: clamp(0.95rem, 1.8vw, 1.45rem);
+      text-align: center;
+      font-size: clamp(0.9rem, 1.42vw, 1.08rem);
+      line-height: 1.24;
       font-weight: 700;
-      line-height: 1.25;
+      color: var(--cream);
     }
 
     .details strong {
-      text-transform: uppercase;
       color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .priests {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.62rem;
+      gap: 0.58rem;
       align-self: end;
     }
 
     .priest {
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 12px;
-      background: rgba(11, 17, 27, 0.36);
-      padding: 0.45rem;
       display: grid;
-      grid-template-columns: 74px 1fr;
-      gap: 0.54rem;
+      grid-template-columns: 58px 1fr;
+      gap: 0.55rem;
       align-items: center;
+      padding: 0.42rem 0.48rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.035);
     }
 
     .priest img {
-      width: 74px;
-      height: 74px;
-      border-radius: 8px;
+      width: 58px;
+      height: 58px;
       object-fit: cover;
       object-position: top;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 999px;
+      border: 2px solid rgba(200, 168, 107, 0.65);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
     }
 
     .priest .name {
-      font-size: 0.73rem;
-      line-height: 1.24;
+      font-size: 0.67rem;
+      line-height: 1.22;
       font-weight: 800;
+      color: var(--cream);
     }
 
     .priest .role {
-      margin-top: 0.18rem;
+      margin-top: 0.14rem;
+      font-size: 0.54rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.6rem;
       font-weight: 700;
-      color: #e8d9ff;
+      color: var(--gold-soft);
     }
 
-    .footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.24);
-      padding-top: 0.55rem;
+    .footer-row {
       display: grid;
       grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 0.5rem;
+      align-items: end;
+      gap: 1rem;
+      min-height: 78px;
     }
 
-    .footer p {
+    .logo-lockup {
+      justify-self: center;
+      text-align: center;
+      transform: translateX(18px);
+    }
+
+    .logo-lockup img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 0.34rem;
+      filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.32));
+    }
+
+    .logo-lockup p {
+      font-family: "Cinzel", serif;
+      font-size: 0.58rem;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      color: var(--gold-soft);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.64rem;
-      line-height: 1.26;
-      font-weight: 900;
-      color: #f2e7ff;
     }
 
-    .footer img {
-      width: 76px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.32);
+    .qr-box {
+      justify-self: end;
+      width: 96px;
+      display: grid;
+      gap: 0.3rem;
+      text-align: center;
+    }
+
+    .qr-box img {
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
       background: #fff;
-      padding: 2px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      padding: 3px;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
     }
 
-    @media (max-width: 1060px) {
-      .flyer {
-        grid-template-columns: 1fr;
-      }
+    .qr-box span {
+      font-size: 0.54rem;
+      line-height: 1.2;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: rgba(245, 239, 229, 0.82);
+    }
 
-      .left {
-        min-height: 420px;
-      }
-
-      .vertical {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: auto;
-        width: auto;
-        height: 92px;
-        writing-mode: horizontal-tb;
-        transform: none;
-        font-size: 44px;
-        border-left: 0;
-        border-top: 2px solid rgba(255, 255, 255, 0.2);
+    @media (max-width: 760px) {
+      .content {
+        padding: 1.1rem 1rem 1.05rem;
       }
 
       .priests {
         grid-template-columns: 1fr;
+      }
+
+      .footer-row {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 0.8rem;
+      }
+
+      .logo-lockup {
+        transform: none;
+      }
+
+      .qr-box {
+        justify-self: center;
       }
     }
 
@@ -284,7 +287,7 @@
         padding: 0;
       }
 
-      .flyer {
+      .poster {
         border-radius: 0;
         box-shadow: none;
       }
@@ -300,27 +303,19 @@
     </div>
   </div>
 
-  <article class="flyer campaign-shell" aria-label="Manta ejercicios espirituales 2026">
-    <div class="campaign-glow" aria-hidden="true"></div>
+  <article class="poster campaign-shell" aria-label="Cartel de Ejercicios Espirituales de Cuaresma 2026">
+    <section class="hero" aria-hidden="true"></section>
 
-    <section class="left">
-      <div class="brand">
-        <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
-        <p>Parroquia San Pedro Apóstol<br>Allende, N.L.</p>
-      </div>
-      <div class="vertical">Ejercicios Espirituales</div>
-    </section>
-
-    <section class="right">
-      <p class="kicker">Preparación intensa para Semana Santa</p>
-      <h1 class="title">Ejercicios Espirituales 2026</h1>
-      <p class="intro">Vive un tiempo de reflexión, oración y <strong>renovación interior</strong> en esta Cuaresma.</p>
+    <section class="content">
+      <p class="parish-line">Parroquia San Pedro Apóstol</p>
+      <p class="eyebrow">Ejercicios Espirituales de Cuaresma 2026</p>
+      <h1 class="theme-title">Del Desierto al Hogar Pascual</h1>
+      <p class="subtitle">Un camino cuaresmal para renovar el corazón, la oración y la vida de nuestras familias y comunidades.</p>
 
       <div class="details">
         <p><strong>Fechas:</strong> 16 al 20 de marzo de 2026</p>
-        <p><strong>Horario:</strong> Después de misa de 6:00 PM</p>
+        <p><strong>Horario:</strong> Después de la Santa Misa de 6:00 PM</p>
         <p><strong>Lugar:</strong> Sede Parroquial, Allende, N.L.</p>
-        <p><strong>Impartidos por sacerdotes:</strong> Pbro. Arturo Bernardo Flores Aguirre y Pbro. Alan Lorenzo Sánchez Valencia.</p>
       </div>
 
       <div class="priests">
@@ -341,10 +336,17 @@
         </article>
       </div>
 
-      <footer class="footer">
-        <p>Informes: +52 826 262 0211 · Escanea el código para abrir el landing oficial con horarios, misal y registro de voluntariado.</p>
-        <img src="assets/campana-2026/qr-landing-semana-santa-2026.png" alt="QR recursos parroquiales">
-      </footer>
+      <div class="footer-row">
+        <div class="logo-lockup">
+          <img src="logo.PNG" alt="Logo Parroquia San Pedro Apóstol">
+          <p>Parroquia<br>San Pedro Apóstol<br>Allende, N.L.</p>
+        </div>
+
+        <div class="qr-box">
+          <img src="assets/campana-2026/qr-landing-semana-santa-2026.png" alt="QR al landing parroquial oficial">
+          <span>Escanea para horarios y avisos</span>
+        </div>
+      </div>
     </section>
   </article>
 
