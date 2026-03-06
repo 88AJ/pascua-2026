@@ -10,6 +10,15 @@
     sacristia: "Sacristía - Semana Santa 2026",
     voluntario: "Voluntariado General - Semana Santa 2026",
   };
+  const GROUP_LINK_BY_BASE = {
+    voluntario: "https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t",
+    mec: "https://chat.whatsapp.com/BJPA2Z1Tik4A8Jn6Z75I3E?mode=gi_t",
+    lectores: "https://chat.whatsapp.com/GTMO997hU20Fof1uMgw0Rt?mode=gi_t",
+    ujieres: "https://chat.whatsapp.com/JSref4zwNVEA4sE9YXg4l4?mode=gi_t",
+    monaguillos: "https://chat.whatsapp.com/LrA1Q9lM8x5GGWPM5gL6tU?mode=gi_t",
+    coro: "https://chat.whatsapp.com/GRr1VrtNDfvKVPioe0w6yM?mode=gi_t",
+    sacristia: "https://chat.whatsapp.com/LjP9wFLrCcn7JJJ1nV0jPq?mode=gi_t",
+  };
 
   function normalizePhone(input) {
     return (input || "").replace(/\D/g, "").slice(0, 15);
@@ -30,6 +39,7 @@
 
   function buildGroupJoinLink(ministryKey) {
     const base = ministryBase(ministryKey);
+    if (GROUP_LINK_BY_BASE[base]) return GROUP_LINK_BY_BASE[base];
     const label = GROUP_LABEL_BY_BASE[base] || "Voluntariado - Semana Santa 2026";
     const msg = `Hola, ya me registré y quiero unirme al grupo "${label}". Mi nombre es: `;
     return `https://wa.me/${PARISH_WA_NUMBER}?text=${encodeURIComponent(msg)}`;

@@ -904,13 +904,13 @@
             <p class="text-sm font-bold">Seguimiento por grupos de WhatsApp</p>
             <p class="text-xs text-[#e6dac5] mt-1">Al registrarte, te daremos acceso al grupo de tu ministerio y día de servicio.</p>
             <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20MEC%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>MEC · Solicitar acceso</a>
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Monaguillos%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Monaguillos · Solicitar acceso</a>
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Lectores%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Lectores · Solicitar acceso</a>
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Coro%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Coro · Solicitar acceso</a>
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Ujieres%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Ujieres · Solicitar acceso</a>
-              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Sacrist%C3%ADa%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Sacristía · Solicitar acceso</a>
-              <a class="volunteer-link sm:col-span-2" target="_blank" rel="noopener noreferrer" href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20unirme%20al%20grupo%20Voluntariado%20General%20-%20Semana%20Santa%202026."><i class="fa-brands fa-whatsapp"></i>Voluntariado general · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/BJPA2Z1Tik4A8Jn6Z75I3E?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>MEC · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/LrA1Q9lM8x5GGWPM5gL6tU?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Monaguillos · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/GTMO997hU20Fof1uMgw0Rt?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Lectores · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/GRr1VrtNDfvKVPioe0w6yM?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Coro · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/JSref4zwNVEA4sE9YXg4l4?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Ujieres · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/LjP9wFLrCcn7JJJ1nV0jPq?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Sacristía · Solicitar acceso</a>
+              <a class="volunteer-link sm:col-span-2" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Voluntariado general · Solicitar acceso</a>
             </div>
             <p class="text-xs text-[#e6dac5] mt-2">Administración de grupos: Betty Silva (+52 826 104 3288), Oficina parroquial (+52 826 262 0211) y P. Alan Sánchez (+1 956 740 1370).</p>
           </div>
@@ -938,6 +938,7 @@
         vigilia: 'voluntario-vigilia-general',
       };
       const VOLUNTARIO_GROUP_LABEL = 'Voluntariado General - Semana Santa 2026';
+      const VOLUNTARIO_GROUP_LINK = 'https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t';
 
       const qEl = document.getElementById("flashcard-question");
       const aEl = document.getElementById("flashcard-answer");
@@ -1045,6 +1046,7 @@
       }
 
       function buildVoluntarioGroupLink() {
+        if (VOLUNTARIO_GROUP_LINK) return VOLUNTARIO_GROUP_LINK;
         const text = `Hola, ya me registré y quiero unirme al grupo ${VOLUNTARIO_GROUP_LABEL}. Mi nombre es: `;
         return `https://wa.me/${PARISH_WA_NUMBER}?text=${encodeURIComponent(text)}`;
       }
