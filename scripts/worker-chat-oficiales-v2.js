@@ -4,7 +4,8 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type, X-Admin-Token",
 };
 
-const MODELS = ["gemini-2.5-flash", "gemini-1.5-flash"];
+const OPENAI_DEFAULT_MODELS = ["gpt-5.4", "gpt-5.2"];
+const GEMINI_MODELS = ["gemini-2.5-flash", "gemini-1.5-flash"];
 const FALLBACK_WA_NUMBER = "19567401370";
 const PARISH_OFFICE_PHONE = "+52 826 268 4887";
 const PARISH_OFFICE_LABEL = "Oficina Parroquial de Allende";
@@ -670,6 +671,82 @@ async function callModel(model, apiKey, payload) {
   };
 }
 
+function parseOpenAIModelList(env) {
+  const fromEnv = String(env.OPENAI_MODEL || "").trim();
+  const fallbackEnv = String(env.OPENAI_FALLBACK_MODELS || "").trim();
+  const fromFallback = fallbackEnv
+    ? fallbackEnv
+        .split(",")
+        .map((m) => m.trim())
+        .filter(Boolean)
+    : [];
+  const list = [fromEnv || OPENAI_DEFAULT_MODELS[0], ...fromFallback];
+  const dedup = [];
+  for (const name of list) {
+    if (!dedup.includes(name)) dedup.push(name);
+  }
+  if (dedup.length === 0) return [...OPENAI_DEFAULT_MODELS];
+  return dedup;
+}
+
+function extractOpenAIText(data) {
+  if (typeof data?.output_text === "string" && data.output_text.trim()) {
+    return data.output_text.trim();
+  }
+
+  const outputs = Array.isArray(data?.output) ? data.output : [];
+  const chunks = [];
+  for (const out of outputs) {
+    const content = Array.isArray(out?.content) ? out.content : [];
+    for (const item of content) {
+      const t = typeof item?.text === "string" ? item.text : "";
+      if (t) chunks.push(t);
+    }
+  }
+  return chunks.join("\n").trim();
+}
+
+async function callOpenAIModel(model, apiKey, systemInstruction, userPrompt) {
+  const payload = {
+    model,
+    input: [
+      {
+        role: "system",
+        content: [{ type: "input_text", text: systemInstruction }],
+      },
+      {
+        role: "user",
+        content: [{ type: "input_text", text: userPrompt }],
+      },
+    ],
+    temperature: 0.25,
+    max_output_tokens: 700,
+  };
+
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  let data = {};
+  try {
+    data = await response.json();
+  } catch (_) {
+    data = {};
+  }
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    data,
+    errorMessage: data?.error?.message || `HTTP ${response.status}`,
+  };
+}
+
 async function sha256Hex(input = "") {
   const data = new TextEncoder().encode(String(input));
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
@@ -830,8 +907,14 @@ export default {
       const meta = typeof input?.meta === "object" && input.meta ? input.meta : {};
       if (!query) return jsonResponse({ reply: "Por favor escriba su consulta." }, 400);
 
-      const apiKey = String(env.GEMINI_API_KEY || "").trim();
-      if (!apiKey) return jsonResponse({ reply: "Falta configurar GEMINI_API_KEY en el Worker." }, 500);
+      const openaiApiKey = String(env.OPENAI_API_KEY || "").trim();
+      const geminiApiKey = String(env.GEMINI_API_KEY || "").trim();
+      if (!openaiApiKey && !geminiApiKey) {
+        return jsonResponse(
+          { reply: "Falta configurar OPENAI_API_KEY (o GEMINI_API_KEY como respaldo) en el Worker." },
+          500
+        );
+      }
 
       const waNumber = String(env.WHATSAPP_NUMBER || FALLBACK_WA_NUMBER).trim();
       const intent = detectIntent(query);
@@ -889,32 +972,9 @@ export default {
         meta,
       });
 
-      const geminiPayload = {
-        systemInstruction: { parts: [{ text: systemInstruction }] },
-        contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-        generationConfig: {
-          temperature: 0.25,
-          topP: 0.9,
-          responseMimeType: "application/json",
-        },
-      };
-
       const errors = [];
-
-      for (const model of MODELS) {
-        const result = await callModel(model, apiKey, geminiPayload);
-        if (!result.ok) {
-          errors.push(`[${model}: ${result.errorMessage}]`);
-          continue;
-        }
-
-        const raw = extractCandidateText(result.data);
-        const envelope = parseModelJson(raw);
-        if (!envelope) {
-          errors.push(`[${model}: salida no-JSON]`);
-          continue;
-        }
-
+      const processEnvelope = (envelope, modelName) => {
+        if (!envelope) return null;
         let reply = composeReply(envelope, { intent, ownerHint, query, waNumber });
 
         // Guardarraíles de calidad:
@@ -933,13 +993,66 @@ export default {
         return jsonResponse({
           reply,
           meta: {
-            model,
+            model: modelName,
             intent,
             ownerHint,
             sourceSnapshotAt: snapshot?.updatedAt || null,
             externalSourcesUsed: externalContext ? true : false,
           },
         });
+      };
+
+      // Motor principal: OpenAI GPT-5.4 (configurable por OPENAI_MODEL).
+      if (openaiApiKey) {
+        const openaiModels = parseOpenAIModelList(env);
+        for (const model of openaiModels) {
+          const result = await callOpenAIModel(model, openaiApiKey, systemInstruction, userPrompt);
+          if (!result.ok) {
+            errors.push(`[openai:${model}: ${result.errorMessage}]`);
+            continue;
+          }
+
+          const raw = extractOpenAIText(result.data);
+          const envelope = parseModelJson(raw);
+          if (!envelope) {
+            errors.push(`[openai:${model}: salida no-JSON]`);
+            continue;
+          }
+
+          const response = processEnvelope(envelope, model);
+          if (response) return response;
+        }
+      }
+
+      // Respaldo opcional: Gemini si OPENAI falla o no está configurado.
+      if (geminiApiKey) {
+        const geminiPayload = {
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+          generationConfig: {
+            temperature: 0.25,
+            topP: 0.9,
+            responseMimeType: "application/json",
+          },
+        };
+
+        for (const model of GEMINI_MODELS) {
+          const result = await callModel(model, geminiApiKey, geminiPayload);
+          if (!result.ok) {
+            errors.push(`[gemini:${model}: ${result.errorMessage}]`);
+            continue;
+          }
+
+          const raw = extractCandidateText(result.data);
+          const envelope = parseModelJson(raw);
+          if (!envelope) {
+            errors.push(`[gemini:${model}: salida no-JSON]`);
+            continue;
+          }
+
+          const response = processEnvelope(envelope, model);
+          if (response) return response;
+        }
       }
 
       const fallback =
