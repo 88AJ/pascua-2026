@@ -670,6 +670,104 @@ async function callModel(model, apiKey, payload) {
   };
 }
 
+async function sha256Hex(input = "") {
+  const data = new TextEncoder().encode(String(input));
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const bytes = Array.from(new Uint8Array(hashBuffer));
+  return bytes.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function normalizeEmailForHash(email = "") {
+  return String(email).trim().toLowerCase();
+}
+
+function normalizePhoneForHash(phone = "") {
+  return String(phone).replace(/\D/g, "");
+}
+
+async function sendMetaLeadEvent({ request, env, input }) {
+  const pixelId = String(env.META_PIXEL_ID || "").trim();
+  const capiToken = String(env.META_CAPI_TOKEN || "").trim();
+  const testEventCode = String(env.META_TEST_EVENT_CODE || "").trim();
+
+  if (!pixelId || !capiToken) {
+    return { ok: false, reason: "META_PIXEL_ID o META_CAPI_TOKEN no configurado" };
+  }
+
+  const phoneNorm = normalizePhoneForHash(input?.phone || "");
+  const emailNorm = normalizeEmailForHash(input?.email || "");
+  if (!phoneNorm && !emailNorm) {
+    return { ok: false, reason: "phone o email requerido para user_data" };
+  }
+
+  const userData = {};
+  if (phoneNorm) userData.ph = [await sha256Hex(phoneNorm)];
+  if (emailNorm) userData.em = [await sha256Hex(emailNorm)];
+
+  const ipRaw = String(
+    request.headers.get("CF-Connecting-IP") ||
+      request.headers.get("x-forwarded-for") ||
+      ""
+  ).trim();
+  const clientIp = ipRaw ? ipRaw.split(",")[0].trim() : "";
+  if (clientIp) userData.client_ip_address = clientIp;
+
+  const userAgent = String(request.headers.get("User-Agent") || "").trim();
+  if (userAgent) userData.client_user_agent = userAgent;
+
+  const days = Array.isArray(input?.days)
+    ? input.days.map((d) => String(d || "").trim()).filter(Boolean).slice(0, 12)
+    : [];
+  const insertedDays = Number(input?.inserted_days || 0) || 0;
+  const eventSourceUrl =
+    String(input?.event_source_url || "").trim() ||
+    "https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html";
+  const source = String(input?.source || "landing-publico-semana-santa-2026").trim();
+
+  const eventId = `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const event = {
+    event_name: "Lead",
+    event_time: Math.floor(Date.now() / 1000),
+    event_id: eventId,
+    action_source: "website",
+    event_source_url: eventSourceUrl,
+    user_data: userData,
+    custom_data: {
+      source,
+      inserted_days: insertedDays,
+      days_count: days.length || insertedDays || 0,
+    },
+  };
+
+  const body = {
+    data: [event],
+    access_token: capiToken,
+  };
+  if (testEventCode) body.test_event_code = testEventCode;
+
+  const endpoint = `https://graph.facebook.com/v22.0/${encodeURIComponent(pixelId)}/events`;
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+
+  let payload = {};
+  try {
+    payload = await response.json();
+  } catch (_) {
+    payload = {};
+  }
+
+  return {
+    ok: response.ok,
+    status: response.status,
+    events_received: Number(payload?.events_received || 0) || 0,
+    fbtrace_id: payload?.fbtrace_id || null,
+    error: payload?.error || null,
+  };
+}
+
 export default {
   async fetch(request, env, ctx) {
     try {
@@ -694,6 +792,19 @@ export default {
         }
         const result = await refreshOfficialContext(env);
         return jsonResponse({ ok: true, result });
+      }
+
+      if (request.method === "POST" && url.pathname === "/meta/lead") {
+        let input = {};
+        try {
+          input = await request.json();
+        } catch (_) {
+          return jsonResponse({ ok: false, reason: "JSON inválido" }, 400);
+        }
+
+        const result = await sendMetaLeadEvent({ request, env, input });
+        // Respuesta 200 para no romper frontend público; el detalle queda en JSON.
+        return jsonResponse(result, 200);
       }
 
       if (request.method !== "POST") {

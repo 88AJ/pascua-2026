@@ -957,6 +957,57 @@
       const VOLUNTARIO_GROUP_LABEL = 'Voluntariado General - Semana Santa 2026';
       const VOLUNTARIO_GROUP_LINK = 'https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t';
 
+      function safeFbqTrack(eventName, params) {
+        try {
+          if (typeof window.fbq !== "function") return;
+          if (params && typeof params === "object") window.fbq("track", eventName, params);
+          else window.fbq("track", eventName);
+        } catch (_) {}
+      }
+
+      function safeFbqTrackCustom(eventName, params) {
+        try {
+          if (typeof window.fbq !== "function") return;
+          if (params && typeof params === "object") window.fbq("trackCustom", eventName, params);
+          else window.fbq("trackCustom", eventName);
+        } catch (_) {}
+      }
+
+      function bindPixelTracking() {
+        const misalLinks = document.querySelectorAll('#misal a[href^="misal-publico-"]');
+        misalLinks.forEach((a) => {
+          a.addEventListener("click", () => {
+            const cardTitle = a.closest("article")?.querySelector("p")?.textContent?.trim() || "Misal para Fieles";
+            safeFbqTrack("ViewContent", {
+              content_category: "Misal para Fieles",
+              content_name: cardTitle,
+              content_type: "misal",
+            });
+          });
+        });
+
+        const horarioLinks = document.querySelectorAll('#horarios a[href$=".jpeg"], #destacados a[href$=".jpeg"]');
+        horarioLinks.forEach((a) => {
+          a.addEventListener("click", () => {
+            safeFbqTrack("ViewContent", {
+              content_category: "Horarios Oficiales 2026",
+              content_name: (a.textContent || "Horarios").trim(),
+              content_type: "imagen_horario",
+            });
+          });
+        });
+
+        const whatsappLinks = document.querySelectorAll('a[href*="wa.me/"], a[href*="chat.whatsapp.com"]');
+        whatsappLinks.forEach((a) => {
+          a.addEventListener("click", () => {
+            safeFbqTrack("Contact", {
+              content_name: (a.textContent || "WhatsApp").trim(),
+              content_category: "WhatsApp",
+            });
+          });
+        });
+      }
+
       const qEl = document.getElementById("flashcard-question");
       const aEl = document.getElementById("flashcard-answer");
       const showBtn = document.getElementById("flashcard-show");
@@ -1019,6 +1070,7 @@
       if (showBtn && aEl) showBtn.addEventListener("click", () => aEl.classList.remove("hidden"));
       if (nextBtn) nextBtn.addEventListener("click", renderFlashcard);
       loadFlashcards();
+      bindPixelTracking();
 
       const ministerioSelect = document.getElementById("registro-ministerio-select");
       const diaSelect = document.getElementById("registro-dia-select");
@@ -1030,6 +1082,11 @@
             .map((opt) => String(opt.value || "").trim())
             .filter(Boolean);
           if (!ministerio || !dias.length) return;
+
+          safeFbqTrackCustom("OpenMinistryRegistration", {
+            ministry: ministerio,
+            days_selected: dias.length,
+          });
 
           const urls = dias.map((dia) => `${ministerio}-${dia}.html?publico=1#registro`);
           if (urls.length > 1) {
@@ -1141,6 +1198,32 @@
             if (duplicated) extra.push(`${duplicated} ya estaban registrados`);
             if (invalid) extra.push(`${invalid} no pudieron procesarse`);
             const extraText = extra.length ? `<br><span class="text-xs">Nota: ${extra.join(" · ")}.</span>` : "";
+
+            safeFbqTrack("Lead", {
+              content_name: "Registro Voluntario General",
+              content_category: "Voluntariado Parroquial",
+              value: inserted,
+            });
+            safeFbqTrackCustom("VolunteerRegistration", {
+              days_registered: inserted,
+              duplicated_days: duplicated,
+              failed_days: invalid,
+            });
+            fetch("https://flat-scene-ca7c.88alansanchez.workers.dev/meta/lead", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                full_name: fullName,
+                phone,
+                days: [...new Set(selectedDays)],
+                inserted_days: inserted,
+                source: "landing-publico-semana-santa-2026",
+                event_source_url: window.location.href,
+              }),
+            }).catch((err) => {
+              console.error("No se pudo enviar CAPI lead:", err);
+            });
+
             showVoluntarioStatus(
               `Gracias por registrarte. Confirmamos <strong>${inserted}</strong> día(s) de servicio.${extraText}<br><a class="underline font-bold" href="${groupLink}" target="_blank" rel="noopener noreferrer">Unirme al grupo de seguimiento por WhatsApp</a>`,
               "ok",
