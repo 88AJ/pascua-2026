@@ -62,6 +62,27 @@
       background: #fff;
     }
 
+    .preview-thumb {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      background: #0b111b;
+      display: block;
+    }
+
+    .preview-body {
+      padding: 0.9rem 1rem 1rem;
+    }
+
+    .preview-copy {
+      color: #d9ccb2;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-top: 0.45rem;
+      min-height: 2.4em;
+    }
+
     .badge {
       font-size: 0.72rem;
       text-transform: uppercase;
@@ -199,7 +220,7 @@
     </section>
 
     <section id="lanzadores" class="surface rounded-2xl p-6">
-      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Piezas listas</h2>
+      <h2 class="fancy text-5xl font-bold text-[#f4dfb3] uppercase">Piezas listas</h2>
       <p class="text-gray-700 font-semibold mt-1">Abrir, revisar y enviar a impresión/publicación.</p>
       <div class="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
         <a href="landing-publico-semana-santa-2026.html" class="bg-[var(--wine)] text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-[var(--wine-dark)] transition">Landing público</a>
@@ -209,13 +230,12 @@
         <a href="manta-cambio-horario-vespertinas-2026.html" class="bg-red-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-red-800 transition">Manta cambio horario</a>
         <a href="manta-ejercicios-espirituales-2026.html" class="bg-purple-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-purple-800 transition">Manta ejercicios</a>
         <a href="ejercicios-espirituales-2026-oficial.pdf" target="_blank" rel="noopener noreferrer" class="bg-indigo-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-indigo-800 transition">PDF oficial ejercicios</a>
-        <a href="subsidio-ejercicios-espirituales-cuaresma-2026.pdf" target="_blank" rel="noopener noreferrer" class="bg-amber-700 text-white rounded-xl p-4 font-black uppercase text-sm tracking-wide hover:bg-amber-800 transition">Subsidio cuaresma</a>
       </div>
     </section>
 
     <section id="calendario" class="grid grid-cols-1 xl:grid-cols-2 gap-5">
       <article class="surface rounded-2xl p-6">
-        <h3 class="fancy text-4xl font-bold text-[var(--wine)] uppercase">Calendario de campaña</h3>
+        <h3 class="fancy text-4xl font-bold text-[#f4dfb3] uppercase">Calendario de campaña</h3>
         <div class="mt-4 space-y-3 text-sm">
           <div class="bg-white rounded-xl border border-[var(--line)] p-3">
             <p class="font-black uppercase text-purple-700 tracking-wide">Fase 1 | 6-15 marzo</p>
@@ -238,7 +258,7 @@
             <p class="mt-1">Agradecimiento, seguimiento y continuidad pastoral.</p>
           </div>
           <div class="bg-white rounded-xl border border-[var(--line)] p-3">
-            <p class="font-black uppercase text-[var(--wine)] tracking-wide">Archivo maestro</p>
+            <p class="font-black uppercase text-[#f4dfb3] tracking-wide">Archivo maestro</p>
             <p class="mt-1">Calendario editable listo para automatizacion:</p>
             <p class="mt-2"><a href="assets/campana-2026/calendario-campana-automatizada-2026.csv" class="text-blue-700 font-black uppercase text-xs" target="_blank" rel="noopener noreferrer">Abrir CSV de campaña</a></p>
             <p class="mt-1"><a href="docs/campana-automatizada-paso-1.md" class="text-blue-700 font-black uppercase text-xs" target="_blank" rel="noopener noreferrer">Ver guia paso 1</a></p>
@@ -247,7 +267,7 @@
       </article>
 
       <article class="surface rounded-2xl p-6">
-        <h3 class="fancy text-4xl font-bold text-[var(--wine)] uppercase">Checklist operativo</h3>
+        <h3 class="fancy text-4xl font-bold text-[#f4dfb3] uppercase">Checklist operativo</h3>
         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
           <label><input type="checkbox" class="mr-2">QR probado (Android y iPhone)</label>
           <label><input type="checkbox" class="mr-2">Landing público aprobado</label>
@@ -262,7 +282,7 @@
     </section>
 
     <section id="actualizaciones" class="surface rounded-2xl p-6">
-      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Actualización Oficial de Capillas</h2>
+      <h2 class="fancy text-5xl font-bold text-[#f4dfb3] uppercase">Actualización Oficial de Capillas</h2>
       <p class="text-gray-700 font-semibold mt-1">Cambios confirmados para Semana Santa 2026 que deben reflejarse en toda difusión.</p>
       <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
         <article class="bg-white rounded-xl border border-[var(--line)] p-3">
@@ -283,7 +303,7 @@
     <section id="banco-visual" class="surface rounded-2xl p-6">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Banco Visual Oficial</h2>
+          <h2 class="fancy text-5xl font-bold text-[#f4dfb3] uppercase">Banco Visual Oficial</h2>
           <p class="text-gray-700 font-semibold mt-1">Imágenes reales exportadas de Facebook y listas para diseño de mantas, posts y stories.</p>
         </div>
         <span class="badge bg-emerald-100 text-emerald-800">Fuente: export 2026-03-02</span>
@@ -325,60 +345,79 @@
       </div>
 
       <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4 text-sm">
-        <p class="font-black uppercase tracking-wide text-[var(--wine)]">Ruta para diseño</p>
+        <p class="font-black uppercase tracking-wide text-[#f4dfb3]">Ruta para diseño</p>
         <p class="mt-1">Usar carpeta local: <code>assets/campana-2026/</code> dentro del proyecto para crear las piezas de impresión y redes.</p>
       </div>
     </section>
 
     <section class="space-y-4">
-      <h2 class="fancy text-5xl font-bold text-[var(--wine)] uppercase">Vista previa de piezas</h2>
+      <h2 class="fancy text-5xl font-bold text-[#f4dfb3] uppercase">Vista rápida de piezas</h2>
+      <p class="text-gray-700 font-semibold">Previsualización ligera sin iframes para mantener el portal limpio y enfocado.</p>
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Landing público</p>
-            <a href="landing-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/comunidad-plaza.jpg" alt="Vista del landing público Semana Santa 2026" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Landing público</p>
+              <a href="landing-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Portal para fieles con horarios, misal, ejercicios espirituales, Facebook en tiempo real y registro de voluntariado.</p>
           </div>
-          <iframe src="landing-publico-semana-santa-2026.html" class="asset-preview" title="Preview landing"></iframe>
         </article>
 
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Misal para fieles</p>
-            <a href="misal-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/templo-altar-corona.jpg" alt="Vista del Misal para fieles" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Misal para fieles</p>
+              <a href="misal-publico-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Acceso directo a los misales públicos por celebración, sin contenido interno de coordinación.</p>
           </div>
-          <iframe src="misal-publico-semana-santa-2026.html" class="asset-preview" title="Preview misal publico"></iframe>
         </article>
 
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Auditoría visual Facebook</p>
-            <a href="auditoria-visual-facebook-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/ramos-asamblea.jpg" alt="Auditoría visual del material de Facebook" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Auditoría visual Facebook</p>
+              <a href="auditoria-visual-facebook-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Diagnóstico de calidad visual y línea gráfica para convertir material real en piezas de campaña.</p>
           </div>
-          <iframe src="auditoria-visual-facebook-2026.html" class="asset-preview" title="Preview auditoria visual"></iframe>
         </article>
 
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta Semana Santa</p>
-            <a href="manta-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/semanasantahorarios2026.jpeg" alt="Manta principal Semana Santa 2026" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Manta Semana Santa</p>
+              <a href="manta-semana-santa-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Pieza principal de horarios oficiales para difusión en panorámicos, lonas y medios parroquiales.</p>
           </div>
-          <iframe src="manta-semana-santa-2026.html" class="asset-preview" title="Preview manta semana santa"></iframe>
         </article>
 
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta cambio horario</p>
-            <a href="manta-cambio-horario-vespertinas-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/cambiodehorario2026.jpeg" alt="Manta cambio de horario de misa vespertina" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Manta cambio horario</p>
+              <a href="manta-cambio-horario-vespertinas-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Aviso oficial del nuevo horario vespertino (7:00 PM) a partir del Domingo de Pascua.</p>
           </div>
-          <iframe src="manta-cambio-horario-vespertinas-2026.html" class="asset-preview" title="Preview manta cambio horario"></iframe>
         </article>
 
         <article class="asset-card">
-          <div class="px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
-            <p class="font-black uppercase tracking-wide text-sm text-[var(--wine)]">Manta ejercicios espirituales</p>
-            <a href="manta-ejercicios-espirituales-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+          <img src="assets/campana-2026/ejercicioscuaresma2026.jpeg" alt="Manta ejercicios espirituales 2026" class="preview-thumb">
+          <div class="preview-body">
+            <div class="flex items-center justify-between gap-3">
+              <p class="font-black uppercase tracking-wide text-sm text-[#f4dfb3]">Manta ejercicios espirituales</p>
+              <a href="manta-ejercicios-espirituales-2026.html" class="text-xs font-black uppercase text-blue-700">Abrir</a>
+            </div>
+            <p class="preview-copy">Promoción de los Ejercicios Espirituales de Cuaresma con fechas, horario e impartición sacerdotal.</p>
           </div>
-          <iframe src="manta-ejercicios-espirituales-2026.html" class="asset-preview" title="Preview manta ejercicios"></iframe>
         </article>
       </div>
     </section>
