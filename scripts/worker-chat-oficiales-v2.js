@@ -724,7 +724,11 @@ async function sendMetaLeadEvent({ request, env, input }) {
     "https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html";
   const source = String(input?.source || "landing-publico-semana-santa-2026").trim();
 
-  const eventId = `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const requestedEventIdRaw = String(input?.event_id || "").trim();
+  const requestedEventId = requestedEventIdRaw
+    ? requestedEventIdRaw.replace(/[^a-zA-Z0-9._:-]/g, "").slice(0, 120)
+    : "";
+  const eventId = requestedEventId || `lead-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   const event = {
     event_name: "Lead",
     event_time: Math.floor(Date.now() / 1000),

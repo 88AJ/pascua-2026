@@ -957,11 +957,17 @@
       const VOLUNTARIO_GROUP_LABEL = 'Voluntariado General - Semana Santa 2026';
       const VOLUNTARIO_GROUP_LINK = 'https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t';
 
-      function safeFbqTrack(eventName, params) {
+      function safeFbqTrack(eventName, params, options) {
         try {
           if (typeof window.fbq !== "function") return;
-          if (params && typeof params === "object") window.fbq("track", eventName, params);
-          else window.fbq("track", eventName);
+          if (params && typeof params === "object") {
+            if (options && typeof options === "object") window.fbq("track", eventName, params, options);
+            else window.fbq("track", eventName, params);
+          } else if (options && typeof options === "object") {
+            window.fbq("track", eventName, {}, options);
+          } else {
+            window.fbq("track", eventName);
+          }
         } catch (_) {}
       }
 
@@ -1198,12 +1204,13 @@
             if (duplicated) extra.push(`${duplicated} ya estaban registrados`);
             if (invalid) extra.push(`${invalid} no pudieron procesarse`);
             const extraText = extra.length ? `<br><span class="text-xs">Nota: ${extra.join(" · ")}.</span>` : "";
+            const dedupEventId = `lead-voluntario-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 
             safeFbqTrack("Lead", {
               content_name: "Registro Voluntario General",
               content_category: "Voluntariado Parroquial",
               value: inserted,
-            });
+            }, { eventID: dedupEventId });
             safeFbqTrackCustom("VolunteerRegistration", {
               days_registered: inserted,
               duplicated_days: duplicated,
@@ -1219,6 +1226,7 @@
                 inserted_days: inserted,
                 source: "landing-publico-semana-santa-2026",
                 event_source_url: window.location.href,
+                event_id: dedupEventId,
               }),
             }).catch((err) => {
               console.error("No se pudo enviar CAPI lead:", err);
