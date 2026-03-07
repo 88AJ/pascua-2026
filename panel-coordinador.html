@@ -358,6 +358,28 @@
 
       <div id="draft-status-box" class="hidden rounded-xl px-4 py-3 text-sm font-semibold"></div>
 
+      <div class="grid md:grid-cols-2 gap-3 rounded-2xl border border-black/10 bg-white/80 p-4">
+        <div class="space-y-2">
+          <label for="draft-status-filter" class="text-xs font-black uppercase tracking-[0.14em] text-stone-700">Estado del borrador</label>
+          <select id="draft-status-filter" class="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-900 shadow-sm focus:border-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-200">
+            <option value="">Todos</option>
+            <option value="draft">Draft</option>
+            <option value="approved">Approved</option>
+            <option value="sent">Sent</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div class="space-y-2">
+          <label for="draft-channel-filter" class="text-xs font-black uppercase tracking-[0.14em] text-stone-700">Canal sugerido</label>
+          <select id="draft-channel-filter" class="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-900 shadow-sm focus:border-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-200">
+            <option value="">Todos</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="facebook">Facebook</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+      </div>
+
       <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-3">
         <button id="generate-week-btn" type="button" class="rounded-2xl border border-black/10 bg-white px-4 py-4 text-left hover:-translate-y-0.5 hover:shadow-lg transition">
           <span class="section-kicker"><i class="fa-solid fa-calendar-day"></i> Semana</span>
@@ -500,6 +522,8 @@
     const generateGeneralBtn = document.getElementById('generate-general-btn');
     const draftsCount = document.getElementById('drafts-count');
     const historyCount = document.getElementById('history-count');
+    const draftStatusFilter = document.getElementById('draft-status-filter');
+    const draftChannelFilter = document.getElementById('draft-channel-filter');
 
     const ADMIN_EMAIL_ALLOWLIST = [
       // 'tu-correo@dominio.com',
@@ -539,6 +563,28 @@
 
     function showDraftStatus(msg, type = 'info') {
       showNotice(draftStatusBox, msg, type);
+    }
+
+    function humanizeDraftError(error, operation = 'operar borradores') {
+      const message = String(error?.message || error || '').trim();
+      const lower = message.toLowerCase();
+
+      if (lower.includes('row-level security policy')) {
+        return 'La base rechazó la operación porque no reconoció tu sesión como administradora para campaign_drafts. Cierra sesión, entra de nuevo y verifica que public.is_panel_admin() incluya tu correo real.';
+      }
+      if (lower.includes('campaign_drafts') && (lower.includes('does not exist') || lower.includes('could not find the table') || lower.includes('relation') && lower.includes('does not exist'))) {
+        return 'Falta ejecutar supabase-campaign-drafts.sql en Supabase antes de usar esta sección del panel.';
+      }
+      if (lower.includes('jwt') || lower.includes('session') && lower.includes('expired') || lower.includes('refresh token')) {
+        return 'La sesión administrativa expiró. Vuelve a iniciar sesión y repite la operación.';
+      }
+      if (lower.includes('permission denied')) {
+        return 'Supabase rechazó permisos para campaign_drafts. Revisa las policies admin y vuelve a cargar el panel.';
+      }
+      if (lower) {
+        return `No se pudo ${operation}: ${message}`;
+      }
+      return `No se pudo ${operation}.`;
     }
 
     function setButtonsEnabled(enabled) {
@@ -760,7 +806,14 @@
 
     function renderDraftLists(rows) {
       const base = filtro.value;
-      const filtered = rows.filter((r) => !base || ministryBase(r.audience_key) === base || ministryBase((r.source_context || {}).ministry_key) === base);
+      const statusValue = draftStatusFilter ? draftStatusFilter.value : '';
+      const channelValue = draftChannelFilter ? draftChannelFilter.value : '';
+      const filtered = rows.filter((r) => {
+        const ministryMatch = !base || ministryBase(r.audience_key) === base || ministryBase((r.source_context || {}).ministry_key) === base;
+        const statusMatch = !statusValue || r.status === statusValue;
+        const channelMatch = !channelValue || r.channel === channelValue;
+        return ministryMatch && statusMatch && channelMatch;
+      });
       const activeRows = filtered.filter((r) => r.status === 'draft' || r.status === 'approved');
       const historyRows = filtered.filter((r) => r.status === 'sent' || r.status === 'archived');
 
@@ -1065,7 +1118,7 @@
         .order('created_at', { ascending: false });
 
       if (error) {
-        showDraftStatus('No se pudo cargar campaign_drafts. Ejecuta primero el SQL de esta fase en Supabase.', 'error');
+        showDraftStatus(humanizeDraftError(error, 'cargar campaign_drafts'), 'error');
         return;
       }
 
@@ -1131,7 +1184,7 @@
         .eq('id', id);
 
       if (error) {
-        showDraftStatus(`No se pudo actualizar el borrador: ${error.message}`, 'error');
+        showDraftStatus(humanizeDraftError(error, 'actualizar el borrador'), 'error');
         return;
       }
 
@@ -1146,7 +1199,7 @@
         await navigator.clipboard.writeText(row.message_body || '');
         showDraftStatus('Mensaje copiado al portapapeles.', 'ok');
       } catch (error) {
-        showDraftStatus('No se pudo copiar automáticamente. Intenta copiar manualmente.', 'error');
+        showDraftStatus('No se pudo copiar automáticamente. Intenta copiar manualmente o verifica permisos del navegador.', 'error');
       }
     }
 
@@ -1189,7 +1242,7 @@
         showDraftStatus(`Generados ${result.inserted} borradores nuevos. ${result.skipped} ya existían.`, 'ok');
         await loadDrafts();
       } catch (error) {
-        showDraftStatus(`No se pudieron generar los borradores: ${error.message}`, 'error');
+        showDraftStatus(humanizeDraftError(error, 'generar los borradores'), 'error');
       }
     }
 
@@ -1272,6 +1325,14 @@
     filtro.addEventListener('change', async () => {
       render(slotRows);
       renderRoster(rosterRows);
+      renderDraftLists(draftRows);
+    });
+
+    draftStatusFilter.addEventListener('change', () => {
+      renderDraftLists(draftRows);
+    });
+
+    draftChannelFilter.addEventListener('change', () => {
       renderDraftLists(draftRows);
     });
 
