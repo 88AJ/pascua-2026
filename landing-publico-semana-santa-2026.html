@@ -6,13 +6,14 @@
   <title>Semana Santa 2026 | Parroquia San Pedro Apóstol</title>
   <meta name="description" content="Horarios oficiales, ejercicios espirituales, misal para fieles y voluntariado de Semana Santa 2026 en la Parroquia San Pedro Apóstol.">
   <meta name="theme-color" content="#1f1b22">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="logo.PNG">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Source+Sans+3:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/campaign-2026-theme.css">
   <link rel="stylesheet" href="assets/css/campaign-2026-motion.css">
+  <link rel="stylesheet" href="assets/css/tailwind-landing-publico.css">
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -307,6 +308,339 @@
       padding: 0.5rem;
     }
 
+    .fb-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .fb-copy-card,
+    .fb-frame {
+      border-radius: 18px;
+      border: 1px solid rgba(214, 178, 110, 0.32);
+      background: linear-gradient(180deg, rgba(18, 24, 36, 0.97), rgba(14, 20, 31, 0.96));
+      color: #f6efdf;
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.32);
+    }
+
+    .fb-copy-card {
+      padding: 1.15rem 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fb-copy-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(200, 168, 107, 0.16), transparent 42%);
+      pointer-events: none;
+    }
+
+    .fb-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.34rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 178, 110, 0.45);
+      background: rgba(214, 178, 110, 0.12);
+      color: #f6dfb0;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fb-badge::before {
+      content: "";
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: #ef4444;
+      box-shadow: 0 0 0 5px rgba(239, 68, 68, 0.14);
+    }
+
+    .fb-points {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fb-point {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 0.7rem;
+      align-items: start;
+      padding: 0.75rem;
+      border-radius: 14px;
+      border: 1px solid rgba(214, 178, 110, 0.24);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .fb-point i {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(214, 178, 110, 0.15);
+      border: 1px solid rgba(214, 178, 110, 0.42);
+      color: #f7dca6;
+    }
+
+    .fb-point strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #f4dfb3;
+    }
+
+    .fb-point p {
+      margin-top: 0.15rem;
+      font-size: 0.92rem;
+      line-height: 1.36;
+      color: #f0e7d5;
+    }
+
+    .fb-note {
+      margin-top: 1rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: 14px;
+      border: 1px solid rgba(214, 178, 110, 0.2);
+      background: rgba(8, 12, 20, 0.58);
+      font-size: 0.86rem;
+      line-height: 1.4;
+      color: #ece1cc;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fb-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fb-frame {
+      padding: 0.85rem;
+    }
+
+    .fb-frame-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.65rem;
+      align-items: center;
+      margin-bottom: 0.7rem;
+      color: #f7edd7;
+    }
+
+    .fb-frame-head p:first-child {
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f7dca6;
+    }
+
+    .fb-frame-head p:last-child {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f3ecdf;
+    }
+
+    .fb-live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.14);
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #ffd1d1;
+    }
+
+    .fb-live-pill::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 999px;
+      background: #ef4444;
+    }
+
+    .fb-embed-wrap {
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(214, 178, 110, 0.18);
+      background:
+        url("logo.PNG") center 28% / 130px auto no-repeat,
+        radial-gradient(circle at top center, rgba(214, 178, 110, 0.12), transparent 44%),
+        linear-gradient(180deg, #0d1420, #101826);
+      min-height: 760px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .fb-embed-wrap iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .vol-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 1.4rem;
+      align-items: start;
+    }
+
+    .vol-forms {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .vol-contact-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .vol-contact-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(214, 178, 110, 0.22);
+      color: #f2eadc;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .vol-step-card {
+      position: relative;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    .vol-step-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(124, 58, 237, 0.08), transparent 40%);
+      pointer-events: none;
+    }
+
+    .vol-step-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: start;
+      margin-bottom: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .vol-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+      padding: 0 0.68rem;
+      border-radius: 999px;
+      background: rgba(183, 137, 61, 0.15);
+      border: 1px solid rgba(183, 137, 61, 0.36);
+      color: #f4d8a2;
+      font-size: 0.82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .vol-step-title {
+      font-size: 0.74rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f1ddbb;
+    }
+
+    .vol-step-copy {
+      margin-top: 0.2rem;
+      font-size: 0.92rem;
+      line-height: 1.36;
+      color: #ece4d6;
+    }
+
+    .vol-step-help {
+      margin-top: 0.7rem;
+      font-size: 0.78rem;
+      line-height: 1.35;
+      color: #d6c8b0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .volunteer-links-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .volunteer-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .volunteer-summary-item {
+      border-radius: 12px;
+      border: 1px solid rgba(197, 160, 89, 0.24);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.7rem 0.6rem;
+      text-align: center;
+    }
+
+    .volunteer-summary-item strong {
+      display: block;
+      color: #f0d49e;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .volunteer-summary-item span {
+      display: block;
+      margin-top: 0.18rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ece0c7;
+    }
+
     .imparte-list {
       margin-top: 0.85rem;
       display: grid;
@@ -493,6 +827,14 @@
       border-color: rgba(214, 178, 110, 0.35);
     }
 
+    body.campaign-page .fb-copy-card,
+    body.campaign-page .fb-frame,
+    body.campaign-page .vol-step-card {
+      background: linear-gradient(180deg, rgba(18, 24, 36, 0.97), rgba(14, 20, 31, 0.96));
+      border-color: rgba(214, 178, 110, 0.34);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.32);
+    }
+
     body.campaign-page .vol-field-label {
       color: #f4dcaf;
     }
@@ -525,6 +867,24 @@
     body.campaign-page .hover\:bg-\[\#f2ecdf\]:hover,
     body.campaign-page .hover\:bg-\[\#c99a4f\]:hover {
       filter: brightness(1.04);
+    }
+
+    @media (max-width: 1024px) {
+      .fb-grid,
+      .vol-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .fb-embed-wrap {
+        min-height: 620px;
+      }
+
+      .volunteer-links-grid,
+      .volunteer-summary {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -696,28 +1056,69 @@
           <h2 class="fancy text-5xl font-bold uppercase">Facebook en tiempo real</h2>
           <p class="text-gray-700 font-semibold mt-1">Publicaciones oficiales de la parroquia, actualizadas desde la página de Facebook.</p>
         </div>
-        <a href="https://www.facebook.com/profile.php?id=100080397279166" target="_blank" rel="noopener noreferrer" class="bg-[var(--charcoal)] text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Abrir Facebook</a>
       </div>
 
-      <div class="mt-5 max-w-2xl mx-auto">
-        <iframe
-          title="Feed oficial de Facebook de la Parroquia San Pedro Apóstol"
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100080397279166&tabs=timeline&width=500&height=760&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
-          width="500"
-          height="760"
-          style="border:none;overflow:hidden;width:100%;max-width:500px;margin:0 auto;display:block;"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          loading="lazy"
-        ></iframe>
-      </div>
+      <div class="fb-grid mt-5">
+        <article class="fb-copy-card">
+          <span class="fb-badge">Fuente oficial parroquial</span>
+          <h3 class="fancy text-3xl md:text-4xl font-bold uppercase leading-tight mt-4">Avisos, horarios y vida parroquial en un solo lugar</h3>
+          <p class="mt-3 text-sm md:text-base text-[#efe7d8] relative z-[1]">Este bloque toma la actividad publicada en la página oficial de la parroquia. Sirve como respaldo vivo para avisos extraordinarios, invitaciones y publicaciones recientes.</p>
+          <div class="fb-points">
+            <div class="fb-point">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <strong>Horarios y avisos</strong>
+                <p>Cuando haya ajustes extraordinarios o convocatorias nuevas, aquí aparecerán primero.</p>
+              </div>
+            </div>
+            <div class="fb-point">
+              <i class="fa-solid fa-bell"></i>
+              <div>
+                <strong>Actualización directa</strong>
+                <p>No depende de esta página para renovarse; si la parroquia publica, el feed lo refleja.</p>
+              </div>
+            </div>
+            <div class="fb-point">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <div>
+                <strong>Fallback simple</strong>
+                <p>Si tu navegador bloquea el complemento, abre Facebook directo y verás la misma información.</p>
+              </div>
+            </div>
+          </div>
+          <div class="fb-note">
+            Página oficial: <strong>Parroquia San Pedro Apóstol, Allende, N.L.</strong><br>
+            Si el panel tarda en cargar, espera unos segundos o entra desde el botón directo.
+          </div>
+          <div class="fb-actions">
+            <a href="https://www.facebook.com/profile.php?id=100080397279166" target="_blank" rel="noopener noreferrer" class="bg-[var(--gold)] text-[var(--charcoal)] px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide hover:bg-[#c99a4f] transition">Abrir Facebook</a>
+            <a href="#horarios" class="bg-[var(--charcoal)] text-white px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition">Ver horarios oficiales</a>
+          </div>
+        </article>
 
-      <p class="text-xs text-gray-700 mt-4 text-center">
-        Si no se muestra el feed en tu navegador, abre la página directamente:
-        <a href="https://www.facebook.com/profile.php?id=100080397279166" target="_blank" rel="noopener noreferrer" class="font-black text-blue-700">Parroquia San Pedro Apóstol en Facebook</a>.
-      </p>
+        <div class="fb-frame">
+          <div class="fb-frame-head">
+            <div>
+              <p>Feed parroquial</p>
+              <p>Publicaciones recientes y actividad oficial</p>
+            </div>
+            <span class="fb-live-pill">En vivo</span>
+          </div>
+          <div class="fb-embed-wrap">
+            <iframe
+              title="Feed oficial de Facebook de la Parroquia San Pedro Apóstol"
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100080397279166&tabs=timeline&width=500&height=760&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+              width="500"
+              height="760"
+              scrolling="no"
+              frameborder="0"
+              allowfullscreen="true"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="horarios" class="space-y-4">
@@ -807,7 +1208,7 @@
     </section>
 
     <section id="voluntariado" class="surface rounded-2xl p-6 md:p-8 border-l-8 border-purple-700">
-      <div class="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-6 items-start">
+      <div class="vol-layout">
         <div>
           <h2 class="fancy text-4xl md:text-5xl font-bold uppercase">Voluntariado Parroquial</h2>
           <p class="text-lg mt-2">El servicio no es una tarea, es camino de encuentro con Cristo. Te invitamos a sumarte en Semana Santa 2026.</p>
@@ -815,73 +1216,91 @@
           <div class="mt-4 flex flex-wrap gap-3">
             <a href="https://wa.me/5218262620211?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20servir%20como%20voluntario%20en%20Semana%20Santa%202026." target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para voluntariado" class="bg-green-600 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-green-700 transition"><i class="fa-brands fa-whatsapp mr-2"></i>Quiero ser voluntario</a>
           </div>
-
-          <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4 vol-form-card">
-            <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700">Registro directo por ministerio</p>
-            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <label>
-                <span class="vol-field-label">Ministerio</span>
-                <select id="registro-ministerio-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona un ministerio para registrarte">
-                  <option value="mec">Ministro Extraordinario de la Comunión (MEC)</option>
-                  <option value="monaguillos">Monaguillos</option>
-                  <option value="lectores">Lectores</option>
-                  <option value="coro">Coro</option>
-                  <option value="ujieres">Ujieres</option>
-                  <option value="sacristia">Sacristía</option>
-                </select>
-              </label>
-              <label>
-                <span class="vol-field-label">Celebraciones (múltiple)</span>
-                <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días de celebración para registrarte" multiple>
-                  <option value="ramos">Domingo de Ramos</option>
-                  <option value="lunes">Lunes Santo</option>
-                  <option value="martes">Martes Santo</option>
-                  <option value="miercoles">Miércoles Santo</option>
-                  <option value="jueves">Jueves Santo</option>
-                  <option value="viernes">Viernes Santo</option>
-                  <option value="vigilia">Vigilia Pascual</option>
-                </select>
-              </label>
-            </div>
-            <div class="mt-3">
-              <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition w-full sm:w-auto">Abrir registros</button>
-            </div>
-            <p class="mt-2 text-xs text-gray-600">Puedes seleccionar varios días. Tu registro en un día no borra los anteriores.</p>
+          <div class="vol-contact-strip">
+            <span class="vol-contact-chip"><i class="fa-solid fa-user"></i>Betty Silva · +52 826 104 3288</span>
+            <span class="vol-contact-chip"><i class="fa-solid fa-building-church"></i>Oficina · +52 826 262 0211</span>
+            <span class="vol-contact-chip"><i class="fa-solid fa-comments"></i>Grupos por ministerio y día</span>
           </div>
 
-          <div class="mt-4 bg-white rounded-xl border border-[var(--line)] p-4 vol-form-card">
-            <p class="text-xs font-black uppercase tracking-[0.12em] text-gray-700">Registro rápido · Voluntario general</p>
-            <p class="text-xs text-gray-600 mt-1">Si aún no eliges ministerio, regístrate como voluntario y selecciona uno o más días de apoyo.</p>
-            <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
-              <label>
-                <span class="vol-field-label">Nombre completo</span>
-                <input id="voluntario-nombre" type="text" placeholder="Nombre completo" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
-              </label>
-              <label>
-                <span class="vol-field-label">Teléfono</span>
-                <input id="voluntario-telefono" type="tel" placeholder="Teléfono (solo números)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
-              </label>
-              <label class="md:col-span-2">
-                <span class="vol-field-label">Días de apoyo (múltiple)</span>
-                <select id="voluntario-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días para voluntario general" multiple>
-                  <option value="ramos">Domingo de Ramos</option>
-                  <option value="lunes">Lunes Santo</option>
-                  <option value="martes">Martes Santo</option>
-                  <option value="miercoles">Miércoles Santo</option>
-                  <option value="jueves">Jueves Santo</option>
-                  <option value="viernes">Viernes Santo</option>
-                  <option value="vigilia">Vigilia Pascual</option>
-                </select>
-              </label>
-              <label class="md:col-span-2">
-                <span class="vol-field-label">Notas</span>
-                <input id="voluntario-notas" type="text" placeholder="Notas (opcional)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
-              </label>
+          <div class="vol-forms mt-4">
+            <div class="vol-step-card vol-form-card">
+              <div class="vol-step-head">
+                <div>
+                  <p class="vol-step-title">Registro directo por ministerio</p>
+                  <p class="vol-step-copy">Elige tu ministerio y una o varias celebraciones. Abriremos cada registro en su página correspondiente sin perder los días adicionales.</p>
+                </div>
+                <span class="vol-step-badge">Paso 1</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-[1]">
+                <label>
+                  <span class="vol-field-label">Ministerio</span>
+                  <select id="registro-ministerio-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900" aria-label="Selecciona un ministerio para registrarte">
+                    <option value="mec">Ministro Extraordinario de la Comunión (MEC)</option>
+                    <option value="monaguillos">Monaguillos</option>
+                    <option value="lectores">Lectores</option>
+                    <option value="coro">Coro</option>
+                    <option value="ujieres">Ujieres</option>
+                    <option value="sacristia">Sacristía</option>
+                  </select>
+                </label>
+                <label>
+                  <span class="vol-field-label">Celebraciones (múltiple)</span>
+                  <select id="registro-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días de celebración para registrarte" multiple>
+                    <option value="ramos">Domingo de Ramos</option>
+                    <option value="lunes">Lunes Santo</option>
+                    <option value="martes">Martes Santo</option>
+                    <option value="miercoles">Miércoles Santo</option>
+                    <option value="jueves">Jueves Santo</option>
+                    <option value="viernes">Viernes Santo</option>
+                    <option value="vigilia">Vigilia Pascual</option>
+                  </select>
+                </label>
+              </div>
+              <div class="mt-3 relative z-[1]">
+                <button id="registro-ministerio-btn" type="button" class="bg-[var(--charcoal)] text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-[var(--charcoal-soft)] transition w-full sm:w-auto">Abrir registros</button>
+              </div>
+              <p class="vol-step-help">Puedes seleccionar varios días. Tu registro en un día no borra los anteriores.</p>
             </div>
-            <p class="mt-2 text-xs text-gray-600">Tip: en computadora usa <strong>Cmd</strong> para seleccionar varios días. En celular selecciona uno y vuelve a abrir para elegir los demás.</p>
-            <div class="mt-3 flex flex-wrap gap-2 items-center">
-              <button id="voluntario-registro-btn" type="button" class="bg-purple-700 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-purple-800 transition">Registrar voluntario</button>
-              <p id="voluntario-registro-status" class="hidden text-sm font-semibold px-3 py-2 rounded-lg"></p>
+
+            <div class="vol-step-card vol-form-card">
+              <div class="vol-step-head">
+                <div>
+                  <p class="vol-step-title">Registro rápido · Voluntario general</p>
+                  <p class="vol-step-copy">Si aún no eliges ministerio, regístrate aquí y selecciona uno o más días de apoyo para que la coordinación te contacte.</p>
+                </div>
+                <span class="vol-step-badge">Paso 2</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 relative z-[1]">
+                <label>
+                  <span class="vol-field-label">Nombre completo</span>
+                  <input id="voluntario-nombre" type="text" placeholder="Nombre completo" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
+                </label>
+                <label>
+                  <span class="vol-field-label">Teléfono</span>
+                  <input id="voluntario-telefono" type="tel" placeholder="Teléfono (solo números)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
+                </label>
+                <label class="md:col-span-2">
+                  <span class="vol-field-label">Días de apoyo (múltiple)</span>
+                  <select id="voluntario-dia-select" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900 min-h-[9rem]" aria-label="Selecciona uno o más días para voluntario general" multiple>
+                    <option value="ramos">Domingo de Ramos</option>
+                    <option value="lunes">Lunes Santo</option>
+                    <option value="martes">Martes Santo</option>
+                    <option value="miercoles">Miércoles Santo</option>
+                    <option value="jueves">Jueves Santo</option>
+                    <option value="viernes">Viernes Santo</option>
+                    <option value="vigilia">Vigilia Pascual</option>
+                  </select>
+                </label>
+                <label class="md:col-span-2">
+                  <span class="vol-field-label">Notas</span>
+                  <input id="voluntario-notas" type="text" placeholder="Notas (opcional)" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-semibold text-gray-900">
+                </label>
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2 items-center relative z-[1]">
+                <button id="voluntario-registro-btn" type="button" class="bg-purple-700 text-white px-5 py-3 rounded-xl font-black uppercase tracking-wide hover:bg-purple-800 transition">Registrar voluntario</button>
+                <p id="voluntario-registro-status" class="hidden text-sm font-semibold px-3 py-2 rounded-lg"></p>
+              </div>
+              <p class="vol-step-help">En computadora usa <strong>Cmd</strong> para seleccionar varios días. En celular selecciona uno y vuelve a abrir para elegir los demás.</p>
             </div>
           </div>
         </div>
@@ -890,6 +1309,16 @@
           <h3 class="fancy text-3xl leading-tight mt-2">¿Qué buscas?<br>Hacia una Pascua de vida humilde</h3>
           <p class="mt-3 text-sm text-[#efe7d8]">Cada ministerio ayuda a que la comunidad viva la liturgia con orden, belleza y caridad.</p>
 
+          <div class="volunteer-summary">
+            <div class="volunteer-summary-item"><strong>7</strong><span>Días de servicio</span></div>
+            <div class="volunteer-summary-item"><strong>6 + 1</strong><span>Ministerios y voluntariado</span></div>
+            <div class="volunteer-summary-item"><strong>WhatsApp</strong><span>Seguimiento directo</span></div>
+          </div>
+
+          <div class="volunteer-item">
+            <span class="volunteer-icon"><i class="fa-solid fa-hand-holding-heart"></i></span>
+            <div><strong>MEC · Servicio a la Comunión</strong><p>Apoyo reverente en la distribución de la Sagrada Comunión según el día asignado.</p></div>
+          </div>
           <div class="volunteer-item">
             <span class="volunteer-icon"><i class="fa-solid fa-cross"></i></span>
             <div><strong>Monaguillos · Orden del Misterio</strong><p>Servicio al altar para facilitar la oración y el ritmo litúrgico.</p></div>
@@ -910,6 +1339,10 @@
             <span class="volunteer-icon"><i class="fa-solid fa-music"></i></span>
             <div><strong>Coro · Oración cantada</strong><p>Animación musical para sostener la oración de toda la asamblea.</p></div>
           </div>
+          <div class="volunteer-item">
+            <span class="volunteer-icon"><i class="fa-solid fa-key"></i></span>
+            <div><strong>Sacristía · Soporte litúrgico</strong><p>Preparación de espacios, vasos sagrados y apoyo operativo inmediato.</p></div>
+          </div>
 
           <div class="volunteer-panel">
             <p class="text-sm font-bold">Informes e inscripciones:</p>
@@ -920,14 +1353,14 @@
           <div class="volunteer-panel">
             <p class="text-sm font-bold">Seguimiento por grupos de WhatsApp</p>
             <p class="text-xs text-[#e6dac5] mt-1">Al registrarte, te daremos acceso al grupo de tu ministerio y día de servicio.</p>
-            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="volunteer-links-grid mt-3 text-xs">
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/BJPA2Z1Tik4A8Jn6Z75I3E?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>MEC · Solicitar acceso</a>
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/LrA1Q9lM8x5GGWPM5gL6tU?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Monaguillos · Solicitar acceso</a>
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/GTMO997hU20Fof1uMgw0Rt?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Lectores · Solicitar acceso</a>
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/GRr1VrtNDfvKVPioe0w6yM?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Coro · Solicitar acceso</a>
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/JSref4zwNVEA4sE9YXg4l4?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Ujieres · Solicitar acceso</a>
               <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/LjP9wFLrCcn7JJJ1nV0jPq?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Sacristía · Solicitar acceso</a>
-              <a class="volunteer-link sm:col-span-2" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Voluntariado general · Solicitar acceso</a>
+              <a class="volunteer-link" target="_blank" rel="noopener noreferrer" href="https://chat.whatsapp.com/DSEkDfBzSPE4pa6X7EsPFE?mode=gi_t"><i class="fa-brands fa-whatsapp"></i>Voluntariado general · Solicitar acceso</a>
             </div>
             <p class="text-xs text-[#e6dac5] mt-2">Administración de grupos: Betty Silva (+52 826 104 3288), Oficina parroquial (+52 826 262 0211) y P. Alan Sánchez (+1 956 740 1370).</p>
           </div>
