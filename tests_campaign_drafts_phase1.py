@@ -29,6 +29,10 @@ def test_panel_contract():
     assert 'id="history-panel"' in html
     assert 'id="drafts-body"' in html
     assert 'id="history-body"' in html
+    assert 'id="draft-priority-summary"' in html
+    assert 'id="priority-summary-high"' in html
+    assert 'id="priority-summary-today"' in html
+    assert 'id="priority-summary-tomorrow"' in html
     assert 'id="draft-status-filter"' in html
     assert 'id="draft-channel-filter"' in html
     assert 'id="generate-week-btn"' in html
@@ -37,6 +41,9 @@ def test_panel_contract():
     assert 'id="generate-general-btn"' in html
     assert "from('campaign_drafts')" in html
     assert "function humanizeDraftError" in html
+    assert "function relativeScheduleLabel" in html
+    assert "function draftPriorityRank" in html
+    assert "function sortDraftRowsByPriority" in html
     assert "async function loadDrafts" in html
     assert "async function generateDrafts" in html
     assert "async function updateDraftStatus" in html

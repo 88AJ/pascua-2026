@@ -180,6 +180,52 @@
       text-decoration: none;
     }
 
+    .priority-summary-card {
+      border: 1px solid rgba(73, 55, 38, 0.12);
+      border-radius: 1.1rem;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 0.95rem 1rem;
+      box-shadow: 0 14px 30px rgba(36, 26, 18, 0.05);
+    }
+
+    .priority-summary-card[data-tone="red"] {
+      background: linear-gradient(180deg, rgba(165, 28, 48, 0.08), rgba(255, 255, 255, 0.92));
+      border-color: rgba(165, 28, 48, 0.2);
+    }
+
+    .priority-summary-card[data-tone="amber"] {
+      background: linear-gradient(180deg, rgba(180, 83, 9, 0.09), rgba(255, 255, 255, 0.92));
+      border-color: rgba(180, 83, 9, 0.2);
+    }
+
+    .priority-summary-card[data-tone="gold"] {
+      background: linear-gradient(180deg, rgba(139, 106, 40, 0.09), rgba(255, 255, 255, 0.92));
+      border-color: rgba(139, 106, 40, 0.2);
+    }
+
+    .priority-summary-label {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--panel-muted);
+    }
+
+    .priority-summary-value {
+      margin-top: 0.3rem;
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--panel-text);
+      line-height: 1;
+    }
+
+    .priority-summary-note {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--panel-muted);
+      line-height: 1.35;
+    }
+
     .hint-list li + li {
       margin-top: 0.4rem;
     }
@@ -412,6 +458,28 @@
         </div>
         <p class="text-sm text-stone-600">Estados visibles aquí: <strong>draft</strong> y <strong>approved</strong>.</p>
       </div>
+      <div id="draft-priority-summary" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
+        <article class="priority-summary-card" data-tone="red">
+          <p class="priority-summary-label">Atrasados</p>
+          <p id="priority-summary-overdue" class="priority-summary-value">0</p>
+          <p class="priority-summary-note">Mensajes cuya fecha sugerida ya pasó y siguen sin marcarse enviados.</p>
+        </article>
+        <article class="priority-summary-card" data-tone="amber">
+          <p class="priority-summary-label">Hoy</p>
+          <p id="priority-summary-today" class="priority-summary-value">0</p>
+          <p class="priority-summary-note">Borradores que conviene resolver dentro de la jornada actual.</p>
+        </article>
+        <article class="priority-summary-card" data-tone="gold">
+          <p class="priority-summary-label">Mañana</p>
+          <p id="priority-summary-tomorrow" class="priority-summary-value">0</p>
+          <p class="priority-summary-note">Recordatorios inmediatos para el siguiente día operativo.</p>
+        </article>
+        <article class="priority-summary-card" data-tone="gold">
+          <p class="priority-summary-label">Alta prioridad</p>
+          <p id="priority-summary-high" class="priority-summary-value">0</p>
+          <p class="priority-summary-note">Mensajes marcados como urgentes aunque su fecha no sea inmediata.</p>
+        </article>
+      </div>
       <div id="drafts-body" class="space-y-4"></div>
     </section>
 
@@ -524,6 +592,10 @@
     const historyCount = document.getElementById('history-count');
     const draftStatusFilter = document.getElementById('draft-status-filter');
     const draftChannelFilter = document.getElementById('draft-channel-filter');
+    const prioritySummaryHigh = document.getElementById('priority-summary-high');
+    const prioritySummaryToday = document.getElementById('priority-summary-today');
+    const prioritySummaryTomorrow = document.getElementById('priority-summary-tomorrow');
+    const prioritySummaryOverdue = document.getElementById('priority-summary-overdue');
 
     const ADMIN_EMAIL_ALLOWLIST = [
       // 'tu-correo@dominio.com',
@@ -637,6 +709,82 @@
         year: 'numeric',
         month: 'short',
         day: '2-digit',
+      });
+    }
+
+    function localDateKey(value) {
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return '';
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function scheduleDayDelta(value) {
+      if (!value) return null;
+      const target = new Date(value);
+      if (Number.isNaN(target.getTime())) return null;
+      const now = new Date();
+      const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startTarget = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+      return Math.round((startTarget - startToday) / 86400000);
+    }
+
+    function scheduleUrgencyBucket(value) {
+      const delta = scheduleDayDelta(value);
+      if (delta === null) return 'no-date';
+      if (delta < 0) return 'overdue';
+      if (delta === 0) return 'today';
+      if (delta === 1) return 'tomorrow';
+      if (delta <= 7) return 'week';
+      return 'later';
+    }
+
+    function relativeScheduleLabel(value) {
+      const bucket = scheduleUrgencyBucket(value);
+      if (bucket === 'overdue') return 'Atrasado';
+      if (bucket === 'today') return 'Hoy';
+      if (bucket === 'tomorrow') return 'Mañana';
+      if (bucket === 'week') return 'Esta semana';
+      if (bucket === 'later') return 'Próximo';
+      return 'Sin fecha';
+    }
+
+    function scheduleTone(value) {
+      const bucket = scheduleUrgencyBucket(value);
+      if (bucket === 'overdue') return 'red';
+      if (bucket === 'today') return 'red';
+      if (bucket === 'tomorrow') return 'gold';
+      return 'slate';
+    }
+
+    function draftPriorityRank(row) {
+      const bucketWeight = {
+        overdue: 0,
+        today: 1,
+        tomorrow: 2,
+        week: 3,
+        later: 4,
+        'no-date': 5,
+      };
+      const bucket = scheduleUrgencyBucket(row.scheduled_for);
+      const highWeight = row.is_high_priority ? 0 : 1;
+      const statusWeight = row.status === 'approved' ? 0 : row.status === 'draft' ? 1 : row.status === 'sent' ? 0 : 1;
+      return (bucketWeight[bucket] ?? 9) * 100 + highWeight * 10 + statusWeight;
+    }
+
+    function sortDraftRowsByPriority(rows, historyMode = false) {
+      return [...rows].sort((a, b) => {
+        if (historyMode) {
+          const aDate = new Date(a.sent_at || a.updated_at || a.created_at || 0).getTime();
+          const bDate = new Date(b.sent_at || b.updated_at || b.created_at || 0).getTime();
+          return bDate - aDate;
+        }
+
+        const rankDiff = draftPriorityRank(a) - draftPriorityRank(b);
+        if (rankDiff !== 0) return rankDiff;
+
+        const aTime = new Date(a.scheduled_for || a.created_at || 0).getTime();
+        const bTime = new Date(b.scheduled_for || b.created_at || 0).getTime();
+        return aTime - bTime;
       });
     }
 
@@ -773,6 +921,7 @@
       const coverageChip = typeof context.available === 'number'
         ? `<span class="draft-chip" data-tone="slate"><i class="fa-solid fa-people-group"></i>${context.registered || 0}/${context.capacity || 0} confirmados</span>`
         : '';
+      const scheduleChip = `<span class="draft-chip" data-tone="${scheduleTone(row.scheduled_for)}"><i class="fa-solid fa-clock"></i>${escapeHtml(relativeScheduleLabel(row.scheduled_for))}</span>`;
       const sentMeta = row.sent_at ? `<span class="draft-chip" data-tone="green"><i class="fa-solid fa-check"></i>Enviado ${escapeHtml(formatDateShort(row.sent_at))}</span>` : '';
       const approvedMeta = row.approved_at ? `<span class="draft-chip" data-tone="green"><i class="fa-solid fa-stamp"></i>Aprobado ${escapeHtml(formatDateShort(row.approved_at))}</span>` : '';
       const targetLabel = context.target_label || channelLabel(row.channel);
@@ -786,6 +935,7 @@
                 <span class="draft-chip" data-tone="${statusTone(row.status)}"><i class="fa-solid fa-circle"></i>${escapeHtml(row.status)}</span>
                 <span class="draft-chip" data-tone="gold"><i class="fa-solid fa-paper-plane"></i>${escapeHtml(channelLabel(row.channel))}</span>
                 <span class="draft-chip" data-tone="${priorityTone(row.is_high_priority)}"><i class="fa-solid fa-bolt"></i>${row.is_high_priority ? 'Alta prioridad' : 'Prioridad normal'}</span>
+                ${scheduleChip}
                 <span class="draft-chip" data-tone="slate"><i class="fa-solid fa-users"></i>${escapeHtml(humanAudience(row))}</span>
                 ${contextChip}
                 ${coverageChip}
@@ -814,11 +964,24 @@
         const channelMatch = !channelValue || r.channel === channelValue;
         return ministryMatch && statusMatch && channelMatch;
       });
-      const activeRows = filtered.filter((r) => r.status === 'draft' || r.status === 'approved');
-      const historyRows = filtered.filter((r) => r.status === 'sent' || r.status === 'archived');
+      const activeRows = sortDraftRowsByPriority(filtered.filter((r) => r.status === 'draft' || r.status === 'approved'));
+      const historyRows = sortDraftRowsByPriority(filtered.filter((r) => r.status === 'sent' || r.status === 'archived'), true);
+
+      const summary = activeRows.reduce((acc, row) => {
+        const bucket = scheduleUrgencyBucket(row.scheduled_for);
+        if (bucket === 'overdue') acc.overdue += 1;
+        if (bucket === 'today') acc.today += 1;
+        if (bucket === 'tomorrow') acc.tomorrow += 1;
+        if (row.is_high_priority) acc.high += 1;
+        return acc;
+      }, { overdue: 0, today: 0, tomorrow: 0, high: 0 });
 
       draftsCount.textContent = String(activeRows.length);
       historyCount.textContent = String(historyRows.length);
+      if (prioritySummaryOverdue) prioritySummaryOverdue.textContent = String(summary.overdue);
+      if (prioritySummaryToday) prioritySummaryToday.textContent = String(summary.today);
+      if (prioritySummaryTomorrow) prioritySummaryTomorrow.textContent = String(summary.tomorrow);
+      if (prioritySummaryHigh) prioritySummaryHigh.textContent = String(summary.high);
 
       draftsBody.innerHTML = activeRows.length
         ? activeRows.map((row) => draftCardHtml(row, false)).join('')
