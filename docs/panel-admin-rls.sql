@@ -21,6 +21,7 @@ $$;
 -- 2) Asegura RLS en tablas base.
 alter table if exists public.mec_slots enable row level security;
 alter table if exists public.mec_registrations enable row level security;
+alter table if exists public.campaign_drafts enable row level security;
 
 -- 3) Políticas para mec_slots.
 drop policy if exists mec_slots_select_admin on public.mec_slots;
@@ -62,10 +63,40 @@ for delete
 to authenticated
 using (public.is_panel_admin());
 
--- 5) Si la vista v_panel_coordinador se apoya en esas tablas,
+-- 5) Políticas para campaign_drafts.
+drop policy if exists campaign_drafts_select_admin on public.campaign_drafts;
+create policy campaign_drafts_select_admin
+on public.campaign_drafts
+for select
+to authenticated
+using (public.is_panel_admin());
+
+drop policy if exists campaign_drafts_insert_admin on public.campaign_drafts;
+create policy campaign_drafts_insert_admin
+on public.campaign_drafts
+for insert
+to authenticated
+with check (public.is_panel_admin());
+
+drop policy if exists campaign_drafts_update_admin on public.campaign_drafts;
+create policy campaign_drafts_update_admin
+on public.campaign_drafts
+for update
+to authenticated
+using (public.is_panel_admin())
+with check (public.is_panel_admin());
+
+drop policy if exists campaign_drafts_delete_admin on public.campaign_drafts;
+create policy campaign_drafts_delete_admin
+on public.campaign_drafts
+for delete
+to authenticated
+using (public.is_panel_admin());
+
+-- 6) Si la vista v_panel_coordinador se apoya en esas tablas,
 -- quedará protegida por estas políticas al consultar desde el cliente.
 
--- 6) Slots para "Voluntario general" (registro público por día).
+-- 7) Slots para "Voluntario general" (registro público por día).
 -- Ejecuta este bloque una sola vez (o cuando quieras actualizar capacidades).
 insert into public.mec_slots (id, ministry_key, label, capacity)
 values
@@ -83,7 +114,7 @@ set
   capacity = excluded.capacity,
   is_active = true;
 
--- 7) Evitar reemplazo de registros:
+-- 8) Evitar reemplazo de registros:
 -- Permite que una misma persona se registre en varias celebraciones
 -- y bloquea solo duplicados en la MISMA celebración.
 drop index if exists public.mec_registrations_phone_key;
