@@ -44,6 +44,10 @@ def test_panel_contract():
     assert "function relativeScheduleLabel" in html
     assert "function draftPriorityRank" in html
     assert "function sortDraftRowsByPriority" in html
+    assert "function socialPreviewHtml" in html
+    assert "function copyDraftSocial" in html
+    assert "social_preview" in html
+    assert "Copiar copy Facebook" in html
     assert "async function loadDrafts" in html
     assert "async function generateDrafts" in html
     assert "async function updateDraftStatus" in html

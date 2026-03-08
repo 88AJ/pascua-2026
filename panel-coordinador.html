@@ -117,6 +117,44 @@
       white-space: pre-wrap;
     }
 
+    .social-preview {
+      border: 1px solid rgba(139, 106, 40, 0.16);
+      border-radius: 1rem;
+      background: linear-gradient(180deg, rgba(250, 247, 240, 0.98), rgba(246, 238, 224, 0.98));
+      padding: 0.9rem 0.95rem;
+    }
+
+    .social-preview-label {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--panel-gold);
+    }
+
+    .social-preview-headline {
+      margin-top: 0.45rem;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.3;
+      color: var(--panel-text);
+    }
+
+    .social-preview-body {
+      margin-top: 0.45rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #3d3127;
+      white-space: pre-wrap;
+    }
+
+    .social-preview-meta {
+      margin-top: 0.6rem;
+      font-size: 0.79rem;
+      line-height: 1.5;
+      color: var(--panel-muted);
+    }
+
     .draft-meta {
       display: flex;
       flex-wrap: wrap;
@@ -898,6 +936,9 @@
       if (!historyMode && row.status !== 'sent') {
         buttons.push(`<button type="button" data-action="copy" data-id="${row.id}" class="bg-stone-950 text-white hover:bg-black">Copiar mensaje</button>`);
       }
+      if ((row.source_context || {}).social_preview) {
+        buttons.push(`<button type="button" data-action="copy-social" data-id="${row.id}" class="bg-amber-800 text-white hover:bg-amber-900">Copiar copy Facebook</button>`);
+      }
       if (row.delivery_target) {
         buttons.push(`<a href="${escapeHtml(row.delivery_target)}" target="_blank" rel="noopener noreferrer" class="bg-amber-800 text-white hover:bg-amber-900">Abrir canal</a>`);
       }
@@ -910,11 +951,28 @@
       return buttons.join('');
     }
 
+    function socialPreviewHtml(social) {
+      if (!social || (!social.headline && !social.caption && !social.cta)) return '';
+      const cta = social.cta ? `<div class="social-preview-meta"><strong>CTA sugerido:</strong> ${escapeHtml(social.cta)}</div>` : '';
+      const assetReason = social.asset_reason ? `<div class="social-preview-meta"><strong>Visual recomendado:</strong> ${escapeHtml(social.asset_reason)}</div>` : '';
+
+      return `
+        <section class="social-preview">
+          <p class="social-preview-label">Copy sugerido para Facebook</p>
+          ${social.headline ? `<h4 class="social-preview-headline">${escapeHtml(social.headline)}</h4>` : ''}
+          ${social.caption ? `<div class="social-preview-body">${escapeHtml(social.caption)}</div>` : ''}
+          ${cta}
+          ${assetReason}
+        </section>
+      `;
+    }
+
     function draftCardHtml(row, historyMode = false) {
       const assetHtml = row.asset_url
         ? `<img src="${escapeHtml(row.asset_url)}" alt="${escapeHtml(row.asset_alt || row.title)}" class="draft-thumb">`
         : '<div class="draft-thumb"></div>';
       const context = row.source_context || {};
+      const socialPreview = context.social_preview || null;
       const contextChip = context.slot_label
         ? `<span class="draft-chip" data-tone="slate"><i class="fa-solid fa-location-dot"></i>${escapeHtml(context.slot_label)}</span>`
         : '';
@@ -947,6 +1005,7 @@
                 <p class="mt-1 text-xs uppercase tracking-[0.14em] text-stone-500 font-black">${escapeHtml(row.purpose)} · ${escapeHtml(targetLabel)} · ${escapeHtml(formatDateTime(row.scheduled_for) || 'Sin fecha sugerida')}</p>
               </div>
               <div class="draft-body">${escapeHtml(row.message_body)}</div>
+              ${socialPreviewHtml(socialPreview)}
               <div class="draft-actions">${draftActionButtons(row, historyMode)}</div>
             </div>
           </div>
@@ -1140,6 +1199,7 @@
     }
 
     function buildShortageDrafts(rows) {
+      const publicLanding = 'https://88aj.github.io/pascua-2026/landing-publico-semana-santa-2026.html#voluntariado';
       return rows
         .filter((row) => row.is_active && isFutureLiturgicalDay(dayKeyFromKey(row.ministry_key)) && Number(row.available || 0) > 0 && (Number(row.registered || 0) === 0 || Number(row.registered || 0) / Math.max(Number(row.capacity || 1), 1) < SLOT_LOW_COVERAGE_RATIO))
         .map((row) => {
@@ -1175,7 +1235,14 @@
               registered: row.registered,
               available: row.available,
               capacity: row.capacity,
-              liturgical_day: day.label || null
+              liturgical_day: day.label || null,
+              landing_url: publicLanding,
+              social_preview: {
+                headline: `Aún necesitamos ${ministryMeta.label} para ${day.label || 'Semana Santa'}.`,
+                caption: `Nuestra parroquia sigue necesitando apoyo para servir en ${row.label}. Si puedes ayudar como ${ministryMeta.label}, regístrate hoy y comparte esta invitación con alguien que pueda servir con generosidad.`,
+                cta: `Registro abierto: ${publicLanding}`,
+                asset_reason: `Usa el visual recomendado de ${day.label || ministryMeta.label} para conectar con la celebración concreta.`
+              }
             },
             assetUrl: day.asset || ministryMeta.asset,
             assetAlt: day.assetAlt || ministryMeta.assetAlt,
@@ -1210,7 +1277,13 @@
           deliveryTarget: GENERAL_GROUP_URL,
           sourceContext: {
             target_label: 'Voluntariado General · Grupo de WhatsApp',
-            landing_url: publicLanding
+            landing_url: publicLanding,
+            social_preview: {
+              headline: 'Semana Santa 2026 · Voluntariado abierto',
+              caption: 'Seguimos invitando a quienes deseen servir en nuestra parroquia como MEC, monaguillos, lectores, coro, ujieres, sacristía o voluntariado general. Aún estamos formando equipos para vivir la Semana Santa con orden, fe y generosidad.',
+              cta: `Regístrate aquí: ${publicLanding}`,
+              asset_reason: 'Usa el cartel general de horarios para una publicación de alcance amplio en grupos y difusión parroquial.'
+            }
           },
           assetUrl: 'assets/campana-2026/semanasantahorarios2026.jpeg',
           assetAlt: 'Horarios oficiales de Semana Santa 2026',
@@ -1228,7 +1301,13 @@
           deliveryTarget: FACEBOOK_PAGE_URL,
           sourceContext: {
             target_label: 'Facebook parroquial',
-            landing_url: publicLanding
+            landing_url: publicLanding,
+            social_preview: {
+              headline: 'Sirve con nosotros en Semana Santa 2026',
+              caption: 'La Parroquia San Pedro Apóstol sigue convocando voluntarios para las celebraciones de Semana Santa. Si deseas ayudar como MEC, monaguillo, lector, coro, ujier, sacristán o voluntario general, todavía puedes registrarte.',
+              cta: `Registro público: ${publicLanding}`,
+              asset_reason: 'Usa la pieza pública de campaña o el cartel de ejercicios/horarios según el enfoque pastoral de la publicación.'
+            }
           },
           assetUrl: 'assets/campana-2026/ejercicioscuaresma2026.jpeg',
           assetAlt: 'Campaña pública parroquial 2026',
@@ -1363,6 +1442,30 @@
         showDraftStatus('Mensaje copiado al portapapeles.', 'ok');
       } catch (error) {
         showDraftStatus('No se pudo copiar automáticamente. Intenta copiar manualmente o verifica permisos del navegador.', 'error');
+      }
+    }
+
+    async function copyDraftSocial(id) {
+      const row = draftRows.find((item) => item.id === id);
+      if (!row) return;
+      const social = (row.source_context || {}).social_preview;
+      if (!social) {
+        showDraftStatus('Este borrador todavía no tiene copy social sugerido.', 'warn');
+        return;
+      }
+
+      const payload = [
+        social.headline || '',
+        '',
+        social.caption || '',
+        social.cta ? `\n${social.cta}` : '',
+      ].join('\n').trim();
+
+      try {
+        await navigator.clipboard.writeText(payload);
+        showDraftStatus('Copy de Facebook copiado al portapapeles.', 'ok');
+      } catch (error) {
+        showDraftStatus('No se pudo copiar el copy social. Verifica permisos del navegador o copia manualmente desde la tarjeta.', 'error');
       }
     }
 
@@ -1514,6 +1617,7 @@
       if (kind === 'sent') await updateDraftStatus(id, 'sent');
       if (kind === 'archive') await updateDraftStatus(id, 'archived');
       if (kind === 'copy') await copyDraftMessage(id);
+      if (kind === 'copy-social') await copyDraftSocial(id);
     });
 
     historyBody.addEventListener('click', async (event) => {
@@ -1524,6 +1628,7 @@
       if (!id || !kind) return;
       if (kind === 'archive') await updateDraftStatus(id, 'archived');
       if (kind === 'copy') await copyDraftMessage(id);
+      if (kind === 'copy-social') await copyDraftSocial(id);
     });
 
     window.addEventListener('DOMContentLoaded', async () => {
