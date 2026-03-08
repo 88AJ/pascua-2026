@@ -46,7 +46,11 @@ def test_panel_contract():
     assert "function sortDraftRowsByPriority" in html
     assert "function socialPreviewHtml" in html
     assert "function copyDraftSocial" in html
+    assert "function ministryServicePhrase" in html
+    assert "function buildSocialPreview" in html
+    assert "function buildPastoralClosing" in html
     assert "social_preview" in html
+    assert "asset_reason" in html
     assert "Copiar copy Facebook" in html
     assert "async function loadDrafts" in html
     assert "async function generateDrafts" in html
