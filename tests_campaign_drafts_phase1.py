@@ -22,9 +22,11 @@ def test_sql_contract():
 
 def test_panel_contract():
     html = read("panel-coordinador.html")
+    library = read("assets/data/editorial-library-2026.js")
 
     assert "tailwindcss.com" not in html
     assert "tailwind-panel-coordinador.css" in html
+    assert "assets/data/editorial-library-2026.js" in html
     assert 'id="drafts-panel"' in html
     assert 'id="history-panel"' in html
     assert 'id="drafts-body"' in html
@@ -49,6 +51,8 @@ def test_panel_contract():
     assert "function ministryServicePhrase" in html
     assert "function buildSocialPreview" in html
     assert "function buildPastoralClosing" in html
+    assert "function editorialLibrary" in html
+    assert "function editorialTemplate" in html
     assert "social_preview" in html
     assert "asset_reason" in html
     assert "Copiar copy Facebook" in html
@@ -56,6 +60,10 @@ def test_panel_contract():
     assert "async function generateDrafts" in html
     assert "async function updateDraftStatus" in html
     assert "async function copyDraftMessage" in html
+    assert "window.EDITORIAL_LIBRARY_2026" in library
+    assert "convocatoria_semana_santa_2026" in library
+    assert "practicas_miercoles" in library
+    assert "cupos_criticos" in library
 
 
 if __name__ == "__main__":

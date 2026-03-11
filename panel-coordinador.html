@@ -534,6 +534,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/data/editorial-library-2026.js"></script>
   <script>
     const SUPABASE_URL = 'https://ujezbieadbhegilxteeg.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_bH7gnqm3PUA0rN9V5tSgdA_662iTEL1';
@@ -1088,17 +1089,54 @@
       return 'servir con generosidad a la comunidad parroquial';
     }
 
-    function buildPastoralClosing({ audience, channel, includeShare = false }) {
-      const lines = [];
-      if (channel === 'facebook') {
-        lines.push(`Si deseas apoyar como ${audience}, te invitamos a registrarte y compartir esta invitación con alguien que pueda servir.`);
-      } else if (channel === 'whatsapp') {
-        lines.push(`Por favor confirmen en el grupo de ${audience} cualquier relevo, incidencia o necesidad de apoyo.`);
-      } else {
-        lines.push(`Ayúdanos a difundir este llamado para que más personas puedan servir con generosidad.`);
+    function editorialLibrary() {
+      return window.EDITORIAL_LIBRARY_2026 || {};
+    }
+
+    function editorialValue(path, fallback = null) {
+      const parts = String(path || '').split('.').filter(Boolean);
+      let current = editorialLibrary();
+      for (const part of parts) {
+        if (!current || typeof current !== 'object' || !(part in current)) return fallback;
+        current = current[part];
       }
+      return current == null ? fallback : current;
+    }
+
+    function interpolateEditorialTemplate(value, variables = {}) {
+      return String(value || '').replace(/\{([a-zA-Z0-9_]+)\}/g, (_, key) => {
+        const replacement = variables[key];
+        return replacement == null ? '' : String(replacement);
+      });
+    }
+
+    function editorialTemplate(path, variables = {}, fallback = '') {
+      const value = editorialValue(path, fallback);
+      if (Array.isArray(value)) {
+        return value.map((item) => interpolateEditorialTemplate(item, variables)).join('\n');
+      }
+      return interpolateEditorialTemplate(value, variables);
+    }
+
+    function buildPastoralClosing({ audience, channel, includeShare = false }) {
+      const scope = channel === 'facebook' ? 'facebook' : channel === 'whatsapp' ? 'whatsapp' : 'general';
+      const lines = [
+        editorialTemplate(
+          `shared.closings.${scope}.primary`,
+          { audience },
+          scope === 'facebook'
+            ? `Si deseas apoyar como ${audience}, te invitamos a registrarte y compartir esta invitación con alguien que pueda servir.`
+            : scope === 'whatsapp'
+              ? `Por favor confirmen en el grupo de ${audience} cualquier relevo, incidencia o necesidad de apoyo.`
+              : 'Ayúdanos a difundir este llamado para que más personas puedan servir con generosidad.'
+        )
+      ].filter(Boolean);
       if (includeShare) {
-        lines.push('Compartan este mensaje con quienes puedan responder con disponibilidad y espíritu de servicio.');
+        lines.push(editorialTemplate(
+          `shared.closings.${scope}.share`,
+          { audience },
+          'Compartan este mensaje con quienes puedan responder con disponibilidad y espíritu de servicio.'
+        ));
       }
       return lines.join('\n');
     }
@@ -1149,24 +1187,43 @@
       return rows
         .filter((row) => row.is_active && Number(row.registered || 0) > 0 && isFutureLiturgicalDay(dayKeyFromKey(row.ministry_key)))
         .map((row) => {
-          const ministry = ministryBase(row.ministry_key);
           const dayKey = dayKeyFromKey(row.ministry_key);
           const day = HOLY_WEEK_DAYS[dayKey] || {};
           const ministryMeta = getMinistryMeta(row.ministry_key);
           const assetUrl = day.asset || ministryMeta.asset;
           const assetAlt = day.assetAlt || ministryMeta.assetAlt;
           const scheduledFor = day.date ? oneDayBefore(day.date, 11, 0) : null;
-          const title = `${ministryMeta.label} · Recordatorio ${day.label || row.label}`;
           const servicePhrase = ministryServicePhrase(row.ministry_key);
-          const messageBody = [
-            `Paz y bien. Compartimos el recordatorio para ${ministryMeta.label} en ${day.label || row.label}.`,
-            '',
-            `Celebración: ${row.label}.`,
-            `Servicio esperado: ${servicePhrase}.`,
-            `Confirmados al momento: ${row.registered} de ${row.capacity}.`,
-            buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp' }),
-            'Si surge una incidencia, repórtenla al coordinador antes de la celebración.'
-          ].join('\n');
+          const dayLabel = day.label || row.label;
+          const displayLabel = day.label || ministryMeta.label;
+          const templateVars = {
+            ministryLabel: ministryMeta.label,
+            dayLabel,
+            slotLabel: row.label,
+            servicePhrase,
+            registered: row.registered,
+            capacity: row.capacity,
+            closing: buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp' }),
+            displayLabel
+          };
+          const title = editorialTemplate(
+            'convocatoria_semana_santa_2026.recordatorio_celebracion.whatsapp.title',
+            templateVars,
+            `${ministryMeta.label} · Recordatorio ${dayLabel}`
+          );
+          const messageBody = editorialTemplate(
+            'convocatoria_semana_santa_2026.recordatorio_celebracion.whatsapp.message_lines',
+            templateVars,
+            [
+              `Paz y bien. Compartimos el recordatorio para ${ministryMeta.label} en ${dayLabel}.`,
+              '',
+              `Celebración: ${row.label}.`,
+              `Servicio esperado: ${servicePhrase}.`,
+              `Confirmados al momento: ${row.registered} de ${row.capacity}.`,
+              buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp' }),
+              'Si surge una incidencia, repórtenla al coordinador antes de la celebración.'
+            ]
+          );
 
           return buildDraft({
             signature: buildSignature(['celebracion', row.ministry_key, row.slot_id, day.date || 'sin-fecha']),
@@ -1187,7 +1244,11 @@
               available: row.available,
               capacity: row.capacity,
               liturgical_day: day.label || null,
-              asset_reason: `Usa el visual de ${day.label || ministryMeta.label} para recordar el tono litúrgico de la celebración y activar al equipo correcto.`
+              asset_reason: editorialTemplate(
+                'convocatoria_semana_santa_2026.recordatorio_celebracion.whatsapp.asset_reason',
+                templateVars,
+                `Usa el visual de ${displayLabel} para recordar el tono litúrgico de la celebración y activar al equipo correcto.`
+              )
             },
             assetUrl,
             assetAlt,
@@ -1206,15 +1267,29 @@
         .filter(([key]) => key !== 'general')
         .map(([key, meta]) => {
           const servicePhrase = ministryServicePhrase(key);
-          const title = `${meta.label} · Práctica de miércoles`;
-          const messageBody = [
-            `Paz y bien. Recordatorio para ${meta.label}.`,
-            '',
-            `Este ${practiceDateLabel} tendremos práctica parroquial ${PRACTICE_LOCATION}.`,
-            `Revisaremos cómo ${servicePhrase} durante Semana Santa.`,
-            'Favor de llegar con tiempo, revisar su ministerio y avisar si necesitarán apoyo o relevo.',
-            'La coordinación final de Semana Santa se cerrará en estas prácticas.'
-          ].join('\n');
+          const templateVars = {
+            ministryLabel: meta.label,
+            practiceDateLabel,
+            practiceLocation: PRACTICE_LOCATION,
+            servicePhrase
+          };
+          const title = editorialTemplate(
+            'practicas_miercoles.whatsapp.title',
+            templateVars,
+            `${meta.label} · Práctica de miércoles`
+          );
+          const messageBody = editorialTemplate(
+            'practicas_miercoles.whatsapp.message_lines',
+            templateVars,
+            [
+              `Paz y bien. Recordatorio para ${meta.label}.`,
+              '',
+              `Este ${practiceDateLabel} tendremos práctica parroquial ${PRACTICE_LOCATION}.`,
+              `Revisaremos cómo ${servicePhrase} durante Semana Santa.`,
+              'Favor de llegar con tiempo, revisar su ministerio y avisar si necesitarán apoyo o relevo.',
+              'La coordinación final de Semana Santa se cerrará en estas prácticas.'
+            ]
+          );
 
           return buildDraft({
             signature: buildSignature(['practica', key, isoDay]),
@@ -1231,12 +1306,32 @@
               target_label: `${meta.label} · Grupo ministerial`,
               practice_date: isoDay,
               practice_location: PRACTICE_LOCATION,
-              asset_reason: `Usa el visual propio de ${meta.label} para reforzar identidad ministerial antes de la práctica.`,
+              asset_reason: editorialTemplate(
+                'practicas_miercoles.whatsapp.asset_reason',
+                templateVars,
+                `Usa la imagen propia del ministerio para que el recordatorio se identifique rápido en WhatsApp y difusión interna.`
+              ),
               social_preview: buildSocialPreview({
-                headline: `${meta.label} · Práctica parroquial de miércoles`,
-                invitation: `Este ${practiceDateLabel}, después de la Santa Misa de 6:00 PM, tendremos práctica parroquial para revisar cómo ${servicePhrase} en Semana Santa. Si formas parte de ${meta.label}, te esperamos con puntualidad y disponibilidad.`,
-                cta: 'Comparte este recordatorio en el grupo ministerial correspondiente.',
-                assetReason: `Usa la imagen propia del ministerio para que el recordatorio se identifique rápido en WhatsApp y difusión interna.`
+                headline: editorialTemplate(
+                  'practicas_miercoles.whatsapp.headline',
+                  templateVars,
+                  `${meta.label} · Práctica parroquial de miércoles`
+                ),
+                invitation: editorialTemplate(
+                  'practicas_miercoles.whatsapp.caption',
+                  templateVars,
+                  `Este ${practiceDateLabel}, después de la Santa Misa de 6:00 PM, tendremos práctica parroquial para revisar cómo ${servicePhrase} en Semana Santa. Si formas parte de ${meta.label}, te esperamos con puntualidad y disponibilidad.`
+                ),
+                cta: editorialTemplate(
+                  'practicas_miercoles.whatsapp.cta',
+                  templateVars,
+                  'Comparte este recordatorio en el grupo ministerial correspondiente.'
+                ),
+                assetReason: editorialTemplate(
+                  'practicas_miercoles.whatsapp.asset_reason',
+                  templateVars,
+                  'Usa la imagen propia del ministerio para que el recordatorio se identifique rápido en WhatsApp y difusión interna.'
+                )
               })
             },
             assetUrl: meta.asset,
@@ -1256,16 +1351,39 @@
           const day = HOLY_WEEK_DAYS[dayKey] || {};
           const ministryMeta = getMinistryMeta(row.ministry_key);
           const faltan = Number(row.available || 0);
-          const title = `Seguimiento de cupo · ${ministryMeta.label} · ${day.label || row.label}`;
           const servicePhrase = ministryServicePhrase(row.ministry_key);
-          const messageBody = [
-            `Paz y bien. Aún necesitamos apoyo para ${ministryMeta.label} en ${day.label || row.label}.`,
-            '',
-            `Celebración: ${row.label}.`,
-            `Necesitamos personas disponibles para ${servicePhrase}.`,
-            `Faltan ${faltan} lugar${faltan === 1 ? '' : 'es'} para completar el cupo (${row.registered}/${row.capacity} confirmados).`,
-            buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp', includeShare: true })
-          ].join('\n');
+          const dayLabel = day.label || row.label;
+          const displayLabel = day.label || ministryMeta.label;
+          const templateVars = {
+            ministryLabel: ministryMeta.label,
+            dayLabel,
+            slotLabel: row.label,
+            servicePhrase,
+            available: faltan,
+            availableSuffix: faltan === 1 ? '' : 'es',
+            registered: row.registered,
+            capacity: row.capacity,
+            landingUrl: publicLanding,
+            closing: buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp', includeShare: true }),
+            displayLabel
+          };
+          const title = editorialTemplate(
+            'cupos_criticos.whatsapp.title',
+            templateVars,
+            `Seguimiento de cupo · ${ministryMeta.label} · ${dayLabel}`
+          );
+          const messageBody = editorialTemplate(
+            'cupos_criticos.whatsapp.message_lines',
+            templateVars,
+            [
+              `Paz y bien. Aún necesitamos apoyo para ${ministryMeta.label} en ${dayLabel}.`,
+              '',
+              `Celebración: ${row.label}.`,
+              `Necesitamos personas disponibles para ${servicePhrase}.`,
+              `Faltan ${faltan} lugar${faltan === 1 ? '' : 'es'} para completar el cupo (${row.registered}/${row.capacity} confirmados).`,
+              buildPastoralClosing({ audience: ministryMeta.label, channel: 'whatsapp', includeShare: true })
+            ]
+          );
 
           return buildDraft({
             signature: buildSignature(['cupo-bajo', row.ministry_key, row.slot_id]),
@@ -1287,12 +1405,32 @@
               capacity: row.capacity,
               liturgical_day: day.label || null,
               landing_url: publicLanding,
-              asset_reason: `Usa el visual recomendado de ${day.label || ministryMeta.label} para conectar con la celebración concreta.`,
+              asset_reason: editorialTemplate(
+                'cupos_criticos.whatsapp.asset_reason',
+                templateVars,
+                `Usa el visual recomendado de ${displayLabel} para conectar con la celebración concreta.`
+              ),
               social_preview: buildSocialPreview({
-                headline: `Aún necesitamos ${ministryMeta.label} para ${day.label || 'Semana Santa'}.`,
-                invitation: `Nuestra parroquia sigue necesitando apoyo para servir en ${row.label}. Si puedes ayudar como ${ministryMeta.label}, todavía puedes registrarte y compartir esta invitación con alguien que pueda servir con generosidad.`,
-                cta: `Registro abierto: ${publicLanding}`,
-                assetReason: `Usa el visual recomendado de ${day.label || ministryMeta.label} para conectar con la celebración concreta.`
+                headline: editorialTemplate(
+                  'cupos_criticos.whatsapp.headline',
+                  templateVars,
+                  `Aún necesitamos ${ministryMeta.label} para ${dayLabel}.`
+                ),
+                invitation: editorialTemplate(
+                  'cupos_criticos.whatsapp.caption',
+                  templateVars,
+                  `Nuestra parroquia sigue necesitando apoyo para servir en ${row.label}. Si puedes ayudar como ${ministryMeta.label}, todavía puedes registrarte y compartir esta invitación con alguien que pueda servir con generosidad.`
+                ),
+                cta: editorialTemplate(
+                  'cupos_criticos.whatsapp.cta',
+                  templateVars,
+                  `Registro abierto: ${publicLanding}`
+                ),
+                assetReason: editorialTemplate(
+                  'cupos_criticos.whatsapp.asset_reason',
+                  templateVars,
+                  `Usa el visual recomendado de ${displayLabel} para conectar con la celebración concreta.`
+                )
               })
             },
             assetUrl: day.asset || ministryMeta.asset,
@@ -1307,19 +1445,56 @@
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       const isoTomorrow = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
-      const commonMessage = [
-        'Paz y bien. Nuestra parroquia sigue necesitando voluntarios para Semana Santa 2026.',
-        '',
-        'El registro permanece abierto para MEC, monaguillos, lectores, coro, ujieres, sacristía y voluntariado general.',
-        `Registro público: ${publicLanding}`,
-        buildPastoralClosing({ audience: 'voluntariado parroquial', channel: 'general', includeShare: true })
-      ].join('\n');
+      const generalClosing = buildPastoralClosing({ audience: 'voluntariado parroquial', channel: 'general', includeShare: true });
+      const whatsappVars = {
+        landingUrl: publicLanding,
+        closing: generalClosing
+      };
+      const facebookClosing = buildPastoralClosing({ audience: 'voluntariado parroquial', channel: 'facebook', includeShare: false });
+      const facebookVars = {
+        landingUrl: publicLanding,
+        closing: facebookClosing
+      };
+      const whatsappMessage = editorialTemplate(
+        'convocatoria_semana_santa_2026.general.whatsapp.message_lines',
+        whatsappVars,
+        [
+          'Paz y bien. Nuestra parroquia sigue convocando servidores para Semana Santa 2026.',
+          '',
+          'Necesitamos apoyo en monaguillos, lectores, coro, hospitalidad, sacristía, MEC y apoyo general.',
+          'Registro e información:',
+          publicLanding,
+          generalClosing
+        ]
+      );
+      const facebookMessage = editorialTemplate(
+        'convocatoria_semana_santa_2026.general.facebook.message_lines',
+        facebookVars,
+        [
+          'Semana Santa 2026 | Parroquia San Pedro Apóstol',
+          'Allende, N.L.',
+          '',
+          'La Cuaresma es tiempo de volver a Dios y preparar el corazón para la Pascua. Por eso, nuestra parroquia invita a toda la comunidad a servir en Semana Santa 2026.',
+          '',
+          'Si alguna vez serviste, si te alejaste, o si deseas comenzar por primera vez, aquí tienes tu lugar.',
+          '',
+          'Necesitamos apoyo en monaguillos, lectores, coro, hospitalidad, sacristía, MEC y apoyo general.',
+          '',
+          'Registro público:',
+          publicLanding,
+          facebookClosing
+        ]
+      );
 
       return [
         buildDraft({
           signature: buildSignature(['general', 'whatsapp', 'voluntariado-2026']),
-          title: 'Convocatoria general · WhatsApp',
-          messageBody: commonMessage,
+          title: editorialTemplate(
+            'convocatoria_semana_santa_2026.general.whatsapp.title',
+            whatsappVars,
+            'Convocatoria general · WhatsApp'
+          ),
+          messageBody: whatsappMessage,
           channel: 'whatsapp',
           audienceType: 'general',
           audienceKey: 'general',
@@ -1329,12 +1504,32 @@
           sourceContext: {
             target_label: 'Voluntariado General · Grupo de WhatsApp',
             landing_url: publicLanding,
-            asset_reason: 'Usa el cartel general de horarios para una publicación de alcance amplio en grupos y difusión parroquial.',
+            asset_reason: editorialTemplate(
+              'convocatoria_semana_santa_2026.general.whatsapp.asset_reason',
+              whatsappVars,
+              'Usa el cartel general de horarios para una publicación de alcance amplio en grupos y difusión parroquial.'
+            ),
             social_preview: buildSocialPreview({
-              headline: 'Semana Santa 2026 · Voluntariado abierto',
-              invitation: 'Seguimos invitando a quienes deseen servir en nuestra parroquia como MEC, monaguillos, lectores, coro, ujieres, sacristía o voluntariado general. Aún estamos formando equipos para vivir la Semana Santa con orden, fe y generosidad.',
-              cta: `Regístrate aquí: ${publicLanding}`,
-              assetReason: 'Usa el cartel general de horarios para una publicación de alcance amplio en grupos y difusión parroquial.'
+              headline: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.whatsapp.headline',
+                whatsappVars,
+                'Semana Santa 2026 · Voluntariado abierto'
+              ),
+              invitation: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.whatsapp.caption',
+                whatsappVars,
+                'Seguimos invitando a quienes deseen servir en nuestra parroquia como MEC, monaguillos, lectores, coro, ujieres, sacristía o voluntariado general. Aún estamos formando equipos para vivir la Semana Santa con orden, fe y generosidad.'
+              ),
+              cta: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.whatsapp.cta',
+                whatsappVars,
+                `Regístrate aquí: ${publicLanding}`
+              ),
+              assetReason: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.whatsapp.asset_reason',
+                whatsappVars,
+                'Usa el cartel general de horarios para una publicación de alcance amplio en grupos y difusión parroquial.'
+              )
             })
           },
           assetUrl: 'assets/campana-2026/semanasantahorarios2026.jpeg',
@@ -1343,8 +1538,12 @@
         }),
         buildDraft({
           signature: buildSignature(['general', 'facebook', 'voluntariado-2026']),
-          title: 'Convocatoria general · Facebook',
-          messageBody: commonMessage,
+          title: editorialTemplate(
+            'convocatoria_semana_santa_2026.general.facebook.title',
+            facebookVars,
+            'Convocatoria general · Facebook'
+          ),
+          messageBody: facebookMessage,
           channel: 'facebook',
           audienceType: 'general',
           audienceKey: 'general',
@@ -1354,12 +1553,32 @@
           sourceContext: {
             target_label: 'Facebook parroquial',
             landing_url: publicLanding,
-            asset_reason: 'Usa la pieza pública de campaña o el cartel de ejercicios/horarios según el enfoque pastoral de la publicación.',
+            asset_reason: editorialTemplate(
+              'convocatoria_semana_santa_2026.general.facebook.asset_reason',
+              facebookVars,
+              'Usa la pieza pública de campaña o el cartel de ejercicios y horarios según el enfoque pastoral de la publicación.'
+            ),
             social_preview: buildSocialPreview({
-              headline: 'Sirve con nosotros en Semana Santa 2026',
-              invitation: 'La Parroquia San Pedro Apóstol sigue convocando voluntarios para las celebraciones de Semana Santa. Si deseas ayudar como MEC, monaguillo, lector, coro, ujier, sacristán o voluntario general, todavía puedes registrarte.',
-              cta: `Registro público: ${publicLanding}`,
-              assetReason: 'Usa la pieza pública de campaña o el cartel de ejercicios/horarios según el enfoque pastoral de la publicación.'
+              headline: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.facebook.headline',
+                facebookVars,
+                'Sirve con nosotros en Semana Santa 2026'
+              ),
+              invitation: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.facebook.caption',
+                facebookVars,
+                'La Parroquia San Pedro Apóstol sigue convocando voluntarios para las celebraciones de Semana Santa. Si deseas ayudar como MEC, monaguillo, lector, coro, ujier, sacristán o voluntario general, todavía puedes registrarte.'
+              ),
+              cta: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.facebook.cta',
+                facebookVars,
+                `Registro público: ${publicLanding}`
+              ),
+              assetReason: editorialTemplate(
+                'convocatoria_semana_santa_2026.general.facebook.asset_reason',
+                facebookVars,
+                'Usa la pieza pública de campaña o el cartel de ejercicios y horarios según el enfoque pastoral de la publicación.'
+              )
             })
           },
           assetUrl: 'assets/campana-2026/ejercicioscuaresma2026.jpeg',
