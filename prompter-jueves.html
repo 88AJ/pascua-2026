@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IV Encuentro: Prompter Cinematográfico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --obsidian: #0a0a0c;
+        }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--obsidian);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Starter Overlay */
+        #starter {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 100;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.5s ease;
+        }
+        #starter h1 {
+            font-size: clamp(2rem, 5vw, 4rem); color: #fff; margin-bottom: 30px;
+            text-transform: uppercase; letter-spacing: 5px; opacity: 1; transform: none; text-shadow: none;
+        }
+        #starter button {
+            padding: 20px 50px; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--gold); 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: 5px; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px;
+            transition: all 0.4s ease;
+        }
+        #starter button:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Background Cinematic Layers */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+            z-index: 0;
+            filter: saturate(1.2) contrast(1.1);
+        }
+        .bg-layer.active {
+            opacity: 1 !important;
+        }
+
+        /* Projector Safety Overlay: Guarantees text contrast */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* Main Story Container */
+        .story-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Each Viewport */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vh 5vw;
+            text-align: center;
+        }
+
+        /* Typography Animation Physics */
+        h1, p, .quote {
+            margin: 0;
+            padding: 10px;
+            opacity: 0;
+            transform: translateY(60px) scale(0.98);
+            transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-shadow: 0px 10px 40px rgba(0,0,0,1), 0px 0px 20px rgba(0,0,0,0.8), 0px 0px 5px rgba(0,0,0,1);
+        }
+        .instruction {
+            margin-bottom: 40px;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--gold);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-shadow: 0px 5px 20px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
+        }
+        
+        /* Observer State */
+        .is-visible h1, .is-visible p, .is-visible .quote, .is-visible .instruction {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Typography Sizing */
+        h1 {
+            font-size: clamp(4.5rem, 12vw, 15rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+            line-height: 1;
+            color: #fff;
+        }
+        p {
+            font-size: clamp(3rem, 7vw, 8rem);
+            font-weight: 600;
+            line-height: 1.25;
+            color: #eee;
+            max-width: 90%;
+            margin-bottom: 5vh;
+            letter-spacing: -1.5px;
+        }
+        .quote {
+            font-size: clamp(2.5rem, 6vw, 7rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #ccc;
+            max-width: 85%;
+        }
+        
+        /* Subtle glowing emphasis */
+        .glow {
+            color: var(--gold);
+            text-shadow: 0px 0px 40px rgba(212, 175, 55, 0.6), 0px 5px 20px rgba(0,0,0,1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player -->
+    <audio id="bg-audio" loop>
+        <source src="assets/prompter/audio/crescendo.mp3" type="assets/prompter/audio/mpeg">
+    </audio>
+
+    <!-- Start Overlay -->
+    <div id="starter">
+        <h1>IV Encuentro 2026</h1>
+        <button onclick="startExperience()">Iniciar Experiencia</button>
+    </div>
+
+    <!-- Background Images -->
+    <div id="bg-rays" class="bg-layer" style="background-image: url('assets/prompter/img/rays.png');"></div>
+    <div id="bg-eye" class="bg-layer" style="background-image: url('assets/prompter/img/eye.png');"></div>
+    <div id="bg-dust" class="bg-layer" style="background-image: url('assets/prompter/img/dust.png');"></div>
+    <div id="bg-water" class="bg-layer" style="background-image: url('assets/prompter/img/water.png');"></div>
+    
+    <div class="bg-overlay"></div>
+
+    <div class="story-container">
+        
+        <!-- =================== INTRO =================== -->
+        <section data-bg="bg-rays">
+            <h1 class="glow">IV ENCUENTRO</h1>
+            <p>VER CON LOS OJOS DE CRISTO</p>
+            <div class="instruction" style="color: #fff; margin-top: 50px;">Haz scroll para comenzar ↓</div>
+        </section>
+
+        <!-- =================== OBJETIVO =================== -->
+        <section data-bg="bg-rays">
+            <div class="instruction">El Propósito</div>
+            <p>Aprender a mirarnos en familia sin prejuicios.</p>
+        </section>
+
+        <section data-bg="bg-rays">
+            <p>Conducir un movimiento profundo hacia dentro y hacia fuera.</p>
+        </section>
+        
+        <section data-bg="bg-rays">
+            <p>Reconocer nuestras propias cegueras.</p>
+            <p>Y dejar que Jesús, Luz del mundo, cure nuestra mirada.</p>
+        </section>
+
+        <!-- =================== ORACION =================== -->
+        <section data-bg="bg-rays">
+            <div class="instruction">Invocación</div>
+            <p>Señor Jesús, Luz del mundo...</p>
+        </section>
+        
+        <section data-bg="bg-rays">
+            <p>Tú te detuviste frente a un ciego de nacimiento, y rechazaste la mirada que lo culpaba a él o a sus padres.</p>
+        </section>
+
+        <section data-bg="bg-rays">
+            <p>Hoy te pedimos que pases por nuestra mesa.</p>
+            <p>Que pases por nuestra familia.</p>
+        </section>
+        
+        <section data-bg="bg-rays">
+            <p>Cura los juicios precipitados y las etiquetas que nos impiden alegrarnos por el bien del otro.</p>
+        </section>
+
+        <section data-bg="bg-rays">
+            <div class="quote">"Envía tu Espíritu para que podamos vernos como Tú nos ves."</div>
+            <div class="instruction" style="margin-top: 50px;">Amén</div>
+        </section>
+
+        <!-- =================== ANTROPOLOGÍA =================== -->
+        <section data-bg="bg-eye">
+            <div class="instruction">Nuestra Realidad</div>
+            <p>Breve diálogo interno:</p>
+            <p>¿Hay alguien en casa a quien sueles ver casi sólo por su defecto o sus errores pasados?</p>
+        </section>
+
+        <section data-bg="bg-eye">
+            <div class="instruction">El Diagnóstico</div>
+            <h1 class="glow">LO ETIQUETASTE.</h1>
+        </section>
+        
+        <section data-bg="bg-eye">
+            <p>Las palabras que ciegan:</p>
+            <div class="quote">"Tú siempre..."</div>
+            <div class="quote">"Tú nunca..."</div>
+            <div class="quote">"Ya sé cómo eres."</div>
+        </section>
+
+        <section data-bg="bg-eye">
+            <p>Esas frases no describen la identidad del otro.</p>
+            <p>Se convierten en muros inquebrantables de concreto.</p>
+        </section>
+
+        <section data-bg="bg-eye">
+            <div class="instruction">R. Rolheiser</div>
+            <p>Nadie tiene sed de ser juzgado.</p>
+        </section>
+        
+        <section data-bg="bg-eye">
+            <p>El ser humano tiene sed de ser reconocido en su esencia divina.</p>
+            <p>Más allá de su utilidad o sus defectos.</p>
+        </section>
+
+        <!-- =================== BIBLIA =================== -->
+        <section data-bg="bg-dust">
+            <div class="instruction">Encuentro con la Palabra (Juan 9)</div>
+            <h1>EL CIEGO DE NACIMIENTO</h1>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>El instinto del ego es siempre buscar culpables.</p>
+            <div class="quote">"Maestro, ¿quién pecó, él o sus padres?"</div>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>Esa mirada acusa, divide y destruye a la familia.</p>
+        </section>
+        
+        <section data-bg="bg-dust">
+            <div class="instruction">La Mirada de Cristo</div>
+            <p>Pero el Espíritu no busca un culpable.</p>
+            <p>Busca un terreno donde "se manifiesten las obras de Dios".</p>
+        </section>
+        
+        <section data-bg="bg-dust">
+            <div class="instruction">Pregunta Ignaciana</div>
+            <h1 class="glow">¿TU MIRADA DIVIDE?</h1>
+            <h1 class="glow">¿O TU MIRADA INTEGRA?</h1>
+        </section>
+
+        <!-- =================== DIÁLOGO FAMILIAR =================== -->
+        <section data-bg="bg-dust">
+            <div class="instruction">Tiempo de Discusión</div>
+            <p>¿En qué aspectos me parezco hoy a los discípulos que solo preguntan "quién tuvo la culpa"?</p>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>Identifica el patrón:</p>
+            <p>¿Buscar un culpable en lugar de buscar un camino?</p>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>¿Cuáles son las "cegueras" familiares que cargo en mí?</p>
+            <div class="quote">Prejuicios enterrados sobre tu hijo, tu cónyuge o recuerdos amargos del pasado que no te dejan ver el cambio sincero del otro.</div>
+        </section>
+        
+        <!-- =================== CONFLICTO =================== -->
+        <section data-bg="bg-dust">
+            <div class="instruction">La Raíz del Problema</div>
+            <p>Juzgar a nuestros familiares genera un inmenso placer falso.</p>
+        </section>
+        
+        <section data-bg="bg-dust">
+            <p>Nos hacemos adictos emocionales a tener la razón sobre la miseria del otro.</p>
+        </section>
+        
+        <section data-bg="bg-dust">
+            <div class="instruction">San Juan de la Cruz</div>
+            <div class="quote">"Un amor mayor echa fuera a un amor menor."</div>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>Solo quedar absoluta y profundamente fascinados por la Misericordia de Cristo...</p>
+        </section>
+
+        <section data-bg="bg-dust">
+            <p>Nos curará de la enfermiza adicción a condenar a nuestra propia sangre.</p>
+        </section>
+
+        <!-- =================== SILOÉ =================== -->
+        <section data-bg="bg-water">
+            <div class="instruction">El Proceso de Kénosis</div>
+            <h1 class="glow">LAVARSE EN SILOÉ</h1>
+        </section>
+        
+        <section data-bg="bg-water">
+            <p>Jesús no se queda en la teoría: hace barro, lo aplica, y nos envía a lavarnos el orgullo.</p>
+        </section>
+        
+        <section data-bg="bg-water">
+            <p>El milagro no es instantáneo.</p>
+            <p>Implica obediencia. Implica vulnerabilidad.</p>
+        </section>
+        
+        <section data-bg="bg-water">
+            <div class="instruction">El Gesto Simbólico</div>
+            <p>Identifica, en este instante, tu etiqueta más pesada y dolorosa.</p>
+        </section>
+        
+        <section data-bg="bg-water">
+            <p>Con la que condenas a alguien.</p>
+            <p>O con la que te condenan a ti.</p>
+        </section>
+        
+        <section data-bg="bg-water">
+            <h1 class="glow">SUMÉRGELA EN EL AGUA</h1>
+            <div class="instruction" style="margin-top: 50px;">"Jesús, Luz del mundo, lava mis ojos para ver como Tú ves"</div>
+        </section>
+
+        <!-- =================== PASTORAL MISERICORDIOSA =================== -->
+        <section data-bg="bg-water">
+            <div class="instruction">Acción para Cuaresma - Regla 1</div>
+            <p>Abstinencia Verbal:</p>
+            <div class="quote">Prohíbete repetir, durante toda esta semana, una frase o palabra que "etiquete" o limite a un familiar.</div>
+        </section>
+
+        <section data-bg="bg-water">
+            <div class="instruction">Acción para Cuaresma - Regla 2</div>
+            <p>Reconocimiento Diario:</p>
+            <div class="quote">Decirle cada día, incondicionalmente, al menos una palabra de honor o reconocimiento a un rasgo de cada miembro de tu casa.</div>
+        </section>
+
+        <section data-bg="bg-water">
+            <div class="instruction">Acción para Cuaresma - Regla 3</div>
+            <p>Rescate Periférico:</p>
+            <div class="quote">Visitar o llamar por teléfono a un familiar que sabes que actualmente se siente juzgado, marginado o herido. Llévale una palabra de profunda cercanía.</div>
+        </section>
+
+        <!-- =================== CIERRE =================== -->
+        <section data-bg="bg-water">
+            <div class="instruction">Para el corazón</div>
+            <p>No vemos a los demás como son.</p>
+            <div class="quote glow">Los vemos como somos nosotros.</div>
+        </section>
+
+        <!-- =================== ORACIÓN FINAL =================== -->
+        <section data-bg="bg-rays">
+            <div class="instruction">Letanía del Ciego</div>
+            <p>Señor Jesús, Luz del mundo, cuando nuestra mirada familiar se llene de prejuicios y condenas…</p>
+            <h1 style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">Ilumina nuestros ojos.</h1>
+        </section>
+        
+        <section data-bg="bg-rays">
+            <p>Cuando nos volvamos ciegos y sólo veamos los pasados errores del otro, olvidando su bondad…</p>
+            <h1 style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">Ilumina nuestros ojos.</h1>
+        </section>
+
+        <section data-bg="bg-rays">
+            <p>Cuando en nuestra casa utilicemos palabras que hieren y espadas que oscurecen la intimidad…</p>
+            <h1 style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">Ilumina nuestros ojos.</h1>
+        </section>
+        
+        <section data-bg="bg-rays">
+            <p>Cuando prefiramos la dureza fría de la norma y el orgullo, antes que la locura de la Misericordia…</p>
+            <h1 style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">Ilumina nuestros ojos.</h1>
+        </section>
+
+        <section data-bg="bg-rays">
+            <p>Haz que caminemos libres, como hijos de la luz. Para que todos podamos decir contundentemente con el ciego de nacimiento:</p>
+        </section>
+
+        <section data-bg="bg-rays">
+            <h1 style="font-size: clamp(5rem, 15vw, 20rem); letter-spacing: -6px;" class="glow">YO ERA CIEGO.</h1>
+        </section>
+
+        <section data-bg="bg-rays">
+            <h1 style="font-size: clamp(5rem, 15vw, 20rem); letter-spacing: -6px;" class="glow">Y AHORA VEO.</h1>
+            <div class="instruction" style="margin-top: 80px;">Amén</div>
+        </section>
+
+    </div>
+
+    <script>
+        // Start Cinematic Experience
+        function startExperience() {
+            const starter = document.getElementById('starter');
+            starter.style.opacity = '0';
+            setTimeout(() => starter.remove(), 1500);
+            
+            const audio = document.getElementById('bg-audio');
+            audio.volume = 0.4; // 40% Volume for projector sound systems
+            audio.play();
+        }
+
+        // Smooth Intersection Observer
+        const sections = document.querySelectorAll('section');
+        const bgLayers = document.querySelectorAll('.bg-layer');
+
+        const observerOptions = {
+            root: null,
+            // Decreased crop margin to allow slightly earlier fade-ins for smoother viewing
+            rootMargin: '-20% 0px -20% 0px', 
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    const targetBgId = entry.target.getAttribute('data-bg');
+                    bgLayers.forEach(bg => {
+                        if(bg.id === targetBgId) {
+                            bg.classList.add('active');
+                        } else {
+                            bg.classList.remove('active');
+                        }
+                    });
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+    </script>
+</body>
+</html>

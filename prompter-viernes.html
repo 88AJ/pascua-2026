@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V Encuentro: Esperanza Que Vence La Muerte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --obsidian: #0a0a0c;
+        }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--obsidian);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        html {
+            scroll-snap-type: y mandatory;
+        }
+
+        #starter {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 100;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.5s ease;
+        }
+        #starter h1 {
+            font-size: clamp(2rem, 5vw, 4rem); color: #fff; margin-bottom: 30px;
+            text-transform: uppercase; letter-spacing: 5px; opacity: 1; transform: none; text-shadow: none;
+        }
+        #starter button {
+            padding: 20px 50px; font-size: clamp(1rem, 2vw, 1.5rem); color: var(--gold); 
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: 5px; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px;
+            transition: all 0.4s ease;
+        }
+        #starter button:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+            z-index: 0;
+            filter: saturate(1.1) contrast(1.1);
+        }
+        .bg-layer.active {
+            opacity: 1 !important;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .story-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 5vh 5vw;
+            text-align: center;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+        }
+
+        h1, p, .quote {
+            margin: 0;
+            padding: 10px;
+            opacity: 0;
+            transform: translateY(60px) scale(0.98);
+            transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-shadow: 0px 10px 40px rgba(0,0,0,1), 0px 0px 20px rgba(0,0,0,0.8), 0px 0px 5px rgba(0,0,0,1);
+        }
+        .instruction {
+            margin-bottom: 40px;
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            color: var(--gold);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-shadow: 0px 5px 20px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,1);
+        }
+        
+        .is-visible h1, .is-visible p, .is-visible .quote, .is-visible .instruction {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        h1 {
+            font-size: clamp(4.5rem, 12vw, 15rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -4px;
+            line-height: 1;
+            color: #fff;
+        }
+        p {
+            font-size: clamp(3rem, 7vw, 8rem);
+            font-weight: 600;
+            line-height: 1.25;
+            color: #eee;
+            max-width: 90%;
+            margin-bottom: 5vh;
+            letter-spacing: -1.5px;
+        }
+        .quote {
+            font-size: clamp(2.5rem, 6vw, 7rem);
+            font-weight: 300;
+            font-style: italic;
+            color: #ccc;
+            max-width: 85%;
+        }
+        
+        .glow {
+            color: var(--gold);
+            text-shadow: 0px 0px 40px rgba(212, 175, 55, 0.6), 0px 5px 20px rgba(0,0,0,1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player linked to local audio file for Safari compatibility -->
+    <audio id="bg-audio" loop preload="auto" src="assets/prompter/audio/crescendo.mp3"></audio>
+
+    <div id="starter">
+        <h1>V Encuentro 2026</h1>
+        <button onclick="startExperience()">Iniciar Experiencia</button>
+    </div>
+
+    <!-- Background Images for Friday -->
+    <div id="bg-tomb" class="bg-layer" style="background-image: url('assets/prompter/img/tomb.png');"></div>
+    <div id="bg-tears" class="bg-layer" style="background-image: url('assets/prompter/img/tears.png');"></div>
+    <div id="bg-shroud" class="bg-layer" style="background-image: url('assets/prompter/img/shroud.png');"></div>
+    <div id="bg-eucharist" class="bg-layer" style="background-image: url('assets/prompter/img/eucharist.png');"></div>
+    
+    <div class="bg-overlay"></div>
+
+    <div class="story-container">
+        
+        <!-- =================== INTRO =================== -->
+        <section data-bg="bg-tomb">
+            <h1 class="glow">V ENCUENTRO</h1>
+            <p>ESPERANZA QUE VENCE A LA MUERTE</p>
+            <div class="instruction" style="color: #fff; margin-top: 50px;">Haz scroll para comenzar ↓</div>
+        </section>
+
+        <!-- =================== OBJETIVO =================== -->
+        <section data-bg="bg-tomb">
+            <div class="instruction">El Propósito de Hoy</div>
+            <p>Identificar los "Lázaros" de nuestra familia.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Aquellas cosas que parecen cerradas con piedra.</p>
+            <div class="quote">Heridas antiguas... silencios prolongados... resentimientos...</div>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>Aprender a presentar a Cristo lo que ya creíamos perdido.</p>
+        </section>
+
+        <!-- =================== ORACION INITIAL =================== -->
+        <section data-bg="bg-tears">
+            <div class="instruction">Oración Inicial</div>
+            <p>Señor Jesús...</p>
+        </section>
+        
+        <section data-bg="bg-tears">
+            <p>Tú que lloraste amargamente ante la tumba de tu amigo.</p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Mira hoy las muertes pequeñas y grandes que habitan silenciosamente en nuestra familia.</p>
+        </section>
+        
+        <section data-bg="bg-tears">
+            <p>Enséñanos a no desesperar cuando el amor parece perdido.</p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <h1 class="glow" style="font-size: clamp(3rem, 8vw, 10rem);">TÚ ERES LA RESURRECCIÓN.</h1>
+            <div class="quote" style="margin-top: 50px;">Ninguna piedra es demasiado pesada para ti.</div>
+            <div class="instruction" style="margin-top: 30px;">Amén</div>
+        </section>
+
+        <!-- NUEVA SECCION: DIAGNÓSTICO / ANTROPOLOGÍA -->
+        <section data-bg="bg-shroud">
+            <div class="instruction">El Diagnóstico</div>
+            <p>A veces, el mayor peligro no es la herida inicial.</p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <h1 class="glow" style="font-size: clamp(2.5rem, 6vw, 8rem);">ES ACOSTUMBRARSE AL MAL OLOR.</h1>
+        </section>
+        
+        <section data-bg="bg-shroud">
+            <div class="instruction">Henri Nouwen</div>
+            <p>Llega un punto en que preferimos la miseria conocida que la vulnerabilidad de la sanación.</p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>Nos acomodamos a vivir con familiares a los que emocionalmente... ya hemos dado por muertos.</p>
+        </section>
+
+        <!-- =================== NUESTRA REALIDAD =================== -->
+        <section data-bg="bg-shroud">
+            <div class="instruction">Nuestra Realidad</div>
+            <p>Pensemos por un instante:</p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>¿Qué cosas sentimos que "ya no tienen solución" bajo este techo?</p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>¿Hay relaciones, tal vez de sangre, que se han endurecido?</p>
+        </section>
+        
+        <section data-bg="bg-shroud">
+            <p>¿Heridas que nunca se hablaron?</p>
+        </section>
+        
+        <section data-bg="bg-shroud">
+            <h1 class="glow" style="font-size: clamp(2.5rem, 6vw, 8rem);">¿CUÁL ES EL LÁZARO DE TU FAMILIA?</h1>
+        </section>
+
+        <!-- =================== EVANGELIO (CINEMATOGRÁFICO) =================== -->
+        <section data-bg="bg-tomb">
+            <div class="instruction">Encuentro con la Palabra (Juan 11)</div>
+            <h1 style="font-size: clamp(3rem, 8vw, 10rem);">"Yo soy la resurrección y la vida."</h1>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>En aquel tiempo, las dos hermanas le mandaron decir a Jesús:</p>
+            <h1 class="glow" style="font-size: clamp(2.5rem, 6vw, 7rem); margin-top: 40px;">“Señor, el amigo a quien tanto quieres está enfermo”.</h1>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Al oír esto, Jesús dijo: “Esta enfermedad no acabará en la muerte, sino que servirá para la gloria de Dios...”</p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Jesús amaba a Marta, a su hermana y a Lázaro. Sin embargo... se detuvo dos días más en el lugar en que se hallaba.</p>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>Cuando llegó Jesús, Lázaro llevaba ya cuatro días en el sepulcro.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Apenas oyó Marta que Jesús llegaba, salió a su encuentro.</p>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>Le dijo Marta a Jesús: <span class="glow">“Señor, si hubieras estado aquí, no habría muerto mi hermano”.</span></p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>Jesús le dijo: “Tu hermano resucitará”.</p>
+        </section>
+        
+        <section data-bg="bg-shroud">
+            <p>Marta respondió: “Ya sé que resucitará en la resurrección del último día”.</p>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>Jesús le dijo:</p>
+            <h1 class="glow" style="margin-top: 30px; font-size: clamp(2.5rem, 7vw, 10rem);">"Yo soy la resurrección y la vida."</h1>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>El que cree en mí, aunque haya muerto, vivirá; y todo aquel que está vivo y cree en mí, no morirá para siempre.</p>
+            <h1 class="glow" style="margin-top: 40px; font-size: clamp(3rem, 8vw, 10rem);">¿Crees tú esto?</h1>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>Ella le contestó: "Sí, Señor. Creo firmemente que tú eres el Mesías, el Hijo de Dios..."</p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Jesús se conmovió hasta lo más hondo y preguntó: “¿Dónde lo han puesto?”</p>
+        </section>
+        
+        <section data-bg="bg-tears">
+            <p>Le contestaron: “Ven, Señor, y lo verás”.</p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <h1 class="glow" style="font-size: clamp(3rem, 10vw, 12rem);">Jesús se puso a llorar.</h1>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Y los judíos comentaban: “De veras ¡cuánto lo amaba!”</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Jesús, profundamente conmovido todavía, se detuvo ante el sepulcro, que era una cueva, sellada con una losa.</p>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>Entonces dijo Jesús:</p>
+            <h1 class="glow" style="margin-top: 40px; font-size: clamp(3rem, 10vw, 12rem);">"Quiten la losa."</h1>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Pero Marta replicó: “Señor, ya huele mal, porque lleva cuatro días”.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Le dijo Jesús:</p>
+            <h1 class="glow" style="margin-top: 30px; font-size: clamp(2.5rem, 6vw, 7rem);">“¿No te he dicho que si crees, verás la gloria de Dios?”</h1>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Entonces quitaron la piedra.</p>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>Luego gritó con voz potente:</p>
+            <h1 class="glow" style="margin-top: 50px; font-size: clamp(4rem, 12vw, 16rem);">"¡LÁZARO, SAL DE AHÍ!"</h1>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>Y salió el muerto, atado con vendas las manos y los pies, y la cara envuelta en un sudario.</p>
+        </section>
+        
+        <section data-bg="bg-shroud">
+            <p>Jesús les dijo:</p>
+            <h1 class="glow" style="margin-top: 40px; font-size: clamp(4rem, 12vw, 15rem);">"Desátenlo, para que pueda andar."</h1>
+        </section>
+
+        <!-- =================== DIÁLOGO FAMILIAR =================== -->
+        <section data-bg="bg-shroud">
+            <div class="instruction">Tiempo de Reflexión</div>
+            <p>¿Qué "piedra" inmensa debemos mover primero en nuestra casa?</p>
+            <div class="quote">¿Es el orgullo? ¿Es el silencio que asfixia? ¿Es la dureza del corazón?</div>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <p>¿Qué miedo secreto nos impide confiar en que esta familia puede cambiar?</p>
+        </section>
+
+        <!-- =================== CONFLICTO (SECCIÓN NUEVA) =================== -->
+        <section data-bg="bg-tomb">
+            <div class="instruction">La Raíz del Problema</div>
+            <p>Es más fácil llorar frente a una tumba cerrada, que hacer el esfuerzo de mover la piedra.</p>
+        </section>
+        
+        <section data-bg="bg-tomb">
+            <p>El perdonar nos exige cambiar. El resentimiento, en cambio, es un veneno cómodo.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <div class="instruction">C.S. Lewis</div>
+            <div class="quote">"El infierno es un estado en el que uno se encierra a sí mismo por elección, trancando la puerta por dentro."</div>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Nadie te obliga a cargar ese resentimiento que está matando a tu familia.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <h1 class="glow" style="font-size: clamp(3rem, 10vw, 12rem);">TÚ ERES QUIEN SOSTIENE LA PIEDRA.</h1>
+        </section>
+
+        <!-- =================== PASTORAL MISERICORDIOSA =================== -->
+        <section data-bg="bg-shroud">
+            <div class="instruction">El Compromiso de Cuaresma - Paso 1</div>
+            <p>Romper la piedra del Silencio:</p>
+            <div class="quote">Tomar la iniciativa para iniciar esa incómoda conversación pendiente que llevas evadiendo.</div>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <div class="instruction">El Compromiso de Cuaresma - Paso 2</div>
+            <p>Romper las vendas del Orgullo:</p>
+            <div class="quote">Pedir perdón, mirándolo a los ojos, si sabes profundamente que has herido al otro.</div>
+        </section>
+
+        <section data-bg="bg-shroud">
+            <div class="instruction">El Compromiso de Cuaresma - Paso 3</div>
+            <p>Romper la tumba del Odio:</p>
+            <div class="quote">Buscar una reconciliación concreta. Llamar a tu hermano, enviar un mensaje, dar un abrazo real.</div>
+        </section>
+
+        <!-- =================== GESTO SIMBÓLICO =================== -->
+        <section data-bg="bg-tomb">
+            <div class="instruction">Gesto Simbólico</div>
+            <p>Escribe tu Lázaro en un papel.</p>
+            <p>Esa relación muerta. Ese vicio oscuro. Esa herida putrefacta.</p>
+        </section>
+
+        <section data-bg="bg-tomb">
+            <p>Acércate y colócalo valientemente junto a la piedra.</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 10vw, 10rem); margin-top: 30px;">SEÑOR, AYÚDANOS A QUITARLA.</h1>
+        </section>
+
+        <!-- =================== LA INTERIORIZACIÓN =================== -->
+        <section data-bg="bg-eucharist">
+            <p style="margin-bottom: 20vh;"></p>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">El Gran Cierre</div>
+            <h1 class="glow" style="font-size: clamp(4.5rem, 10vw, 13rem);">EL ALTAR INTERIOR</h1>
+            <p style="font-size: clamp(2rem, 4vw, 4rem); margin-top: 30px;">"La piedra oscura ha sido quitada"</p>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Transición</div>
+            <p>Familia, durante esta semana construimos un altar visible en nuestra propia casa.</p>
+            <p>Usamos signos, fuego, piedras y tela, buscando desesperadamente aferrarnos a Dios.</p>
+        </section>
+        
+        <section data-bg="bg-eucharist">
+            <p>Pero esta noche, toda esa materia física queda atrás...</p>
+            <p>Porque venimos a adorar en el único santuario que de verdad le importa a Cristo.</p>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <p>Ese santuario herido que hoy ha sido abierto.</p>
+            <h1 class="glow" style="font-size: clamp(3.5rem, 9vw, 11rem); margin-top: 30px;">EL ALTAR DE TU PECHO.</h1>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <p>Silencio absoluto.</p>
+            <p>Cristo acaba de entrar a la tumba de tu corazón.</p>
+            <div class="instruction" style="margin-top: 50px;">Deja que Él ilumine estos 5 rincones ↓</div>
+        </section>
+
+        <!-- LOS 5 ECOS DEL CORAZÓN (EXAMEN) -->
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Primer Eco: El Desierto (Mateo 4)</div>
+            <p>En el desierto de tu vida se revela a quién adoras realmente.</p>
+            <p>¿Buscas resultados celestiales sin proceso terrenal? ¿Exiges bendiciones sin tener verdadera disposición a la conversión familiar?</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 7vw, 9rem); margin-top: 40px;">"SÓLO A TI, SEÑOR, ADORARÉ."</h1>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Segundo Eco: El Tabor (Mateo 17)</div>
+            <p>Escuchar no es sentir emociones bonitas.</p>
+            <p>¿Qué conversación incómoda con Dios o con tu cónyuge sigues postergando por miedo a la verdad?</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 7vw, 9rem); margin-top: 20px;">Escuchar es dejar que la Palabra cambie tus decisiones.</h1>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Tercer Eco: El Pozo (Juan 4)</div>
+            <p>Cuando la sed no se orienta hacia Dios y hacia amar a la familia, se convierte en vicio destructivo.</p>
+            <p>¿Qué calmas artificialmente cuando te sientes solo o incomprendido en casa?</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 7vw, 9rem); margin-top: 40px;">"SEÑOR, ENTRA EN MI HISTORIA."</h1>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Cuarto Eco: La Luz (Juan 9)</div>
+            <p>La soberbia y el orgullo son la ceguera más letal para una pareja o una familia.</p>
+            <p>¿Estás dispuesto a que Su luz deslumbrante rompa tus etiquetas de rencor?</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 7vw, 9rem); margin-top: 40px;">"SEÑOR, DAME UNA MIRADA NUEVA."</h1>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Quinto Eco: El Llanto (Juan 11)</div>
+            <p>A veces el problema no es la dureza de la prueba...</p>
+            <p>El problema es que, secretamente, ya nos acostumbramos a que huela a muerto.</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 7vw, 9rem); margin-top: 40px;">"SEÑOR, SOPLA TU ESPÍRITU EN NOSOTROS."</h1>
+        </section>
+
+        <!-- =================== ORACIÓN FINAL UNIFICADA =================== -->
+        <section data-bg="bg-tears">
+            <p style="margin-bottom: 20vh;"></p>
+        </section>
+
+        <section data-bg="bg-tears">
+            <div class="instruction">Para el corazón</div>
+            <p>El amor de Dios no nos ahorra la muerte dolorosa.</p>
+            <div class="quote glow" style="margin-top: 30px;">Nos hace resucitar valientemente de ella.</div>
+        </section>
+
+        <section data-bg="bg-tears">
+            <div class="instruction">Oración Interior</div>
+            <p>Señor Jesús, cuando el duro combate de mi familia parezca irremediablemente perdido...</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">DANOS ESPERANZA Y VIVE EN NOSOTROS.</h1>
+        </section>
+        
+        <section data-bg="bg-tears">
+            <p>Cuando nuestro ciego orgullo nos impida acercarnos para pedir perdón y sanar la herida...</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">DANOS ESPERANZA Y VIVE EN NOSOTROS.</h1>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Cuando el mal amenace con pudrir y separar lo que Tú has unido con tu propia sangre...</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 6vw, 6rem); margin-top: 30px;">DANOS ESPERANZA Y VIVE EN NOSOTROS.</h1>
+        </section>
+
+        <section data-bg="bg-tears">
+            <p>Haz que en cada rincón de nuestra casa, y en el altar de nuestro pecho, vuelva a resonar tu violenta invitación de misericordia:</p>
+            <h1 class="glow" style="font-size: clamp(4rem, 12vw, 15rem); letter-spacing: -4px; margin-top: 40px;">SAL FUERA.</h1>
+            <div class="instruction" style="margin-top: 60px;">Amén</div>
+        </section>
+
+        <section data-bg="bg-eucharist">
+            <div class="instruction">Bendición Solemne</div>
+            <p>Esta familia ya no está atada con vendas.</p>
+            <h1 class="glow" style="font-size: clamp(3rem, 8vw, 10rem); margin-top: 20px;">PUEDEN ANDAR EN PAZ.</h1>
+        </section>
+    </div>
+
+    <script>
+        function startExperience() {
+            const starter = document.getElementById('starter');
+            starter.style.opacity = '0';
+            setTimeout(() => starter.remove(), 1500);
+            
+            const audio = document.getElementById('bg-audio');
+            audio.volume = 0.4;
+            
+            // Safari autoplay policy workaround
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Playback started successfully
+                }).catch(error => {
+                    console.log("Safari blocked autoplay. Click again.", error);
+                });
+            }
+        }
+
+        const sections = document.querySelectorAll('section');
+        const bgLayers = document.querySelectorAll('.bg-layer');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -20% 0px', 
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    const targetBgId = entry.target.getAttribute('data-bg');
+                    bgLayers.forEach(bg => {
+                        if(bg.id === targetBgId) {
+                            bg.classList.add('active');
+                        } else {
+                            bg.classList.remove('active');
+                        }
+                    });
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(sec => observer.observe(sec));
+    </script>
+</body>
+</html>
