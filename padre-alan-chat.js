@@ -74,8 +74,25 @@
     responsibility: ["quien", "responsable", "encargado", "a quien", "con quien", "me toca", "nos toca", "debo", "debe", "puedo", "puede"]
   };
 
+  const chatHistory = [];
+
   function normalize(s) {
     return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  function parseSimpleMarkdown(text) {
+    if (!text) return "";
+    let html = text
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(/_(.*?)_/g, "<em>$1</em>")
+      .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2' target='_blank'>$1</a>")
+      .replace(/\n/g, "<br>");
+      
+    // Basic bullet points
+    html = html.replace(/(?:<br>|^)[\-\*]\s+((?:(?!<br>).)*)/g, "<li>$1</li>");
+    html = html.replace(/(<li>.*?<\/li>)(?!<li>)/g, "$1</ul>").replace(/(?<!<\/li>)<li>/g, "<ul><li>");
+    return html;
   }
 
   function inferDayFromFile(file) {
@@ -357,10 +374,32 @@
           if (!res.ok) continue;
           const html = await res.text();
           const doc = new DOMParser().parseFromString(html, "text/html");
-          const blocks = Array.from(doc.querySelectorAll("h1,h2,h3,p,li")).map(n => ({
-            text: n.textContent.trim(),
-            norm: normalize(n.textContent)
-          })).filter(b => b.text.length > 20);
+          
+          const blocks = [];
+          let currentHeading = "";
+          
+          const nodes = Array.from(doc.body.querySelectorAll("h1, h2, h3, h4, p, li"));
+          for (const node of nodes) {
+            const tag = node.tagName.toLowerCase();
+            const textContent = node.textContent.trim();
+            if (!textContent) continue;
+
+            if (["h1", "h2", "h3", "h4"].includes(tag)) {
+              currentHeading = textContent;
+              if (textContent.length > 5) {
+                blocks.push({
+                  text: `[${currentHeading}]`,
+                  norm: normalize(textContent)
+                });
+              }
+            } else if (textContent.length > 20) {
+              const enrichedText = currentHeading ? `[Sección: ${currentHeading}] ${textContent}` : textContent;
+              blocks.push({
+                text: enrichedText,
+                norm: normalize(textContent)
+              });
+            }
+          }
           data = { file: f, blocks };
           __CACHE__.set(f, data);
         }
@@ -571,6 +610,11 @@
     .pa-card .pa-official{color:#14532d !important}
     .pa-card .pa-input, .pa-card .pa-input::placeholder{color:#111827 !important}
     .pa-card .pa-send{color:#fff !important}
+    .pa-typing { display: inline-flex; gap: 4px; align-items: center; padding: 4px 8px; }
+    .pa-typing span { width: 6px; height: 6px; background: #6b7280; border-radius: 50%; animation: pa-bounce 1.4s infinite ease-in-out both; }
+    .pa-typing span:nth-child(1) { animation-delay: -0.32s; }
+    .pa-typing span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes pa-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
   `]));
 
   const panel = el("div", { class: "pa-panel", id: "paPanel" }, [
@@ -602,6 +646,11 @@
     row.firstChild.innerHTML = role === "bot" ? sanitizeChatHtml(html) : html;
     msgs.appendChild(row);
     msgs.scrollTop = msgs.scrollHeight;
+    return row;
+  }
+
+  function showTyping() {
+    return addMsg("bot", `<div class="pa-typing"><span></span><span></span><span></span></div>`);
   }
 
   // =======================
@@ -613,6 +662,9 @@
     const qNorm = normalize(q);
     addMsg("user", esc(q));
     $("paInput").value = "";
+    
+    chatHistory.push({ role: "user", content: q });
+    if (chatHistory.length > 6) chatHistory.splice(0, chatHistory.length - 6);
 
     const pideContacto = ["whatsapp", "wassap", "wasap", "contacto", "telefono", "mensaje"].some(p => qNorm.includes(p));
     const quickDay = detectDay(q) || (ctx?.key || null);
@@ -626,20 +678,26 @@
       return;
     }
 
-    addMsg("bot", "Buscando en el Manual...");
+    const typingEl = showTyping();
 
     try {
       const { targets, day, min, primaryTarget } = getSearchTargets(q, ctx, currentFile);
-      let picks = await searchContent(q, targets, primaryTarget);
+      
+      // Incorporar preguntas anteriores en la búsqueda si es útil (RAG dinámico simple)
+      const lastQ = chatHistory.length > 2 ? chatHistory[chatHistory.length - 3].content : "";
+      const searchTerms = lastQ ? `${lastQ} ${q}` : q;
+      
+      let picks = await searchContent(searchTerms, targets, primaryTarget);
       const hasNonGeneral = picks.some(p => p.file !== "kb/general.html");
       if (!hasNonGeneral || picks.length < 4) {
         const expandedTargets = buildExpandedTargets(day, currentFile);
-        const expandedPicks = await searchContent(q, expandedTargets, primaryTarget);
+        const expandedPicks = await searchContent(searchTerms, expandedTargets, primaryTarget);
         if (expandedPicks.length > picks.length) picks = expandedPicks;
       }
 
       // Si no hay información en los archivos, remitir a WhatsApp
       if (picks.length === 0) {
+        typingEl.remove();
         addMsg("bot", "Ese detalle no está especificado en el manual de este año. Por favor, consulte directamente con los coordinadores por WhatsApp." + getWaButtonHtml(q));
         return;
       }
@@ -647,15 +705,24 @@
       const scope = [];
       if (day) scope.push(`día=${day}`);
       if (min) scope.push(`ministerio=${min}`);
+      
+      const historyText = chatHistory.slice(0, -1).map(m => `${m.role === 'user' ? 'Usuario' : 'Bot'}: ${m.content}`).join("\n");
+      
       const contextText = [
         "INSTRUCCION: Responde en español de México, con pasos concretos y horarios si aparecen en las fuentes. Evita respuestas genéricas.",
+        "INSTRUCCION CRITICA: Eres conversacional. Usa el historial proporcionado para entender preguntas de seguimiento (ej. 'y a qué hora es' se debe entender con el contexto de la Misa y Ministerio anterior).",
         "INSTRUCCION CRITICA: Si las fuentes contienen horarios concretos, repórtelos explícitamente y no diga que no están publicados.",
-        "INSTRUCCION CRITICA: Si la pregunta pide horarios de Semana Santa, entregue resumen claro por día y capillas cuando esté en las fuentes.",
         "INSTRUCCION: Si la consulta es operativa/logística, indique: acción inmediata, responsable primario y escalamiento.",
+        "---",
+        "HISTORIAL DE CONVERSACIÓN RECIENTE:",
+        historyText || "Ninguno",
+        "---",
         `CONTEXTO_DETECTADO: ${scope.length ? scope.join(", ") : "no definido"}`,
         `ARCHIVO_PRIORITARIO: ${primaryTarget || "ninguno"}`,
+        "FUENTES DISPONIBLES:",
         picks.map(p => `[Fuente: ${p.file}] ${p.text}`).join("\n\n")
       ].join("\n\n");
+      
       const requestMeta = {
         day: day || (ctx?.key || null),
         ministry: min || (ctx?.ministry || null),
@@ -677,7 +744,10 @@
       if (!data || !data.reply) throw new Error("API Offline");
 
       const sources = [...new Set(picks.map(p => p.file))].map(f => `<a href="${f}">${f}</a>`).join(" | ");
-      let finalResponse = data.reply.replace(/\n/g, "<br>");
+      
+      chatHistory.push({ role: "bot", content: data.reply });
+      
+      let finalResponse = parseSimpleMarkdown(data.reply);
       const usesExternalSources = data?.meta?.externalSourcesUsed === true;
       const snapshotLabel = formatSnapshotDate(data?.meta?.sourceSnapshotAt);
       const operationalFallback = buildOperationalResponse(qNorm, day, min, q);
@@ -693,9 +763,11 @@
         ? `<div class="pa-src"><span class="pa-official">Fuente oficial actualizada${snapshotLabel ? ` · ${esc(snapshotLabel)}` : ""}</span></div>`
         : "";
 
+      typingEl.remove();
       addMsg("bot", `${finalResponse}${officialBadge}<div class="pa-src">Fuentes: ${sources}</div>`);
 
     } catch (e) {
+      typingEl.remove();
       addMsg("bot", "Paz y bien. Tuvimos un inconveniente técnico al consultar el manual. Por favor escríbanos por WhatsApp:" + getWaButtonHtml(q));
     }
   }
